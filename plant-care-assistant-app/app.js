@@ -1,5 +1,5 @@
 /**
- * Project: Plant Care Assistant App - Draft Portfolio Project
+ * Project: Plant Care Assistant App - Draft Portfolio Project (LeafBud)
  *
  * Description:
  * A plant care assistant for discovering suitable plants for the user's home as well as learning about and keeping track of their plants. 

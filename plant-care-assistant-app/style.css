@@ -1,0 +1,93 @@
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #F1F4EE;
+  display: flex;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+  height: 60vh;
+  position: relative;
+  background-image: url('./public/leaf-background.png');
+  background-size: cover;
+  background-position: bottom;
+  display: flex;
+  flex-direction: column;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(149, 255, 111, 0.079);
+  z-index: 0;
+}
+
+.header-logo {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 1rem;
+}
+
+.header-logo img {
+  width: 75%;
+
+}
+
+.cta-btn {
+  padding: 1rem 2.5rem;
+  background-color: #f1f4ee1c;
+  border: none;
+  color: white;
+  margin-top: 1.2rem;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background-color: rgba(0, 0, 0, 0.105);
+}
+
+.menu-bars {
+  position: absolute;
+  margin: 1rem;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.menu-bar {
+  height: 3px;
+  width: 25px;
+  background-color: #F1F4EE;
+  border-radius: 5px;
+  margin-top: 0.3rem;
+}
+
+.header-title {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #F1F4EE;
+
+}
+
+
+
+main {
+ flex-grow: 1;
+}
+
+footer {
+
+}
