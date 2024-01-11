@@ -2,10 +2,14 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: #FEF9ED;
+  background-color: #F1F4EE;
   display: flex;
   flex-direction: column;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+p {
+  margin: 0;
 }
 
 header {
@@ -102,38 +106,81 @@ main {
   margin: 0 0.8rem 0 0.4rem;
   font-size: 1.5rem;
   font-style: italic;
-
   letter-spacing: 0.1rem;
 }
 
 .title-box {
   height: 3.12rem;
   width: 1.25rem;
-  background-color: #C1CEB3;
+  background-color: #C1CEB3; /* rgb(242, 178, 60); */
+}
+
+.underline {
+  height: 0.1rem;
+  background-color: #3E4826;
 }
 
 .title-line {
   width: 8rem;
-  height: 0.1rem;
-  background-color: black;
+}
+
+.welcome-text {
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .text-photo-group {
   display: flex;
+  padding-top: 2rem;
 }
 
 .text-photo-group p {
   padding-right: 1rem;
+  font-style: italic;
+}
+
+.icon-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.icon-description {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.icon-text {
+  display: flex;
+  margin-left: -0.5rem;
+  padding-top: 1rem;
+}
+
+.icon-line {
+  width: 3rem;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+
+.icon-container {
+  max-width: 30%;
+  max-height: 100%;
+}
+
+.icon-container img {
+  width: 70%;
 }
 
 .image-container {
-  width: 500%;
+  width: 150%;
   margin-right: -1rem;
   align-self: center;
 }
 
 .image-container img {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 footer {
