@@ -12,8 +12,7 @@
 
 /**
  * TODO:
- * - css and UI design ideas. Find inspiration, sketch out first
- * - structural draft. Pages, features, misc etc
- * - core feature js code (plant suitability quiz, schedueler, plant logging, plant information via search, home page)
+ * - js for the mobile nav modal
+ * - core feature simple css and start js code (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
  *
  * */
