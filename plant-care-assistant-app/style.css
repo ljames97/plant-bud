@@ -6,6 +6,11 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+.show {
+  display: block;
 }
 
 p {
@@ -46,7 +51,6 @@ header::before {
 
 .header-logo img {
   width: 75%;
-
 }
 
 .cta-btn {
@@ -78,6 +82,24 @@ header::before {
   background-color: #F1F4EE;
   border-radius: 5px;
   margin-top: 0.3rem;
+}
+
+.mobile-nav-modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: #3E4826;
+  color: #F1F4EE;
+  position: fixed;
+  z-index: 1;
+  /* display: none; */
+}
+
+.mobile-nav-items {
+  list-style: none;
+}
+
+.mobile-nav-item {
+  margin-bottom: 0.5rem;
 }
 
 .header-title {
@@ -127,7 +149,6 @@ main {
 
 .welcome-text {
   margin-top: 1rem;
-  text-align: center;
 }
 
 .text-photo-group {
@@ -159,8 +180,8 @@ main {
 }
 
 .icon-text p {
-  border: 1px #A97142 solid;
-  /* background-color: #d2c0b3; */
+  border: 2px #cc6b21 solid;
+  /* background-color: #dac5b1; */
   padding: 0.6rem;
   border-radius: 10px;
   min-width: 90%;
@@ -195,6 +216,36 @@ main {
   max-height: 100%;
 }
 
+.plant-bud-logo-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -0.5rem;
+}
+
+.plant-bud-logo-container img {
+  width: 10%;
+}
+
 footer {
-  background-color: #A97142;
+  background-color: #6F482A;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 0 0 1rem;
+  color: #F1F4EE;
+}
+
+.footer-menu-items {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-menu-item {
+  margin: 0.8rem 0;
+  font-size: 0.8rem;
+}
+
+.copyright {
+  padding: 1rem 0 1.5rem 0;
+  font-size: 0.8rem;
 }
