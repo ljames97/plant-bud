@@ -107,6 +107,7 @@ main {
   font-size: 1.5rem;
   font-style: italic;
   letter-spacing: 0.1rem;
+  min-width: 60%;
 }
 
 .title-box {
@@ -125,7 +126,7 @@ main {
 }
 
 .welcome-text {
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-align: center;
 }
 
@@ -153,19 +154,29 @@ main {
 
 .icon-text {
   display: flex;
+  align-items: center;
   margin-left: -0.5rem;
-  padding-top: 1rem;
+}
+
+.icon-text p {
+  border: 1px #A97142 solid;
+  /* background-color: #d2c0b3; */
+  padding: 0.6rem;
+  border-radius: 10px;
+  min-width: 90%;
+  letter-spacing: 1px;
+  line-height: 1.3rem;
 }
 
 .icon-line {
-  width: 3rem;
-  margin-top: 0.5rem;
+  min-width: 1rem;
   margin-right: 1rem;
 }
 
 .icon-container {
   max-width: 30%;
   max-height: 100%;
+  align-self: center;
 }
 
 .icon-container img {
@@ -176,6 +187,7 @@ main {
   width: 150%;
   margin-right: -1rem;
   align-self: center;
+  margin-bottom: 1rem;
 }
 
 .image-container img {
@@ -184,5 +196,5 @@ main {
 }
 
 footer {
-
+  background-color: #A97142;
 }
