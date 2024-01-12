@@ -12,9 +12,7 @@
 
 /**
  * TODO:
- * - js for the mobile nav modal, finish basic css for mobile nav
- * - more buttons or small images on home page
- * = set up multiple https pages for each feature
+ * - set up multiple https pages for each feature
  * - core feature simple css and start js code (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
  * - clean up css and public image folder
  *

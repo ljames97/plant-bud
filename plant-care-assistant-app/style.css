@@ -235,8 +235,7 @@ main {
   margin-top: 0.5rem;
   border-radius: 10px;
   border: 2px #237A5C solid;
-  /* box-shadow: 0 0 10px #193A31;
-  background-color: #237A5C; */
+  box-shadow: 0 0 10px #193A31;
   background-color: #237A5C;
   color: white;
   font-weight: bold;
