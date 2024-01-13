@@ -20,6 +20,10 @@ main {
 
 .add-new-plant-btn {
   padding: 3rem;
+  background-color: #8F4721;
+  color: white;
+  border: none;
+  box-shadow: 0 0 10px #823A12;
   border-radius: 50%;
   display: inline-flex;
   justify-content: center;
@@ -28,4 +32,10 @@ main {
   height: 3rem;
   text-align: center;
   font-size: 0.8rem;
+}
+
+.add-new-plant-btn:hover,
+.add-new-plant-btn:active {
+  background-color: #cd7647;
+  box-shadow: 0 0 10px #823A12;
 }
