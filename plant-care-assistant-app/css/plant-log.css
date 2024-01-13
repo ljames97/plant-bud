@@ -1,0 +1,31 @@
+header {
+  background-size: cover;
+}
+
+.header-logo {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 2rem 0;
+}
+
+.header-logo img {
+  width: 50%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-new-plant-btn {
+  padding: 3rem;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
