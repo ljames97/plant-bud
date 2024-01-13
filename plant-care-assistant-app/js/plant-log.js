@@ -1,6 +1,15 @@
 // plant-log.js
 
-
+/**
+ * TODO:
+ * - documentation of each function
+ * - 'no plant found!' on screen
+ * - create plant directory with title, images etc
+ * - option to add their plant manually (title, image, details etc) userPlantLog different to plantDirectory
+ * - css
+ * - display plants in log along side the add new plant button (demo plant log initially for css)
+ * - put functions into folders. Need a shared folder for utility functions
+ */
 
 /**
  * Utility function to remove child element(s) from parent
@@ -21,8 +30,6 @@ const createSearchInput = () => {
 
   return { searchForPlant, searchButton };
 }
-
-
 
 /**
  * Utility function to append child element(s) to parent element
@@ -61,12 +68,11 @@ const renderNewPlantForm = () => {
   appendChildren(main, searchForPlant, searchButton);
 
   searchButton.addEventListener('click', () => {
-    renderPlantSearchResults(main);
+    removeChildren(main, searchForPlant, searchButton);
+    renderPlantSearchResults(searchForPlant.value);
     
   });
 }
-
-renderNewPlantForm();
 
 const plantDirectoryManager = () => {
   let plantDirectory = [];
@@ -88,4 +94,4 @@ const renderPlantSearchResults = (userSearchInput) => {
 
 const plantDirectory = plantDirectoryManager();
 
-
+renderNewPlantForm();

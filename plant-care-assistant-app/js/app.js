@@ -12,7 +12,7 @@
 
 /**
  * TODO:
- * - set up multiple https pages for each feature
+ * - plant log tasks
  * - core feature simple css and start js code (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
  * - clean up css and public image folder
  *
