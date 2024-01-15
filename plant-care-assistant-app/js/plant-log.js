@@ -3,11 +3,11 @@
 /**
  * TODO:
  * - create or find http request for plant directory with title, images etc
- * - add event listeners to addplant and manualUpload buttons
+ * - add event listeners to intiial addplant button
  * - consider storing dom elements in domElementsManager to prevent confusion/forwarding of dynamic elements?
  * - upload photo js
  * - simple css
- * - display plants in log along side the add new plant button (demo plant log initially for css)
+ * - display newly added plants in log along side the add new plant button (demo plant log initially for css - grid)
  * - review/clean up js code and css
  * - put functions into folders. Need a shared folder for utility functions
  */
