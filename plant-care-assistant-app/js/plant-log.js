@@ -4,7 +4,7 @@
  * TODO:
  * - create or find http request for plant directory with title, images etc
  * - add event listeners to addplant and manualUpload buttons
- * - remove elements on form submit
+ * - consider storing dom elements in domElementsManager to prevent confusion/forwarding of dynamic elements?
  * - upload photo js
  * - simple css
  * - display plants in log along side the add new plant button (demo plant log initially for css)
@@ -79,13 +79,23 @@ const renderNewPlantSearch = () => {
   const plantLogTitle = document.querySelector('.plant-log-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
 
-  removeChildren(mainSection, plantLogTitle, addNewPlantBtn);
+  plantLogTitle.style.display = 'none';
+  addNewPlantBtn.style.display = 'none';
   appendChildren(mainSection, searchForPlant, searchButton);
 
   searchButton.addEventListener('click', () => {
-    renderPlantSearchResults(searchForPlant.value, mainSection);
+    renderPlantSearchResults(searchForPlant.value, mainSection, searchForPlant, searchButton);
     
   });
+}
+
+const domElementsManager = () => {
+  const mainSection = document.querySelector('main');
+  const plantLogTitle = document.querySelector('.plant-log-title');
+  const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
+
+  return { mainSection, plantLogTitle, addNewPlantBtn };
+
 }
 
 /**
@@ -102,15 +112,16 @@ const plantDirectoryManager = () => {
  * @param {HTMLElement} mainSection
  * @returns 
  */
-const renderPlantSearchResults = (userSearchInput, mainSection) => {
+const renderPlantSearchResults = (userSearchInput, mainSection, searchForPlant, searchButton) => {
   removeChildren()
   const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput);
   if (foundPlant) {
     console.log('Plant found!');
     return;
   } else {
-    renderSearchErrorMessage(mainSection, 'No plant found!');
-    renderManualPlantUploadBtn(mainSection);
+    const errorMessage = renderSearchErrorMessage('No plant found!');
+    appendChildren(mainSection, errorMessage);
+    renderManualPlantUploadBtn(mainSection, errorMessage, searchForPlant, searchButton);
   }
 }
 
@@ -119,29 +130,33 @@ const renderPlantSearchResults = (userSearchInput, mainSection) => {
  * @param {HTMLElement} mainElement
  * @param {string} message
  */
-const renderSearchErrorMessage = (mainElement, message) => {
+const renderSearchErrorMessage = (message) => {
   const errorMessage = createElement('h1', null, message, 'search-error-message');
-  appendChildren(mainElement, errorMessage);
+  
+  return errorMessage;
 }
 
 /**
  * Function to render manual plant upload button on screen
  * @param {HTMLElement} mainElement 
+ * @param {HTMLElement} errorMessage
  */
-const renderManualPlantUploadBtn = (mainElement) => {
-  const button = createElement('button', null, 'Manual Upload', 'manual-upload-btn');
-  appendChildren(mainElement, button);
+const renderManualPlantUploadBtn = (mainElement, errorMessage, searchForPlant, searchButton) => {
+  const manualUploadBtn = createElement('button', null, 'Manual Upload', 'manual-upload-btn');
+  appendChildren(mainElement, manualUploadBtn);
 
-  button.addEventListener('click', () => {
-    renderManualPlantForm(mainElement);
+  manualUploadBtn.addEventListener('click', () => {
+    renderManualPlantForm(mainElement, manualUploadBtn, errorMessage, searchForPlant, searchButton);
   })
 }
 
 /**
  * Function to render user plant form on screen and handle submitting new plant to the userPlantLog
  * @param {HTMLElement} mainElement 
+ * @param {HTMLElement} manualUploadBtn
+ * @param {HTMLElement} errorMessage 
  */
-const renderManualPlantForm = (mainElement) => {
+const renderManualPlantForm = (mainElement, manualUploadBtn, errorMessage, searchForPlant, searchButton) => {
   const { plantForm, name, dateAdded, plantPhoto, notes, submitBtn } = createManualPlantForm();
   appendChildren(mainElement, plantForm);
 
@@ -155,7 +170,15 @@ const renderManualPlantForm = (mainElement) => {
     };
 
     plantLog.addToUserPlantLog(newPlant);
+    removeChildren(mainElement, plantForm, manualUploadBtn, errorMessage, searchForPlant, searchButton);
+    resetDomElements();
   })
+}
+
+const resetDomElements = () => {
+  const { plantLogTitle, addNewPlantBtn } = domElementsManager();
+  plantLogTitle.style.display = 'block';
+  addNewPlantBtn.style.display = 'flex';
 }
 
 /**
