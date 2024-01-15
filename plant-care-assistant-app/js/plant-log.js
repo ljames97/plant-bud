@@ -2,11 +2,11 @@
 
 /**
  * TODO:
- * - create plant directory with title, images etc
+ * - create or find http request for plant directory with title, images etc
  * - add event listeners to addplant and manualUpload buttons
- * - remove elements on form submit completion
- * - upload photo
- * - css
+ * - remove elements on form submit
+ * - upload photo js
+ * - simple css
  * - display plants in log along side the add new plant button (demo plant log initially for css)
  * - review/clean up js code and css
  * - put functions into folders. Need a shared folder for utility functions
@@ -54,14 +54,14 @@ const appendChildren = (parent, ...children) => {
 
 /**
  * Utility function to create a html element
- * @param {HTMLElement} type 
+ * @param {HTMLElement} el 
  * @param {string} placeholder 
  * @param {string} textContent 
  * @param {string} id 
  * @returns html element
  */
-const createElement = (type, placeholder = '', textContent = '', classEl = '', id = '') => {
-  const element = document.createElement(type);
+const createElement = (el, placeholder = '', textContent = '', classEl = '', id = '') => {
+  const element = document.createElement(el);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
   if (classEl) element.classList.add(classEl);
@@ -166,7 +166,11 @@ const createManualPlantForm = () => {
   const plantForm = createElement('form', null, null, 'manual-plant-form');
   const name = createElement('input', 'Plant name');
   const dateAdded = createElement('input', 'Date added');
-  const plantPhoto = createElement('button', null, 'Upload photo');
+
+  const plantPhoto = createElement('input', null, null, 'plant-photo-input', null);
+  plantPhoto.setAttribute('type', 'file');
+  plantPhoto.setAttribute('accept', 'image/*');
+
   const submitBtn = createElement('button', null, 'Add My Plant');
   // may add watering scheduele, similar plants etc.
   const notes = createElement('textarea', 'Extra notes')
