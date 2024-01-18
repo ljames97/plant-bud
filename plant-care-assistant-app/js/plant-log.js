@@ -10,6 +10,18 @@
  * - put functions into folders. Need a shared folder for utility functions
  */
 
+const renderUserPlants = () => {
+  const { userPlantLog } = plantLog;
+  if (userPlantLog.length > 0) {
+    createUserPlantsGrid();
+  }
+}
+
+const createUserPlantsGrid = () => {
+  const userPlantGrid = document.querySelector('.user-plants')
+
+}
+
 const plantLogManager = () => {
   let userPlantLog = [];
 
@@ -17,7 +29,8 @@ const plantLogManager = () => {
     addToUserPlantLog: (plant) => {
       userPlantLog.push(plant);
       console.log(userPlantLog);
-    }
+    },
+    userPlantLog
   }
 }
 
@@ -89,10 +102,6 @@ const domElementsManager = () => {
   const plantLogTitle = document.querySelector('.plant-log-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
 
-  addNewPlantBtn.addEventListener('click', () => {
-    renderNewPlantSearch();
-  });
-
   return { mainSection, plantLogTitle, addNewPlantBtn };
 }
 
@@ -111,7 +120,6 @@ const plantDirectoryManager = () => {
  * @returns 
  */
 const renderPlantSearchResults = (userSearchInput, mainSection, searchForPlant, searchButton) => {
-  removeChildren()
   const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput);
   if (foundPlant) {
     console.log('Plant found!');
@@ -144,7 +152,8 @@ const renderManualPlantUploadBtn = (mainElement, errorMessage, searchForPlant, s
   appendChildren(mainElement, manualUploadBtn);
 
   manualUploadBtn.addEventListener('click', () => {
-    renderManualPlantForm(mainElement, manualUploadBtn, errorMessage, searchForPlant, searchButton);
+    renderManualPlantForm(mainElement, manualUploadBtn);
+    removeChildren(mainElement, errorMessage, searchForPlant, searchButton);
   })
 }
 
@@ -154,7 +163,7 @@ const renderManualPlantUploadBtn = (mainElement, errorMessage, searchForPlant, s
  * @param {HTMLElement} manualUploadBtn
  * @param {HTMLElement} errorMessage 
  */
-const renderManualPlantForm = (mainElement, manualUploadBtn, errorMessage, searchForPlant, searchButton) => {
+const renderManualPlantForm = (mainElement, manualUploadBtn) => {
   const { plantForm, name, dateAdded, plantPhoto, notes, submitBtn } = createManualPlantForm();
   appendChildren(mainElement, plantForm);
 
@@ -182,9 +191,25 @@ const renderManualPlantForm = (mainElement, manualUploadBtn, errorMessage, searc
     };
 
     plantLog.addToUserPlantLog(newPlant);
-    removeChildren(mainElement, plantForm, manualUploadBtn, errorMessage, searchForPlant, searchButton);
+    addPlantToGrid(newPlant);
+
+    removeChildren(mainElement, plantForm, manualUploadBtn);
     resetDomElements();
   })
+}
+
+const addPlantToGrid = (newPlant) => {
+  const userPlantGrid = document.querySelector('.user-plants');
+  const userPlantContainer = createElement('div', null, null, 'user-plant');
+  const plantImageContainer = createElement('div', null, null, 'plant-image-container');
+  const plantImage = createElement('img');
+  const plantTitle = createElement('h1', null, newPlant.name);
+
+  plantImage.src = newPlant.image
+
+  appendChildren(plantImageContainer, plantImage);
+  appendChildren(userPlantContainer, plantImageContainer, plantTitle);
+  appendChildren(userPlantGrid, userPlantContainer);
 }
 
 const resetDomElements = () => {
@@ -214,7 +239,19 @@ const createManualPlantForm = () => {
   return { plantForm, name, dateAdded, plantPhoto, notes, submitBtn };
 }
 
+const initDomElements = () => {
+  const domElements = domElementsManager();
+  setUpEventListeners(domElements);
+}
+
+const setUpEventListeners = (domElements) => {
+  const { addNewPlantBtn } = domElements;
+
+  addNewPlantBtn.addEventListener('click', () => {
+    renderNewPlantSearch();
+  })
+}
+
+initDomElements();
 const plantDirectory = plantDirectoryManager();
 const plantLog = plantLogManager();
-
-domElementsManager();

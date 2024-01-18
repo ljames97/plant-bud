@@ -39,3 +39,24 @@ main {
   background-color: #cd7647;
   box-shadow: 0 0 10px #823A12;
 }
+
+.user-plants {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.user-plants h1 {
+  font-size: 1rem;
+}
+
+.plant-image-container {
+  width: 100%;
+  text-align: center;
+}
+
+.plant-image-container img {
+  width: 50%;
+}
