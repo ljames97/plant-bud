@@ -13,7 +13,7 @@
 /**
  * TODO:
  * - plant log tasks
- * - core feature simple css and start js code (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+ * - core feature simple css and start js code (individual plant page, plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
  * - clean up css and public image folder
  * - more sophisticated design ideas, colour pallete, buttons etc.
  * */

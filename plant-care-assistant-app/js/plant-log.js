@@ -4,23 +4,10 @@
  * TODO:
  * - create or find http request for plant directory with title, images etc
  * - consider storing dom elements in domElementsManager to prevent confusion/forwarding of dynamic elements?
- * - simple css
- * - display newly added plants in log along side the add new plant button (demo plant log initially for css - grid)
+ * - simple css for forms
  * - review/clean up js code and css
  * - put functions into folders. Need a shared folder for utility functions
  */
-
-const renderUserPlants = () => {
-  const { userPlantLog } = plantLog;
-  if (userPlantLog.length > 0) {
-    createUserPlantsGrid();
-  }
-}
-
-const createUserPlantsGrid = () => {
-  const userPlantGrid = document.querySelector('.user-plants')
-
-}
 
 const plantLogManager = () => {
   let userPlantLog = [];
@@ -97,6 +84,10 @@ const renderNewPlantSearch = () => {
   });
 }
 
+/**
+ * Function to return most reused dom elements
+ * @returns html elements
+ */
 const domElementsManager = () => {
   const mainSection = document.querySelector('main');
   const plantLogTitle = document.querySelector('.plant-log-title');
@@ -198,6 +189,10 @@ const renderManualPlantForm = (mainElement, manualUploadBtn) => {
   })
 }
 
+/**
+ * Function to add and display a new plant on the userPlantGrid
+ * @param {Object} newPlant 
+ */
 const addPlantToGrid = (newPlant) => {
   const userPlantGrid = document.querySelector('.user-plants');
   const userPlantContainer = createElement('div', null, null, 'user-plant');
