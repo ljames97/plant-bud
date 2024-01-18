@@ -3,9 +3,7 @@
 /**
  * TODO:
  * - create or find http request for plant directory with title, images etc
- * - add event listeners to intiial addplant button
  * - consider storing dom elements in domElementsManager to prevent confusion/forwarding of dynamic elements?
- * - upload photo js
  * - simple css
  * - display newly added plants in log along side the add new plant button (demo plant log initially for css - grid)
  * - review/clean up js code and css
@@ -75,9 +73,7 @@ const createElement = (el, placeholder = '', textContent = '', classEl = '', id 
  */
 const renderNewPlantSearch = () => {
   const { searchForPlant, searchButton } = createSearchInput();
-  const mainSection = document.querySelector('main');
-  const plantLogTitle = document.querySelector('.plant-log-title');
-  const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
+  const { mainSection, plantLogTitle, addNewPlantBtn } = domElementsManager();
 
   plantLogTitle.style.display = 'none';
   addNewPlantBtn.style.display = 'none';
@@ -85,7 +81,6 @@ const renderNewPlantSearch = () => {
 
   searchButton.addEventListener('click', () => {
     renderPlantSearchResults(searchForPlant.value, mainSection, searchForPlant, searchButton);
-    
   });
 }
 
@@ -94,8 +89,11 @@ const domElementsManager = () => {
   const plantLogTitle = document.querySelector('.plant-log-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
 
-  return { mainSection, plantLogTitle, addNewPlantBtn };
+  addNewPlantBtn.addEventListener('click', () => {
+    renderNewPlantSearch();
+  });
 
+  return { mainSection, plantLogTitle, addNewPlantBtn };
 }
 
 /**
@@ -160,13 +158,27 @@ const renderManualPlantForm = (mainElement, manualUploadBtn, errorMessage, searc
   const { plantForm, name, dateAdded, plantPhoto, notes, submitBtn } = createManualPlantForm();
   appendChildren(mainElement, plantForm);
 
+  let imageDataUrl = [];
+
+  plantPhoto.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imageDataUrl = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+
   submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
 
     const newPlant = {
       name: name.value,
       dateAdded: dateAdded.value,
-      notes: notes.value
+      notes: notes.value,
+      image: imageDataUrl
     };
 
     plantLog.addToUserPlantLog(newPlant);
@@ -205,4 +217,4 @@ const createManualPlantForm = () => {
 const plantDirectory = plantDirectoryManager();
 const plantLog = plantLogManager();
 
-renderNewPlantSearch();
+domElementsManager();
