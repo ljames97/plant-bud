@@ -3,8 +3,10 @@
 /**
  * TODO:
  * - create or find http request for plant directory with title, images etc
- * - store dom elements and event listeners/handling in seperate function to simplify forwarding functions
- * - consider storing dom elements in domElementsManager to prevent confusion/forwarding of dynamic elements?
+ * - store dom elements and event listeners/handling in seperate function to simplify forwarding functions / elements
+ * - data validation/error handling at renderManualPlantForm
+ * - turn createElement parameter into object for readability
+ * - comments for readability esp more complex functions 
  * - simple css for forms
  * - review/clean up js code and css
  * - put functions into folders. Need a shared folder for utility functions
@@ -235,6 +237,8 @@ const renderManualPlantForm = (mainElement) => {
   });
 
   submitBtn.addEventListener('click', (event) => {
+    // add error handling for empty or invalid user input
+
     event.preventDefault();
 
     const newPlant = {
