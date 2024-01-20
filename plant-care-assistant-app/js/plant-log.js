@@ -9,6 +9,10 @@
  * - put functions into folders. Need a shared folder for utility functions
  */
 
+/**
+ * Function to store userPlantLog and return utility functions related to the plant log
+ * @returns functions to add, remove and retrieve plants from the userPlantLog
+ */
 const plantLogManager = () => {
   let userPlantLog = [];
 
@@ -17,8 +21,44 @@ const plantLogManager = () => {
       userPlantLog.push(plant);
       console.log(userPlantLog);
     },
+    deletePlantFromLog: (plant) => {
+      const foundPlant = findItemInArray(userPlantLog, plant.id);
+      if (foundPlant) {
+        removeItemFromArray(userPlantLog, plant.id);
+      } 
+    },
+    getPlant: (plant) => {
+      const foundPlant = findItemInArray(userPlantLog, plant.id);
+      if (foundPlant) {
+        return foundPlant;
+      } else {
+        alert('Cannot find plant!');
+      }
+    },
     userPlantLog
   }
+}
+
+/**
+ * Utility function to remove item from array
+ * @param {any} array 
+ * @param {number} itemId 
+ * @returns 
+ */
+export const removeItemFromArray = (array, itemId) => {
+  const updatedArray = array.filter(arrayItem => arrayItem.id !==itemId);
+  return updatedArray;
+}
+
+/**
+ * Utility function to find item in array
+ * @param {any} array 
+ * @param {number} itemId 
+ * @returns 
+ */
+export const findItemInArray = (array, itemId) => {
+  const foundItem = array.find(arrayItem => arrayItem.id === itemId);
+  return foundItem;
 }
 
 /**
@@ -27,7 +67,11 @@ const plantLogManager = () => {
  * @param  {...HTMLElement} children 
  */
 const removeChildren = (parent, ...children) => {
-  children.forEach(child => parent.removeChild(child));
+  children.forEach(child => {
+    if (parent.contains(child)) {
+      parent.removeChild(child);
+    }
+  });
 }
 
 /**
@@ -79,9 +123,12 @@ const renderNewPlantSearch = () => {
   addNewPlantBtn.style.display = 'none';
   appendChildren(mainSection, searchForPlant, searchButton);
 
-  searchButton.addEventListener('click', () => {
-    renderPlantSearchResults(searchForPlant.value, mainSection, searchForPlant, searchButton);
-  });
+  const searchButtonClickHandler = () => {
+    renderPlantSearchResults(searchForPlant, mainSection, searchButton);
+    searchButton.removeEventListener('click', searchButtonClickHandler);
+  };
+
+  searchButton.addEventListener('click', searchButtonClickHandler);
 }
 
 /**
@@ -110,15 +157,16 @@ const plantDirectoryManager = () => {
  * @param {HTMLElement} mainSection
  * @returns 
  */
-const renderPlantSearchResults = (userSearchInput, mainSection, searchForPlant, searchButton) => {
-  const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput);
+const renderPlantSearchResults = (userSearchInput, mainSection, searchButton) => {
+  const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput.value);
   if (foundPlant) {
     console.log('Plant found!');
     return;
   } else {
     const errorMessage = renderSearchErrorMessage('No plant found!');
+    
     appendChildren(mainSection, errorMessage);
-    renderManualPlantUploadBtn(mainSection, errorMessage, searchForPlant, searchButton);
+    renderManualPlantUploadBtn(mainSection, errorMessage, userSearchInput, searchButton);
   }
 }
 
@@ -138,13 +186,20 @@ const renderSearchErrorMessage = (message) => {
  * @param {HTMLElement} mainElement 
  * @param {HTMLElement} errorMessage
  */
-const renderManualPlantUploadBtn = (mainElement, errorMessage, searchForPlant, searchButton) => {
+const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, searchButton) => {
   const manualUploadBtn = createElement('button', null, 'Manual Upload', 'manual-upload-btn');
   appendChildren(mainElement, manualUploadBtn);
 
-  manualUploadBtn.addEventListener('click', () => {
+  const manualUploadClickHandler = () => {
     renderManualPlantForm(mainElement, manualUploadBtn);
-    removeChildren(mainElement, errorMessage, searchForPlant, searchButton);
+    removeChildren(mainElement, errorMessage, userSearchInput, searchButton);
+    manualUploadBtn.removeEventListener('click', manualUploadClickHandler);
+  }
+
+  manualUploadBtn.addEventListener('click', manualUploadClickHandler);
+
+  userSearchInput.addEventListener('click', () => {
+    removeChildren(mainElement, errorMessage, manualUploadBtn);
   })
 }
 
@@ -178,13 +233,14 @@ const renderManualPlantForm = (mainElement, manualUploadBtn) => {
       name: name.value,
       dateAdded: dateAdded.value,
       notes: notes.value,
-      image: imageDataUrl
+      image: imageDataUrl,
+      id: Date.now()
     };
 
     plantLog.addToUserPlantLog(newPlant);
     addPlantToGrid(newPlant);
 
-    removeChildren(mainElement, plantForm, manualUploadBtn);
+    removeChildren(mainElement, plantForm, manualUploadBtn, );
     resetDomElements();
   })
 }
