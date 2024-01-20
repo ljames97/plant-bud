@@ -3,6 +3,7 @@
 /**
  * TODO:
  * - create or find http request for plant directory with title, images etc
+ * - store dom elements and event listeners/handling in seperate function to simplify forwarding functions
  * - consider storing dom elements in domElementsManager to prevent confusion/forwarding of dynamic elements?
  * - simple css for forms
  * - review/clean up js code and css
@@ -191,16 +192,23 @@ const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, 
   appendChildren(mainElement, manualUploadBtn);
 
   const manualUploadClickHandler = () => {
-    renderManualPlantForm(mainElement, manualUploadBtn);
-    removeChildren(mainElement, errorMessage, userSearchInput, searchButton);
-    manualUploadBtn.removeEventListener('click', manualUploadClickHandler);
+    renderManualPlantForm(mainElement);
+    removeChildren(mainElement, manualUploadBtn, errorMessage, userSearchInput, searchButton);
   }
 
   manualUploadBtn.addEventListener('click', manualUploadClickHandler);
 
   userSearchInput.addEventListener('click', () => {
     removeChildren(mainElement, errorMessage, manualUploadBtn);
-  })
+  });
+
+  // reused code from renderNewPlantSearch, could create seperare function
+  const searchButtonClickHandler = () => {
+    renderPlantSearchResults(userSearchInput, mainElement, searchButton);
+    searchButton.removeEventListener('click', searchButtonClickHandler);
+  }
+
+  searchButton.addEventListener('click', searchButtonClickHandler);
 }
 
 /**
@@ -209,7 +217,7 @@ const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, 
  * @param {HTMLElement} manualUploadBtn
  * @param {HTMLElement} errorMessage 
  */
-const renderManualPlantForm = (mainElement, manualUploadBtn) => {
+const renderManualPlantForm = (mainElement) => {
   const { plantForm, name, dateAdded, plantPhoto, notes, submitBtn } = createManualPlantForm();
   appendChildren(mainElement, plantForm);
 
@@ -240,7 +248,7 @@ const renderManualPlantForm = (mainElement, manualUploadBtn) => {
     plantLog.addToUserPlantLog(newPlant);
     addPlantToGrid(newPlant);
 
-    removeChildren(mainElement, plantForm, manualUploadBtn, );
+    removeChildren(mainElement, plantForm);
     resetDomElements();
   })
 }
