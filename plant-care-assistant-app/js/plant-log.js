@@ -4,9 +4,8 @@
  * TODO:
  * - create or find http request for plant directory with title, images etc
  * - store dom elements and event listeners/handling in seperate function to simplify forwarding functions / elements
- * - data validation/error handling at renderManualPlantForm
- * - turn createElement parameter into object for readability
- * - comments for readability esp more complex functions 
+ * - form error and message at renderManualPlantForm error handling
+ * - comments for readability esp more complex functions
  * - simple css for forms
  * - review/clean up js code and css
  * - put functions into folders. Need a shared folder for utility functions
@@ -82,8 +81,8 @@ const removeChildren = (parent, ...children) => {
  * @returns search input field and search button
  */
 const createSearchInput = () => {
-  const searchForPlant = createElement('input', 'Find your plant!', null, 'plant-search');
-  const searchButton = createElement('button', null, 'Find', 'search-btn', null);
+  const searchForPlant = createElement({tagName: 'input', placeholder: 'Find your plant!', classEl: 'plant-search'});
+  const searchButton = createElement({tagName: 'button', textContent: 'Find', classEl: 'search-btn'});
 
   return { searchForPlant, searchButton };
 }
@@ -99,14 +98,14 @@ const appendChildren = (parent, ...children) => {
 
 /**
  * Utility function to create a html element
- * @param {HTMLElement} el 
+ * @param {HTMLElement} tagName 
  * @param {string} placeholder 
  * @param {string} textContent 
  * @param {string} id 
  * @returns html element
  */
-const createElement = (el, placeholder = '', textContent = '', classEl = '', id = '') => {
-  const element = document.createElement(el);
+const createElement = ( {tagName, placeholder = '', textContent = '', classEl = '', id = ''}) => {
+  const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
   if (classEl) element.classList.add(classEl);
@@ -179,7 +178,7 @@ const renderPlantSearchResults = (userSearchInput, mainSection, searchButton) =>
  * @param {string} message
  */
 const renderSearchErrorMessage = (message) => {
-  const errorMessage = createElement('h1', null, message, 'search-error-message');
+  const errorMessage = createElement({tagName:'h1', textContent: message, classEl: 'search-error-message'});
   
   return errorMessage;
 }
@@ -190,7 +189,7 @@ const renderSearchErrorMessage = (message) => {
  * @param {HTMLElement} errorMessage
  */
 const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, searchButton) => {
-  const manualUploadBtn = createElement('button', null, 'Manual Upload', 'manual-upload-btn');
+  const manualUploadBtn = createElement({tagName: 'button', textContent: 'Manual Upload', classEl: 'manual-upload-btn'});
   appendChildren(mainElement, manualUploadBtn);
 
   const manualUploadClickHandler = () => {
@@ -241,6 +240,13 @@ const renderManualPlantForm = (mainElement) => {
 
     event.preventDefault();
 
+    const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
+
+    if (!dataValidation.isValid) {
+      console.log(dataValidation.errors);
+      return;
+    }
+
     const newPlant = {
       name: name.value,
       dateAdded: dateAdded.value,
@@ -258,15 +264,39 @@ const renderManualPlantForm = (mainElement) => {
 }
 
 /**
+ * Function to validate plant data and return error messages
+ * @param {string} name 
+ * @param {string} dateAdded 
+ * @param {string} imageDataUrl 
+ * @returns errors
+ */
+const validatePlantData = (name, dateAdded, imageDataUrl) => {
+  let errors = [];
+
+  if (name === '') {
+    errors.push('Plant name is required.');
+  } if (dateAdded === '') {
+    errors.push('Date added required.');
+  } if (imageDataUrl.length === 0) {
+    errors.push('Upload a valid image');
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors
+  };
+}
+
+/**
  * Function to add and display a new plant on the userPlantGrid
  * @param {Object} newPlant 
  */
 const addPlantToGrid = (newPlant) => {
   const userPlantGrid = document.querySelector('.user-plants');
-  const userPlantContainer = createElement('div', null, null, 'user-plant');
-  const plantImageContainer = createElement('div', null, null, 'plant-image-container');
-  const plantImage = createElement('img');
-  const plantTitle = createElement('h1', null, newPlant.name);
+  const userPlantContainer = createElement({tagName: 'div', classEl: 'user-plant'});
+  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
+  const plantImage = createElement({tagName: 'img'});
+  const plantTitle = createElement({tagName: 'h1', textContent: newPlant.name});
 
   plantImage.src = newPlant.image
 
@@ -286,17 +316,17 @@ const resetDomElements = () => {
  * @returns user plant uplaad form
  */
 const createManualPlantForm = () => {
-  const plantForm = createElement('form', null, null, 'manual-plant-form');
-  const name = createElement('input', 'Plant name');
-  const dateAdded = createElement('input', 'Date added');
+  const plantForm = createElement({tagName: 'form', classEl: 'manual-plant-form'});
+  const name = createElement({tagName: 'input', placeholder: 'Plant name'});
+  const dateAdded = createElement({tagName: 'input', placeholder: 'Date added'});
 
-  const plantPhoto = createElement('input', null, null, 'plant-photo-input', null);
+  const plantPhoto = createElement({tagName: 'input', classEl: 'plant-photo-input'});
   plantPhoto.setAttribute('type', 'file');
   plantPhoto.setAttribute('accept', 'image/*');
 
-  const submitBtn = createElement('button', null, 'Add My Plant');
+  const submitBtn = createElement({tagName: 'button', textContent: 'Add My Plant'});
   // may add watering scheduele, similar plants etc.
-  const notes = createElement('textarea', 'Extra notes')
+  const notes = createElement({tagName: 'textarea', placeholder: 'Extra notes'})
   appendChildren(plantForm, name, dateAdded, plantPhoto, notes, submitBtn);
 
   return { plantForm, name, dateAdded, plantPhoto, notes, submitBtn };
