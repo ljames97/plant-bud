@@ -4,7 +4,7 @@
  * TODO:
  * - create or find http request for plant directory with title, images etc
  * - form error and message at renderManualPlantForm error handling
- * - comments for readability esp more complex functions
+ * - comments for readability esp more complex functions and event listeners
  * - simple css for forms
  * - put functions into folders. Need a shared folder for utility functions
  */
@@ -217,7 +217,21 @@ const renderManualPlantForm = (mainElement) => {
 
   let imageDataUrl = [];
 
-  plantPhoto.addEventListener('change', (event) => {
+  localEventManager.addEventListener(plantPhoto, 'change', (event) => {
+    imageChangeHandler(event, imageDataUrl)
+  });
+
+  localEventManager.addEventListener(submitBtn, 'click', (event) => {
+    submitHandler(event, name, imageDataUrl, plantLog, mainElement, plantForm);
+  });
+}
+
+/**
+ * Function to handle user image upload and storing as url data
+ * @param {*} event 
+ * @param {*} imageDataUrl 
+ */
+const imageChangeHandler = (event, imageDataUrl) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -225,11 +239,22 @@ const renderManualPlantForm = (mainElement) => {
         imageDataUrl = e.target.result;
       }
       reader.readAsDataURL(file);
-    }
-  });
+    };
+}
 
-  localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    event.preventDefault();
+/**
+ * Function to submit plant from completed manual plant form
+ * @param {*} event 
+ * @param {*} name 
+ * @param {*} dateAdded 
+ * @param {*} imageDataUrl 
+ * @param {*} plantLog 
+ * @param {*} mainElement 
+ * @param {*} plantForm 
+ * @returns 
+ */
+const submitHandler = (event, name, dateAdded, imageDataUrl, plantLog, mainElement, plantForm) => {
+  event.preventDefault();
 
     const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
 
@@ -251,7 +276,6 @@ const renderManualPlantForm = (mainElement) => {
 
     removeChildren(mainElement, plantForm);
     resetDomElements();
-  });
 }
 
 /**
