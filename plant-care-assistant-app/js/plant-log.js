@@ -117,7 +117,7 @@ const createElement = ( {tagName, placeholder = '', textContent = '', classEl = 
  */
 const renderNewPlantSearch = () => {
   const { searchForPlant, searchButton } = createSearchInput();
-  const { mainSection, plantLogTitle, addNewPlantBtn } = domElementsManager();
+  const { mainSection, plantLogTitle, addNewPlantBtn } = domElements;
 
   plantLogTitle.style.display = 'none';
   addNewPlantBtn.style.display = 'none';
@@ -218,11 +218,13 @@ const renderManualPlantForm = (mainElement) => {
   let imageDataUrl = [];
 
   localEventManager.addEventListener(plantPhoto, 'change', (event) => {
-    imageChangeHandler(event, imageDataUrl)
+    imageChangeHandler(event, (dataUrl) => {
+      imageDataUrl = dataUrl;
+    })
   });
 
   localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    submitHandler(event, name, imageDataUrl, plantLog, mainElement, plantForm);
+    submitHandler(event, name, dateAdded, notes, imageDataUrl, plantLog, mainElement, plantForm);
   });
 }
 
@@ -231,12 +233,12 @@ const renderManualPlantForm = (mainElement) => {
  * @param {*} event 
  * @param {*} imageDataUrl 
  */
-const imageChangeHandler = (event, imageDataUrl) => {
+const imageChangeHandler = (event, callback) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        imageDataUrl = e.target.result;
+        callback(e.target.result);
       }
       reader.readAsDataURL(file);
     };
@@ -253,7 +255,7 @@ const imageChangeHandler = (event, imageDataUrl) => {
  * @param {*} plantForm 
  * @returns 
  */
-const submitHandler = (event, name, dateAdded, imageDataUrl, plantLog, mainElement, plantForm) => {
+const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, mainElement, plantForm) => {
   event.preventDefault();
 
     const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
@@ -321,7 +323,7 @@ const addPlantToGrid = (newPlant) => {
 }
 
 const resetDomElements = () => {
-  const { plantLogTitle, addNewPlantBtn } = domElementsManager();
+  const { plantLogTitle, addNewPlantBtn } = domElements;
   plantLogTitle.style.display = 'block';
   addNewPlantBtn.style.display = 'flex';
 }
@@ -376,25 +378,18 @@ const eventManager = () => {
   }
 }
 
-
 const localEventManager = eventManager();
 const plantDirectory = plantDirectoryManager();
 const plantLog = plantLogManager();
+const domElements = domElementsManager();
 
-const setUpEventListeners = (domElements) => {
+const setUpEventListeners = () => {
   const { addNewPlantBtn } = domElements;
   localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
 }
 
 const initDomElements = () => {
-  const domElements = domElementsManager();
-  setUpEventListeners(domElements);
+  setUpEventListeners();
 }
 
 initDomElements();
-
-
-
-
-
-
