@@ -2,11 +2,11 @@
 
 /**
  * TODO:
+ * - put functions into folders. Need a shared folder for utility functions
+ * - start plant page logic/html
  * - create or find http request for plant directory with title, images etc
  * - form error and message at renderManualPlantForm error handling
- * - comments for readability esp more complex functions and event listeners
  * - simple css for forms
- * - put functions into folders. Need a shared folder for utility functions
  */
 
 /**
@@ -102,7 +102,7 @@ const appendChildren = (parent, ...children) => {
  * @param {string} id 
  * @returns html element
  */
-const createElement = ( {tagName, placeholder = '', textContent = '', classEl = '', id = ''}) => {
+const createElement = ( { tagName, placeholder = '', textContent = '', classEl = '', id = '' }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
@@ -117,16 +117,24 @@ const createElement = ( {tagName, placeholder = '', textContent = '', classEl = 
  */
 const renderNewPlantSearch = () => {
   const { searchForPlant, searchButton } = createSearchInput();
-  const { mainSection, plantLogTitle, addNewPlantBtn } = domElements;
+  const { mainSection} = domElements;
 
-  plantLogTitle.style.display = 'none';
-  addNewPlantBtn.style.display = 'none';
+  hideInitialDomElements();
+
   appendChildren(mainSection, searchForPlant, searchButton);
 
   localEventManager.addEventListener(searchButton, 'click', () => {
     searchButtonClickHandler(searchForPlant, mainSection, searchButton);
   });
 }
+
+const hideInitialDomElements = () => {
+  const { plantLogTitle, addNewPlantBtn } = domElements;
+
+  plantLogTitle.style.display = 'none';
+  addNewPlantBtn.style.display = 'none';
+}
+
 
 const searchButtonClickHandler = (searchForPlant, mainSection, searchButton) => {
   renderPlantSearchResults(searchForPlant, mainSection, searchButton);
@@ -319,12 +327,21 @@ const addPlantToGrid = (newPlant) => {
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
   const plantImage = createElement({tagName: 'img'});
   const plantTitle = createElement({tagName: 'h1', textContent: newPlant.name});
-
   plantImage.src = newPlant.image
 
   appendChildren(plantImageContainer, plantImage);
   appendChildren(userPlantContainer, plantImageContainer, plantTitle);
   appendChildren(userPlantGrid, userPlantContainer);
+
+  localEventManager.addEventListener(plantImage, 'click', () => {
+    displayPlantDetails(newPlant);
+    removeChildren(userPlantGrid, userPlantContainer);
+    hideInitialDomElements();
+  })
+}
+
+const displayPlantDetails = (plant) => {
+  console.log(`${plant.name} page`);
 }
 
 const resetDomElements = () => {
