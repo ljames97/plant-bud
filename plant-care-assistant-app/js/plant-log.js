@@ -3,11 +3,9 @@
 /**
  * TODO:
  * - create or find http request for plant directory with title, images etc
- * - store dom elements and event listeners/handling in seperate function to simplify forwarding functions / elements
  * - form error and message at renderManualPlantForm error handling
  * - comments for readability esp more complex functions
  * - simple css for forms
- * - review/clean up js code and css
  * - put functions into folders. Need a shared folder for utility functions
  */
 
@@ -125,12 +123,14 @@ const renderNewPlantSearch = () => {
   addNewPlantBtn.style.display = 'none';
   appendChildren(mainSection, searchForPlant, searchButton);
 
-  const searchButtonClickHandler = () => {
-    renderPlantSearchResults(searchForPlant, mainSection, searchButton);
-    searchButton.removeEventListener('click', searchButtonClickHandler);
-  };
+  localEventManager.addEventListener(searchButton, 'click', () => {
+    searchButtonClickHandler(searchForPlant, mainSection, searchButton);
+  });
+}
 
-  searchButton.addEventListener('click', searchButtonClickHandler);
+const searchButtonClickHandler = (searchForPlant, mainSection, searchButton) => {
+  renderPlantSearchResults(searchForPlant, mainSection, searchButton);
+  localEventManager.removeEventListener(searchButton, 'click');
 }
 
 /**
@@ -197,19 +197,12 @@ const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, 
     removeChildren(mainElement, manualUploadBtn, errorMessage, userSearchInput, searchButton);
   }
 
-  manualUploadBtn.addEventListener('click', manualUploadClickHandler);
-
-  userSearchInput.addEventListener('click', () => {
+  localEventManager.addEventListener(manualUploadBtn, 'click', manualUploadClickHandler);
+  localEventManager.addEventListener(userSearchInput, 'click', () => {
     removeChildren(mainElement, errorMessage, manualUploadBtn);
   });
 
-  // reused code from renderNewPlantSearch, could create seperare function
-  const searchButtonClickHandler = () => {
-    renderPlantSearchResults(userSearchInput, mainElement, searchButton);
-    searchButton.removeEventListener('click', searchButtonClickHandler);
-  }
-
-  searchButton.addEventListener('click', searchButtonClickHandler);
+  localEventManager.addEventListener(searchButton, 'click', searchButtonClickHandler)
 }
 
 /**
@@ -235,9 +228,7 @@ const renderManualPlantForm = (mainElement) => {
     }
   });
 
-  submitBtn.addEventListener('click', (event) => {
-    // add error handling for empty or invalid user input
-
+  localEventManager.addEventListener(submitBtn, 'click', (event) => {
     event.preventDefault();
 
     const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
@@ -260,7 +251,7 @@ const renderManualPlantForm = (mainElement) => {
 
     removeChildren(mainElement, plantForm);
     resetDomElements();
-  })
+  });
 }
 
 /**
@@ -332,19 +323,54 @@ const createManualPlantForm = () => {
   return { plantForm, name, dateAdded, plantPhoto, notes, submitBtn };
 }
 
+/**
+ * Function to centralise event listeners and handlers
+ * @returns functions to add / remove event listeners
+ */
+const eventManager = () => {
+  let handlers = {};
+
+  return {
+    addEventListener: (element, eventType, handler) => {
+      if (!handlers[eventType]) {
+        handlers[eventType] = [];
+      }
+      element.addEventListener(eventType, handler);
+      handlers[eventType].push({ element, handler });
+    },
+
+    removeEventListener: (element, eventType) => {
+      if (handlers[eventType]) {
+        handlers[eventType] = handlers[eventType].filter(({ element: el, handler }) => {
+          if (el === element) {
+            element.removeEventListener(eventType, handler);
+          }
+        });
+        handlers[eventType] = [];
+      }
+    }
+  }
+}
+
+
+const localEventManager = eventManager();
+const plantDirectory = plantDirectoryManager();
+const plantLog = plantLogManager();
+
+const setUpEventListeners = (domElements) => {
+  const { addNewPlantBtn } = domElements;
+  localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
+}
+
 const initDomElements = () => {
   const domElements = domElementsManager();
   setUpEventListeners(domElements);
 }
 
-const setUpEventListeners = (domElements) => {
-  const { addNewPlantBtn } = domElements;
-
-  addNewPlantBtn.addEventListener('click', () => {
-    renderNewPlantSearch();
-  })
-}
-
 initDomElements();
-const plantDirectory = plantDirectoryManager();
-const plantLog = plantLogManager();
+
+
+
+
+
+
