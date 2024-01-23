@@ -10,7 +10,7 @@
  */
 
 /**
- * Function to store userPlantLog and return utility functions related to the plant log
+ * Store userPlantLog and return utility functions related to the plant log
  * @returns functions to add, remove and retrieve plants from the userPlantLog
  */
 const plantLogManager = () => {
@@ -75,7 +75,7 @@ const removeChildren = (parent, ...children) => {
 }
 
 /**
- * Function to create search input field for user to search for a plant
+ * Create search input field for user to search for a plant
  * @returns search input field and search button
  */
 const createSearchInput = () => {
@@ -95,7 +95,7 @@ const appendChildren = (parent, ...children) => {
 }
 
 /**
- * Utility function to create a html element
+ * Utility function to create a new html element
  * @param {HTMLElement} tagName 
  * @param {string} placeholder 
  * @param {string} textContent 
@@ -113,7 +113,7 @@ const createElement = ( {tagName, placeholder = '', textContent = '', classEl = 
 }
 
 /**
- * Function to render search form on screen
+ * Render search form on screen
  */
 const renderNewPlantSearch = () => {
   const { searchForPlant, searchButton } = createSearchInput();
@@ -134,7 +134,7 @@ const searchButtonClickHandler = (searchForPlant, mainSection, searchButton) => 
 }
 
 /**
- * Function to return most reused dom elements
+ * Return most reused dom elements
  * @returns html elements
  */
 const domElementsManager = () => {
@@ -146,7 +146,7 @@ const domElementsManager = () => {
 }
 
 /**
- * Function to manage the plant directory
+ * Manage the plant directory
  */
 const plantDirectoryManager = () => {
   let plantDirectory = [];
@@ -154,7 +154,7 @@ const plantDirectoryManager = () => {
 }
 
 /**
- * Function to render results of user search
+ * Render results of user search
  * @param {HTMLElement} userSearchInput
  * @param {HTMLElement} mainSection
  * @returns 
@@ -173,7 +173,7 @@ const renderPlantSearchResults = (userSearchInput, mainSection, searchButton) =>
 }
 
 /**
- * Function to render search error message on screen
+ * Render search error message on screen
  * @param {HTMLElement} mainElement
  * @param {string} message
  */
@@ -184,7 +184,7 @@ const renderSearchErrorMessage = (message) => {
 }
 
 /**
- * Function to render manual plant upload button on screen
+ * Render manual plant upload button on screen
  * @param {HTMLElement} mainElement 
  * @param {HTMLElement} errorMessage
  */
@@ -206,7 +206,9 @@ const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, 
 }
 
 /**
- * Function to render user plant form on screen and handle submitting new plant to the userPlantLog
+ * Render user plant form for manual plant entry.
+ * Sets up event listeners for image upload and form submission. The image upload
+ * listener reads the selected file and stores its data URL for later use.
  * @param {HTMLElement} mainElement 
  * @param {HTMLElement} manualUploadBtn
  * @param {HTMLElement} errorMessage 
@@ -229,7 +231,9 @@ const renderManualPlantForm = (mainElement) => {
 }
 
 /**
- * Function to handle user image upload and storing as url data
+ * Handle change event of user uploaded file
+ * Reads the selected image file asynchronously and executes a callback with the
+ * image's data URL when the read operation is complete.
  * @param {*} event 
  * @param {*} imageDataUrl 
  */
@@ -245,7 +249,8 @@ const imageChangeHandler = (event, callback) => {
 }
 
 /**
- * Function to submit plant from completed manual plant form
+ * Validates the form data, creates a new plant object, adds it to the plant log,
+ * and updates the UI to reflect the new addition.
  * @param {*} event 
  * @param {*} name 
  * @param {*} dateAdded 
@@ -281,7 +286,7 @@ const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, ma
 }
 
 /**
- * Function to validate plant data and return error messages
+ * Validate plant data and return error messages
  * @param {string} name 
  * @param {string} dateAdded 
  * @param {string} imageDataUrl 
@@ -305,7 +310,7 @@ const validatePlantData = (name, dateAdded, imageDataUrl) => {
 }
 
 /**
- * Function to add and display a new plant on the userPlantGrid
+ * Add and display a new plant on the userPlantGrid
  * @param {Object} newPlant 
  */
 const addPlantToGrid = (newPlant) => {
@@ -329,7 +334,7 @@ const resetDomElements = () => {
 }
 
 /**
- * Function to create form for user to upload plant manually
+ * Creates form for user to upload plant manually
  * @returns user plant uplaad form
  */
 const createManualPlantForm = () => {
@@ -350,7 +355,8 @@ const createManualPlantForm = () => {
 }
 
 /**
- * Function to centralise event listeners and handlers
+ * Centralized event manager for handling event listeners and to avoid memory leaks.
+ * Allows adding and removing event listeners to elements and manages a registry of handlers.
  * @returns functions to add / remove event listeners
  */
 const eventManager = () => {
@@ -383,6 +389,10 @@ const plantDirectory = plantDirectoryManager();
 const plantLog = plantLogManager();
 const domElements = domElementsManager();
 
+/**
+ * Sets up event listeners for the application. 
+ * This includes listeners for searching plants, adding new plants, etc.
+ */
 const setUpEventListeners = () => {
   const { addNewPlantBtn } = domElements;
   localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
