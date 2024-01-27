@@ -420,3 +420,48 @@ const initDomElements = () => {
 }
 
 initDomElements();
+
+// plant-page.js
+
+const dummyPlantData = {
+  name: 'Spider Plant',
+  dateAdded: '27-Jan',
+  description: 'jfklasnvjakndfjaskfcbaskjfdnaskljdf',
+  imageUrl: '...',
+  notes: 'notes',
+  id: 123456
+};
+
+const renderPlantDetails = (plant, plantImage, plantTitle) => {
+  const { mainSection } = domElements;
+  const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded});
+  const plantDescription = createElement({tagName: 'p', textContent: plant.description});
+
+  appendChildren(mainSection, plantTitle, plantDate, plantImage, plantDescription);
+
+  // add watering scheduele and other requirements (soil, light etc)
+}
+
+const renderDummyPlant = () => {
+  const plantImage = createElement({tagName: 'img'});
+  plantImage.src = '...'
+  const plantTitle = createElement({tagName: 'h1', textContent: 'Spider Plant'});
+
+  renderPlantDetails(dummyPlantData, plantImage, plantTitle);
+}
+
+renderDummyPlant();
+
+const setManualPlantRequirements = () => {
+
+}
+
+const addUserNote = () => {
+
+}
+
+const editPlantDetails = () => {
+
+}
+
+

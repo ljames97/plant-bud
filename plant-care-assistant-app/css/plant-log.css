@@ -21,6 +21,7 @@ main {
 
 .plant-log-title {
   margin: 1rem 0;
+  display: none;
 }
 
 .add-new-plant-btn {
@@ -43,6 +44,10 @@ main {
 .add-new-plant-btn:active {
   background-color: #cd7647;
   box-shadow: 0 0 10px #823A12;
+}
+
+.add-new-plant-btn {
+  display: none;
 }
 
 .user-plants {
