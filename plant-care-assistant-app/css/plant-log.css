@@ -72,3 +72,9 @@ main {
   height: 150px;
   object-fit: cover;
 }
+
+.sub-header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+}

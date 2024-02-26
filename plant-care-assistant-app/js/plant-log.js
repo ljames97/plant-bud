@@ -434,12 +434,32 @@ const dummyPlantData = {
 
 const renderPlantDetails = (plant, plantImage, plantTitle) => {
   const { mainSection } = domElements;
+  const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
+  const backToDashboard = createElement({tagName: 'p', textContent: 'back to dashboard'});
+  const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
+  
   const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded});
   const plantDescription = createElement({tagName: 'p', textContent: plant.description});
 
-  appendChildren(mainSection, plantTitle, plantDate, plantImage, plantDescription);
+  appendChildren(subHeader, backToDashboard, editPlantDetailsBtn);
+
+  appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImage, plantDescription);
+
+  localEventManager.addEventListener(editPlantDetailsBtn, 'click', () => {
+    toggleEditMode(plant);
+  } )
 
   // add watering scheduele and other requirements (soil, light etc)
+}
+
+const toggleEditMode = (plant) => {
+  //edit mode
+
+  const titleInput = createElement({tagName: 'input', attributes: {value: plant.title}});
+  const dateInput = createElement();
+  const descriptionTextarea = createElement();
+
+  
 }
 
 const renderDummyPlant = () => {
@@ -464,4 +484,6 @@ const editPlantDetails = () => {
 
 }
 
+const backToDashboard = () => {
 
+}
