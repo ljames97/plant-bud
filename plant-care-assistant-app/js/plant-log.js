@@ -102,12 +102,13 @@ const appendChildren = (parent, ...children) => {
  * @param {string} id 
  * @returns html element
  */
-const createElement = ( { tagName, placeholder = '', textContent = '', classEl = '', id = '' }) => {
+const createElement = ( { tagName, placeholder = '', textContent = '', classEl = '', id = '', value = '' }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
   if (classEl) element.classList.add(classEl);
   if (id) element.id = id;
+  if (value) element.value = value;
 
   return element;
 }
@@ -334,15 +335,16 @@ const addPlantToGrid = (newPlant) => {
   appendChildren(userPlantGrid, userPlantContainer);
 
   localEventManager.addEventListener(plantImage, 'click', () => {
-    displayPlantDetails(newPlant);
+    renderPlantDetails(newPlant);
     removeChildren(userPlantGrid, userPlantContainer);
     hideInitialDomElements();
+    userPlantGrid.style.display = 'none';
   })
 }
 
-const displayPlantDetails = (plant) => {
-  console.log(`${plant.name} page`);
-}
+// const displayPlantDetails = (plant) => {
+//   console.log(`${plant.name} page`);
+// }
 
 const resetDomElements = () => {
   const { plantLogTitle, addNewPlantBtn } = domElements;
@@ -432,55 +434,62 @@ const dummyPlantData = {
   id: 123456
 };
 
-const renderPlantDetails = (plant, plantImage, plantTitle) => {
+const renderPlantDetails = (plant) => {
+  document.querySelector('main').innerHTML = '';
+  
   const { mainSection } = domElements;
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: 'back to dashboard'});
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
   
-  const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded});
-  const plantDescription = createElement({tagName: 'p', textContent: plant.description});
+  // elements could be stored in a manager function instead of beiong created again (these are same elements as in the plant grid)
+  const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: 'plant-title'});
+  const plantImage = createElement({tagName: 'img', });
+  const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded, classEl: 'plant-date'});
+  const plantNotes = createElement({tagName: 'p', textContent: plant.notes, classEl: 'plant-description'});
+  plantImage.src = plant.image;
 
   appendChildren(subHeader, backToDashboard, editPlantDetailsBtn);
 
-  appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImage, plantDescription);
+  appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImage, plantNotes);
 
-  localEventManager.addEventListener(editPlantDetailsBtn, 'click', () => {
-    toggleEditMode(plant);
-  } )
+  editPlantDetailsBtn.onclick = () => toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes});
 
   // add watering scheduele and other requirements (soil, light etc)
 }
 
-const toggleEditMode = (plant) => {
-  //edit mode
+const toggleEditMode = (plant, editBtn, elements) => {
+  const isEditMode = editBtn.textContent === 'Edit';
 
-  const titleInput = createElement({tagName: 'input', attributes: {value: plant.title}});
-  const dateInput = createElement();
-  const descriptionTextarea = createElement();
+  if (isEditMode) {
+    editBtn.textContent = 'Save';
 
-  
+    elements.plantTitle.innerHTML = `<input type="text" class="edit-plant-title" value="${plant.name}">`;
+    elements.plantDate.innerHTML = `<input type="text" class="edit-plant-date" value="${plant.dateAdded}">`;
+    elements.plantNotes.innerHTML = `<textarea class="edit-plant-notes">${plant.notes}</textarea>`;
+  } else {
+    editBtn.textContent = 'Edit';
+
+    plant.name = document.querySelector('.edit-plant-title').value;
+    plant.dateAdded = document.querySelector('.edit-plant-date').value;
+    plant.notes = document.querySelector('.edit-plant-notes').value;
+
+    document.querySelector('main').innerHTML = '';
+    renderPlantDetails(plant);
+  }
 }
 
-const renderDummyPlant = () => {
-  const plantImage = createElement({tagName: 'img'});
-  plantImage.src = '...'
-  const plantTitle = createElement({tagName: 'h1', textContent: 'Spider Plant'});
+//   const renderDummyPlant = () => {
+//   renderPlantDetails(dummyPlantData);
+// }
 
-  renderPlantDetails(dummyPlantData, plantImage, plantTitle);
-}
-
-renderDummyPlant();
+// renderDummyPlant();
 
 const setManualPlantRequirements = () => {
 
 }
 
 const addUserNote = () => {
-
-}
-
-const editPlantDetails = () => {
 
 }
 

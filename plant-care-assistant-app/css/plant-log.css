@@ -21,7 +21,7 @@ main {
 
 .plant-log-title {
   margin: 1rem 0;
-  display: none;
+  /* display: none; */
 }
 
 .add-new-plant-btn {
@@ -47,7 +47,7 @@ main {
 }
 
 .add-new-plant-btn {
-  display: none;
+  /* display: none; */
 }
 
 .user-plants {
