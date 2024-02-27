@@ -3,7 +3,6 @@
 /**
  * TODO:
  * - put functions into folders. Need a shared folder for utility functions
- * - start plant page logic/html
  * - create or find http request for plant directory with title, images etc
  * - form error and message at renderManualPlantForm error handling
  * - simple css for forms
@@ -424,6 +423,15 @@ const initDomElements = () => {
 initDomElements();
 
 // plant-page.js
+// TODO:
+// - image container on plant page
+// - option to change image on edit
+// - plant requirements 
+// - store plant elements in plantLogManager so dont have to keep recreating them
+// - back to dashboard event listener
+// - tidy up event listeners (stored in localEventManager)
+// - organise into folders
+// - documentation for functions and folder introductions
 
 const dummyPlantData = {
   name: 'Spider Plant',
