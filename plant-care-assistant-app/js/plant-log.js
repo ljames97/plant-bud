@@ -334,10 +334,23 @@ const addPlantToGrid = (newPlant) => {
   appendChildren(userPlantGrid, userPlantContainer);
 
   localEventManager.addEventListener(plantImage, 'click', () => {
-    renderPlantDetails(newPlant);
-    removeChildren(userPlantGrid, userPlantContainer);
+    renderPlantDetails(newPlant, userPlantGrid);
+    hideElements(userPlantGrid);
     hideInitialDomElements();
-    userPlantGrid.style.display = 'none';
+  })
+}
+
+// Utility function
+const hideElements = (...elements) => {
+  elements.forEach(element => {
+    element.style.display = 'none';
+  });
+}
+
+// Utility function
+const showElements = (displayType, ...elements) => {
+  elements.forEach(element => {
+    element.style.display = `${displayType}`;
   })
 }
 
@@ -424,29 +437,17 @@ initDomElements();
 
 // plant-page.js
 // TODO:
-// - option to change image on edit
-// - plant requirements 
+// - plant requirements
 // - store plant elements in plantLogManager so dont have to keep recreating them
 // - back to dashboard event listener
 // - tidy up event listeners (stored in localEventManager)
 // - organise into folders
 // - documentation for functions and folder introductions
 
-const dummyPlantData = {
-  name: 'Spider Plant',
-  dateAdded: '27-Jan',
-  description: 'jfklasnvjakndfjaskfcbaskjfdnaskljdf',
-  imageUrl: '...',
-  notes: 'notes',
-  id: 123456
-};
-
-const renderPlantDetails = (plant) => {
-  document.querySelector('main').innerHTML = '';
-  
+const renderPlantDetails = (plant, userPlantGrid) => {
   const { mainSection } = domElements;
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
-  const backToDashboard = createElement({tagName: 'p', textContent: 'back to dashboard'});
+  const backToDashboard = createElement({tagName: 'p', textContent: '← back to dashboard'});
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
   
   // elements could be stored in a manager function instead of beiong created again (these are same elements as in the plant grid)
@@ -462,7 +463,10 @@ const renderPlantDetails = (plant) => {
 
   appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
 
-  editPlantDetailsBtn.onclick = () => toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes});
+  editPlantDetailsBtn.onclick = () => toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes, plantImageContainer, plantImage});
+  localEventManager.addEventListener(backToDashboard, 'click', () => {
+    backToDashboardHandler(mainSection, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
+  })
 
   // add watering scheduele and other requirements (soil, light etc)
 }
@@ -476,12 +480,31 @@ const toggleEditMode = (plant, editBtn, elements) => {
     elements.plantTitle.innerHTML = `<input type="text" class="edit-plant-title" value="${plant.name}">`;
     elements.plantDate.innerHTML = `<input type="text" class="edit-plant-date" value="${plant.dateAdded}">`;
     elements.plantNotes.innerHTML = `<textarea class="edit-plant-notes">${plant.notes}</textarea>`;
+
+    const imageInput = document.createElement('input');
+    imageInput.type = 'file';
+    imageInput.classList.add('edit-plant-image');
+    imageInput.accept = 'image/*';
+    elements.plantImageContainer.insertBefore(imageInput, elements.plantImageContainer.firstChild);
+
+    imageInput.addEventListener('change', (event) => {
+      imageChangeHandler(event, (dataUrl) => {
+        plant.image = dataUrl;
+        elements.plantImage.src = dataUrl;
+      });
+    });
+
   } else {
     editBtn.textContent = 'Edit';
 
     plant.name = document.querySelector('.edit-plant-title').value;
     plant.dateAdded = document.querySelector('.edit-plant-date').value;
     plant.notes = document.querySelector('.edit-plant-notes').value;
+
+    const imageInput = document.querySelector('.edit-plant-image');
+    if (imageInput) {
+      imageInput.remove();
+    }
 
     document.querySelector('main').innerHTML = '';
     renderPlantDetails(plant);
@@ -502,11 +525,13 @@ const addUserNote = () => {
 
 }
 
-const backToDashboard = () => {
-
+const backToDashboardHandler = (main, userPlantGrid, ...elements) => {
+  removeChildren(main, ...elements)
+  
+  const displayType = 'grid';
+  showElements(displayType, userPlantGrid)
+  resetDomElements();
 }
-
-// dummy plants:
 
 const dummyPlants = [
   {
@@ -531,6 +556,17 @@ const dummyPlants = [
     id: 3
   }
 ]
+
+const showUserPlantGrid = () => {
+  const userPlantGrid = document.querySelector('.user-plants');
+  if (userPlantGrid) {
+    userPlantGrid.style.display = 'grid';
+  }
+}
+
+// dummy plants:
+
+
 
 dummyPlants.forEach(plant => {
   addPlantToGrid(plant)
