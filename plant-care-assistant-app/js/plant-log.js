@@ -26,6 +26,15 @@ const plantLogManager = () => {
         removeItemFromArray(userPlantLog, plant.id);
       } 
     },
+    updatePlantInfo: (plant) => {
+      const foundPlant = findItemInArray(userPlantLog, plant.id);
+      if (foundPlant) {
+        foundPlant.name = plant.name;
+        foundPlant.dateAdded = plant.dateAdded;
+        foundPlant.notes = plant.notes;
+        foundPlant.image = plant.image;
+      }
+    },
     getPlant: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
@@ -500,10 +509,15 @@ const toggleEditMode = (plant, editBtn, elements) => {
     const updatedName = document.querySelector('.edit-plant-title').value;
     const updatedDate = document.querySelector('.edit-plant-date').value;
     const updatedNotes = document.querySelector('.edit-plant-notes').value;
+    // const updatedImageUrl = document.querySelector('edit-plant-image').value;
 
     plant.name = updatedName;
     plant.dateAdded = updatedDate;
     plant.notes = updatedNotes;
+    // plant.imageDataUrl = updatedImageUrl;
+
+    plantLog.updatePlantInfo(plant);
+    refreshPlantGrid();
 
     elements.plantTitle.textContent = updatedName;
     elements.plantDate.textContent = updatedDate;
@@ -535,6 +549,7 @@ const backToDashboardHandler = (main, userPlantGrid, ...elements) => {
   
   const displayType = 'grid';
   showElements(displayType, userPlantGrid)
+
   resetDomElements();
 }
 
@@ -571,10 +586,22 @@ const showUserPlantGrid = () => {
 
 // dummy plants:
 
-
-
 dummyPlants.forEach(plant => {
-  addPlantToGrid(plant)
+  plantLog.addToUserPlantLog(plant);
 })
+
+plantLog.userPlantLog.forEach(plant => {
+  addPlantToGrid(plant);
+})
+
+const refreshPlantGrid = () => {
+  const userPlantGrid = document.querySelector('.user-plants');
+  userPlantGrid.innerHTML = '';
+
+  plantLog.userPlantLog.forEach(plant => {
+    addPlantToGrid(plant);
+  })
+
+}
 
 
