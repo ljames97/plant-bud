@@ -497,17 +497,22 @@ const toggleEditMode = (plant, editBtn, elements) => {
   } else {
     editBtn.textContent = 'Edit';
 
-    plant.name = document.querySelector('.edit-plant-title').value;
-    plant.dateAdded = document.querySelector('.edit-plant-date').value;
-    plant.notes = document.querySelector('.edit-plant-notes').value;
+    const updatedName = document.querySelector('.edit-plant-title').value;
+    const updatedDate = document.querySelector('.edit-plant-date').value;
+    const updatedNotes = document.querySelector('.edit-plant-notes').value;
+
+    plant.name = updatedName;
+    plant.dateAdded = updatedDate;
+    plant.notes = updatedNotes;
+
+    elements.plantTitle.textContent = updatedName;
+    elements.plantDate.textContent = updatedDate;
+    elements.plantNotes.textContent = updatedNotes;
 
     const imageInput = document.querySelector('.edit-plant-image');
     if (imageInput) {
       imageInput.remove();
     }
-
-    document.querySelector('main').innerHTML = '';
-    renderPlantDetails(plant);
   }
 }
 
