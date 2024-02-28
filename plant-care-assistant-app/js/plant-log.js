@@ -424,7 +424,6 @@ initDomElements();
 
 // plant-page.js
 // TODO:
-// - image container on plant page
 // - option to change image on edit
 // - plant requirements 
 // - store plant elements in plantLogManager so dont have to keep recreating them
@@ -452,14 +451,16 @@ const renderPlantDetails = (plant) => {
   
   // elements could be stored in a manager function instead of beiong created again (these are same elements as in the plant grid)
   const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: 'plant-title'});
-  const plantImage = createElement({tagName: 'img', });
+  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
+  const plantImage = createElement({tagName: 'img'});
   const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded, classEl: 'plant-date'});
   const plantNotes = createElement({tagName: 'p', textContent: plant.notes, classEl: 'plant-description'});
   plantImage.src = plant.image;
 
+  appendChildren(plantImageContainer, plantImage);
   appendChildren(subHeader, backToDashboard, editPlantDetailsBtn);
 
-  appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImage, plantNotes);
+  appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
 
   editPlantDetailsBtn.onclick = () => toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes});
 
@@ -504,3 +505,35 @@ const addUserNote = () => {
 const backToDashboard = () => {
 
 }
+
+// dummy plants:
+
+const dummyPlants = [
+  {
+    name: 'Spider Plant',
+    dateAdded: '21-Jan',
+    notes: 'A new plant with long spider-like leaves',
+    image: '../public/dummy-plants/spider-plant.jpg',
+    id: 1
+  },
+  {
+    name: 'Apple Tree',
+    dateAdded: '02-Feb',
+    notes: 'An apple tree grown from seed, first time growing a real apple tree!',
+    image: '../public/dummy-plants/apple-tree.jpg',
+    id: 2
+  },
+  {
+    name: 'Peace Lily',
+    dateAdded: '12-Dec',
+    notes: 'A peace lily with white flowers, best bloom in spring/summer',
+    image: '../public/dummy-plants/peace-lily.jpg',
+    id: 3
+  }
+]
+
+dummyPlants.forEach(plant => {
+  addPlantToGrid(plant)
+})
+
+
