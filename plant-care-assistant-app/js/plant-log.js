@@ -18,7 +18,6 @@ const plantLogManager = () => {
   return {
     addToUserPlantLog: (plant) => {
       userPlantLog.push(plant);
-      console.log(userPlantLog);
     },
     deletePlantFromLog: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -87,10 +86,12 @@ const removeChildren = (parent, ...children) => {
  * @returns search input field and search button
  */
 const createSearchInput = () => {
+  const userSearch = createElement({tagName: 'div', classEl: 'search-elements'});
   const searchForPlant = createElement({tagName: 'input', placeholder: 'Find your plant!', classEl: 'plant-search'});
   const searchButton = createElement({tagName: 'button', textContent: 'Find', classEl: 'search-btn'});
+  const cancelSearchBtn = createElement({tageName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
 
-  return { searchForPlant, searchButton };
+  return { userSearch, searchForPlant, searchButton, cancelSearchBtn };
 }
 
 /**
@@ -125,16 +126,26 @@ const createElement = ( { tagName, placeholder = '', textContent = '', classEl =
  * Render search form on screen
  */
 const renderNewPlantSearch = () => {
-  const { searchForPlant, searchButton } = createSearchInput();
-  const { mainSection} = domElements;
+  const { userSearch, searchForPlant, searchButton, cancelSearchBtn } = createSearchInput();
+  const { mainSection, userPlantGrid } = domElements;
 
   hideInitialDomElements();
+  hideElements(userPlantGrid);
 
-  appendChildren(mainSection, searchForPlant, searchButton);
+  appendChildren(userSearch, searchForPlant, searchButton);
+  appendChildren(mainSection, userSearch, cancelSearchBtn);
 
   localEventManager.addEventListener(searchButton, 'click', () => {
-    searchButtonClickHandler(searchForPlant, mainSection, searchButton);
+    searchButtonClickHandler(userSearch, searchForPlant, mainSection, searchButton);
   });
+  localEventManager.addEventListener(cancelSearchBtn, 'click', () => {
+    cancelSearchButtonClickHandler(userSearch, mainSection, cancelSearchBtn);
+  })
+}
+
+const cancelSearchButtonClickHandler = (userSearch, mainSection, cancelSearchBtn) => {
+  removeChildren(mainSection, userSearch, cancelSearchBtn);
+  resetDomElements();
 }
 
 const hideInitialDomElements = () => {
@@ -144,9 +155,8 @@ const hideInitialDomElements = () => {
   addNewPlantBtn.style.display = 'none';
 }
 
-
-const searchButtonClickHandler = (searchForPlant, mainSection, searchButton) => {
-  renderPlantSearchResults(searchForPlant, mainSection, searchButton);
+const searchButtonClickHandler = (userSearch, searchForPlant, mainSection, searchButton) => {
+  renderPlantSearchResults(userSearch, searchForPlant, mainSection, searchButton);
   localEventManager.removeEventListener(searchButton, 'click');
 }
 
@@ -158,8 +168,9 @@ const domElementsManager = () => {
   const mainSection = document.querySelector('main');
   const plantLogTitle = document.querySelector('.plant-log-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
+  const userPlantGrid = document.querySelector('.user-plants');
 
-  return { mainSection, plantLogTitle, addNewPlantBtn };
+  return { mainSection, plantLogTitle, addNewPlantBtn, userPlantGrid};
 }
 
 /**
@@ -176,7 +187,7 @@ const plantDirectoryManager = () => {
  * @param {HTMLElement} mainSection
  * @returns 
  */
-const renderPlantSearchResults = (userSearchInput, mainSection, searchButton) => {
+const renderPlantSearchResults = (userSearch, userSearchInput, mainSection, searchButton) => {
   const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput.value);
   if (foundPlant) {
     console.log('Plant found!');
@@ -184,8 +195,8 @@ const renderPlantSearchResults = (userSearchInput, mainSection, searchButton) =>
   } else {
     const errorMessage = renderSearchErrorMessage('No plant found!');
     
-    appendChildren(mainSection, errorMessage);
-    renderManualPlantUploadBtn(mainSection, errorMessage, userSearchInput, searchButton);
+    appendChildren(userSearch, errorMessage);
+    renderManualPlantUploadBtn(userSearch, errorMessage, userSearchInput, searchButton);
   }
 }
 
@@ -205,18 +216,18 @@ const renderSearchErrorMessage = (message) => {
  * @param {HTMLElement} mainElement 
  * @param {HTMLElement} errorMessage
  */
-const renderManualPlantUploadBtn = (mainElement, errorMessage, userSearchInput, searchButton) => {
+const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchInput, searchButton) => {
   const manualUploadBtn = createElement({tagName: 'button', textContent: 'Manual Upload', classEl: 'manual-upload-btn'});
-  appendChildren(mainElement, manualUploadBtn);
+  appendChildren(userSearch, manualUploadBtn);
 
   const manualUploadClickHandler = () => {
-    renderManualPlantForm(mainElement);
-    removeChildren(mainElement, manualUploadBtn, errorMessage, userSearchInput, searchButton);
+    renderManualPlantForm(userSearch);
+    removeChildren(userSearch, manualUploadBtn, errorMessage, userSearchInput, searchButton);
   }
 
   localEventManager.addEventListener(manualUploadBtn, 'click', manualUploadClickHandler);
   localEventManager.addEventListener(userSearchInput, 'click', () => {
-    removeChildren(mainElement, errorMessage, manualUploadBtn);
+    removeChildren(userSearch, errorMessage, manualUploadBtn);
   });
 
   localEventManager.addEventListener(searchButton, 'click', searchButtonClickHandler)
@@ -368,9 +379,10 @@ const showElements = (displayType, ...elements) => {
 // }
 
 const resetDomElements = () => {
-  const { plantLogTitle, addNewPlantBtn } = domElements;
+  const { plantLogTitle, addNewPlantBtn, userPlantGrid } = domElements;
   plantLogTitle.style.display = 'block';
   addNewPlantBtn.style.display = 'flex';
+  userPlantGrid.style.display = 'grid';
 }
 
 /**
@@ -448,10 +460,22 @@ initDomElements();
 // TODO:
 // - plant requirements
 // - store plant elements in plantLogManager so dont have to keep recreating them
-// - back to dashboard event listener
-// - tidy up event listeners (stored in localEventManager)
+// - fix addnewplant button bugs
+// - css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button
+// - local storage
 // - organise into folders
 // - documentation for functions and folder introductions
+// - cut down large functions
+
+const createDynamicPlantElements = (plant) => {
+  const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: 'plant-title'});
+  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
+  const plantImage = createElement({tagName: 'img'});
+  const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded, classEl: 'plant-date'});
+  const plantNotes = createElement({tagName: 'p', textContent: plant.notes, classEl: 'plant-description'});
+
+  return { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes };
+}
 
 const renderPlantDetails = (plant, userPlantGrid) => {
   const { mainSection } = domElements;
@@ -460,11 +484,7 @@ const renderPlantDetails = (plant, userPlantGrid) => {
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
   
   // elements could be stored in a manager function instead of beiong created again (these are same elements as in the plant grid)
-  const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: 'plant-title'});
-  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
-  const plantImage = createElement({tagName: 'img'});
-  const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded, classEl: 'plant-date'});
-  const plantNotes = createElement({tagName: 'p', textContent: plant.notes, classEl: 'plant-description'});
+  const { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes } = createDynamicPlantElements(plant)
   plantImage.src = plant.image;
 
   appendChildren(plantImageContainer, plantImage);
@@ -472,7 +492,8 @@ const renderPlantDetails = (plant, userPlantGrid) => {
 
   appendChildren(mainSection, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
 
-  editPlantDetailsBtn.onclick = () => toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes, plantImageContainer, plantImage});
+  localEventManager.addEventListener(editPlantDetailsBtn, 'click', () => 
+    toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes, plantImageContainer, plantImage}))
   localEventManager.addEventListener(backToDashboard, 'click', () => {
     backToDashboardHandler(mainSection, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
   })
@@ -540,10 +561,6 @@ const setManualPlantRequirements = () => {
 
 }
 
-const addUserNote = () => {
-
-}
-
 const backToDashboardHandler = (main, userPlantGrid, ...elements) => {
   removeChildren(main, ...elements)
   
@@ -552,6 +569,8 @@ const backToDashboardHandler = (main, userPlantGrid, ...elements) => {
 
   resetDomElements();
 }
+
+// dummy plants:
 
 const dummyPlants = [
   {
@@ -576,15 +595,6 @@ const dummyPlants = [
     id: 3
   }
 ]
-
-const showUserPlantGrid = () => {
-  const userPlantGrid = document.querySelector('.user-plants');
-  if (userPlantGrid) {
-    userPlantGrid.style.display = 'grid';
-  }
-}
-
-// dummy plants:
 
 dummyPlants.forEach(plant => {
   plantLog.addToUserPlantLog(plant);
