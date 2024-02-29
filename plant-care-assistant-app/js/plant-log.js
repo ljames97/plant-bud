@@ -136,7 +136,7 @@ const renderNewPlantSearch = () => {
   appendChildren(mainSection, userSearch, cancelSearchBtn);
 
   localEventManager.addEventListener(searchButton, 'click', () => {
-    searchButtonClickHandler(userSearch, searchForPlant, mainSection, searchButton);
+    searchButtonClickHandler(userSearch, searchForPlant, searchButton, cancelSearchBtn);
   });
   localEventManager.addEventListener(cancelSearchBtn, 'click', () => {
     cancelSearchButtonClickHandler(userSearch, mainSection, cancelSearchBtn);
@@ -155,8 +155,8 @@ const hideInitialDomElements = () => {
   addNewPlantBtn.style.display = 'none';
 }
 
-const searchButtonClickHandler = (userSearch, searchForPlant, mainSection, searchButton) => {
-  renderPlantSearchResults(userSearch, searchForPlant, mainSection, searchButton);
+const searchButtonClickHandler = (userSearch, searchForPlant, searchButton, cancelSearchBtn) => {
+  renderPlantSearchResults(userSearch, searchForPlant, searchButton, cancelSearchBtn);
   localEventManager.removeEventListener(searchButton, 'click');
 }
 
@@ -187,7 +187,7 @@ const plantDirectoryManager = () => {
  * @param {HTMLElement} mainSection
  * @returns 
  */
-const renderPlantSearchResults = (userSearch, userSearchInput, mainSection, searchButton) => {
+const renderPlantSearchResults = (userSearch, userSearchInput, searchButton, cancelSearchBtn) => {
   const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput.value);
   if (foundPlant) {
     console.log('Plant found!');
@@ -196,7 +196,7 @@ const renderPlantSearchResults = (userSearch, userSearchInput, mainSection, sear
     const errorMessage = renderSearchErrorMessage('No plant found!');
     
     appendChildren(userSearch, errorMessage);
-    renderManualPlantUploadBtn(userSearch, errorMessage, userSearchInput, searchButton);
+    renderManualPlantUploadBtn(userSearch, errorMessage, userSearchInput, searchButton, cancelSearchBtn);
   }
 }
 
@@ -216,12 +216,12 @@ const renderSearchErrorMessage = (message) => {
  * @param {HTMLElement} mainElement 
  * @param {HTMLElement} errorMessage
  */
-const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchInput, searchButton) => {
+const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchInput, searchButton, cancelSearchBtn) => {
   const manualUploadBtn = createElement({tagName: 'button', textContent: 'Manual Upload', classEl: 'manual-upload-btn'});
   appendChildren(userSearch, manualUploadBtn);
 
   const manualUploadClickHandler = () => {
-    renderManualPlantForm(userSearch);
+    renderManualPlantForm(userSearch, cancelSearchBtn);
     removeChildren(userSearch, manualUploadBtn, errorMessage, userSearchInput, searchButton);
   }
 
@@ -241,9 +241,9 @@ const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchInput, s
  * @param {HTMLElement} manualUploadBtn
  * @param {HTMLElement} errorMessage 
  */
-const renderManualPlantForm = (mainElement) => {
+const renderManualPlantForm = (userSearch, cancelSearchBtn) => {
   const { plantForm, name, dateAdded, plantPhoto, notes, submitBtn } = createManualPlantForm();
-  appendChildren(mainElement, plantForm);
+  appendChildren(userSearch, plantForm);
 
   let imageDataUrl = [];
 
@@ -254,7 +254,7 @@ const renderManualPlantForm = (mainElement) => {
   });
 
   localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    submitHandler(event, name, dateAdded, notes, imageDataUrl, plantLog, mainElement, plantForm);
+    submitHandler(event, name, dateAdded, notes, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn);
   });
 }
 
@@ -288,29 +288,30 @@ const imageChangeHandler = (event, callback) => {
  * @param {*} plantForm 
  * @returns 
  */
-const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, mainElement, plantForm) => {
+const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn) => {
   event.preventDefault();
+  const { mainElement } = domElements;
 
-    const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
+  const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
 
-    if (!dataValidation.isValid) {
-      console.log(dataValidation.errors);
-      return;
-    }
+  if (!dataValidation.isValid) {
+    console.log(dataValidation.errors);
+    return;
+  }
 
-    const newPlant = {
-      name: name.value,
-      dateAdded: dateAdded.value,
-      notes: notes.value,
-      image: imageDataUrl,
-      id: Date.now()
-    };
+  const newPlant = {
+    name: name.value,
+    dateAdded: dateAdded.value,
+    notes: notes.value,
+    image: imageDataUrl,
+    id: Date.now()
+  };
 
-    plantLog.addToUserPlantLog(newPlant);
-    addPlantToGrid(newPlant);
+  plantLog.addToUserPlantLog(newPlant);
+  addPlantToGrid(newPlant);
 
-    removeChildren(mainElement, plantForm);
-    resetDomElements();
+  removeChildren(userSearch, plantForm);
+  resetDomElements();
 }
 
 /**
@@ -342,7 +343,7 @@ const validatePlantData = (name, dateAdded, imageDataUrl) => {
  * @param {Object} newPlant 
  */
 const addPlantToGrid = (newPlant) => {
-  const userPlantGrid = document.querySelector('.user-plants');
+  const { userPlantGrid } = domElements;
   const userPlantContainer = createElement({tagName: 'div', classEl: 'user-plant'});
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
   const plantImage = createElement({tagName: 'img'});
@@ -441,6 +442,7 @@ const plantDirectory = plantDirectoryManager();
 const plantLog = plantLogManager();
 const domElements = domElementsManager();
 
+
 /**
  * Sets up event listeners for the application. 
  * This includes listeners for searching plants, adding new plants, etc.
@@ -458,21 +460,22 @@ initDomElements();
 
 // plant-page.js
 // TODO:
-// - plant requirements
-// - store plant elements in plantLogManager so dont have to keep recreating them
-// - fix addnewplant button bugs
-// - css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button
+// - cancel btn needs to be removed when adding new plant to grid
+// - find btn doesnt work after typing into search box...
 // - local storage
 // - organise into folders
 // - documentation for functions and folder introductions
 // - cut down large functions
+// - (plant requirements)
+// - (store plant elements in plantLogManager so dont have to keep recreating them)
+// - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
-const createDynamicPlantElements = (plant) => {
-  const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: 'plant-title'});
+const createDynamicPlantElements = () => {
+  const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
   const plantImage = createElement({tagName: 'img'});
-  const plantDate = createElement({tagName: 'p', textContent: plant.dateAdded, classEl: 'plant-date'});
-  const plantNotes = createElement({tagName: 'p', textContent: plant.notes, classEl: 'plant-description'});
+  const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
+  const plantNotes = createElement({tagName: 'p', classEl: 'plant-description'});
 
   return { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes };
 }
@@ -484,7 +487,10 @@ const renderPlantDetails = (plant, userPlantGrid) => {
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
   
   // elements could be stored in a manager function instead of beiong created again (these are same elements as in the plant grid)
-  const { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes } = createDynamicPlantElements(plant)
+  const { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes } = dynamicPlantElements;
+  plantTitle.textContent = plant.name;
+  plantDate.textContent = plant.dateAdded;
+  plantNotes.textContent = plant.notes;
   plantImage.src = plant.image;
 
   appendChildren(plantImageContainer, plantImage);
@@ -500,6 +506,8 @@ const renderPlantDetails = (plant, userPlantGrid) => {
 
   // add watering scheduele and other requirements (soil, light etc)
 }
+
+const dynamicPlantElements = createDynamicPlantElements();
 
 const toggleEditMode = (plant, editBtn, elements) => {
   const isEditMode = editBtn.textContent === 'Edit';
@@ -605,7 +613,7 @@ plantLog.userPlantLog.forEach(plant => {
 })
 
 const refreshPlantGrid = () => {
-  const userPlantGrid = document.querySelector('.user-plants');
+  const { userPlantGrid } = domElements;
   userPlantGrid.innerHTML = '';
 
   plantLog.userPlantLog.forEach(plant => {
