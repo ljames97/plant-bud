@@ -89,7 +89,7 @@ const createSearchInput = () => {
   const userSearch = createElement({tagName: 'div', classEl: 'search-elements'});
   const searchForPlant = createElement({tagName: 'input', placeholder: 'Find your plant!', classEl: 'plant-search'});
   const searchButton = createElement({tagName: 'button', textContent: 'Find', classEl: 'search-btn'});
-  const cancelSearchBtn = createElement({tageName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
+  const cancelSearchBtn = createElement({tagName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
 
   return { userSearch, searchForPlant, searchButton, cancelSearchBtn };
 }
@@ -225,9 +225,16 @@ const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchInput, s
     removeChildren(userSearch, manualUploadBtn, errorMessage, userSearchInput, searchButton);
   }
 
+  const showButtonClickHandler = () => {
+    localEventManager.addEventListener(searchButton, 'click', () => {
+      showElements('block', errorMessage, manualUploadBtn);
+    })
+  }
+
   localEventManager.addEventListener(manualUploadBtn, 'click', manualUploadClickHandler);
   localEventManager.addEventListener(userSearchInput, 'click', () => {
-    removeChildren(userSearch, errorMessage, manualUploadBtn);
+    hideElements(errorMessage, manualUploadBtn);
+    showButtonClickHandler(searchButton);
   });
 
   localEventManager.addEventListener(searchButton, 'click', searchButtonClickHandler)
@@ -311,6 +318,7 @@ const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, us
   addPlantToGrid(newPlant);
 
   removeChildren(userSearch, plantForm);
+  cancelSearchBtn.remove();
   resetDomElements();
 }
 
@@ -460,7 +468,6 @@ initDomElements();
 
 // plant-page.js
 // TODO:
-// - cancel btn needs to be removed when adding new plant to grid
 // - find btn doesnt work after typing into search box...
 // - local storage
 // - organise into folders
