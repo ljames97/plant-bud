@@ -15,7 +15,7 @@ p, h1 {
 }
 
 header {
-  background-image: url('../public/background-image.png');
+  background-image: url('../../public/background-image.png');
 }
 
 .menu-bars {
