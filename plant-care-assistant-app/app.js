@@ -13,6 +13,7 @@
 /**
  * TODO:
  * - core feature simple css and start js code (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+ * - app.js init function to intialise.
  * - clean up css and public image folder
  * - more sophisticated design ideas, colour pallete, buttons, animations etc.
  * */
