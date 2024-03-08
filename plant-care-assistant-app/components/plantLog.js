@@ -49,6 +49,9 @@ const plantLogManager = () => {
         alert('Cannot find plant!');
       }
     },
+    getPlantById: (plantId) => {
+      return plantLog.userPlantLog.find(plant => plant.id.toString() === plantId);
+    },
     userPlantLog
   }
 }
@@ -228,22 +231,18 @@ export const addPlantToGrid = (newPlant) => {
   const { userPlantGrid } = domElements;
   const userPlantContainer = createElement({tagName: 'div', classEl: 'user-plant'});
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
-  const plantImage = createElement({tagName: 'img'});
+  const plantImage = createElement({tagName: 'img', classEl: 'plant-image', dataAttributes: { 'id': newPlant.id.toString() }});
   const plantTitle = createElement({tagName: 'h1', textContent: newPlant.name});
   plantImage.src = newPlant.image
 
   appendChildren(plantImageContainer, plantImage);
   appendChildren(userPlantContainer, plantImageContainer, plantTitle);
   appendChildren(userPlantGrid, userPlantContainer);
-
-  document.addEventListener('DOMContentLoaded', () => {
-    localEventManager.addEventListener(plantImage, 'click', () => {
-      renderPlantDetails(newPlant, userPlantGrid);
-      hideElements(userPlantGrid);
-      hideInitialDomElements();
-    })
-  });
 }
+
+
+
+
 
 /**
  * Creates form for user to upload plant manually
@@ -283,4 +282,3 @@ dummyPlants.forEach(plant => {
 })
 
 populatePlantGrid();
-

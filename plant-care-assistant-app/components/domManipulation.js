@@ -41,13 +41,17 @@ export const createDynamicPlantElements = () => {
  * @param {string} value - Value attribute for input elements.
  * @returns {HTMLElement} Newly created HTML element.
  */
-export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '' }) => {
+export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '', dataAttributes = {} }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
   if (classEl) element.classList.add(classEl);
   if (id) element.id = id;
   if (value) element.value = value;
+
+  Object.keys(dataAttributes).forEach(key => {
+    element.setAttribute(`data-${key}`, dataAttributes[key]);
+  });
 
   return element;
 }

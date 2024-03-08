@@ -1,5 +1,7 @@
-import { domElementsManager } from "./domManipulation";
-import { renderNewPlantSearch } from "./plantLog";
+import { domElements, domElementsManager, hideInitialDomElements, resetDomElements } from "./domManipulation";
+import { plantLog, renderNewPlantSearch } from "./plantLog";
+import { renderPlantDetails } from "./plantPage";
+import { hideElements } from "./utility";
 
 
 
@@ -99,6 +101,28 @@ export const setUpEventListeners = () => {
 
   document.addEventListener('DOMContentLoaded', () => {
     localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
+    setupUserPlantGridEventListener();
+  });
+}
+
+const setupUserPlantGridEventListener = () => {
+  const { userPlantGrid } = domElements;
+
+  localEventManager.addEventListener(userPlantGrid, 'click', (event) => {
+    let target = event.target;
+    while (target && target !== userPlantGrid) {
+      if (target.classList.contains('plant-image')) {
+        const plantId = target.getAttribute('data-id');
+        const plant = plantLog.getPlantById(plantId);
+        if (plant) {
+          renderPlantDetails(plant, userPlantGrid);
+          hideElements(userPlantGrid);
+          hideInitialDomElements();
+        }
+        return;
+      }
+      target = target.parentNode;
+    }
   });
 }
 
