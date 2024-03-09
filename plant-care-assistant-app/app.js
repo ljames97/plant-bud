@@ -10,55 +10,14 @@
  * 
  */
 
-/**
- * TODO:
- * - core feature simple css and start js code (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
- * - app.js init function to intialise.
- * - clean up css and public image folder
- * - more sophisticated design ideas, colour pallete, buttons, animations etc.
- * */
+import { dashboardInit, globalInit, homeInit } from "./components/eventHandling";
 
-const toggleMobileNav = (isOpen) => {
-  const mobileNavModal = document.querySelector('.mobile-nav-modal');
-  if (isOpen) {
-    mobileNavModal.classList.add('show');
-  } else {
-    mobileNavModal.classList.remove('show');
+document.addEventListener('DOMContentLoaded', () => {
+  globalInit();
+
+  if (document.body.classList.contains('dashboard-page')) {
+    dashboardInit();
+  } else if (document.body.classList.contains('home-page')) {
+    homeInit();
   }
-}
-
-/**
- * Function to assign event handlers to static elements
- */
-const staticEventHandlers = () => {
-  const eventHandlerData = staticEventHandlerManager();
-
-  eventHandlerData.forEach(eventHandler => {
-    const button = document.querySelector(eventHandler.class)
-
-    button.addEventListener('click', () => {
-      eventHandler.handler();
-    });
-  })
-}
-
-/**
- * Function to manage static elements and their event handlers
- * @returns event handler data (array)
- */
-const staticEventHandlerManager = () => {
-  const eventHandlerData = [
-    {
-      class: '.menu-bars',
-      handler: () => toggleMobileNav(true)
-    },
-    {
-      class: '.mobile-nav-close-btn',
-      handler: () => toggleMobileNav(false)
-    }
-  ];
-
-  return eventHandlerData;
-}
-
-staticEventHandlers();
+});
