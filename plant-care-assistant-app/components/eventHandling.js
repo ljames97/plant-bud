@@ -1,12 +1,19 @@
-import { domElements, domElementsManager, hideInitialDomElements, resetDomElements } from "./domManipulation";
-import { plantLog, renderNewPlantSearch } from "./plantLog";
+// eventHandling.js
+/**
+ * Event handler logic
+ */
+
+import { domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
+import { addPlantToGrid, plantLog, populatePlantGrid } from "./plantLog";
+import { renderNewPlantSearch } from "./plantSearch";
+import { validatePlantData } from "./addNewPlant";
 import { renderPlantDetails } from "./plantPage";
-import { hideElements } from "./utility";
+import { hideElements, removeChildren } from "./utility";
 
 
 
 /**
- * Handle change event of user uploaded file
+ * Handle change event of user uploaded file.
  * Reads the selected image file asynchronously and executes a callback with the
  * image's data URL when the read operation is complete.
  * @param {*} event 
@@ -35,9 +42,8 @@ export const imageChangeHandler = (event, callback) => {
  * @param {*} plantForm 
  * @returns 
  */
-const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn) => {
+export const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn) => {
   event.preventDefault();
-  const { mainElement } = domElements;
 
   const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
 
@@ -65,7 +71,7 @@ const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, us
 /**
  * Centralized event manager for handling event listeners and to avoid memory leaks.
  * Allows adding and removing event listeners to elements and manages a registry of handlers.
- * @returns functions to add / remove event listeners
+ * @returns functions to add / remove event listeners.
  */
 const eventManager = () => {
   let handlers = {};
@@ -97,12 +103,10 @@ const eventManager = () => {
  * This includes listeners for searching plants, adding new plants, etc.
  */
 export const setUpEventListeners = () => {
-  const { addNewPlantBtn } = domElementsManager();
+  const { addNewPlantBtn } = domElements;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
-    setupUserPlantGridEventListener();
-  });
+  localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
+  setupUserPlantGridEventListener();
 }
 
 const setupUserPlantGridEventListener = () => {
@@ -128,4 +132,61 @@ const setupUserPlantGridEventListener = () => {
 
 export const localEventManager = eventManager();
 
-setUpEventListeners();
+// ** home page evenHandling logic (to be put in seperate file)
+
+const toggleMobileNav = (isOpen) => {
+  const mobileNavModal = document.querySelector('.mobile-nav-modal');
+  if (isOpen) {
+    mobileNavModal.classList.add('show');
+  } else {
+    mobileNavModal.classList.remove('show');
+  }
+}
+
+/**
+ * Assigns event handlers to static elements.
+ */
+const staticEventHandlers = () => {
+  const eventHandlerData = staticEventHandlerManager();
+
+  eventHandlerData.forEach(eventHandler => {
+    const button = document.querySelector(eventHandler.class)
+
+    button.addEventListener('click', () => {
+      eventHandler.handler();
+    });
+  })
+}
+
+/**
+ * Manages static elements and their event handlers.
+ * @returns event handler data (array)
+ */
+const staticEventHandlerManager = () => {
+  const eventHandlerData = [
+    {
+      class: '.menu-bars',
+      handler: () => toggleMobileNav(true)
+    },
+    {
+      class: '.mobile-nav-close-btn',
+      handler: () => toggleMobileNav(false)
+    }
+  ];
+
+  return eventHandlerData;
+}
+
+
+export const dashboardInit = () => {
+  setUpEventListeners();
+  populatePlantGrid();
+}
+
+export const homeInit = () => {
+
+}
+
+export const globalInit = () => {
+  staticEventHandlers();
+}

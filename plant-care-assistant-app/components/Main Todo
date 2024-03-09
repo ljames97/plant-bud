@@ -1,0 +1,22 @@
+MAIN TODO:
+- start plant quiz, schedueler etc start this in new component folder
+- event handling seperate files for home page vs dashboard?
+
+
+TODO plant-log:
+- create or find http request for plant directory with title, images etc
+- form error and message at renderManualPlantForm error handling
+- simple css for forms
+
+TODO plant-page:
+- local storage
+- cut down large functions
+- (plant requirements)
+- (store plant elements in plantLogManager so dont have to keep recreating them)
+- (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
+
+ FINAL TODO:
+ - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+ - clean up css and public image folder
+ - add hyperlinks to menu, contact page, about erc
+ - more sophisticated design ideas, colour pallete, buttons, animations etc.

@@ -1,5 +1,12 @@
+// domManipulation.js
 /**
- * Return most reused dom elements
+ * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ */
+
+import { addPlantToGrid, plantLog } from "./plantLog";
+
+/**
+ * Return most reused dom elements.
  * @returns html elements
  */
 export const domElementsManager = () => {
@@ -64,6 +71,18 @@ export const hideInitialDomElements = () => {
 
   plantLogTitle.style.display = 'none';
   addNewPlantBtn.style.display = 'none';
+}
+
+/**
+ * Refresh plant grid by removing existing inner html and updating the userPlantLog.
+ */
+export const refreshPlantGrid = () => {
+  const { userPlantGrid } = domElements;
+  userPlantGrid.innerHTML = '';
+
+  plantLog.userPlantLog.forEach(plant => {
+    addPlantToGrid(plant);
+  })
 }
 
 export const dynamicPlantElements = createDynamicPlantElements();

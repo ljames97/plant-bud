@@ -1,17 +1,13 @@
 
 // plant-page.js
+/**
+ * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
+ */
 
-// TODO:
-// - local storage
-// - cut down large functions
-// - (plant requirements)
-// - (store plant elements in plantLogManager so dont have to keep recreating them)
-// - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
-
-import { domElements, createElement, dynamicPlantElements, resetDomElements } from "./domManipulation";
+import { domElements, createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid } from "./domManipulation";
 import { appendChildren, removeChildren, showElements } from "./utility";
 import { localEventManager, imageChangeHandler } from "./eventHandling";
-import { plantLog, addPlantToGrid } from "./plantLog";
+import { plantLog } from "./plantLog";
 
 /**
  * Render plant details on screen
@@ -24,7 +20,6 @@ export const renderPlantDetails = (plant, userPlantGrid) => {
   const backToDashboard = createElement({tagName: 'p', textContent: '← back to dashboard'});
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
   
-  // elements could be stored in a manager function instead of beiong created again (these are same elements as in the plant grid)
   const { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes } = dynamicPlantElements;
   plantTitle.textContent = plant.name;
   plantDate.textContent = plant.dateAdded;
@@ -46,7 +41,7 @@ export const renderPlantDetails = (plant, userPlantGrid) => {
 }
 
 /**
- * Toggle edit mode to edit plant details including title, image, date and notes
+ * Toggle edit mode to edit plant details including title, image, date and notes.
  * @param {Object} plant 
  * @param {HTMLElement} editBtn 
  * @param {HTMLElement} elements 
@@ -80,12 +75,10 @@ const toggleEditMode = (plant, editBtn, elements) => {
     const updatedName = document.querySelector('.edit-plant-title').value;
     const updatedDate = document.querySelector('.edit-plant-date').value;
     const updatedNotes = document.querySelector('.edit-plant-notes').value;
-    // const updatedImageUrl = document.querySelector('edit-plant-image').value;
 
     plant.name = updatedName;
     plant.dateAdded = updatedDate;
     plant.notes = updatedNotes;
-    // plant.imageDataUrl = updatedImageUrl;
 
     plantLog.updatePlantInfo(plant);
     refreshPlantGrid();
@@ -102,19 +95,7 @@ const toggleEditMode = (plant, editBtn, elements) => {
 }
 
 /**
- * Refresh plant grid by removing existing inner html and updating the userPlantLog
- */
-const refreshPlantGrid = () => {
-  const { userPlantGrid } = domElements;
-  userPlantGrid.innerHTML = '';
-
-  plantLog.userPlantLog.forEach(plant => {
-    addPlantToGrid(plant);
-  })
-}
-
-/**
- * Remove plant page and return to dashboard (plantGrid)
+ * Remove plant page and return to dashboard (plantGrid).
  * @param {HTMLElement} main 
  * @param {HTMLElement} userPlantGrid 
  * @param {...HTMLElement} elements 

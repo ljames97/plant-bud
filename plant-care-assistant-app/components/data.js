@@ -1,3 +1,7 @@
+// data.js
+/**
+ * Dummy plant data, plant directory and other data
+ */
 
 
 /**

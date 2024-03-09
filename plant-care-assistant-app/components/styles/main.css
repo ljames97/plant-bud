@@ -15,7 +15,18 @@ p, h1 {
 }
 
 header {
+  background-size: cover;
   background-image: url('../../public/background-image.png');
+}
+
+.header-logo {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 2rem 0;
+}
+
+.header-logo img {
+  width: 50%;
 }
 
 .menu-bars {
