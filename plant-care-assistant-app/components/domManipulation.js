@@ -10,12 +10,12 @@ import { addPlantToGrid, plantLog } from "./plantLog";
  * @returns html elements
  */
 export const domElementsManager = () => {
-  const mainSection = document.querySelector('main');
+  const dashboard = document.querySelector('.dashboard-items');
   const plantLogTitle = document.querySelector('.plant-log-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
   const userPlantGrid = document.querySelector('.user-plants');
 
-  return { mainSection, plantLogTitle, addNewPlantBtn, userPlantGrid };
+  return { dashboard, plantLogTitle, addNewPlantBtn, userPlantGrid };
 }
 
 export const domElements = domElementsManager();

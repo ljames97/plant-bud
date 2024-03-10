@@ -1,12 +1,13 @@
 MAIN TODO:
 - start plant quiz, schedueler etc start this in new component folder
 - event handling seperate files for home page vs dashboard?
-
+- plant quiz build on seperate html page then integrate into main dashboard
 
 TODO plant-log:
 - create or find http request for plant directory with title, images etc
 - form error and message at renderManualPlantForm error handling
 - simple css for forms
+- add search button next to addNewPlant button
 
 TODO plant-page:
 - local storage
