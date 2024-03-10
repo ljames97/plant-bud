@@ -4,11 +4,14 @@
  */
 
 import { domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
-import { addPlantToGrid, plantLog, populatePlantGrid } from "./plantLog";
+import { addPlantToGrid, plantLog, populatePlantGrid, startMyPlants } from "./plantLog";
 import { renderNewPlantSearch } from "./plantSearch";
 import { validatePlantData } from "./addNewPlant";
 import { renderPlantDetails } from "./plantPage";
 import { hideElements, removeChildren } from "./utility";
+import { startPlantQuiz } from "./plant-quiz/plantQuiz";
+import { dashboardNavButtonHighlight } from "./dashboard";
+import { startPlantDiscovery } from "./plant-discovery/plant-discovery";
 
 
 
@@ -103,9 +106,12 @@ const eventManager = () => {
  * This includes listeners for searching plants, adding new plants, etc.
  */
 export const setUpEventListeners = () => {
-  const { addNewPlantBtn } = domElements;
+  const { addNewPlantBtn, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
   localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
+  localEventManager.addEventListener(myPlantsBtn, 'click', startMyPlants);
+  localEventManager.addEventListener(plantQuizBtn, 'click', startPlantQuiz);
+  localEventManager.addEventListener(discoverBtn, 'click', startPlantDiscovery);
   setupUserPlantGridEventListener();
 }
 
@@ -181,6 +187,7 @@ const staticEventHandlerManager = () => {
 export const dashboardInit = () => {
   setUpEventListeners();
   populatePlantGrid();
+  dashboardNavButtonHighlight();
 }
 
 export const homeInit = () => {

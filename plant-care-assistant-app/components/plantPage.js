@@ -15,7 +15,7 @@ import { plantLog } from "./plantLog";
  * @param {HTMLElement} userPlantGrid 
  */
 export const renderPlantDetails = (plant, userPlantGrid) => {
-  const { dashboard } = domElements;
+  const { plantLog } = domElements;
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: '← back to dashboard'});
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
@@ -29,12 +29,12 @@ export const renderPlantDetails = (plant, userPlantGrid) => {
   appendChildren(plantImageContainer, plantImage);
   appendChildren(subHeader, backToDashboard, editPlantDetailsBtn);
 
-  appendChildren(dashboard, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
+  appendChildren(plantLog, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
 
   localEventManager.addEventListener(editPlantDetailsBtn, 'click', () => 
     toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes, plantImageContainer, plantImage}))
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    backToDashboardHandler(dashboard, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
+    backToDashboardHandler(plantLog, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
   })
 
   // add watering scheduele and other requirements (soil, light etc)

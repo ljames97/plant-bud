@@ -9,17 +9,26 @@
   padding: 0;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
   width: 90%;
-
 }
 
 .dashboard-nav-item {
-  padding: 0.3rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 0.8rem;
+  background-color: #8F4721;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  letter-spacing: 0.1rem;
 }
 
-.dashboard-items {
+.dashboard-nav-item:hover,
+.dashboard-nav-item:active {
+  background-color:#cd7647;
+}
+
+.plant-log {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +36,7 @@
 }
 
 .plant-log-title {
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
   /* display: none; */
 }
 

@@ -3,19 +3,24 @@
  * For stored dom elements, dynamic elements, and utility functions related to the dom. 
  */
 
+import { dashboardNavButtonHighlight } from "./dashboard";
 import { addPlantToGrid, plantLog } from "./plantLog";
+import { hideElements, showElements } from "./utility";
 
 /**
  * Return most reused dom elements.
  * @returns html elements
  */
 export const domElementsManager = () => {
-  const dashboard = document.querySelector('.dashboard-items');
+  const plantLog = document.querySelector('.plant-log');
+  const myPlantsBtn = document.querySelector('.my-plants-btn');
+  const plantQuizBtn = document.querySelector('.plant-quiz-btn');
+  const discoverBtn = document.querySelector('.discover-btn');
   const plantLogTitle = document.querySelector('.plant-log-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
   const userPlantGrid = document.querySelector('.user-plants');
 
-  return { dashboard, plantLogTitle, addNewPlantBtn, userPlantGrid };
+  return { plantLog, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
 }
 
 export const domElements = domElementsManager();
@@ -83,6 +88,23 @@ export const refreshPlantGrid = () => {
   plantLog.userPlantLog.forEach(plant => {
     addPlantToGrid(plant);
   })
+}
+
+export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
+  const { plantLog, myPlantsBtn } = domElements;
+  activeBtn.classList.add('active');
+
+  inactiveBtn.forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  dashboardNavButtonHighlight();
+
+  if (activeBtn !== myPlantsBtn) {
+    hideElements(plantLog);
+  } else {
+    showElements('flex', plantLog);
+  }
 }
 
 export const dynamicPlantElements = createDynamicPlantElements();

@@ -27,19 +27,19 @@ const createSearchInput = () => {
  */
 export const renderNewPlantSearch = () => {
   const { userSearch, searchForPlant, searchButton, cancelSearchBtn } = createSearchInput();
-  const { dashboard, userPlantGrid } = domElements;
+  const { plantLog, userPlantGrid } = domElements;
 
   hideInitialDomElements();
   hideElements(userPlantGrid);
 
   appendChildren(userSearch, searchForPlant, searchButton);
-  appendChildren(dashboard, userSearch, cancelSearchBtn);
+  appendChildren(plantLog, userSearch, cancelSearchBtn);
 
   localEventManager.addEventListener(searchButton, 'click', () => {
     searchButtonClickHandler(userSearch, searchForPlant, searchButton, cancelSearchBtn);
   });
   localEventManager.addEventListener(cancelSearchBtn, 'click', () => {
-    cancelSearchButtonClickHandler(userSearch, dashboard, cancelSearchBtn);
+    cancelSearchButtonClickHandler(userSearch, plantLog, cancelSearchBtn);
   })
 }
 
@@ -58,18 +58,18 @@ export const searchButtonClickHandler = (userSearch, searchForPlant, searchButto
 /**
  * Handle cancel search button click.
  * @param {HTMLElement} userSearch 
- * @param {HTMLElement} dashboard 
+ * @param {HTMLElement} plantLog 
  * @param {HTMLElement} cancelSearchBtn 
  */
-const cancelSearchButtonClickHandler = (userSearch, dashboard, cancelSearchBtn) => {
-  removeChildren(dashboard, userSearch, cancelSearchBtn);
+const cancelSearchButtonClickHandler = (userSearch, plantLog, cancelSearchBtn) => {
+  removeChildren(plantLog, userSearch, cancelSearchBtn);
   resetDomElements();
 }
 
 /**
  * Render results of user search.
  * @param {HTMLElement} userSearchInput
- * @param {HTMLElement} dashboard
+ * @param {HTMLElement} plantLog
  * @returns 
  */
 const renderPlantSearchResults = (userSearch, userSearchInput, searchButton, cancelSearchBtn) => {
