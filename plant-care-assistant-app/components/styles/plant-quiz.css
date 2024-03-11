@@ -1,0 +1,11 @@
+.plant-quiz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-subheader {
+  padding-bottom: 1rem;
+  text-align: center;
+}

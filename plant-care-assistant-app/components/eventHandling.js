@@ -3,14 +3,13 @@
  * Event handler logic
  */
 
-import { domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
+import { dashboardNavButtonHighlight, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
 import { addPlantToGrid, plantLog, populatePlantGrid, startMyPlants } from "./plantLog";
 import { renderNewPlantSearch } from "./plantSearch";
 import { validatePlantData } from "./addNewPlant";
 import { renderPlantDetails } from "./plantPage";
 import { hideElements, removeChildren } from "./utility";
 import { startPlantQuiz } from "./plant-quiz/plantQuiz";
-import { dashboardNavButtonHighlight } from "./dashboard";
 import { startPlantDiscovery } from "./plant-discovery/plant-discovery";
 
 

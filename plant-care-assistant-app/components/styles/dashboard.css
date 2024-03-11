@@ -35,18 +35,18 @@
   padding: 0 1rem 1rem 1rem;
 }
 
-.plant-log-title {
+.section-title {
   margin: 0 0 1rem 0;
   /* display: none; */
 }
 
 .add-new-plant-btn {
-  padding: 3rem;
+  padding: 2rem 4rem;
   background-color: #8F4721;
   color: white;
   border: none;
   box-shadow: 0 0 10px #823A12;
-  border-radius: 50%;
+  border-radius: 1rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +55,7 @@
   text-align: center;
   font-size: 0.8rem;
   position: relative;
+  letter-spacing: 0.1rem;
 }
 
 .add-new-plant-btn:hover,

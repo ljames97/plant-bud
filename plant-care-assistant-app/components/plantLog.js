@@ -3,11 +3,9 @@
  * For displaying user plants on the dashboard
  */
 
-
-
 import { dummyPlants, plantDirectoryManager } from "./data";
 import { domElements, createElement, prepareDashboard } from "./domManipulation";
-import { appendChildren, findItemInArray, showElements } from "./utility";
+import { appendChildren, findItemInArray } from "./utility";
 
 export const plantDirectory = plantDirectoryManager();
 

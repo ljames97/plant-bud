@@ -3,7 +3,6 @@
  * For stored dom elements, dynamic elements, and utility functions related to the dom. 
  */
 
-import { dashboardNavButtonHighlight } from "./dashboard";
 import { addPlantToGrid, plantLog } from "./plantLog";
 import { hideElements, showElements } from "./utility";
 
@@ -12,19 +11,20 @@ import { hideElements, showElements } from "./utility";
  * @returns html elements
  */
 export const domElementsManager = () => {
+  const dashboard = document.querySelector('.dashboard');
   const plantLog = document.querySelector('.plant-log');
+  const plantQuiz = document.querySelector('.plant-quiz')
   const myPlantsBtn = document.querySelector('.my-plants-btn');
   const plantQuizBtn = document.querySelector('.plant-quiz-btn');
   const discoverBtn = document.querySelector('.discover-btn');
-  const plantLogTitle = document.querySelector('.plant-log-title');
+  const plantLogTitle = document.querySelector('.section-title');
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
   const userPlantGrid = document.querySelector('.user-plants');
 
-  return { plantLog, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
+  return { dashboard, plantLog, plantQuiz, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
 }
 
 export const domElements = domElementsManager();
-
 
 export const resetDomElements = () => {
   const { plantLogTitle, addNewPlantBtn, userPlantGrid } = domElements;
@@ -33,6 +33,10 @@ export const resetDomElements = () => {
   userPlantGrid.style.display = 'grid';
 }
 
+/**
+ * Create dynamic elements for the plant page.
+ * @returns dynamic plant elements.
+ */
 export const createDynamicPlantElements = () => {
   const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
@@ -90,21 +94,48 @@ export const refreshPlantGrid = () => {
   })
 }
 
+/**
+ * Prepare the dashboard by rendering the active section and removing the inactive section.
+ * @param {HTMLElement} activeBtn - button clicked.
+ * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
+ */
 export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
-  const { plantLog, myPlantsBtn } = domElements;
+  const { plantLog, plantQuiz, myPlantsBtn, plantQuizBtn } = domElements;
   activeBtn.classList.add('active');
 
   inactiveBtn.forEach(button => {
     button.classList.remove('active');
   });
-  
-  dashboardNavButtonHighlight();
 
   if (activeBtn !== myPlantsBtn) {
     hideElements(plantLog);
   } else {
     showElements('flex', plantLog);
   }
+
+  if (activeBtn !== plantQuizBtn) {
+    hideElements(plantQuiz);
+  } else {
+    showElements('flex', plantQuiz);
+  }
+
+  dashboardNavButtonHighlight();
+}
+
+/**
+ * Highlight the active dashboard button. Eg. My Plants, Plant Quiz or Discover.
+ */
+export const dashboardNavButtonHighlight = () => {
+  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+  const dashboardButtons = [myPlantsBtn, plantQuizBtn, discoverBtn];
+
+  dashboardButtons.forEach(button => {
+    if (button.classList.contains('active')) {
+      button.style.backgroundColor = '#cd7647';
+    } else {
+      button.style.backgroundColor = '#8F4721'
+    }
+  });
 }
 
 export const dynamicPlantElements = createDynamicPlantElements();

@@ -16,6 +16,9 @@ TODO plant-page:
 - (store plant elements in plantLogManager so dont have to keep recreating them)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
+TODO plant-quiz:
+- modal for plant quiz
+
  FINAL TODO:
  - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
  - clean up css and public image folder
