@@ -4,8 +4,8 @@ MAIN TODO:
 - plant quiz build on seperate html page then integrate into main dashboard
 
 TODO plant-quiz:
+- restart quiz button
 - modal for plant quiz
-- decide on plant quiz questions/pathways for the quiz
 
 TODO plant-log:
 - create or find http request for plant directory with title, images etc
@@ -25,3 +25,4 @@ TODO plant-page:
  - clean up css and public image folder
  - add hyperlinks to menu, contact page, about erc
  - more sophisticated design ideas, colour pallete, buttons, animations etc.
+ - accessibility (buttons, image alt etc.)

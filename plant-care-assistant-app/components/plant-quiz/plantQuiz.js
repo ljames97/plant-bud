@@ -3,7 +3,7 @@
 import { questions } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
-import { appendChildren } from "../utility";
+import { appendChildren, hideElements } from "../utility";
 
 /**
  * Initialises the plant quiz by prepareing the dashboard and rendering the quiz on screen.
@@ -29,8 +29,7 @@ const renderPlantQuiz = () => {
   appendChildren(plantQuiz, quizTitle, quizSubheader, startQuizBtn);
   plantQuiz.classList.add('active');
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
-
-  
+    startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn);
   });
 }
 
@@ -47,26 +46,47 @@ const createPlantQuizElements = () => {
   return { quizTitle, quizSubheader, startQuizBtn };
 }
 
-const startQuizBtnHandler = () => {
-  renderQuestion(questions[0].question, questions[0].answers, );
+const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn) => {
+  hideElements(quizTitle, quizSubheader, startQuizBtn)
+  renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
 }
 
-const renderQuestion = (questionText, choices) => {
-  
-  
+const renderQuestion = (questionText, choices, category, questionId) => {
+  const { plantQuiz } = domElements;
+  const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: 'question-title'});
+  const choiceBtnContainer = createElement({tagName: 'div', classEl: 'choice-btn-container'});
 
+  appendChildren(plantQuiz, questionTitle, choiceBtnContainer);
+  
+  choices.forEach(choice => {
+    const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: 'choice-btn'});
+    appendChildren(choiceBtnContainer, choiceBtn);
+    localEventManager.addEventListener(choiceBtn, 'click', () => {
+      choiceBtnClickHandler(category, choice, questionId)
+    })
+  });
 }
 
-const userAnswerLog = () => {
-  const userAnswerLog = [];
+const choiceBtnClickHandler = (category, choice, questionId) => {
+    userAnswerlog.addUserAnswer(category, choice, questionId);
+    const newQuestionId = questionId + 1
+    renderQuestion(questions[questionId].question, questions[questionId].answers, questions[questionId].category, newQuestionId);
+}
+
+const userAnswerManager = () => {
+  const userAnswerLog = {};
 
   return {
-    
+    addUserAnswer: (category, answer) => {
+      if (!userAnswerLog[category]) {
+        userAnswerLog[category] = [answer];
+      } else {
+        userAnswerLog[category].push(answer);
+      }
+      console.log(userAnswerLog);
+    },
+    userAnswerLog
   }
 }
 
-const generatePlantQuizQuestions = () => {
-  
-
-  return questions;
-}
+const userAnswerlog = userAnswerManager();

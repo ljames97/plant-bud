@@ -9,3 +9,26 @@
   padding-bottom: 1rem;
   text-align: center;
 }
+
+.question-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.choice-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 1rem;
+  letter-spacing: 0.1rem; 
+  background-color: orange;
+  margin: 0 0.5rem;
+}
+
+.choice-btn-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+}

@@ -57,9 +57,9 @@ export const draftQuizPlantData = [
 ];
 
 export const questions = [
-  { question: 'How would you describe your experience with plants?', answers: ['Beginner', 'Medium', 'Advanced'] },
-  { question: 'Where will the plant be located?', answers: ['Home', 'Office', 'Bedroom', 'Living Room'] },
-  { question: 'How much time can you dedicate to plant care weekly?', answers: ['High', 'Low'] },
+  { question: 'How would you describe your experience with plants?', answers: ['Beginner', 'Medium', 'Advanced'], category: 'skill' },
+  { question: 'Where will the plant be located?', answers: ['Home', 'Office', 'Bedroom', 'Living Room'], category: 'location' },
+  { question: 'How much time can you dedicate to plant care weekly?', answers: ['High', 'Low'], category: 'time' },
   { question: 'How interested are you in learning about plant care?', answers: ['High', 'Medium', 'Low'] },
   { question: 'Do you prefer plants that require minimal effort to keep alive?"', answers: [true, false] },
   { question: 'Do you prefer plants that flower?', answers: ['Yes', 'No'] },
