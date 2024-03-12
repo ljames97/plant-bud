@@ -3,6 +3,10 @@ MAIN TODO:
 - event handling seperate files for home page vs dashboard, refactor reused localEventManager into setup vs storage
 - plant quiz build on seperate html page then integrate into main dashboard
 
+TODO plant-quiz:
+- modal for plant quiz
+- decide on plant quiz questions/pathways for the quiz
+
 TODO plant-log:
 - create or find http request for plant directory with title, images etc
 - form error and message at renderManualPlantForm error handling
@@ -15,9 +19,6 @@ TODO plant-page:
 - (plant requirements)
 - (store plant elements in plantLogManager so dont have to keep recreating them)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
-
-TODO plant-quiz:
-- modal for plant quiz
 
  FINAL TODO:
  - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
