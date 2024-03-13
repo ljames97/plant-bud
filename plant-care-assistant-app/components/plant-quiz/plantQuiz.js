@@ -1,9 +1,21 @@
 //plantQuiz.js
 
-import { questions } from "../data";
+import { questions, quizPlantData } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
-import { appendChildren, hideElements } from "../utility";
+import { appendChildren, hideElements, removeChildren } from "../utility";
+
+/**
+ * TODO
+ * - continue render plant results (showing results on screen)
+ * - store clicked answers in answerLog
+ * - restart quiz button and clear answerLog
+ * - function documentation
+ * - seperate files for plant quiz categories
+ * - cut down large functions
+ * - quiz banner image
+ * - extra features for the quiz (sliders, progress bar etc...)
+ */
 
 /**
  * Initialises the plant quiz by prepareing the dashboard and rendering the quiz on screen.
@@ -62,13 +74,20 @@ const renderQuestion = (questionText, choices, category, questionId) => {
     const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: 'choice-btn'});
     appendChildren(choiceBtnContainer, choiceBtn);
     localEventManager.addEventListener(choiceBtn, 'click', () => {
-      choiceBtnClickHandler(category, choice, questionId)
+      choiceBtnClickHandler(category, choice, questionId, plantQuiz, questionTitle, choiceBtnContainer)
     })
   });
 }
 
-const choiceBtnClickHandler = (category, choice, questionId) => {
+const choiceBtnClickHandler = (category, choice, questionId, plantQuiz, questionTitle, choiceBtnContainer) => {
     userAnswerlog.addUserAnswer(category, choice, questionId);
+    removeChildren(plantQuiz, questionTitle, choiceBtnContainer);
+
+    if (questionId === 8) {
+      renderQuizResults(userAnswerlog.userAnswerLog);
+      return;
+    }
+
     const newQuestionId = questionId + 1
     renderQuestion(questions[questionId].question, questions[questionId].answers, questions[questionId].category, newQuestionId);
 }
@@ -79,14 +98,31 @@ const userAnswerManager = () => {
   return {
     addUserAnswer: (category, answer) => {
       if (!userAnswerLog[category]) {
-        userAnswerLog[category] = [answer];
+        userAnswerLog[category] = answer;
       } else {
         userAnswerLog[category].push(answer);
       }
-      console.log(userAnswerLog);
     },
     userAnswerLog
   }
+}
+
+const renderQuizResults = (userAnswers) => {
+  const plantData = quizPlantData;
+
+  const suitablePlants = plantData.filter(plant => {
+    return plant.skill.includes(userAnswers.skill)
+    && plant.location.includes(userAnswers.location)
+    && plant.flowering.includes(userAnswers.flowering)
+    && plant.size.includes(userAnswers.size)
+    && plant.transferToOutdoors.includes(userAnswers.transferToOutdoors)
+    && plant.time.includes(userAnswers.time)
+    && plant.interest.includes(userAnswers.interest)
+    && plant.lowEffort.includes(userAnswers.lowEffort)
+  });
+
+  console.log(suitablePlants);
+
 }
 
 const userAnswerlog = userAnswerManager();

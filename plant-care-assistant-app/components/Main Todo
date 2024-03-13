@@ -21,8 +21,10 @@ TODO plant-page:
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
- - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
- - clean up css and public image folder
- - add hyperlinks to menu, contact page, about erc
- - more sophisticated design ideas, colour pallete, buttons, animations etc.
- - accessibility (buttons, image alt etc.)
+- (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+- cut down large functions
+- error handling/error messages UI
+- clean up css and public image folder
+- add hyperlinks to menu, contact page, about erc
+- more sophisticated design ideas, colour pallete, buttons, animations etc.
+- accessibility (buttons, image alt etc.)

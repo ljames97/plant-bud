@@ -37,33 +37,52 @@ export const dummyPlants = [
   }
 ];
 
-// draft plant directory for plant quiz (and maybe also for plant discovery..?)
-export const draftQuizPlantData = [
-  { name: 'Snake Plant', skill: 'Beginner', location: ['Home', 'Office', 'Bedroom'], flowering: 'No', size: 'Tall', transferToOutdoors: 'Yes', leafPattern: 'Striped', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'Fiddle Leaf Fig', skill: 'Advanced', location: ['Home', 'Living Room'], flowering: 'No', size: 'Tall', transferToOutdoors: 'No', leafPattern: 'Large Green', time: 'High', interest: 'High', lowEffort: false },
-  { name: 'Peace Lily', skill: 'Beginner', location: ['Home', 'Office', 'Bedroom'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Green', time: 'Medium', interest: 'Medium', lowEffort: true },
-  { name: 'Pothos', skill: 'Beginner', location: ['Home', 'Office', 'Living Room'], flowering: 'No', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Variegated', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'Orchid', skill: 'Medium', location: ['Home', 'Bedroom'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'No', leafPattern: 'Smooth', time: 'Medium', interest: 'High', lowEffort: false },
-  { name: 'Monstera Deliciosa', skill: 'Medium', location: ['Home', 'Living Room'], flowering: 'No', size: 'Tall', transferToOutdoors: 'Yes', leafPattern: 'Hole-y', time: 'Medium', interest: 'Medium', lowEffort: false },
-  { name: 'Lavender', skill: 'Medium', location: ['Home', 'Outdoor'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Green', time: 'Medium', interest: 'High', lowEffort: false },
-  { name: 'Spider Plant', skill: 'Beginner', location: ['Home', 'Office'], flowering: 'No', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Striped', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'ZZ Plant', skill: 'Beginner', location: ['Home', 'Office', 'Bedroom'], flowering: 'No', size: 'Tall', transferToOutdoors: 'No', leafPattern: 'Green', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'Rubber Plant', skill: 'Medium', location: ['Home', 'Living Room'], flowering: 'No', size: 'Tall', transferToOutdoors: 'No', leafPattern: 'Large Green', time: 'Medium', interest: 'Medium', lowEffort: false },
-  { name: 'Boston Fern', skill: 'Medium', location: ['Home', 'Bathroom'], flowering: 'No', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Fern', time: 'High', interest: 'Medium', lowEffort: false },
-  { name: 'Cactus', skill: 'Beginner', location: ['Home', 'Office', 'Outdoor'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Spiky', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'Succulents', skill: 'Beginner', location: ['Home', 'Office', 'Living Room'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Varied', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'Aloe Vera', skill: 'Beginner', location: ['Home', 'Office', 'Bedroom'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'Yes', leafPattern: 'Serrated', time: 'Low', interest: 'Low', lowEffort: true },
-  { name: 'Jade Plant', skill: 'Beginner', location: ['Home', 'Office'], flowering: 'Yes', size: 'Short', transferToOutdoors: 'No', leafPattern: 'Smooth', time: 'Low', interest: 'Low', lowEffort: true }
+//plant directory for plant quiz (and maybe also for plant discovery/main directory..?)
+export const quizPlantData = [
+  { name: 'Snake Plant', skill: ['Beginner'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Fiddle Leaf Fig', skill: ['Advanced', 'Medium'], location: ['Home', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['No'], time: ['A lot', 'A lot'], interest: ['Very', 'Kind of'], lowEffort: ['No'] },
+  { name: 'Peace Lily', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['Yes'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes', 'No'], time: ['A lot', 'Not much'], interest: ['Kind of', 'Very'], lowEffort: ['Yes'] },
+  { name: 'Pothos', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Living Room', 'Bedroom'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Orchid', skill: ['Medium', 'Advanced'], location: ['Home', 'Bedroom'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['No'], time: ['A lot', 'A lot'], interest: ['Very', 'Kind of'], lowEffort: ['No'] },
+  { name: 'Monstera Deliciosa', skill: ['Medium', 'Beginner'], location: ['Home', 'Living Room', 'Office'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes', 'No'], time: ['A lot', 'Not much'], interest: ['Kind of', 'Very'], lowEffort: ['No', 'Yes'] },
+  { name: 'Lavender', skill: ['Medium', 'Beginner'], location: ['Home', 'Outdoor', 'Office'], flowering: ['Yes'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['A lot', 'A lot'], interest: ['Very', 'Kind of'], lowEffort: ['No', 'Yes'] },
+  { name: 'Spider Plant', skill: ['Beginner'], location: ['Home', 'Office', 'Bathroom', 'Living Room'], flowering: ['No'], size: ['Short'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really'], lowEffort: ['Yes'] },
+  { name: 'ZZ Plant', skill: ['Beginner'], location: ['Home', 'Office', 'Bedroom'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['No'], time: ['Not much'], interest: ['Not really'], lowEffort: ['Yes'] },
+  { name: 'Rubber Plant', skill: ['Medium'], location: ['Home', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Kind of'], lowEffort: ['No'] },
+  { name: 'Boston Fern', skill: ['Medium'], location: ['Home', 'Bathroom'], flowering: ['No'], size: ['Short'], transferToOutdoors: ['Yes'], time: ['A lot'], interest: ['Kind of'], lowEffort: ['No'] },
+  { name: 'Cactus', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Outdoor'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Succulents', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Living Room'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really'], lowEffort: ['Yes'] },
+  { name: 'Aloe Vera', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Bedroom'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really'], lowEffort: ['Yes'] },
+  { name: 'Jade Plant', skill: ['Beginner'], location: ['Home', 'Office'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['No'], time: ['Not much'], interest: ['Not really'], lowEffort: ['Yes'] },
+  { name: 'Calathea', skill: ['Beginner', 'Medium'], location: ['Home', 'Living Room', 'Bedroom'], flowering: ['No'], size: ['Short'], transferToOutdoors: ['No'], time: ['A lot'], interest: ['Very', 'Kind of'], lowEffort: ['No'] },
+  { name: 'Fern', skill: ['Medium'], location: ['Home', 'Bathroom', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['A lot'], interest: ['Kind of', 'Not really'], lowEffort: ['Yes', 'No'] },
+  { name: 'Philodendron', skill: ['Beginner'], location: ['Home', 'Office', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Yucca', skill: ['Medium', 'Advanced'], location: ['Home', 'Office'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['Medium'], interest: ['Very'], lowEffort: ['No'] },
+  { name: 'Bamboo', skill: ['Beginner'], location: ['Home', 'Office', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Bird of Paradise', skill: ['Advanced'], location: ['Home', 'Living Room'], flowering: ['Yes'], size: ['Tall'], transferToOutdoors: ['No'], time: ['A lot'], interest: ['Very'], lowEffort: ['No'] },
+  { name: 'African Violet', skill: ['Medium'], location: ['Home', 'Bedroom', 'Living Room'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['No'], time: ['A lot'], interest: ['Kind of', 'Very'], lowEffort: ['Yes'] },
+  { name: 'Bromeliad', skill: ['Medium'], location: ['Home', 'Office', 'Bathroom'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['Yes'], time: ['A lot'], interest: ['Kind of'], lowEffort: ['Yes'] },
+  { name: 'Chinese Money Plant', skill: ['Beginner'], location: ['Home', 'Office'], flowering: ['No'], size: ['Short'], transferToOutdoors: ['No'], time: ['Not much'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Croton', skill: ['Advanced'], location: ['Home', 'Living Room', 'Outdoor'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['A lot'], interest: ['Very'], lowEffort: ['No'] },
+  { name: 'Dieffenbachia', skill: ['Medium'], location: ['Home', 'Office'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Kind of'], lowEffort: ['Yes'] },
+  { name: 'Dracaena', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Ficus', skill: ['Medium', 'Advanced'], location: ['Home', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Very', 'Kind of'], lowEffort: ['No'] },
+  { name: 'Hoya', skill: ['Medium'], location: ['Home', 'Bedroom'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Very', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Kentia Palm', skill: ['Beginner', 'Medium'], location: ['Home', 'Living Room', 'Office'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Kind of'], lowEffort: ['Yes'] },
+  { name: 'Nerve Plant', skill: ['Medium'], location: ['Home', 'Office', 'Bathroom'], flowering: ['No'], size: ['Short'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Very'], lowEffort: ['Yes'] },
+  { name: 'Parlor Palm', skill: ['Beginner'], location: ['Home', 'Office', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much'], interest: ['Not really'], lowEffort: ['Yes'] },
+  { name: 'Peperomia', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Bedroom'], flowering: ['No'], size: ['Short'], transferToOutdoors: ['No'], time: ['Not much'], interest: ['Kind of'], lowEffort: ['Yes'] },
+  { name: 'Schefflera', skill: ['Medium'], location: ['Home', 'Living Room', 'Office'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['A lot'], interest: ['Very'], lowEffort: ['No'] },
+  { name: 'Swiss Cheese Plant', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['Not much','A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] }
 ];
 
 export const questions = [
-  { question: 'How would you describe your experience with plants?', answers: ['Beginner', 'Medium', 'Advanced'], category: 'skill' },
-  { question: 'Where will the plant be located?', answers: ['Home', 'Office', 'Bedroom', 'Living Room'], category: 'location' },
-  { question: 'How much time can you dedicate to plant care weekly?', answers: ['High', 'Low'], category: 'time' },
-  { question: 'How interested are you in learning about plant care?', answers: ['High', 'Medium', 'Low'] },
-  { question: 'Do you prefer plants that require minimal effort to keep alive?"', answers: [true, false] },
-  { question: 'Do you prefer plants that flower?', answers: ['Yes', 'No'] },
-  { question: 'What size would you prefer?', answers: ['Short', 'Tall'] },
-  { question: 'What kind of leaf pattern do you prefer?', answers: ['Stripled', 'Large Green', 'Green', 'Variegated', 'Hole-y', 'Fern', 'Spiky', 'Serrated'] },
-  { question: 'Do you want a plant that can be transferred to outdoors?', answers: ['Yes', 'No'] }
+  { question: 'How would you describe your ability with plants?', answers: ['Beginner', 'Medium', 'Advanced'], category: 'skill' },
+  { question: 'Where will your plant be located?', answers: ['Home', 'Office', 'Bedroom', 'Living Room'], category: 'location' },
+  { question: 'How much time can you dedicate to plant care weekly?', answers: ['A lot', 'Not much'], category: 'time' },
+  { question: 'How interested are you in learning about plant care?', answers: ['Very', 'Kind of', 'Not really'], category: 'interest' },
+  { question: 'Do you prefer plants that require minimal effort to keep alive?', answers: ['Yes', 'No'], category: 'lowEffort' },
+  { question: 'Do you want a plant that flowers?', answers: ['Yes', 'No'], category: 'flowering' },
+  { question: 'What size plant would you prefer?', answers: ['Short', 'Tall'], category: 'size'  },
+  { question: 'Do you want a plant that can be transferred to outdoors?', answers: ['Yes', 'No'], category: 'transferToOutdoors' }
 ];
