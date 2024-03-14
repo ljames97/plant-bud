@@ -3,17 +3,15 @@
 import { questions, quizPlantData } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
-import { appendChildren, hideElements, removeChildren } from "../utility";
+import { appendChildren, hideElements, removeChildren, showElements } from "../utility";
 
 /**
  * TODO
- * - continue render plant results (showing results on screen)
- * - store clicked answers in answerLog
- * - restart quiz button and clear answerLog
  * - function documentation
  * - seperate files for plant quiz categories
  * - cut down large functions
  * - quiz banner image
+ * - plant results need to have title, image, description and button to view the unique plant page (takes you to discover)
  * - extra features for the quiz (sliders, progress bar etc...)
  */
 
@@ -41,7 +39,7 @@ const renderPlantQuiz = () => {
   appendChildren(plantQuiz, quizTitle, quizSubheader, startQuizBtn);
   plantQuiz.classList.add('active');
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
-    startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn);
+    startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn, plantQuiz);
   });
 }
 
@@ -58,9 +56,22 @@ const createPlantQuizElements = () => {
   return { quizTitle, quizSubheader, startQuizBtn };
 }
 
-const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn) => {
+const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn, plantQuiz) => {
   hideElements(quizTitle, quizSubheader, startQuizBtn)
+
+  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz'})
+  localEventManager.addEventListener(restartQuizBtn, 'click', () => {
+    restartQuizHandler(plantQuiz);
+  })
+  appendChildren(plantQuiz, restartQuizBtn);
+
   renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
+}
+
+const restartQuizHandler = (plantQuiz) => {
+  userAnswerlog.refreshAnswerLog();
+  plantQuiz.innerHTML = '';
+  renderPlantQuiz();
 }
 
 const renderQuestion = (questionText, choices, category, questionId) => {
@@ -84,7 +95,9 @@ const choiceBtnClickHandler = (category, choice, questionId, plantQuiz, question
     removeChildren(plantQuiz, questionTitle, choiceBtnContainer);
 
     if (questionId === 8) {
-      renderQuizResults(userAnswerlog.userAnswerLog);
+      const quizResults = userAnswerlog.getUserAnswerLog();
+      
+      getQuizResults(quizResults);
       return;
     }
 
@@ -93,7 +106,7 @@ const choiceBtnClickHandler = (category, choice, questionId, plantQuiz, question
 }
 
 const userAnswerManager = () => {
-  const userAnswerLog = {};
+  let userAnswerLog = {};
 
   return {
     addUserAnswer: (category, answer) => {
@@ -102,12 +115,19 @@ const userAnswerManager = () => {
       } else {
         userAnswerLog[category].push(answer);
       }
+      console.log(userAnswerLog);
     },
-    userAnswerLog
+    refreshAnswerLog: () => {
+      userAnswerLog = {};
+      console.log(userAnswerLog);
+    },
+    getUserAnswerLog: () => {
+      return userAnswerLog;
+    }
   }
 }
 
-const renderQuizResults = (userAnswers) => {
+const getQuizResults = (userAnswers) => {
   const plantData = quizPlantData;
 
   const suitablePlants = plantData.filter(plant => {
@@ -121,8 +141,47 @@ const renderQuizResults = (userAnswers) => {
     && plant.lowEffort.includes(userAnswers.lowEffort)
   });
 
-  console.log(suitablePlants);
+  const closestPlants = plantData.filter(plant => {
+    return plant.skill.includes(userAnswers.skill)
+    && plant.size.includes(userAnswers.size)
+    && plant.transferToOutdoors.includes(userAnswers.transferToOutdoors)
+  });
 
+  if (suitablePlants.length === 0) {
+    renderQuizResults(closestPlants);
+  } else {
+    renderQuizResults(suitablePlants);
+  }
+}
+
+const renderQuizResults = (results) => {
+  const { plantQuiz } = domElements;
+
+  let displayedResults = results;
+  if (results.length > 3) {
+    displayedResults = randomiseArray(results, 2);
+  }
+
+  displayedResults.forEach(result => {
+    const { resultTitle } = createResultElements(result);
+    appendChildren(plantQuiz, resultTitle);
+  })
+}
+
+const createResultElements = (result) => {
+  const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: 'result-title'});
+  return { resultTitle };
+}
+
+const randomiseArray = (arr, size) => {
+  let shuffled = arr.slice(0), i = arr.length, temp, index;
+  while (i--) {
+      index = Math.floor((i + 1) * Math.random());
+      temp = shuffled[index];
+      shuffled[index] = shuffled[i];
+      shuffled[i] = temp;
+  }
+  return shuffled.slice(0, size);
 }
 
 const userAnswerlog = userAnswerManager();

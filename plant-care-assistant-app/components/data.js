@@ -40,6 +40,7 @@ export const dummyPlants = [
 //plant directory for plant quiz (and maybe also for plant discovery/main directory..?)
 export const quizPlantData = [
   { name: 'Snake Plant', skill: ['Beginner'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
+  { name: 'Anthurium', skill: ['Medium', 'Advanced'], location: ['Home', 'Bedroom', 'Living Room'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Very', 'Kind of'], lowEffort: ['No'] },
   { name: 'Fiddle Leaf Fig', skill: ['Advanced', 'Medium'], location: ['Home', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['No'], time: ['A lot', 'A lot'], interest: ['Very', 'Kind of'], lowEffort: ['No'] },
   { name: 'Peace Lily', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['Yes'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes', 'No'], time: ['A lot', 'Not much'], interest: ['Kind of', 'Very'], lowEffort: ['Yes'] },
   { name: 'Pothos', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Living Room', 'Bedroom'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'] },
