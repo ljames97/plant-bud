@@ -10,7 +10,6 @@ import { randomiseArray } from "./utility";
 
 /**
  * TODO
- * - cut down large functions
  * - quiz banner image
  * - plant results need to have title, image, description and button to view the unique plant page (takes you to discover)
  * - extra features for the quiz (sliders, progress bar etc...)
