@@ -1,14 +1,15 @@
 //plantQuiz.js
 
-import { questions, quizPlantData } from "../data";
+import { quizPlantData } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
-import { appendChildren, hideElements, removeChildren, showElements } from "../utility";
+import { appendChildren } from "../utility";
+import { createPlantQuizElements, createResultElements } from "./domManipulation";
+import { choiceBtnClickHandler, startQuizBtnHandler } from "./eventHandling";
+import { randomiseArray } from "./utility";
 
 /**
  * TODO
- * - function documentation
- * - seperate files for plant quiz categories
  * - cut down large functions
  * - quiz banner image
  * - plant results need to have title, image, description and button to view the unique plant page (takes you to discover)
@@ -32,7 +33,7 @@ export const startPlantQuiz = () => {
 /**
  * Renders the initial quiz state on screen.
  */
-const renderPlantQuiz = () => {
+export const renderPlantQuiz = () => {
   const { plantQuiz } = domElements;
   const { quizTitle, quizSubheader, startQuizBtn } = createPlantQuizElements();
 
@@ -44,37 +45,13 @@ const renderPlantQuiz = () => {
 }
 
 /**
- * Creates plant quiz elements.
- * @returns Plant quiz elements.
+ * Render question on screen based on specific question ID.
+ * @param {string} questionText 
+ * @param {string} choices 
+ * @param {string} category 
+ * @param {number} questionId 
  */
-const createPlantQuizElements = () => {
-  const quizTitle = createElement({tagName: 'h1', classEl: 'section-title', textContent: 'Plant Quiz'});
-  const quizSubheader = createElement({tagName: 'p', classEl: 'quiz-subheader', textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
-  const quizPhoto = '';
-  const startQuizBtn = createElement({tagName: 'button', textContent: 'START'});
-
-  return { quizTitle, quizSubheader, startQuizBtn };
-}
-
-const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn, plantQuiz) => {
-  hideElements(quizTitle, quizSubheader, startQuizBtn)
-
-  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz'})
-  localEventManager.addEventListener(restartQuizBtn, 'click', () => {
-    restartQuizHandler(plantQuiz);
-  })
-  appendChildren(plantQuiz, restartQuizBtn);
-
-  renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
-}
-
-const restartQuizHandler = (plantQuiz) => {
-  userAnswerlog.refreshAnswerLog();
-  plantQuiz.innerHTML = '';
-  renderPlantQuiz();
-}
-
-const renderQuestion = (questionText, choices, category, questionId) => {
+export const renderQuestion = (questionText, choices, category, questionId) => {
   const { plantQuiz } = domElements;
   const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: 'question-title'});
   const choiceBtnContainer = createElement({tagName: 'div', classEl: 'choice-btn-container'});
@@ -90,21 +67,11 @@ const renderQuestion = (questionText, choices, category, questionId) => {
   });
 }
 
-const choiceBtnClickHandler = (category, choice, questionId, plantQuiz, questionTitle, choiceBtnContainer) => {
-    userAnswerlog.addUserAnswer(category, choice, questionId);
-    removeChildren(plantQuiz, questionTitle, choiceBtnContainer);
 
-    if (questionId === 8) {
-      const quizResults = userAnswerlog.getUserAnswerLog();
-      
-      getQuizResults(quizResults);
-      return;
-    }
-
-    const newQuestionId = questionId + 1
-    renderQuestion(questions[questionId].question, questions[questionId].answers, questions[questionId].category, newQuestionId);
-}
-
+/**
+ * Manages functions related to user answers. Add answer, clear answer log and get answer log.
+ * @returns 
+ */
 const userAnswerManager = () => {
   let userAnswerLog = {};
 
@@ -127,7 +94,11 @@ const userAnswerManager = () => {
   }
 }
 
-const getQuizResults = (userAnswers) => {
+/**
+ * Get results of the quiz. Match suitable plants to users choices and render results on screen.
+ * @param {Object} userAnswers 
+ */
+export const getQuizResults = (userAnswers) => {
   const plantData = quizPlantData;
 
   const suitablePlants = plantData.filter(plant => {
@@ -154,11 +125,15 @@ const getQuizResults = (userAnswers) => {
   }
 }
 
+/**
+ * Render quiz results on screen.
+ * @param {} results 
+ */
 const renderQuizResults = (results) => {
   const { plantQuiz } = domElements;
 
   let displayedResults = results;
-  if (results.length > 3) {
+  if (results.length > 2) {
     displayedResults = randomiseArray(results, 2);
   }
 
@@ -168,20 +143,5 @@ const renderQuizResults = (results) => {
   })
 }
 
-const createResultElements = (result) => {
-  const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: 'result-title'});
-  return { resultTitle };
-}
 
-const randomiseArray = (arr, size) => {
-  let shuffled = arr.slice(0), i = arr.length, temp, index;
-  while (i--) {
-      index = Math.floor((i + 1) * Math.random());
-      temp = shuffled[index];
-      shuffled[index] = shuffled[i];
-      shuffled[i] = temp;
-  }
-  return shuffled.slice(0, size);
-}
-
-const userAnswerlog = userAnswerManager();
+export const userAnswerlog = userAnswerManager();
