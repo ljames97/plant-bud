@@ -1,5 +1,6 @@
 MAIN TODO:
 - start plant quiz, schedueler etc start this in new component folder
+- folders for plantLog vs home page
 - event handling seperate files for home page vs dashboard, refactor reused localEventManager into setup vs storage
 - plant quiz build on seperate html page then integrate into main dashboard
 
@@ -22,9 +23,12 @@ TODO plant-page:
 
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+- REVIEW ALL CODE and improve modularity/functional 
 - cut down large functions
 - error handling/error messages UI
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about erc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
 - accessibility (buttons, image alt etc.)
+- unit testing / js tests
+- production ideas/hosting
