@@ -49,7 +49,7 @@ export const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchI
  * @param {HTMLElement} cancelSearchBtn 
  */
 const renderManualPlantForm = (userSearch, cancelSearchBtn) => {
-  const { plantForm, name, dateAdded, plantPhoto, notes, submitBtn } = createManualPlantForm();
+  const { plantForm, name, dateAdded, plantPhoto, description, submitBtn } = createManualPlantForm();
   appendChildren(userSearch, plantForm);
 
   let imageDataUrl = [];
@@ -61,7 +61,7 @@ const renderManualPlantForm = (userSearch, cancelSearchBtn) => {
   });
 
   localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    submitHandler(event, name, dateAdded, notes, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn);
+    submitHandler(event, name, dateAdded, description, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn);
   });
 }
 
@@ -80,10 +80,10 @@ const createManualPlantForm = () => {
 
   const submitBtn = createElement({tagName: 'button', textContent: 'Add My Plant'});
   // may add watering scheduele, similar plants etc.
-  const notes = createElement({tagName: 'textarea', placeholder: 'Extra notes'})
-  appendChildren(plantForm, name, dateAdded, plantPhoto, notes, submitBtn);
+  const description = createElement({tagName: 'textarea', placeholder: 'Description'})
+  appendChildren(plantForm, name, dateAdded, plantPhoto, description, submitBtn);
 
-  return { plantForm, name, dateAdded, plantPhoto, notes, submitBtn };
+  return { plantForm, name, dateAdded, plantPhoto, description, submitBtn };
 }
 
 /**

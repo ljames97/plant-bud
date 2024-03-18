@@ -1,9 +1,10 @@
 //plantQuiz.js
 
-import { quizPlantData } from "../data";
+import { plantDirectory } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
-import { appendChildren } from "../utility";
+import { renderPlantDetails } from "../plantPage";
+import { appendChildren, hideElements } from "../utility";
 import { createPlantQuizElements, createResultElements } from "./domManipulation";
 import { choiceBtnClickHandler, startQuizBtnHandler } from "./eventHandling";
 import { randomiseArray } from "./utility";
@@ -12,6 +13,7 @@ import { randomiseArray } from "./utility";
  * TODO
  * - quiz banner image
  * - plant results need to have title, image, description and button to view the unique plant page (takes you to discover)
+ * - plant page needs to apply to each plant in directory
  * - extra features for the quiz (sliders, progress bar etc...)
  */
 
@@ -98,7 +100,7 @@ const userAnswerManager = () => {
  * @param {Object} userAnswers 
  */
 export const getQuizResults = (userAnswers) => {
-  const plantData = quizPlantData;
+  const plantData = plantDirectory;
 
   const suitablePlants = plantData.filter(plant => {
     return plant.skill.includes(userAnswers.skill)
@@ -139,8 +141,14 @@ const renderQuizResults = (results) => {
   displayedResults.forEach(result => {
     const { resultTitle } = createResultElements(result);
     appendChildren(plantQuiz, resultTitle);
+
+    localEventManager.addEventListener(resultTitle, 'click', () => {
+      console.log(result);
+      // need to create extra div for quiz content so that plantQuiz is not hidden.
+      hideElements(plantQuiz);
+      renderPlantDetails(result, plantQuiz);
+    })
   })
 }
-
 
 export const userAnswerlog = userAnswerManager();

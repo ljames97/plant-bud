@@ -4,9 +4,9 @@
  */
 
 import { renderManualPlantUploadBtn } from "./addNewPlant";
+import { plantDirectory } from "./data";
 import { createElement, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
 import { localEventManager } from "./eventHandling";
-import { plantDirectory } from "./plantLog";
 import { appendChildren, hideElements, removeChildren } from "./utility";
 
 /**

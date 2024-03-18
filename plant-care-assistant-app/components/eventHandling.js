@@ -115,8 +115,9 @@ export const setUpEventListeners = () => {
 }
 
 const setupUserPlantGridEventListener = () => {
-  const { userPlantGrid } = domElements;
+  const { userPlantGrid, plantLogEl } = domElements;
 
+  // event propagation
   localEventManager.addEventListener(userPlantGrid, 'click', (event) => {
     let target = event.target;
     while (target && target !== userPlantGrid) {
@@ -124,7 +125,7 @@ const setupUserPlantGridEventListener = () => {
         const plantId = target.getAttribute('data-id');
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
-          renderPlantDetails(plant, userPlantGrid);
+          renderPlantDetails(plant, plantLogEl, userPlantGrid);
           hideElements(userPlantGrid);
           hideInitialDomElements();
         }

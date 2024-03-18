@@ -3,11 +3,9 @@
  * For displaying user plants on the dashboard
  */
 
-import { dummyPlants, plantDirectoryManager } from "./data";
+import { dummyPlants, plantDirectory } from "./data";
 import { domElements, createElement, prepareDashboard } from "./domManipulation";
 import { appendChildren, findItemInArray } from "./utility";
-
-export const plantDirectory = plantDirectoryManager();
 
 export const startMyPlants = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
@@ -83,7 +81,7 @@ export const populatePlantGrid = () => {
   });
 }
 
-// Dummy plants added to plantLog (irl will be taken from local storage or when added by user)
+// user added plants added to plantLog (irl will be taken from local storage or when added by user)
 dummyPlants.forEach(plant => {
   plantLog.addToUserPlantLog(plant);
 })

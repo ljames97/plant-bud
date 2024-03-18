@@ -12,29 +12,28 @@ import { plantLog } from "./plantLog";
 /**
  * Render plant details on screen
  * @param {Object} plant 
- * @param {HTMLElement} userPlantGrid 
+ * @param {HTMLElement} container 
  */
-export const renderPlantDetails = (plant, userPlantGrid) => {
-  const { plantLog } = domElements;
+export const renderPlantDetails = (plant, container, userPlantGrid) => {
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: '← back to dashboard'});
   const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
   
-  const { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes } = dynamicPlantElements;
+  const { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription } = dynamicPlantElements;
   plantTitle.textContent = plant.name;
   plantDate.textContent = plant.dateAdded;
-  plantNotes.textContent = plant.notes;
+  plantDescription.textContent = plant.description;
   plantImage.src = plant.image;
 
   appendChildren(plantImageContainer, plantImage);
   appendChildren(subHeader, backToDashboard, editPlantDetailsBtn);
 
-  appendChildren(plantLog, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
+  appendChildren(container, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
 
   localEventManager.addEventListener(editPlantDetailsBtn, 'click', () => 
-    toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantNotes, plantImageContainer, plantImage}))
+    toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage}))
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    backToDashboardHandler(plantLog, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantNotes);
+    backToDashboardHandler(container, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
   })
 
   // add watering scheduele and other requirements (soil, light etc)
@@ -54,7 +53,7 @@ const toggleEditMode = (plant, editBtn, elements) => {
 
     elements.plantTitle.innerHTML = `<input type="text" class="edit-plant-title" value="${plant.name}">`;
     elements.plantDate.innerHTML = `<input type="text" class="edit-plant-date" value="${plant.dateAdded}">`;
-    elements.plantNotes.innerHTML = `<textarea class="edit-plant-notes">${plant.notes}</textarea>`;
+    elements.plantDescription.innerHTML = `<textarea class="edit-plant-notes">${plant.description}</textarea>`;
 
     const imageInput = document.createElement('input');
     imageInput.type = 'file';
@@ -74,18 +73,18 @@ const toggleEditMode = (plant, editBtn, elements) => {
 
     const updatedName = document.querySelector('.edit-plant-title').value;
     const updatedDate = document.querySelector('.edit-plant-date').value;
-    const updatedNotes = document.querySelector('.edit-plant-notes').value;
+    const updatedDescription = document.querySelector('.edit-plant-notes').value;
 
     plant.name = updatedName;
     plant.dateAdded = updatedDate;
-    plant.notes = updatedNotes;
+    plant.description = updatedDescription;
 
     plantLog.updatePlantInfo(plant);
     refreshPlantGrid();
 
     elements.plantTitle.textContent = updatedName;
     elements.plantDate.textContent = updatedDate;
-    elements.plantNotes.textContent = updatedNotes;
+    elements.plantDescription.textContent = updatedDescription;
 
     const imageInput = document.querySelector('.edit-plant-image');
     if (imageInput) {

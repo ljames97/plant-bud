@@ -12,7 +12,7 @@ import { hideElements, showElements } from "./utility";
  */
 export const domElementsManager = () => {
   const dashboard = document.querySelector('.dashboard');
-  const plantLog = document.querySelector('.plant-log');
+  const plantLogEl = document.querySelector('.plant-log');
   const plantQuiz = document.querySelector('.plant-quiz')
   const myPlantsBtn = document.querySelector('.my-plants-btn');
   const plantQuizBtn = document.querySelector('.plant-quiz-btn');
@@ -21,7 +21,7 @@ export const domElementsManager = () => {
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
   const userPlantGrid = document.querySelector('.user-plants');
 
-  return { dashboard, plantLog, plantQuiz, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
+  return { dashboard, plantLogEl, plantQuiz, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
 }
 
 export const domElements = domElementsManager();
@@ -42,9 +42,9 @@ export const createDynamicPlantElements = () => {
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
   const plantImage = createElement({tagName: 'img'});
   const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
-  const plantNotes = createElement({tagName: 'p', classEl: 'plant-description'});
+  const plantDescription = createElement({tagName: 'p', classEl: 'plant-description'});
 
-  return { plantTitle, plantImageContainer, plantImage, plantDate, plantNotes };
+  return { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription };
 }
 
 /**
@@ -100,7 +100,7 @@ export const refreshPlantGrid = () => {
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
 export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
-  const { plantLog, plantQuiz, myPlantsBtn, plantQuizBtn } = domElements;
+  const { plantLogEl, plantQuiz, myPlantsBtn, plantQuizBtn } = domElements;
   activeBtn.classList.add('active');
 
   inactiveBtn.forEach(button => {
@@ -108,9 +108,9 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
   });
 
   if (activeBtn !== myPlantsBtn) {
-    hideElements(plantLog);
+    hideElements(plantLogEl);
   } else {
-    showElements('flex', plantLog);
+    showElements('flex', plantLogEl);
   }
 
   if (activeBtn !== plantQuizBtn) {
