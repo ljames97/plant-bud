@@ -1,4 +1,4 @@
-.plant-quiz {
+.quiz-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,4 +42,8 @@
   margin-top: 0.5rem;
   display: flex;
   justify-content: center;
+}
+
+.plant-info-container {
+  
 }
