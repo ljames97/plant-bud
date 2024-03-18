@@ -125,7 +125,7 @@ const setupUserPlantGridEventListener = () => {
         const plantId = target.getAttribute('data-id');
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
-          renderPlantDetails(plant, plantLogEl, userPlantGrid);
+          renderPlantDetails(plant, plantLogEl, userPlantGrid, 'grid', '← back to dashboard');
           hideElements(userPlantGrid);
           hideInitialDomElements();
         }

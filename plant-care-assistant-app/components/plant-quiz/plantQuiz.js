@@ -11,6 +11,8 @@ import { randomiseArray } from "./utility";
 
 /**
  * TODO
+ * - clicking 'back to results' is effecting the My Plants plant page (if there is one open) - fix this
+ * - after clicking edit in the plant page (on plant log) and clicking back to dashboard without having saved, there is a bug. Fix bug by making sure users save before going back to dashboard
  * - quiz banner image
  * - plant results need to have title, image, description and button to view the unique plant page (takes you to discover)
  * - plant page needs to apply to each plant in directory
@@ -21,14 +23,21 @@ import { randomiseArray } from "./utility";
  * Initialises the plant quiz by prepareing the dashboard and rendering the quiz on screen.
  */
 export const startPlantQuiz = () => {
-  const { plantQuiz, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
-  prepareDashboard(plantQuizBtn, myPlantsBtn, discoverBtn);
+  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
-  if (plantQuiz.classList.contains('active')) {
+  if (plantQuizBtn.classList.contains('active')) {
+    console.log('ACTIVE');
     return;
-  } else {
-    renderPlantQuiz();
   }
+
+  if (plantQuizBtn.classList.contains('dormant')) {
+    prepareDashboard(plantQuizBtn, myPlantsBtn, discoverBtn);
+    return;
+  }
+
+  prepareDashboard(plantQuizBtn, myPlantsBtn, discoverBtn);
+  renderPlantQuiz();
+  plantQuizBtn.classList.add('dormant');
 }
 
 /**
@@ -36,12 +45,15 @@ export const startPlantQuiz = () => {
  */
 export const renderPlantQuiz = () => {
   const { plantQuiz } = domElements;
-  const { quizTitle, quizSubheader, startQuizBtn } = createPlantQuizElements();
+  const { quizContainer, quizTitle, quizSubheader, startQuizBtn } = createPlantQuizElements();
 
-  appendChildren(plantQuiz, quizTitle, quizSubheader, startQuizBtn);
+  appendChildren(quizContainer, quizTitle, quizSubheader, startQuizBtn);
+  appendChildren(plantQuiz, quizContainer);
+
   plantQuiz.classList.add('active');
+
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
-    startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn, plantQuiz);
+    startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn, quizContainer);
   });
 }
 
@@ -53,17 +65,18 @@ export const renderPlantQuiz = () => {
  * @param {number} questionId 
  */
 export const renderQuestion = (questionText, choices, category, questionId) => {
-  const { plantQuiz } = domElements;
+  const quizContainer = document.querySelector('.quiz-container');
+
   const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: 'question-title'});
   const choiceBtnContainer = createElement({tagName: 'div', classEl: 'choice-btn-container'});
 
-  appendChildren(plantQuiz, questionTitle, choiceBtnContainer);
+  appendChildren(quizContainer, questionTitle, choiceBtnContainer);
   
   choices.forEach(choice => {
     const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: 'choice-btn'});
     appendChildren(choiceBtnContainer, choiceBtn);
     localEventManager.addEventListener(choiceBtn, 'click', () => {
-      choiceBtnClickHandler(category, choice, questionId, plantQuiz, questionTitle, choiceBtnContainer)
+      choiceBtnClickHandler(category, choice, questionId, quizContainer, questionTitle, choiceBtnContainer)
     })
   });
 }
@@ -133,6 +146,10 @@ export const getQuizResults = (userAnswers) => {
 const renderQuizResults = (results) => {
   const { plantQuiz } = domElements;
 
+  const quizContainer = document.querySelector('.quiz-container');
+  const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
+  appendChildren(plantQuiz, plantInfoContainer);
+
   let displayedResults = results;
   if (results.length > 2) {
     displayedResults = randomiseArray(results, 2);
@@ -140,13 +157,13 @@ const renderQuizResults = (results) => {
 
   displayedResults.forEach(result => {
     const { resultTitle } = createResultElements(result);
-    appendChildren(plantQuiz, resultTitle);
+    appendChildren(quizContainer, resultTitle);
 
     localEventManager.addEventListener(resultTitle, 'click', () => {
       console.log(result);
       // need to create extra div for quiz content so that plantQuiz is not hidden.
-      hideElements(plantQuiz);
-      renderPlantDetails(result, plantQuiz);
+      hideElements(quizContainer);
+      renderPlantDetails(result, plantInfoContainer, quizContainer, 'flex', '← back to results');
     })
   })
 }

@@ -4,7 +4,7 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { domElements, createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid } from "./domManipulation";
+import { createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid, createDynamicPlantElements } from "./domManipulation";
 import { appendChildren, removeChildren, showElements } from "./utility";
 import { localEventManager, imageChangeHandler } from "./eventHandling";
 import { plantLog } from "./plantLog";
@@ -12,28 +12,45 @@ import { plantLog } from "./plantLog";
 /**
  * Render plant details on screen
  * @param {Object} plant 
- * @param {HTMLElement} container 
+ * @param {HTMLElement} sectionContainer 
+ * @param {HTMLElement} hiddenContainer 
+ * @param {string} displayType 
+ * @param {string} backButtonText 
  */
-export const renderPlantDetails = (plant, container, userPlantGrid) => {
+export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, displayType, backButtonText) => {
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
-  const backToDashboard = createElement({tagName: 'p', textContent: '← back to dashboard'});
-  const editPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Edit'});
+  const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
+  let sectionBtn = '';
+
+  if (backButtonText === '← back to dashboard') {
+    sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: 'edit-btn'});
+  } else if (backButtonText === '← back to results') {
+    sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: 'add-to-plants-btn'});
+  }
   
-  const { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription } = dynamicPlantElements;
+  const { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription } = createDynamicPlantElements();
   plantTitle.textContent = plant.name;
   plantDate.textContent = plant.dateAdded;
   plantDescription.textContent = plant.description;
   plantImage.src = plant.image;
 
   appendChildren(plantImageContainer, plantImage);
-  appendChildren(subHeader, backToDashboard, editPlantDetailsBtn);
+  appendChildren(subHeader, backToDashboard, sectionBtn);
 
-  appendChildren(container, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
+  appendChildren(sectionContainer, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
 
-  localEventManager.addEventListener(editPlantDetailsBtn, 'click', () => 
-    toggleEditMode(plant, editPlantDetailsBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage}))
+  // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
+  if (sectionBtn.classList.contains('edit-btn')) {
+    localEventManager.addEventListener(sectionBtn, 'click', () => 
+    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage}))
+  } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
+    localEventManager.addEventListener(sectionBtn, 'click', () => 
+    console.log('ADD TO PLANTS'))
+  }
+
+  
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    backToDashboardHandler(container, userPlantGrid, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
+    backToDashboardHandler(sectionContainer, hiddenContainer, displayType, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
   })
 
   // add watering scheduele and other requirements (soil, light etc)
@@ -95,15 +112,14 @@ const toggleEditMode = (plant, editBtn, elements) => {
 
 /**
  * Remove plant page and return to dashboard (plantGrid).
- * @param {HTMLElement} main 
- * @param {HTMLElement} userPlantGrid 
+ * @param {HTMLElement} mainSection 
+ * @param {HTMLElement} hiddenContainer 
  * @param {...HTMLElement} elements 
  */
-const backToDashboardHandler = (main, userPlantGrid, ...elements) => {
-  removeChildren(main, ...elements)
+const backToDashboardHandler = (mainSection, hiddenContainer, displayType, ...elements) => {
+  removeChildren(mainSection, ...elements)
   
-  const displayType = 'grid';
-  showElements(displayType, userPlantGrid)
+  showElements(displayType, hiddenContainer)
 
   resetDomElements();
 }

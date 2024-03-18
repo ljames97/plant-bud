@@ -1,5 +1,5 @@
 import { questions } from "../data";
-import { createElement } from "../domManipulation";
+import { createElement, domElements } from "../domManipulation";
 import { localEventManager } from "../eventHandling";
 import { appendChildren, hideElements, removeChildren } from "../utility";
 import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuiz";
@@ -14,9 +14,9 @@ import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "
  * @param {*} choiceBtnContainer 
  * @returns 
  */
-export const choiceBtnClickHandler = (category, choice, questionId, plantQuiz, questionTitle, choiceBtnContainer) => {
+export const choiceBtnClickHandler = (category, choice, questionId, quizContainer, questionTitle, choiceBtnContainer) => {
   userAnswerlog.addUserAnswer(category, choice, questionId);
-  removeChildren(plantQuiz, questionTitle, choiceBtnContainer);
+  removeChildren(quizContainer, questionTitle, choiceBtnContainer);
 
   if (questionId === 8) {
     const quizResults = userAnswerlog.getUserAnswerLog();
@@ -31,9 +31,10 @@ export const choiceBtnClickHandler = (category, choice, questionId, plantQuiz, q
 
 /**
  * Restart quiz.
- * @param {HTMLElement} plantQuiz 
  */
-export const restartQuizHandler = (plantQuiz) => {
+export const restartQuizHandler = () => {
+  const { plantQuiz } = domElements;
+
   userAnswerlog.refreshAnswerLog();
   plantQuiz.innerHTML = '';
   renderPlantQuiz();
@@ -46,14 +47,14 @@ export const restartQuizHandler = (plantQuiz) => {
  * @param {HTMLElement} startQuizBtn 
  * @param {HTMLElement} plantQuiz 
  */
-export const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn, plantQuiz) => {
+export const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn, quizContainer) => {
   hideElements(quizTitle, quizSubheader, startQuizBtn)
 
   const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz'})
   localEventManager.addEventListener(restartQuizBtn, 'click', () => {
-    restartQuizHandler(plantQuiz);
+    restartQuizHandler(quizContainer);
   })
-  appendChildren(plantQuiz, restartQuizBtn);
+  appendChildren(quizContainer, restartQuizBtn);
 
   renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
 }
