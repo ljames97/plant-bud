@@ -3,17 +3,12 @@
 import { plantDirectory } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
+import { plantLog } from "../plantLog";
 import { renderPlantDetails } from "../plantPage";
 import { appendChildren, hideElements } from "../utility";
 import { createPlantQuizElements, createResultElements } from "./domManipulation";
 import { choiceBtnClickHandler, startQuizBtnHandler } from "./eventHandling";
 import { randomiseArray } from "./utility";
-
-/**
- * TODO
- * - quiz banner image
- * - extra features for the quiz (sliders, progress bar etc...)
- */
 
 /**
  * Initialises the plant quiz by prepareing the dashboard and rendering the quiz on screen.
@@ -137,7 +132,7 @@ export const getQuizResults = (userAnswers) => {
 
 /**
  * Render quiz results on screen.
- * @param {} results 
+ * @param {Array} results 
  */
 const renderQuizResults = (results) => {
   const { plantQuiz } = domElements;
@@ -157,7 +152,6 @@ const renderQuizResults = (results) => {
 
     localEventManager.addEventListener(resultTitle, 'click', () => {
       console.log(result);
-      // need to create extra div for quiz content so that plantQuiz is not hidden.
       hideElements(quizContainer);
       renderPlantDetails(result, plantInfoContainer, quizContainer, 'flex', '← back to results');
     })
