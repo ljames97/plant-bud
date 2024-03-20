@@ -27,19 +27,19 @@ const createSearchInput = () => {
  */
 export const renderNewPlantSearch = () => {
   const { userSearch, searchForPlant, searchButton, cancelSearchBtn } = createSearchInput();
-  const { plantLog, userPlantGrid } = domElements;
+  const { plantLogEl, userPlantGrid } = domElements;
 
   hideInitialDomElements();
   hideElements(userPlantGrid);
 
   appendChildren(userSearch, searchForPlant, searchButton);
-  appendChildren(plantLog, userSearch, cancelSearchBtn);
+  appendChildren(plantLogEl, userSearch, cancelSearchBtn);
 
   localEventManager.addEventListener(searchButton, 'click', () => {
     searchButtonClickHandler(userSearch, searchForPlant, searchButton, cancelSearchBtn);
   });
   localEventManager.addEventListener(cancelSearchBtn, 'click', () => {
-    cancelSearchButtonClickHandler(userSearch, plantLog, cancelSearchBtn);
+    cancelSearchButtonClickHandler(userSearch, plantLogEl, cancelSearchBtn);
   })
 }
 

@@ -61,7 +61,7 @@ const renderManualPlantForm = (userSearch, cancelSearchBtn) => {
   });
 
   localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    submitHandler(event, name, dateAdded, description, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn);
+    submitHandler(event, name, dateAdded, description, imageDataUrl, userSearch, plantForm, cancelSearchBtn);
   });
 }
 

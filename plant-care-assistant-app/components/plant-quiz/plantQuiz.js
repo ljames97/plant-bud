@@ -11,11 +11,7 @@ import { randomiseArray } from "./utility";
 
 /**
  * TODO
- * - clicking 'back to results' is effecting the My Plants plant page (if there is one open) - fix this
- * - after clicking edit in the plant page (on plant log) and clicking back to dashboard without having saved, there is a bug. Fix bug by making sure users save before going back to dashboard
  * - quiz banner image
- * - plant results need to have title, image, description and button to view the unique plant page (takes you to discover)
- * - plant page needs to apply to each plant in directory
  * - extra features for the quiz (sliders, progress bar etc...)
  */
 

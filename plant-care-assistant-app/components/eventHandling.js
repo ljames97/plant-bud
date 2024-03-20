@@ -7,7 +7,7 @@ import { dashboardNavButtonHighlight, domElements, hideInitialDomElements, reset
 import { addPlantToGrid, plantLog, populatePlantGrid, startMyPlants } from "./plantLog";
 import { renderNewPlantSearch } from "./plantSearch";
 import { validatePlantData } from "./addNewPlant";
-import { renderPlantDetails } from "./plantPage";
+import { addToMyPlants, renderPlantDetails } from "./plantPage";
 import { hideElements, removeChildren } from "./utility";
 import { startPlantQuiz } from "./plant-quiz/plantQuiz";
 import { startPlantDiscovery } from "./plant-discovery/plant-discovery";
@@ -44,7 +44,7 @@ export const imageChangeHandler = (event, callback) => {
  * @param {*} plantForm 
  * @returns 
  */
-export const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plantLog, userSearch, plantForm, cancelSearchBtn) => {
+export const submitHandler = (event, name, dateAdded, descripiton, imageDataUrl, userSearch, plantForm, cancelSearchBtn) => {
   event.preventDefault();
 
   const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
@@ -57,13 +57,12 @@ export const submitHandler = (event, name, dateAdded, notes, imageDataUrl, plant
   const newPlant = {
     name: name.value,
     dateAdded: dateAdded.value,
-    notes: notes.value,
+    description: descripiton.value,
     image: imageDataUrl,
     id: Date.now()
   };
 
-  plantLog.addToUserPlantLog(newPlant);
-  addPlantToGrid(newPlant);
+  addToMyPlants(newPlant);
 
   removeChildren(userSearch, plantForm);
   cancelSearchBtn.remove();

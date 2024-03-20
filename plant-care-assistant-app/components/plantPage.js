@@ -7,7 +7,7 @@
 import { createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid, createDynamicPlantElements } from "./domManipulation";
 import { appendChildren, removeChildren, showElements } from "./utility";
 import { localEventManager, imageChangeHandler } from "./eventHandling";
-import { plantLog } from "./plantLog";
+import { addPlantToGrid, plantLog } from "./plantLog";
 
 /**
  * Render plant details on screen
@@ -44,16 +44,25 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
     localEventManager.addEventListener(sectionBtn, 'click', () => 
     toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage}))
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
-    localEventManager.addEventListener(sectionBtn, 'click', () => 
-    console.log('ADD TO PLANTS'))
+    localEventManager.addEventListener(sectionBtn, 'click', () => {
+      addToMyPlants(plant);
+    })
   }
 
-  
   localEventManager.addEventListener(backToDashboard, 'click', () => {
     backToDashboardHandler(sectionContainer, hiddenContainer, displayType, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
   })
 
   // add watering scheduele and other requirements (soil, light etc)
+}
+
+/**
+ * Add plant from quiz result or plant search to the plantLog and My Plants grid
+ * @param {} plant 
+ */
+export const addToMyPlants = (plant) => {
+  plantLog.addToUserPlantLog(plant);
+  addPlantToGrid(plant);
 }
 
 /**
@@ -121,5 +130,7 @@ const backToDashboardHandler = (mainSection, hiddenContainer, displayType, ...el
   
   showElements(displayType, hiddenContainer)
 
-  resetDomElements();
+  if (mainSection.classList.contains('plant-log')) {
+    resetDomElements();
+  }
 }
