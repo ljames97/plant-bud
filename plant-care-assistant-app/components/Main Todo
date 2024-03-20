@@ -6,16 +6,20 @@ MAIN TODO:
 - plant quiz build on seperate html page then integrate into main dashboard
 
 TODO plant-quiz:
-- restart quiz button
 - modal for plant quiz
+- add current date for plants added to log from the quiz results
+- quiz banner image
+- quiz css and extra features (sliders, progress bar etc...)
 
 TODO plant-log:
-- create or find http request for plant directory with title, images etc
 - form error and message at renderManualPlantForm error handling
 - simple css for forms
-- add search button next to addNewPlant button
+- add search field underneath title
+- max amount of plants shown in grid - add carousel function
 
 TODO plant-page:
+- delete plant option
+- reset plant details (if added via search/quiz)
 - local storage
 - cut down large functions
 - (plant requirements)
@@ -24,6 +28,7 @@ TODO plant-page:
 
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+- images for all plants in the main plant directory
 - REVIEW ALL CODE and improve modularity/functional 
 - cut down large functions
 - comments for complicated logic
@@ -34,3 +39,4 @@ TODO plant-page:
 - accessibility (buttons, image alt etc.)
 - unit testing / js tests
 - production ideas/hosting
+- login authentication

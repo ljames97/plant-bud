@@ -5,7 +5,6 @@
 
 import { createElement } from "./domManipulation";
 import { imageChangeHandler, localEventManager, submitHandler } from "./eventHandling";
-import { plantLog } from "./plantLog";
 import { searchButtonClickHandler } from "./plantSearch";
 import { appendChildren, hideElements, removeChildren, showElements } from "./utility";
 

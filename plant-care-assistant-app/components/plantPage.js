@@ -24,8 +24,10 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
 
   if (backButtonText === '← back to dashboard') {
     sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: 'edit-btn'});
-  } else if (backButtonText === '← back to results') {
+  } else if (backButtonText === '← back to results' && !plant.isAdded) {
     sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: 'add-to-plants-btn'});
+  } else {
+    sectionBtn = createElement({tagName: 'p', textContent: 'Added to My Plants'})
   }
   
   const { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription } = createDynamicPlantElements();
@@ -37,6 +39,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   appendChildren(plantImageContainer, plantImage);
   appendChildren(subHeader, backToDashboard, sectionBtn);
 
+
   appendChildren(sectionContainer, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
 
   // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
@@ -45,7 +48,8 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
     toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage}))
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
-      addToMyPlants(plant);
+      copyToMyPlants(plant);
+      replaceButton(sectionBtn, plant);
     })
   }
 
@@ -56,13 +60,31 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // add watering scheduele and other requirements (soil, light etc)
 }
 
+const replaceButton = (button, plant) => {
+  const newText = createElement({tagName: 'p', textContent: 'Added to My Plants'});
+  button.parentNode.replaceChild(newText, button);
+  plant.isAdded = true;
+}
+
 /**
  * Add plant from quiz result or plant search to the plantLog and My Plants grid
- * @param {} plant 
+ * @param {Object} plant 
  */
 export const addToMyPlants = (plant) => {
   plantLog.addToUserPlantLog(plant);
   addPlantToGrid(plant);
+}
+
+export const copyToMyPlants = (plant) => {
+  const newPlant = {
+    name: plant.name,
+    dateAdded: '',
+    description: plant.description,
+    image: plant.image,
+    id: plant.id
+  };
+
+  addToMyPlants(newPlant);
 }
 
 /**
