@@ -3,7 +3,7 @@
  * Add new plant to the userPlantLog, validate plant details and submit new plant data.
  */
 
-import { createElement } from "./domManipulation";
+import { createElement, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
 import { imageChangeHandler, localEventManager, submitHandler } from "./eventHandling";
 import { searchButtonClickHandler } from "./plantSearch";
 import { appendChildren, hideElements, removeChildren, showElements } from "./utility";
@@ -47,10 +47,14 @@ export const renderManualPlantUploadBtn = (userSearch, errorMessage, userSearchI
  * @param {HTMLElement} userSearch 
  * @param {HTMLElement} cancelSearchBtn 
  */
-const renderManualPlantForm = (userSearch, cancelSearchBtn) => {
-  const { plantForm, name, dateAdded, plantPhoto, description, submitBtn } = createManualPlantForm();
-  appendChildren(userSearch, plantForm);
+export const renderManualPlantForm = () => {
+  const { plantLogEl, userPlantGrid } = domElements;
+  const { plantForm, name, dateAdded, plantPhoto, description, submitBtn, cancelBtn } = createManualPlantForm();
 
+  hideInitialDomElements();
+  hideElements(userPlantGrid);
+  appendChildren(plantLogEl, plantForm, cancelBtn);
+  
   let imageDataUrl = [];
 
   localEventManager.addEventListener(plantPhoto, 'change', (event) => {
@@ -59,9 +63,18 @@ const renderManualPlantForm = (userSearch, cancelSearchBtn) => {
     })
   });
 
+  localEventManager.addEventListener(cancelBtn, 'click', () => {
+    cancelManualButtonClickHandler(plantForm, plantLogEl, cancelBtn);
+  })
+
   localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    submitHandler(event, name, dateAdded, description, imageDataUrl, userSearch, plantForm, cancelSearchBtn);
+    submitHandler(event, name, dateAdded, description, imageDataUrl, plantForm);
   });
+}
+
+const cancelManualButtonClickHandler = (plantForm, plantLogEl, cancelBtn) => {
+  removeChildren(plantLogEl, plantForm, cancelBtn);
+  resetDomElements();
 }
 
 /**
@@ -72,6 +85,7 @@ const createManualPlantForm = () => {
   const plantForm = createElement({tagName: 'form', classEl: 'manual-plant-form'});
   const name = createElement({tagName: 'input', placeholder: 'Plant name'});
   const dateAdded = createElement({tagName: 'input', placeholder: 'Date added'});
+  const cancelBtn = createElement({tagName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
 
   const plantPhoto = createElement({tagName: 'input', classEl: 'plant-photo-input'});
   plantPhoto.setAttribute('type', 'file');
@@ -82,7 +96,7 @@ const createManualPlantForm = () => {
   const description = createElement({tagName: 'textarea', placeholder: 'Description'})
   appendChildren(plantForm, name, dateAdded, plantPhoto, description, submitBtn);
 
-  return { plantForm, name, dateAdded, plantPhoto, description, submitBtn };
+  return { plantForm, name, dateAdded, plantPhoto, description, submitBtn, cancelBtn };
 }
 
 /**

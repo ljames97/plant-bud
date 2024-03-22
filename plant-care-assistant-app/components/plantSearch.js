@@ -17,30 +17,23 @@ const createSearchInput = () => {
   const userSearch = createElement({tagName: 'div', classEl: 'search-elements'});
   const searchForPlant = createElement({tagName: 'input', placeholder: 'Find your plant!', classEl: 'plant-search'});
   const searchButton = createElement({tagName: 'button', textContent: 'Find', classEl: 'search-btn'});
-  const cancelSearchBtn = createElement({tagName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
 
-  return { userSearch, searchForPlant, searchButton, cancelSearchBtn };
+  return { userSearch, searchForPlant, searchButton };
 }
 
 /**
  * Render plant search form on screen.
  */
 export const renderNewPlantSearch = () => {
-  const { userSearch, searchForPlant, searchButton, cancelSearchBtn } = createSearchInput();
-  const { plantLogEl, userPlantGrid } = domElements;
-
-  hideInitialDomElements();
-  hideElements(userPlantGrid);
+  const { userSearch, searchForPlant, searchButton } = createSearchInput();
+  const { plantDiscovery } = domElements;
 
   appendChildren(userSearch, searchForPlant, searchButton);
-  appendChildren(plantLogEl, userSearch, cancelSearchBtn);
+  appendChildren(plantDiscovery, userSearch);
 
   localEventManager.addEventListener(searchButton, 'click', () => {
-    searchButtonClickHandler(userSearch, searchForPlant, searchButton, cancelSearchBtn);
+    searchButtonClickHandler(userSearch, searchForPlant, searchButton);
   });
-  localEventManager.addEventListener(cancelSearchBtn, 'click', () => {
-    cancelSearchButtonClickHandler(userSearch, plantLogEl, cancelSearchBtn);
-  })
 }
 
 /**
@@ -48,22 +41,10 @@ export const renderNewPlantSearch = () => {
  * @param {HTMLElement} userSearch 
  * @param {HTMLElement} searchForPlant 
  * @param {HTMLElement} searchButton 
- * @param {HTMLElement} cancelSearchBtn 
  */
-export const searchButtonClickHandler = (userSearch, searchForPlant, searchButton, cancelSearchBtn) => {
-  renderPlantSearchResults(userSearch, searchForPlant, searchButton, cancelSearchBtn);
+export const searchButtonClickHandler = (userSearch, searchForPlant, searchButton) => {
+  renderPlantSearchResults(userSearch, searchForPlant, searchButton);
   localEventManager.removeEventListener(searchButton, 'click');
-}
-
-/**
- * Handle cancel search button click.
- * @param {HTMLElement} userSearch 
- * @param {HTMLElement} plantLog 
- * @param {HTMLElement} cancelSearchBtn 
- */
-const cancelSearchButtonClickHandler = (userSearch, plantLog, cancelSearchBtn) => {
-  removeChildren(plantLog, userSearch, cancelSearchBtn);
-  resetDomElements();
 }
 
 /**
@@ -81,7 +62,6 @@ const renderPlantSearchResults = (userSearch, userSearchInput, searchButton, can
     const errorMessage = renderSearchErrorMessage('No plant found!');
     
     appendChildren(userSearch, errorMessage);
-    renderManualPlantUploadBtn(userSearch, errorMessage, userSearchInput, searchButton, cancelSearchBtn);
   }
 }
 

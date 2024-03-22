@@ -13,7 +13,8 @@ import { hideElements, showElements } from "./utility";
 export const domElementsManager = () => {
   const dashboard = document.querySelector('.dashboard');
   const plantLogEl = document.querySelector('.plant-log');
-  const plantQuiz = document.querySelector('.plant-quiz')
+  const plantQuiz = document.querySelector('.plant-quiz');
+  const plantDiscovery = document.querySelector('.plant-discovery')
   const myPlantsBtn = document.querySelector('.my-plants-btn');
   const plantQuizBtn = document.querySelector('.plant-quiz-btn');
   const discoverBtn = document.querySelector('.discover-btn');
@@ -21,7 +22,7 @@ export const domElementsManager = () => {
   const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
   const userPlantGrid = document.querySelector('.user-plants');
 
-  return { dashboard, plantLogEl, plantQuiz, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
+  return { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
 }
 
 export const domElements = domElementsManager();
@@ -100,7 +101,7 @@ export const refreshPlantGrid = () => {
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
 export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
-  const { plantLogEl, plantQuiz, myPlantsBtn, plantQuizBtn } = domElements;
+  const { plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
   activeBtn.classList.add('active');
 
   inactiveBtn.forEach(button => {
@@ -117,6 +118,12 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
     hideElements(plantQuiz);
   } else {
     showElements('flex', plantQuiz);
+  }
+
+  if (activeBtn !== discoverBtn) {
+    hideElements(plantDiscovery);
+  } else {
+    showElements('flex', plantDiscovery);
   }
 
   dashboardNavButtonHighlight();

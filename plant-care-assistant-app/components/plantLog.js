@@ -3,7 +3,7 @@
  * For displaying user plants on the dashboard
  */
 
-import { dummyPlants, plantDirectory } from "./data";
+import { dummyPlants } from "./data";
 import { domElements, createElement, prepareDashboard } from "./domManipulation";
 import { appendChildren, findItemInArray } from "./utility";
 

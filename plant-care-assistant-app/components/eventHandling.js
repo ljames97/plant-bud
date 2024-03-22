@@ -6,7 +6,7 @@
 import { dashboardNavButtonHighlight, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
 import { addPlantToGrid, plantLog, populatePlantGrid, startMyPlants } from "./plantLog";
 import { renderNewPlantSearch } from "./plantSearch";
-import { validatePlantData } from "./addNewPlant";
+import { renderManualPlantForm, validatePlantData } from "./addNewPlant";
 import { addToMyPlants, renderPlantDetails } from "./plantPage";
 import { hideElements, removeChildren } from "./utility";
 import { startPlantQuiz } from "./plant-quiz/plantQuiz";
@@ -44,8 +44,10 @@ export const imageChangeHandler = (event, callback) => {
  * @param {*} plantForm 
  * @returns 
  */
-export const submitHandler = (event, name, dateAdded, descripiton, imageDataUrl, userSearch, plantForm, cancelSearchBtn) => {
+export const submitHandler = (event, name, dateAdded, descripiton, imageDataUrl, plantForm) => {
   event.preventDefault();
+
+  const { plantLogEl } = domElements;
 
   const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
 
@@ -63,9 +65,8 @@ export const submitHandler = (event, name, dateAdded, descripiton, imageDataUrl,
   };
 
   addToMyPlants(newPlant);
+  removeChildren(plantLogEl, plantForm);
 
-  removeChildren(userSearch, plantForm);
-  cancelSearchBtn.remove();
   resetDomElements();
 }
 
@@ -106,7 +107,7 @@ const eventManager = () => {
 export const setUpEventListeners = () => {
   const { addNewPlantBtn, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
-  localEventManager.addEventListener(addNewPlantBtn, 'click', renderNewPlantSearch);
+  localEventManager.addEventListener(addNewPlantBtn, 'click', renderManualPlantForm);
   localEventManager.addEventListener(myPlantsBtn, 'click', startMyPlants);
   localEventManager.addEventListener(plantQuizBtn, 'click', startPlantQuiz);
   localEventManager.addEventListener(discoverBtn, 'click', startPlantDiscovery);

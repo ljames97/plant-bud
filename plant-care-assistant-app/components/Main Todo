@@ -30,6 +30,7 @@ TODO plant-page:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
 - images for all plants in the main plant directory
 - REVIEW ALL CODE and improve modularity/functional 
+- remove console.log
 - cut down large functions
 - comments for complicated logic
 - error handling/error messages UI
@@ -37,6 +38,7 @@ TODO plant-page:
 - add hyperlinks to menu, contact page, about erc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
 - accessibility (buttons, image alt etc.)
+- laptop css (responsive design)
 - unit testing / js tests
 - production ideas/hosting
 - login authentication
