@@ -3,7 +3,6 @@
 import { plantDirectory } from "../data";
 import { createElement, domElements, prepareDashboard } from "../domManipulation"
 import { localEventManager } from "../eventHandling";
-import { plantLog } from "../plantLog";
 import { renderPlantDetails } from "../plantPage";
 import { appendChildren, hideElements } from "../utility";
 import { createPlantQuizElements, createResultElements } from "./domManipulation";
