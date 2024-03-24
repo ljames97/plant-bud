@@ -11,7 +11,7 @@ import { renderPlantDetails } from "../plantPage";
 
 
 // TODO
-// - search for plant logic, search through the directory
+// - after clicking back to search results, why does the live serch finction not work?
 // - documentation
 // - start the main todo list
 // 
@@ -93,7 +93,7 @@ const updateSearchResults = (userSearch, resultsContainer) => {
  * @param {HTMLElement} searchForPlant 
  * @param {HTMLElement} searchButton 
  */
-const searchButtonClickHandler = (userSearch, searchForPlant, searchButton) => {
+export const searchButtonClickHandler = (userSearch, searchForPlant, searchButton) => {
   renderPlantSearchResults(userSearch, searchForPlant);
   localEventManager.removeEventListener(searchButton, 'click');
 }

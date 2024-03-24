@@ -5,7 +5,7 @@
 
 import { createElement, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
 import { imageChangeHandler, localEventManager, submitHandler } from "./eventHandling";
-import { searchButtonClickHandler } from "./plantSearch";
+import { searchButtonClickHandler } from "./plant-discovery/plant-discovery";
 import { appendChildren, hideElements, removeChildren, showElements } from "./utility";
 
 /**

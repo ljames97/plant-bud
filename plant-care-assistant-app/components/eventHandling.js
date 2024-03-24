@@ -5,7 +5,6 @@
 
 import { dashboardNavButtonHighlight, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
 import { addPlantToGrid, plantLog, populatePlantGrid, startMyPlants } from "./plantLog";
-import { renderNewPlantSearch } from "./plantSearch";
 import { renderManualPlantForm, validatePlantData } from "./addNewPlant";
 import { addToMyPlants, renderPlantDetails } from "./plantPage";
 import { hideElements, removeChildren } from "./utility";
