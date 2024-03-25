@@ -1,5 +1,4 @@
 MAIN TODO:
-- start plant quiz, schedueler etc start this in new component folder
 - folders for plantLog vs home page
 - shared domManipulation and shard utility files as well as individual files
 - event handling seperate files for home page vs dashboard, refactor reused localEventManager into setup vs storage
@@ -29,6 +28,7 @@ TODO plant-page:
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
 - images for all plants in the main plant directory
+- full ocumentation + readable code (eg parameters)
 - REVIEW ALL CODE and improve modularity/functional 
 - remove console.log
 - cut down large functions
@@ -42,3 +42,4 @@ TODO plant-page:
 - unit testing / js tests
 - production ideas/hosting
 - login authentication
+- extra feature ideas eg. schedueler, AI, chatbot, journal entries

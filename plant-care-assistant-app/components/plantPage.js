@@ -4,10 +4,11 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid, createDynamicPlantElements } from "./domManipulation";
+import { createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid, createDynamicPlantElements, domElements } from "./domManipulation";
 import { appendChildren, removeChildren, showElements } from "./utility";
 import { localEventManager, imageChangeHandler } from "./eventHandling";
 import { addPlantToGrid, plantLog } from "./plantLog";
+import { renderNewPlantSearch } from "./plant-discovery/plant-discovery";
 
 /**
  * Render plant details on screen
@@ -150,9 +151,16 @@ const toggleEditMode = (plant, editBtn, elements) => {
 const backToDashboardHandler = (mainSection, hiddenContainer, displayType, ...elements) => {
   removeChildren(mainSection, ...elements)
   
-  showElements(displayType, hiddenContainer)
-
+  if (hiddenContainer.classList.contains('search-container')) {
+    const { plantDiscovery } = domElements;
+    renderNewPlantSearch();
+    removeChildren(plantDiscovery, mainSection);
+    return;
+  }
+  
   if (mainSection.classList.contains('plant-log')) {
     resetDomElements();
   }
+
+  showElements(displayType, hiddenContainer);
 }

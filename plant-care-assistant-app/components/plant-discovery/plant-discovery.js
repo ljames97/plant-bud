@@ -6,12 +6,11 @@
 import { domElements, prepareDashboard, createElement } from "../domManipulation"
 import { plantDirectory } from "../data";
 import { localEventManager } from "../eventHandling";
-import { appendChildren, hideElements } from "../utility";
+import { appendChildren, hideElements, removeChildren } from "../utility";
 import { renderPlantDetails } from "../plantPage";
 
 
 // TODO
-// - after clicking back to search results, why does the live serch finction not work?
 // - documentation
 // - start the main todo list
 // 
@@ -38,7 +37,7 @@ export const startPlantDiscovery = () => {
 /**
  * Render plant search form on screen.
  */
-const renderNewPlantSearch = () => {
+export const renderNewPlantSearch = () => {
   const { searchContainer, searchForPlant, searchButton, searchResults } = createSearchInput();
   const { plantDiscovery } = domElements;
 
@@ -60,7 +59,6 @@ const updateSearchResults = (userSearch, resultsContainer) => {
   const { plantDiscovery } = domElements;
   const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
   const searchContainer = document.querySelector('.search-container');
-  appendChildren(plantDiscovery, plantInfoContainer);
 
 
   resultsContainer.innerHTML = '';
@@ -77,7 +75,8 @@ const updateSearchResults = (userSearch, resultsContainer) => {
       const plantElement = createElement({tagName: 'div', textContent: plant.name, classEl: 'search-result-item'});
       appendChildren(resultsContainer, plantElement);
       localEventManager.addEventListener(plantElement, 'click', () => {
-        hideElements(searchContainer, resultsContainer);
+        removeChildren(plantDiscovery, searchContainer, resultsContainer);
+        appendChildren(plantDiscovery, plantInfoContainer);
         renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', 'back to search' );
       })
     });
