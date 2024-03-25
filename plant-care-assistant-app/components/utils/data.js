@@ -1,6 +1,6 @@
 // data.js
 /**
- * Dummy plant data, plant directory and other data
+ * Plant directory, dummy plants and plant quiz question data.
  */
 
 // dummy plants:
@@ -28,7 +28,7 @@ export const dummyPlants = [
   }
 ];
 
-//plant directory for plant quiz (and maybe also for plant discovery/main directory..?)
+//plant directory for all plant data including name, image src, location etc.
 export const plantDirectory = [
   { name: 'Snake Plant', id: 1, image: '../public/dummy-plants/spider-plant.jpg', skill: ['Beginner'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'], shortDescription: 'Tough and adaptable, perfect for beginners.', waterSchedule: 'Every 2-3 weeks, less often in winter.', tempLight: 'Indirect sunlight to partial shade. 15-26°C.', description: 'The Snake Plant, or Sansevieria, is a highly durable and low-maintenance indoor plant known for its air-purifying qualities. Its stiff, upright leaves grow vertically, making it an ideal plant for small spaces.' },
   { name: 'Anthurium', skill: ['Medium', 'Advanced'], location: ['Home', 'Bedroom', 'Living Room'], flowering: ['Yes'], size: ['Short'], transferToOutdoors: ['No'], time: ['Medium'], interest: ['Very', 'Kind of'], lowEffort: ['No'], shortDescription: 'Features glossy, heart-shaped leaves with bright flowers.', waterSchedule: 'Weekly, keep soil lightly moist.', tempLight: 'Bright, indirect light. 18-27°C.', description: 'Anthuriums are beloved for their glossy heart-shaped leaves and bright, waxy flowers, which can bloom throughout the year if cared for properly. These tropical plants prefer environments with high humidity and indirect light, making them a beautiful addition to well-lit bathrooms or kitchens. With their vibrant flowers, Anthuriums add a splash of color to any indoor space.' },
@@ -68,6 +68,7 @@ export const plantDirectory = [
   { name: 'Swiss Cheese Plant', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Living Room'], flowering: ['No'], size: ['Tall'], transferToOutdoors: ['Yes'], time: ['Not much','A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'], shortDescription: 'Iconic split leaves, grows quickly with enough light.', waterSchedule: 'Every 1-2 weeks, allowing soil to dry out between waterings.', tempLight: 'Bright to medium indirect light. 18-27°C.', description: 'The Swiss Cheese Plant, or Monstera deliciosa, is beloved for its unique, perforated leaves that develop as the plant ages. It’s a vigorous grower that can bring a dramatic tropical flair to your living space. Monsteras do well in bright, indirect light and require watering when the top inch of soil feels dry. This plant is a statement piece, perfect for anyone looking to add a bold, green presence to their home.' }
 ];
 
+// Questions for the plant quiz.
 export const questions = [
   { question: 'How would you describe your ability with plants?', answers: ['Beginner', 'Medium', 'Advanced'], category: 'skill' },
   { question: 'Where will your plant be located?', answers: ['Home', 'Office', 'Bedroom', 'Living Room'], category: 'location' },

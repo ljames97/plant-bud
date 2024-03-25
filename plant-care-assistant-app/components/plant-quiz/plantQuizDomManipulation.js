@@ -1,4 +1,9 @@
-import { createElement } from "../domManipulation";
+// plantQuizDomManipulation.js
+/**
+ * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ */
+
+import { createElement } from "../utils/globalDomManipulation";
 
 /**
  * Create result title element.

@@ -1,16 +1,16 @@
 // eventHandling.js
 /**
- * Event handler logic
+ * Event handler logic.
  */
 
-import { dashboardNavButtonHighlight, domElements, hideInitialDomElements, resetDomElements } from "./domManipulation";
-import { addPlantToGrid, plantLog, populatePlantGrid, startMyPlants } from "./plantLog";
-import { renderManualPlantForm, validatePlantData } from "./addNewPlant";
-import { addToMyPlants, renderPlantDetails } from "./plantPage";
-import { hideElements, removeChildren } from "./utility";
-import { startPlantQuiz } from "./plant-quiz/plantQuiz";
-import { startPlantDiscovery } from "./plant-discovery/plant-discovery";
+import { dashboardNavButtonHighlight, domElements, hideInitialDomElements } from "./globalDomManipulation";
+import { hideElements } from "./gobalUtility";
 
+import { renderManualPlantForm } from "../add-plant/addPlantMain";
+import { renderPlantDetails } from "../plant-page/plantPageMain";
+import { startPlantQuiz } from "../plant-quiz/plantQuizMain";
+import { startPlantDiscovery } from "../plant-discovery/plantDiscoveryMain";
+import { plantLog, populatePlantGrid, startMyPlants } from "../plant-log/plantLogMain";
 
 
 /**
@@ -29,44 +29,6 @@ export const imageChangeHandler = (event, callback) => {
     }
     reader.readAsDataURL(file);
   };
-}
-
-/**
- * Validates the form data, creates a new plant object, adds it to the plant log,
- * and updates the UI to reflect the new addition.
- * @param {*} event 
- * @param {*} name 
- * @param {*} dateAdded 
- * @param {*} imageDataUrl 
- * @param {*} plantLog 
- * @param {*} mainElement 
- * @param {*} plantForm 
- * @returns 
- */
-export const submitHandler = (event, name, dateAdded, descripiton, imageDataUrl, plantForm) => {
-  event.preventDefault();
-
-  const { plantLogEl } = domElements;
-
-  const dataValidation = validatePlantData(name.value, dateAdded.value, imageDataUrl);
-
-  if (!dataValidation.isValid) {
-    console.log(dataValidation.errors);
-    return;
-  }
-
-  const newPlant = {
-    name: name.value,
-    dateAdded: dateAdded.value,
-    description: descripiton.value,
-    image: imageDataUrl,
-    id: Date.now()
-  };
-
-  addToMyPlants(newPlant);
-  removeChildren(plantLogEl, plantForm);
-
-  resetDomElements();
 }
 
 /**
@@ -139,6 +101,10 @@ export const localEventManager = eventManager();
 
 // ** home page evenHandling logic (to be put in seperate file)
 
+/**
+ * Open/close the mobile navigation.
+ * @param {boolean} isOpen 
+ */
 const toggleMobileNav = (isOpen) => {
   const mobileNavModal = document.querySelector('.mobile-nav-modal');
   if (isOpen) {
@@ -182,7 +148,9 @@ const staticEventHandlerManager = () => {
   return eventHandlerData;
 }
 
-
+/**
+ * Initialises the dashboard.
+ */
 export const dashboardInit = () => {
   setUpEventListeners();
   populatePlantGrid();
@@ -193,6 +161,9 @@ export const homeInit = () => {
 
 }
 
+/**
+ * Global initalisation for shared event handling.
+ */
 export const globalInit = () => {
   staticEventHandlers();
 }

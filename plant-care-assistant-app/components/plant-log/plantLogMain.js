@@ -1,12 +1,15 @@
-// plantLog.js
+// plantLogMain.js
 /**
  * For displaying user plants on the dashboard
  */
 
-import { dummyPlants } from "./data";
-import { domElements, createElement, prepareDashboard } from "./domManipulation";
-import { appendChildren, findItemInArray } from "./utility";
+import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
+import { appendChildren, findItemInArray } from "../utils/gobalUtility";
+import { dummyPlants } from "../utils/data";
 
+/**
+ * Initialises the plant log ('My Plants') section of the app.
+ */
 export const startMyPlants = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
   prepareDashboard(myPlantsBtn, discoverBtn, plantQuizBtn);
@@ -81,7 +84,6 @@ export const populatePlantGrid = () => {
   });
 }
 
-// user added plants added to plantLog (irl will be taken from local storage or when added by user)
-dummyPlants.forEach(plant => {
-  plantLog.addToUserPlantLog(plant);
-})
+// dummyPlants.forEach(plant => {
+//   plantLog.addToUserPlantLog(plant);
+// })

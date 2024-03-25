@@ -1,0 +1,33 @@
+// plantPageDomManipulation.js
+/**
+ * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ */
+
+import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
+import { createElement, domElements } from "../utils/globalDomManipulation";
+
+/**
+ * Create dynamic elements for the plant page.
+ * @returns dynamic plant elements.
+ */
+export const createDynamicPlantElements = () => {
+  const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
+  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
+  const plantImage = createElement({tagName: 'img'});
+  const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
+  const plantDescription = createElement({tagName: 'p', classEl: 'plant-description'});
+
+  return { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription };
+}
+
+/**
+ * Refresh plant grid by removing existing inner html and updating the userPlantLog.
+ */
+export const refreshPlantGrid = () => {
+  const { userPlantGrid } = domElements;
+  userPlantGrid.innerHTML = '';
+
+  plantLog.userPlantLog.forEach(plant => {
+    addPlantToGrid(plant);
+  })
+}

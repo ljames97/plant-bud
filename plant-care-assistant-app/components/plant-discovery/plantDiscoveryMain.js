@@ -1,21 +1,21 @@
-// plant-discovery.js
+// plantDiscoveryMain.js
 /**
  * To search for plants in the plant directory and render results on screen
  */
 
-import { domElements, prepareDashboard, createElement } from "../domManipulation"
-import { plantDirectory } from "../data";
-import { localEventManager } from "../eventHandling";
-import { appendChildren, hideElements, removeChildren } from "../utility";
-import { renderPlantDetails } from "../plantPage";
+import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation"
+import { localEventManager } from "../utils/globalEventHandling";
+import { appendChildren, removeChildren } from "../utils/gobalUtility";
+import { createSearchInput } from "./plantDiscoveryDomManipulation";
+import { searchButtonClickHandler } from "./plantDiscoveryEventHandling";
+
+import { renderPlantDetails } from "../plant-page/plantPageMain";
+import { plantDirectory } from "../utils/data";
 
 
-// TODO
-// - documentation
-// - start the main todo list
-// 
-
-
+/**
+ * Initialise the plant discovery section of the app
+ */
 export const startPlantDiscovery = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
@@ -55,6 +55,12 @@ export const renderNewPlantSearch = () => {
   appendChildren(plantDiscovery, searchContainer, searchResults);
 }
 
+/**
+ * Live search results as user types plant name into the search field.
+ * @param {string} userSearch - value of user input into the search field
+ * @param {HTMLElement} resultsContainer - element to contain search results
+ * @returns 
+ */
 const updateSearchResults = (userSearch, resultsContainer) => {
   const { plantDiscovery } = domElements;
   const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
@@ -85,17 +91,6 @@ const updateSearchResults = (userSearch, resultsContainer) => {
     appendChildren(resultsContainer, noResultsMessage);
   }
 }
- 
-/**
- * Handle plant search button click.
- * @param {HTMLElement} userSearch 
- * @param {HTMLElement} searchForPlant 
- * @param {HTMLElement} searchButton 
- */
-export const searchButtonClickHandler = (userSearch, searchForPlant, searchButton) => {
-  renderPlantSearchResults(userSearch, searchForPlant);
-  localEventManager.removeEventListener(searchButton, 'click');
-}
 
 /**
  * Render results of user search.
@@ -103,7 +98,7 @@ export const searchButtonClickHandler = (userSearch, searchForPlant, searchButto
  * @param {HTMLElement} plantLog
  * @returns 
  */
-const renderPlantSearchResults = (userSearch, userSearchInput) => {
+export const renderPlantSearchResults = (userSearch, userSearchInput) => {
   const foundPlant = plantDirectory.find(plant => plant.title === userSearchInput.value);
   if (foundPlant) {
     console.log('Plant found!');
@@ -122,17 +117,4 @@ const renderPlantSearchResults = (userSearch, userSearchInput) => {
 const renderSearchErrorMessage = (message) => {
   const errorMessage = createElement({tagName:'h1', textContent: message, classEl: 'search-error-message'});
   return errorMessage;
-}
-
-/**
- * Create search input field for user to search for a plant.
- * @returns search input field, search and cancel buttons.
- */
-const createSearchInput = () => {
-  const searchContainer = createElement({tagName: 'div', classEl: 'search-container'});
-  const searchForPlant = createElement({tagName: 'input', placeholder: 'Find your plant!', classEl: 'plant-search'});
-  const searchButton = createElement({tagName: 'button', textContent: 'Find', classEl: 'search-btn'});
-  const searchResults = createElement({tagName: 'div', classEl: 'search-results'});
-
-  return { searchContainer, searchForPlant, searchButton, searchResults };
 }

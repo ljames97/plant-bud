@@ -1,8 +1,13 @@
-import { questions } from "../data";
-import { createElement, domElements } from "../domManipulation";
-import { localEventManager } from "../eventHandling";
-import { appendChildren, hideElements, removeChildren } from "../utility";
-import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuiz";
+// plantQuizEventHandling.js
+/**
+ * Event handler logic.
+ */
+
+import { questions } from "../utils/data";
+import { createElement, domElements } from "../utils/globalDomManipulation";
+import { localEventManager } from "../utils/globalEventHandling";
+import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtility";
+import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuizMain";
 
 /**
  * Handle user choice for a given question, add choices to the userAnswerLog.

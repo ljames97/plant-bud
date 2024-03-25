@@ -3,8 +3,7 @@
  * For stored dom elements, dynamic elements, and utility functions related to the dom. 
  */
 
-import { addPlantToGrid, plantLog } from "./plantLog";
-import { hideElements, showElements } from "./utility";
+import { hideElements, showElements } from "./gobalUtility";
 
 /**
  * Return most reused dom elements.
@@ -27,25 +26,14 @@ export const domElementsManager = () => {
 
 export const domElements = domElementsManager();
 
+/**
+ * Reset/show the initial static dom elements.
+ */
 export const resetDomElements = () => {
   const { plantLogTitle, addNewPlantBtn, userPlantGrid } = domElements;
   plantLogTitle.style.display = 'block';
   addNewPlantBtn.style.display = 'flex';
   userPlantGrid.style.display = 'grid';
-}
-
-/**
- * Create dynamic elements for the plant page.
- * @returns dynamic plant elements.
- */
-export const createDynamicPlantElements = () => {
-  const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
-  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
-  const plantImage = createElement({tagName: 'img'});
-  const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
-  const plantDescription = createElement({tagName: 'p', classEl: 'plant-description'});
-
-  return { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription };
 }
 
 /**
@@ -84,15 +72,19 @@ export const hideInitialDomElements = () => {
 }
 
 /**
- * Refresh plant grid by removing existing inner html and updating the userPlantLog.
+ * Highlight the active dashboard button. Eg. My Plants, Plant Quiz or Discover.
  */
-export const refreshPlantGrid = () => {
-  const { userPlantGrid } = domElements;
-  userPlantGrid.innerHTML = '';
+export const dashboardNavButtonHighlight = () => {
+  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+  const dashboardButtons = [myPlantsBtn, plantQuizBtn, discoverBtn];
 
-  plantLog.userPlantLog.forEach(plant => {
-    addPlantToGrid(plant);
-  })
+  dashboardButtons.forEach(button => {
+    if (button.classList.contains('active')) {
+      button.style.backgroundColor = '#cd7647';
+    } else {
+      button.style.backgroundColor = '#8F4721'
+    }
+  });
 }
 
 /**
@@ -128,22 +120,4 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
 
   dashboardNavButtonHighlight();
 }
-
-/**
- * Highlight the active dashboard button. Eg. My Plants, Plant Quiz or Discover.
- */
-export const dashboardNavButtonHighlight = () => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
-  const dashboardButtons = [myPlantsBtn, plantQuizBtn, discoverBtn];
-
-  dashboardButtons.forEach(button => {
-    if (button.classList.contains('active')) {
-      button.style.backgroundColor = '#cd7647';
-    } else {
-      button.style.backgroundColor = '#8F4721'
-    }
-  });
-}
-
-export const dynamicPlantElements = createDynamicPlantElements();
 

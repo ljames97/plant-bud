@@ -1,14 +1,15 @@
-
-// plant-page.js
+// plantPageMain.js
 /**
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { createElement, dynamicPlantElements, resetDomElements, refreshPlantGrid, createDynamicPlantElements, domElements } from "./domManipulation";
-import { appendChildren, removeChildren, showElements } from "./utility";
-import { localEventManager, imageChangeHandler } from "./eventHandling";
-import { addPlantToGrid, plantLog } from "./plantLog";
-import { renderNewPlantSearch } from "./plant-discovery/plant-discovery";
+import { createElement } from "../utils/globalDomManipulation";
+import { localEventManager, imageChangeHandler } from "../utils/globalEventHandling";
+import { appendChildren } from "../utils/gobalUtility";
+import { createDynamicPlantElements, refreshPlantGrid } from "./plantPageDomManipulation";
+import { backToDashboardHandler } from "./plantPageEventHandling";
+
+import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
 
 /**
  * Render plant details on screen
@@ -61,6 +62,11 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // add watering scheduele and other requirements (soil, light etc)
 }
 
+/**
+ * Replace the 'Add to plants' button with 'Added to My Plants' message for plants that are already added to the users plant log.
+ * @param {HTMLElement} button 
+ * @param {Object} plant 
+ */
 const replaceButton = (button, plant) => {
   const newText = createElement({tagName: 'p', textContent: 'Added to My Plants'});
   button.parentNode.replaceChild(newText, button);
@@ -140,27 +146,4 @@ const toggleEditMode = (plant, editBtn, elements) => {
       imageInput.remove();
     }
   }
-}
-
-/**
- * Remove plant page and return to dashboard (plantGrid).
- * @param {HTMLElement} mainSection 
- * @param {HTMLElement} hiddenContainer 
- * @param {...HTMLElement} elements 
- */
-const backToDashboardHandler = (mainSection, hiddenContainer, displayType, ...elements) => {
-  removeChildren(mainSection, ...elements)
-  
-  if (hiddenContainer.classList.contains('search-container')) {
-    const { plantDiscovery } = domElements;
-    renderNewPlantSearch();
-    removeChildren(plantDiscovery, mainSection);
-    return;
-  }
-  
-  if (mainSection.classList.contains('plant-log')) {
-    resetDomElements();
-  }
-
-  showElements(displayType, hiddenContainer);
 }

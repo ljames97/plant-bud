@@ -1,13 +1,14 @@
-//plantQuiz.js
+//plantQuizMain.js
 
-import { plantDirectory } from "../data";
-import { createElement, domElements, prepareDashboard } from "../domManipulation"
-import { localEventManager } from "../eventHandling";
-import { renderPlantDetails } from "../plantPage";
-import { appendChildren, hideElements } from "../utility";
-import { createPlantQuizElements, createResultElements } from "./domManipulation";
-import { choiceBtnClickHandler, startQuizBtnHandler } from "./eventHandling";
-import { randomiseArray } from "./utility";
+import { plantDirectory } from "../utils/data";
+import { createElement, domElements, prepareDashboard } from "../utils/globalDomManipulation"
+import { localEventManager } from "../utils/globalEventHandling";
+import { appendChildren, hideElements, randomiseArray } from "../utils/gobalUtility";
+import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";
+import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandling";
+
+import { renderPlantDetails } from "../plant-page/plantPageMain";
+
 
 /**
  * Initialises the plant quiz by prepareing the dashboard and rendering the quiz on screen.

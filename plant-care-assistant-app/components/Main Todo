@@ -1,8 +1,8 @@
 MAIN TODO:
-- folders for plantLog vs home page
-- shared domManipulation and shard utility files as well as individual files
 - event handling seperate files for home page vs dashboard, refactor reused localEventManager into setup vs storage
-- plant quiz build on seperate html page then integrate into main dashboard
+
+TODO plant-discovery:
+- images on screen for search results
 
 TODO plant-quiz:
 - modal for plant quiz
@@ -25,10 +25,11 @@ TODO plant-page:
 - (store plant elements in plantLogManager so dont have to keep recreating them)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
+
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
 - images for all plants in the main plant directory
-- full ocumentation + readable code (eg parameters)
+- fuller documentation + comments and readable code (eg parameters)
 - REVIEW ALL CODE and improve modularity/functional 
 - remove console.log
 - cut down large functions
