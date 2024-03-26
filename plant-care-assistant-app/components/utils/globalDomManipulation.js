@@ -3,13 +3,14 @@
  * For stored dom elements, dynamic elements, and utility functions related to the dom. 
  */
 
+import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { hideElements, showElements } from "./gobalUtility";
 
 /**
- * Return most reused dom elements.
+ * Return static dom elements in the dashboard.
  * @returns html elements
  */
-export const domElementsManager = () => {
+export const dashboardDomElementsManager = () => {
   const dashboard = document.querySelector('.dashboard');
   const plantLogEl = document.querySelector('.plant-log');
   const plantQuiz = document.querySelector('.plant-quiz');
@@ -17,11 +18,8 @@ export const domElementsManager = () => {
   const myPlantsBtn = document.querySelector('.my-plants-btn');
   const plantQuizBtn = document.querySelector('.plant-quiz-btn');
   const discoverBtn = document.querySelector('.discover-btn');
-  const plantLogTitle = document.querySelector('.section-title');
-  const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
-  const userPlantGrid = document.querySelector('.user-plants');
 
-  return { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
+  return { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn };
 }
 
 export const globalDomElementsManager = () => {
@@ -32,18 +30,8 @@ export const globalDomElementsManager = () => {
   return { mobileNavModal, mobileMenuBars, mobileNavCloseBtn };
 }
 
-export const domElements = domElementsManager();
+export const domElements = dashboardDomElementsManager();
 export const globalDomElements = globalDomElementsManager();
-
-/**
- * Reset/show the initial static dom elements.
- */
-export const resetDomElements = () => {
-  const { plantLogTitle, addNewPlantBtn, userPlantGrid } = domElements;
-  plantLogTitle.style.display = 'block';
-  addNewPlantBtn.style.display = 'flex';
-  userPlantGrid.style.display = 'grid';
-}
 
 /**
  * Utility function to create a new HTML element.
@@ -55,29 +43,20 @@ export const resetDomElements = () => {
  * @param {string} value - Value attribute for input elements.
  * @returns {HTMLElement} Newly created HTML element.
  */
-export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '', dataAttributes = {} }) => {
+export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '', type = '', dataAttributes = {} }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
   if (classEl) element.classList.add(classEl);
   if (id) element.id = id;
   if (value) element.value = value;
+  if (type) element.type = type;
 
   Object.keys(dataAttributes).forEach(key => {
     element.setAttribute(`data-${key}`, dataAttributes[key]);
   });
 
   return element;
-}
-
-/**
- * Utility function to hide initial dom elements.
- */
-export const hideInitialDomElements = () => {
-  const { plantLogTitle, addNewPlantBtn } = domElements;
-
-  plantLogTitle.style.display = 'none';
-  addNewPlantBtn.style.display = 'none';
 }
 
 /**
@@ -129,4 +108,3 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
 
   dashboardNavButtonHighlight();
 }
-
