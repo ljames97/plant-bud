@@ -1,6 +1,3 @@
-MAIN TODO:
-- event handling seperate files for home page vs dashboard, refactor reused localEventManager into setup vs storage
-
 TODO plant-discovery:
 - images on screen for search results
 - explain what the section is about (at top of page)
@@ -25,7 +22,6 @@ TODO plant-page:
 - (plant requirements)
 - (store plant elements in plantLogManager so dont have to keep recreating them)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
-
 
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)

@@ -24,7 +24,16 @@ export const domElementsManager = () => {
   return { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn, plantLogTitle, addNewPlantBtn, userPlantGrid };
 }
 
+export const globalDomElementsManager = () => {
+  const mobileNavModal = document.querySelector('.mobile-nav-modal');
+  const mobileMenuBars = document.querySelector('.menu-bars');
+  const mobileNavCloseBtn = document.querySelector('.mobile-nav-close-btn');
+
+  return { mobileNavModal, mobileMenuBars, mobileNavCloseBtn };
+}
+
 export const domElements = domElementsManager();
+export const globalDomElements = globalDomElementsManager();
 
 /**
  * Reset/show the initial static dom elements.

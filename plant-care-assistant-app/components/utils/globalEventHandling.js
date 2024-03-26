@@ -1,34 +1,35 @@
-// eventHandling.js
+// globalEventHandling.js
 /**
- * Event handler logic.
+ * Global event handler logic and initialisation.
  */
 
-import { dashboardNavButtonHighlight, domElements, hideInitialDomElements } from "./globalDomManipulation";
-import { hideElements } from "./gobalUtility";
+import { dashboardNavButtonHighlight, domElements, globalDomElements } from "./globalDomManipulation";
 
 import { renderManualPlantForm } from "../add-plant/addPlantMain";
-import { renderPlantDetails } from "../plant-page/plantPageMain";
 import { startPlantQuiz } from "../plant-quiz/plantQuizMain";
 import { startPlantDiscovery } from "../plant-discovery/plantDiscoveryMain";
-import { plantLog, populatePlantGrid, startMyPlants } from "../plant-log/plantLogMain";
-
+import { populatePlantGrid, startMyPlants } from "../plant-log/plantLogMain";
+import { setupUserPlantGridEventListener } from "../plant-log/plantLogEventHandling";
 
 /**
- * Handle change event of user uploaded file.
- * Reads the selected image file asynchronously and executes a callback with the
- * image's data URL when the read operation is complete.
- * @param {*} event 
- * @param {*} imageDataUrl 
+ * Global initalisation for shared event handling.
  */
-export const imageChangeHandler = (event, callback) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      callback(e.target.result);
-    }
-    reader.readAsDataURL(file);
-  };
+export const globalInit = () => {
+  setUpGlobalEventListeners();
+}
+
+export const homeInit = () => {
+  // home-page event listener set up
+}
+
+/**
+ * Initialises the dashboard.
+ */
+export const dashboardInit = () => {
+  setUpDashboardEventListeners();
+  setupUserPlantGridEventListener();
+  populatePlantGrid();
+  dashboardNavButtonHighlight();
 }
 
 /**
@@ -61,45 +62,52 @@ const eventManager = () => {
   }
 }
 
+export const localEventManager = eventManager();
+
 /**
- * Sets up event listeners for the application. 
+ * Sets up event listeners for the dashboard. 
  * This includes listeners for searching plants, adding new plants, etc.
  */
-export const setUpEventListeners = () => {
+export const setUpDashboardEventListeners = () => {
   const { addNewPlantBtn, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
   localEventManager.addEventListener(addNewPlantBtn, 'click', renderManualPlantForm);
   localEventManager.addEventListener(myPlantsBtn, 'click', startMyPlants);
   localEventManager.addEventListener(plantQuizBtn, 'click', startPlantQuiz);
   localEventManager.addEventListener(discoverBtn, 'click', startPlantDiscovery);
-  setupUserPlantGridEventListener();
 }
 
-const setupUserPlantGridEventListener = () => {
-  const { userPlantGrid, plantLogEl } = domElements;
+/**
+ * Manages global elements and their event handlers.
+ */
+const setUpGlobalEventListeners = () => {
+  const { mobileMenuBars, mobileNavCloseBtn } = globalDomElements;
 
-  // event propagation
-  localEventManager.addEventListener(userPlantGrid, 'click', (event) => {
-    let target = event.target;
-    while (target && target !== userPlantGrid) {
-      if (target.classList.contains('plant-image')) {
-        const plantId = target.getAttribute('data-id');
-        const plant = plantLog.getPlantById(plantId);
-        if (plant) {
-          renderPlantDetails(plant, plantLogEl, userPlantGrid, 'grid', '← back to dashboard');
-          hideElements(userPlantGrid);
-          hideInitialDomElements();
-        }
-        return;
-      }
-      target = target.parentNode;
-    }
+  localEventManager.addEventListener(mobileMenuBars, 'click', () => {
+    toggleMobileNav(true);
   });
+  localEventManager.addEventListener(mobileNavCloseBtn, 'click', () => {
+    toggleMobileNav(false);
+  })
 }
 
-export const localEventManager = eventManager();
-
-// ** home page evenHandling logic (to be put in seperate file)
+/**
+ * Handle change event of user uploaded file.
+ * Reads the selected image file asynchronously and executes a callback with the
+ * image's data URL when the read operation is complete.
+ * @param {*} event 
+ * @param {*} imageDataUrl 
+ */
+export const imageChangeHandler = (event, callback) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      callback(e.target.result);
+    }
+    reader.readAsDataURL(file);
+  };
+}
 
 /**
  * Open/close the mobile navigation.
@@ -112,58 +120,4 @@ const toggleMobileNav = (isOpen) => {
   } else {
     mobileNavModal.classList.remove('show');
   }
-}
-
-/**
- * Assigns event handlers to static elements.
- */
-const staticEventHandlers = () => {
-  const eventHandlerData = staticEventHandlerManager();
-
-  eventHandlerData.forEach(eventHandler => {
-    const button = document.querySelector(eventHandler.class)
-
-    button.addEventListener('click', () => {
-      eventHandler.handler();
-    });
-  })
-}
-
-/**
- * Manages static elements and their event handlers.
- * @returns event handler data (array)
- */
-const staticEventHandlerManager = () => {
-  const eventHandlerData = [
-    {
-      class: '.menu-bars',
-      handler: () => toggleMobileNav(true)
-    },
-    {
-      class: '.mobile-nav-close-btn',
-      handler: () => toggleMobileNav(false)
-    }
-  ];
-
-  return eventHandlerData;
-}
-
-/**
- * Initialises the dashboard.
- */
-export const dashboardInit = () => {
-  setUpEventListeners();
-  populatePlantGrid();
-  dashboardNavButtonHighlight();
-}
-
-export const homeInit = () => {
-
-}
-
-/**
- * Global initalisation for shared event handling.
- */
-export const globalInit = () => {
-  staticEventHandlers();
 }
