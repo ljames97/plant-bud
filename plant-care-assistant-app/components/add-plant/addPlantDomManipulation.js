@@ -13,7 +13,7 @@ import { appendChildren } from "../utils/gobalUtility";
 export const createManualPlantForm = () => {
   const plantForm = createElement({tagName: 'form', classEl: 'manual-plant-form'});
   const name = createElement({tagName: 'input', placeholder: 'Plant name'});
-  const dateAdded = createElement({tagName: 'input', placeholder: 'Date added'});
+  const dateAdded = createElement({tagName: 'input', placeholder: 'Date added', type: 'date'});
   const cancelBtn = createElement({tagName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
 
   const plantPhoto = createElement({tagName: 'input', classEl: 'plant-photo-input'});

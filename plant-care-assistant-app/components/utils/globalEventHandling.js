@@ -8,8 +8,7 @@ import { dashboardNavButtonHighlight, domElements, globalDomElements } from "./g
 import { renderManualPlantForm } from "../add-plant/addPlantMain";
 import { startPlantQuiz } from "../plant-quiz/plantQuizMain";
 import { startPlantDiscovery } from "../plant-discovery/plantDiscoveryMain";
-import { populatePlantGrid, startMyPlants } from "../plant-log/plantLogMain";
-import { setupUserPlantGridEventListener } from "../plant-log/plantLogEventHandling";
+import { myPlantsInit } from "../plant-log/plantLogMain";
 
 /**
  * Global initalisation for shared event handling.
@@ -26,9 +25,8 @@ export const homeInit = () => {
  * Initialises the dashboard.
  */
 export const dashboardInit = () => {
+  myPlantsInit();
   setUpDashboardEventListeners();
-  setupUserPlantGridEventListener();
-  populatePlantGrid();
   dashboardNavButtonHighlight();
 }
 
@@ -69,10 +67,9 @@ export const localEventManager = eventManager();
  * This includes listeners for searching plants, adding new plants, etc.
  */
 export const setUpDashboardEventListeners = () => {
-  const { addNewPlantBtn, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
-  localEventManager.addEventListener(addNewPlantBtn, 'click', renderManualPlantForm);
-  localEventManager.addEventListener(myPlantsBtn, 'click', startMyPlants);
+  localEventManager.addEventListener(myPlantsBtn, 'click', myPlantsInit);
   localEventManager.addEventListener(plantQuizBtn, 'click', startPlantQuiz);
   localEventManager.addEventListener(discoverBtn, 'click', startPlantDiscovery);
 }

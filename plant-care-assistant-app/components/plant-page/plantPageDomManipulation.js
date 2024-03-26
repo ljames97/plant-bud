@@ -3,8 +3,9 @@
  * For stored dom elements, dynamic elements, and utility functions related to the dom. 
  */
 
+import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
-import { createElement, domElements } from "../utils/globalDomManipulation";
+import { createElement } from "../utils/globalDomManipulation";
 
 /**
  * Create dynamic elements for the plant page.
@@ -24,8 +25,8 @@ export const createDynamicPlantElements = () => {
  * Refresh plant grid by removing existing inner html and updating the userPlantLog.
  */
 export const refreshPlantGrid = () => {
-  const { userPlantGrid } = domElements;
-  userPlantGrid.innerHTML = '';
+  const { userPlantsContainer } = plantLogElements.getPlantLogElements();
+  userPlantsContainer.innerHTML = '';
 
   plantLog.userPlantLog.forEach(plant => {
     addPlantToGrid(plant);

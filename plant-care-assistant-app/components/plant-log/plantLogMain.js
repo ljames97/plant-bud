@@ -6,13 +6,44 @@
 import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
 import { appendChildren, findItemInArray } from "../utils/gobalUtility";
 import { dummyPlants } from "../utils/data";
+import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
+import { localEventManager } from "../utils/globalEventHandling";
+import { renderManualPlantForm } from "../add-plant/addPlantMain";
+import { plantLogElements } from "./plantLogDomManipulation";
 
 /**
  * Initialises the plant log ('My Plants') section of the app.
  */
-export const startMyPlants = () => {
+export const myPlantsInit = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+
+  if (myPlantsBtn.classList.contains('active')) {
+    console.log('ACTIVE');
+    return;
+  }
+
+  if (myPlantsBtn.classList.contains('dormant')) {
+    prepareDashboard(myPlantsBtn, discoverBtn, plantQuizBtn);
+    return;
+  }
+
   prepareDashboard(myPlantsBtn, discoverBtn, plantQuizBtn);
+  renderMyPlants();
+  myPlantsBtn.classList.add('dormant');
+}
+
+const renderMyPlants = () => {
+  const { plantLogEl } = domElements;
+  const { plantLogTitle, addPlantBtn, userPlantsContainer } = plantLogElements.createPlantLogElements();;
+
+  appendChildren(plantLogEl, plantLogTitle, userPlantsContainer, addPlantBtn);
+
+  populatePlantGrid();
+  setupUserPlantGridEventListener();
+
+  localEventManager.addEventListener(addPlantBtn, 'click', () => {
+    renderManualPlantForm(plantLogTitle, addPlantBtn, userPlantsContainer);
+  });
 }
 
 /**
@@ -63,7 +94,7 @@ export const plantLog = plantLogManager();
  * @param {Object} newPlant 
  */
 export const addPlantToGrid = (newPlant) => {
-  const { userPlantGrid } = domElements;
+  const userPlantsContainer = document.querySelector('.user-plants');
   const userPlantContainer = createElement({tagName: 'div', classEl: 'user-plant'});
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
   const plantImage = createElement({tagName: 'img', classEl: 'plant-image', dataAttributes: { 'id': newPlant.id.toString() }});
@@ -72,7 +103,7 @@ export const addPlantToGrid = (newPlant) => {
 
   appendChildren(plantImageContainer, plantImage);
   appendChildren(userPlantContainer, plantImageContainer, plantTitle);
-  appendChildren(userPlantGrid, userPlantContainer);
+  appendChildren(userPlantsContainer, userPlantContainer);
 }
 
 /**

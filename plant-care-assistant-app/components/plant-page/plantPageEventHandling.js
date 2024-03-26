@@ -1,6 +1,7 @@
-import { domElements, resetDomElements } from "../utils/globalDomManipulation";
+import { domElements } from "../utils/globalDomManipulation";
 import { removeChildren, showElements } from "../utils/gobalUtility";
 import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
+import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 
 /**
  * Remove plant page and return to dashboard (plantGrid).
@@ -19,7 +20,7 @@ export const backToDashboardHandler = (mainSection, hiddenContainer, displayType
   }
   
   if (mainSection.classList.contains('plant-log')) {
-    resetDomElements();
+    plantLogElements.resetPlantLogElements();
   }
 
   showElements(displayType, hiddenContainer);

@@ -5,7 +5,7 @@
 
 import { createElement } from "../utils/globalDomManipulation";
 import { localEventManager, imageChangeHandler } from "../utils/globalEventHandling";
-import { appendChildren } from "../utils/gobalUtility";
+import { appendChildren, getDate } from "../utils/gobalUtility";
 import { createDynamicPlantElements, refreshPlantGrid } from "./plantPageDomManipulation";
 import { backToDashboardHandler } from "./plantPageEventHandling";
 
@@ -40,7 +40,6 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
 
   appendChildren(plantImageContainer, plantImage);
   appendChildren(subHeader, backToDashboard, sectionBtn);
-
 
   appendChildren(sectionContainer, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
 
@@ -85,7 +84,7 @@ export const addToMyPlants = (plant) => {
 export const copyToMyPlants = (plant) => {
   const newPlant = {
     name: plant.name,
-    dateAdded: '',
+    dateAdded: getDate(),
     description: plant.description,
     image: plant.image,
     id: plant.id

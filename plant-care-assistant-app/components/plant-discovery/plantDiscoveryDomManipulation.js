@@ -10,10 +10,11 @@ import { createElement } from "../utils/globalDomManipulation";
  * @returns search input field, search and cancel buttons.
  */
 export const createSearchInput = () => {
+  const plantDiscoveryTitle = createElement({tagName: 'h1', textContent: 'Discover', classEl: 'plant-discovery-title'});
+  const plantDiscoveryDescription = createElement({tagName: 'p', textContent: 'Search our directory for plant information or find new plants to add to your dashboard', classEl: 'plant-discovery-description'});
   const searchContainer = createElement({tagName: 'div', classEl: 'search-container'});
   const searchForPlant = createElement({tagName: 'input', placeholder: 'Find your plant!', classEl: 'plant-search'});
-  const searchButton = createElement({tagName: 'button', textContent: 'Find', classEl: 'search-btn'});
   const searchResults = createElement({tagName: 'div', classEl: 'search-results'});
 
-  return { searchContainer, searchForPlant, searchButton, searchResults };
+  return { plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchForPlant, searchResults };
 }

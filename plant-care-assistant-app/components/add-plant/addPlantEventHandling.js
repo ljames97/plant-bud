@@ -3,10 +3,11 @@
  * Event handler logic.
  */
 
-import { domElements, resetDomElements } from "../utils/globalDomManipulation";
-import { removeChildren } from "../utils/gobalUtility";
+import { domElements } from "../utils/globalDomManipulation";
+import { removeChildren, showElements } from "../utils/gobalUtility";
 import { addToMyPlants } from "../plant-page/plantPageMain";
 import { validatePlantData } from "./addPlantMain";
+import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 
 /**
  * Validates the form data, creates a new plant object, adds it to the plant log,
@@ -43,5 +44,6 @@ export const submitHandler = (event, name, dateAdded, descripiton, imageDataUrl,
   addToMyPlants(newPlant);
   removeChildren(plantLogEl, plantForm, cancelBtn);
 
-  resetDomElements();
+  plantLogElements.resetPlantLogElements();
+  showElements()
 }

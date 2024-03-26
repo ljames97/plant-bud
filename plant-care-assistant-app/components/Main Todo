@@ -1,16 +1,13 @@
 TODO plant-discovery:
 - images on screen for search results
-- explain what the section is about (at top of page)
 
 TODO plant-quiz:
 - modal for plant quiz
-- add current date for plants added to log from the quiz results
 - quiz banner image
 - quiz css and extra features (sliders, progress bar etc...)
 
 TODO plant-log:
 - form error and message at renderManualPlantForm error handling
-- simple css for forms
 - add search field underneath title
 - max amount of plants shown in grid - add carousel function
 
@@ -25,15 +22,17 @@ TODO plant-page:
 
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+- compress dahsboardDomElementsMaager and globalDomElementsManager into one manager
+- consider caching / 'lazy loading' in dom element managers rather than returning queried dom elements each time
 - images for all plants in the main plant directory
-- fuller documentation + comments and readable code (eg parameters)
+- fuller documentation (including at top of each file) + comments and readable code (eg parameters)
 - REVIEW ALL CODE and improve modularity/functional 
 - remove console.log
 - cut down large functions
 - comments for complicated logic
 - error handling/error messages UI
 - clean up css and public image folder
-- add hyperlinks to menu, contact page, about erc
+- add hyperlinks to menu, contact page, about etc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
 - accessibility (buttons, image alt etc.)
 - laptop css (responsive design)

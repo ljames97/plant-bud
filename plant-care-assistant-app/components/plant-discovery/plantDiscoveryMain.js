@@ -7,7 +7,6 @@ import { domElements, createElement, prepareDashboard } from "../utils/globalDom
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, removeChildren } from "../utils/gobalUtility";
 import { createSearchInput } from "./plantDiscoveryDomManipulation";
-import { searchButtonClickHandler } from "./plantDiscoveryEventHandling";
 
 import { renderPlantDetails } from "../plant-page/plantPageMain";
 import { plantDirectory } from "../utils/data";
@@ -38,19 +37,15 @@ export const startPlantDiscovery = () => {
  * Render plant search form on screen.
  */
 export const renderNewPlantSearch = () => {
-  const { searchContainer, searchForPlant, searchButton, searchResults } = createSearchInput();
+  const { plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchForPlant, searchResults } = createSearchInput();
   const { plantDiscovery } = domElements;
 
-  appendChildren(searchContainer, searchForPlant, searchButton);
-  appendChildren(plantDiscovery, searchContainer);
+  appendChildren(searchContainer, searchForPlant);
+  appendChildren(plantDiscovery, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer );
 
   localEventManager.addEventListener(searchForPlant, 'input', () => {
-    updateSearchResults(searchForPlant.value, searchResults);
+    updateSearchResults(searchForPlant.value, searchResults, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer);
   })
-
-  localEventManager.addEventListener(searchButton, 'click', () => {
-    searchButtonClickHandler(searchContainer, searchForPlant, searchButton);
-  });
 
   appendChildren(plantDiscovery, searchContainer, searchResults);
 }
@@ -61,10 +56,9 @@ export const renderNewPlantSearch = () => {
  * @param {HTMLElement} resultsContainer - element to contain search results
  * @returns 
  */
-const updateSearchResults = (userSearch, resultsContainer) => {
+const updateSearchResults = (userSearch, resultsContainer, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer) => {
   const { plantDiscovery } = domElements;
   const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
-  const searchContainer = document.querySelector('.search-container');
 
 
   resultsContainer.innerHTML = '';
@@ -81,7 +75,7 @@ const updateSearchResults = (userSearch, resultsContainer) => {
       const plantElement = createElement({tagName: 'div', textContent: plant.name, classEl: 'search-result-item'});
       appendChildren(resultsContainer, plantElement);
       localEventManager.addEventListener(plantElement, 'click', () => {
-        removeChildren(plantDiscovery, searchContainer, resultsContainer);
+        removeChildren(plantDiscovery, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, resultsContainer);
         appendChildren(plantDiscovery, plantInfoContainer);
         renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', 'back to search' );
       })

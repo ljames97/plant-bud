@@ -3,11 +3,12 @@
  * Add new plant to the userPlantLog, validate plant details and submit new plant data.
  */
 
-import { domElements, hideInitialDomElements, resetDomElements } from "../utils/globalDomManipulation";
+import { domElements } from "../utils/globalDomManipulation";
 import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtility";
 import { submitHandler } from "./addPlantEventHandling";
 import { createManualPlantForm } from "./addPlantDomManipulation";
+import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 
 /**
  * Render user plant form for manual plant entry.
@@ -16,12 +17,11 @@ import { createManualPlantForm } from "./addPlantDomManipulation";
  * @param {HTMLElement} userSearch 
  * @param {HTMLElement} cancelSearchBtn 
  */
-export const renderManualPlantForm = () => {
-  const { plantLogEl, userPlantGrid } = domElements;
+export const renderManualPlantForm = (plantLogTitle, addPlantBtn, userPlantsContainer) => {
+  const { plantLogEl } = domElements;
   const { plantForm, name, dateAdded, plantPhoto, description, submitBtn, cancelBtn } = createManualPlantForm();
 
-  hideInitialDomElements();
-  hideElements(userPlantGrid);
+  hideElements(plantLogTitle, addPlantBtn, userPlantsContainer);
   appendChildren(plantLogEl, plantForm, cancelBtn);
   
   let imageDataUrl = [];
@@ -43,7 +43,7 @@ export const renderManualPlantForm = () => {
 
 const cancelManualButtonClickHandler = (plantForm, plantLogEl, cancelBtn) => {
   removeChildren(plantLogEl, plantForm, cancelBtn);
-  resetDomElements();
+  plantLogElements.resetPlantLogElements();
 }
 /**
  * Validate plant data and return error messages
