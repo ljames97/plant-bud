@@ -37,52 +37,55 @@ export const startPlantDiscovery = () => {
  * Render plant search form on screen.
  */
 export const renderNewPlantSearch = () => {
-  const { plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchForPlant, searchResults } = createSearchInput();
+  const { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchInput, searchResultsContainer } = createSearchInput();
   const { plantDiscovery } = domElements;
 
-  appendChildren(searchContainer, searchForPlant);
-  appendChildren(plantDiscovery, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer );
+  appendChildren(sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription);
+  appendChildren(searchContainer, searchInput, searchResultsContainer);
+  appendChildren(plantDiscovery, sectionHeader, searchContainer);
 
-  localEventManager.addEventListener(searchForPlant, 'input', () => {
-    updateSearchResults(searchForPlant.value, searchResults, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer);
+  localEventManager.addEventListener(searchInput, 'input', () => {
+    updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantDirectory, 'back to search');
   })
-
-  appendChildren(plantDiscovery, searchContainer, searchResults);
 }
 
 /**
  * Live search results as user types plant name into the search field.
- * @param {string} userSearch - value of user input into the search field
- * @param {HTMLElement} resultsContainer - element to contain search results
+ * @param {HTMLElement} mainSection - main section element (eg. plantLog, plantQuiz, plantDiscovery).
+ * @param {string} searchInput - value of user input into the search field.
+ * @param {HTMLElement} searchResultsContainer - element to contain search results.
+ * @param {HTMLElement} sectionHeader - header containg section title and description.
+ * @param {HTMLElement} searchContainer - element to contain search input and search results.
+ * @param {Array} searchArray - array of results (eg. plantDirectory, userPlantLog).
  * @returns 
  */
-const updateSearchResults = (userSearch, resultsContainer, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer) => {
-  const { plantDiscovery } = domElements;
-  const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
+export const updateSearchResults = (mainSection, searchInput, searchResultsContainer, sectionHeader, searchContainer, searchArray, backButtonText) => {
 
+  searchResultsContainer.innerHTML = '';
 
-  resultsContainer.innerHTML = '';
-
-  if (userSearch.length === 0) {
+  if (searchInput.length === 0) {
     return;
   }
 
-  const filteredPlants = plantDirectory.filter(plant => plant.name.toLowerCase().includes(userSearch.toLowerCase()));
+  const filteredPlants = searchArray.filter(plant => plant.name.toLowerCase().includes(searchInput.toLowerCase()));
 
   if (filteredPlants.length > 0) {
-    // turn plant list into gallery type view of plant images/names
+    const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
+
     filteredPlants.forEach(plant => {
       const plantElement = createElement({tagName: 'div', textContent: plant.name, classEl: 'search-result-item'});
-      appendChildren(resultsContainer, plantElement);
+      appendChildren(searchResultsContainer, plantElement);
+
       localEventManager.addEventListener(plantElement, 'click', () => {
-        removeChildren(plantDiscovery, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, resultsContainer);
-        appendChildren(plantDiscovery, plantInfoContainer);
-        renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', 'back to search' );
+        removeChildren(mainSection, sectionHeader, searchContainer, searchResultsContainer);
+        appendChildren(mainSection, plantInfoContainer);
+        renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', backButtonText);
       })
     });
+
   } else {
     const noResultsMessage = createElement({tagName: 'div', textContent: 'No plants found', classEl: 'no-results'});
-    appendChildren(resultsContainer, noResultsMessage);
+    appendChildren(searchResultsContainer, noResultsMessage);
   }
 }
 

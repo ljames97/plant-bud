@@ -22,7 +22,7 @@ export const setupUserPlantGridEventListener = () => {
         const plantId = target.getAttribute('data-id');
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
-          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to dashboard');
+          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants');
           hideElements(plantLogTitle, addPlantBtn, userPlantsContainer );
         }
         return;

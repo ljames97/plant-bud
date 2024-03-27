@@ -8,8 +8,9 @@ TODO plant-quiz:
 
 TODO plant-log:
 - form error and message at renderManualPlantForm error handling
-- add search field underneath title
+- * add search field underneath title
 - max amount of plants shown in grid - add carousel function
+- 'back to My Plants' instead of cancel button
 
 TODO plant-page:
 - delete plant option
@@ -22,13 +23,15 @@ TODO plant-page:
 
  FINAL TODO:
 - (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+- consistent html structure for containers for each section. Consider having more static html elements eg. for the plantLog vs plantPage
 - compress dahsboardDomElementsMaager and globalDomElementsManager into one manager
 - consider caching / 'lazy loading' in dom element managers rather than returning queried dom elements each time
 - images for all plants in the main plant directory
 - fuller documentation (including at top of each file) + comments and readable code (eg parameters)
-- REVIEW ALL CODE and improve modularity/functional 
-- remove console.log
-- cut down large functions
+- REVIEW ALL CODE and improve modularity/functional approach
+- remove console.logs
+- cut down all large functions
+- make functions more generalised rather than specific using parameters vs conditional logic
 - comments for complicated logic
 - error handling/error messages UI
 - clean up css and public image folder

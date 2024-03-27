@@ -4,12 +4,13 @@
  */
 
 import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
-import { appendChildren, findItemInArray } from "../utils/gobalUtility";
+import { appendChildren, findItemInArray, hideElements, removeChildren } from "../utils/gobalUtility";
 import { dummyPlants } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
 import { renderManualPlantForm } from "../add-plant/addPlantMain";
 import { plantLogElements } from "./plantLogDomManipulation";
+import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 
 /**
  * Initialises the plant log ('My Plants') section of the app.
@@ -32,14 +33,22 @@ export const myPlantsInit = () => {
   myPlantsBtn.classList.add('dormant');
 }
 
-const renderMyPlants = () => {
+export const renderMyPlants = () => {
+  console.log('rendering plants');
   const { plantLogEl } = domElements;
-  const { plantLogTitle, addPlantBtn, userPlantsContainer } = plantLogElements.createPlantLogElements();;
+  const { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer, userPlantsContainer, addPlantBtn } = plantLogElements.createPlantLogElements();
 
-  appendChildren(plantLogEl, plantLogTitle, userPlantsContainer, addPlantBtn);
+  appendChildren(sectionHeader, plantLogTitle)
+  appendChildren(searchContainer, searchInput, searchResultsContainer)
+  appendChildren(plantLogEl, sectionHeader, searchContainer, userPlantsContainer, addPlantBtn);
 
   populatePlantGrid();
   setupUserPlantGridEventListener();
+
+  localEventManager.addEventListener(searchInput, 'input', () => {
+    removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
+    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantLog.userPlantLog, '← back to My Plants');
+  })
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
     renderManualPlantForm(plantLogTitle, addPlantBtn, userPlantsContainer);
@@ -115,6 +124,6 @@ export const populatePlantGrid = () => {
   });
 }
 
-// dummyPlants.forEach(plant => {
-//   plantLog.addToUserPlantLog(plant);
-// })
+dummyPlants.forEach(plant => {
+  plantLog.addToUserPlantLog(plant);
+})

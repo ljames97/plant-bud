@@ -24,7 +24,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
   let sectionBtn = '';
 
-  if (backButtonText === '← back to dashboard') {
+  if (backButtonText === '← back to My Plants') {
     sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: 'edit-btn'});
   } else if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === 'back to search' && !plant.isAdded) {
     sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: 'add-to-plants-btn'});
