@@ -4,7 +4,7 @@
  */
 
 import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
-import { appendChildren, findItemInArray, hideElements, removeChildren } from "../utils/gobalUtility";
+import { appendChildren, findItemInArray, hideElements, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
 import { dummyPlants } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
@@ -51,7 +51,7 @@ export const renderMyPlants = () => {
   })
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
-    renderManualPlantForm(plantLogTitle, addPlantBtn, userPlantsContainer);
+    renderManualPlantForm(plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer);
   });
 }
 
@@ -69,7 +69,7 @@ const plantLogManager = () => {
     deletePlantFromLog: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
-        removeItemFromArray(userPlantLog, plant.id);
+        userPlantLog = removeItemFromArray(userPlantLog, plant.id);
       } 
     },
     updatePlantInfo: (plant) => {
@@ -90,9 +90,12 @@ const plantLogManager = () => {
       }
     },
     getPlantById: (plantId) => {
-      return plantLog.userPlantLog.find(plant => plant.id.toString() === plantId);
+      const userPlantLog = plantLog.getUserPlantLog();
+      return userPlantLog.find(plant => plant.id.toString() === plantId);
     },
-    userPlantLog
+    getUserPlantLog: () => {
+      return userPlantLog;
+    }
   }
 }
 
@@ -119,7 +122,9 @@ export const addPlantToGrid = (newPlant) => {
  * Populate the plant grid with plants stored in the userPlantLog
  */
 export const populatePlantGrid = () => {
-  plantLog.userPlantLog.forEach(plant => {
+  const userPlantLog = plantLog.getUserPlantLog() 
+  
+  userPlantLog.forEach(plant => {
     addPlantToGrid(plant);
   });
 }

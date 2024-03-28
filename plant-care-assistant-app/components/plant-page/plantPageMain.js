@@ -9,7 +9,7 @@ import { appendChildren, getDate } from "../utils/gobalUtility";
 import { createDynamicPlantElements, refreshPlantGrid } from "./plantPageDomManipulation";
 import { backToDashboardHandler } from "./plantPageEventHandling";
 
-import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
+import { addPlantToGrid, myPlantsInit, plantLog, renderMyPlants } from "../plant-log/plantLogMain";
 
 /**
  * Render plant details on screen
@@ -46,7 +46,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage}))
+    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}))
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       copyToMyPlants(plant);
@@ -122,6 +122,13 @@ const toggleEditMode = (plant, editBtn, elements) => {
       });
     });
 
+    const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: 'delete-plant-btn'});
+    appendChildren(elements.sectionContainer, deletePlantBtn);
+
+    localEventManager.addEventListener(deletePlantBtn, 'click', () => {
+      deletePlantBtnHandler(plant);
+    });
+
   } else {
     editBtn.textContent = 'Edit';
 
@@ -145,4 +152,15 @@ const toggleEditMode = (plant, editBtn, elements) => {
       imageInput.remove();
     }
   }
+}
+
+const deletePlantBtnHandler = (plant) => {
+  plantLog.deletePlantFromLog(plant);
+  resetSection('.plant-log', renderMyPlants);
+}
+
+const resetSection = (sectionClass, renderSection) => {
+  const section = document.querySelector(sectionClass);
+  section.innerHTML = '';
+  renderSection();
 }

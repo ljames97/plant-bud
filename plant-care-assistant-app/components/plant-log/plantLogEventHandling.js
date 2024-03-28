@@ -12,7 +12,7 @@ import { plantLog } from "./plantLogMain";
 
 export const setupUserPlantGridEventListener = () => {
   const { plantLogEl } = domElements;
-  const { plantLogTitle, addPlantBtn, userPlantsContainer } = plantLogElements.getPlantLogElements();
+  const { plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer } = plantLogElements.getPlantLogElements();
 
   // event propagation
   localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {
@@ -23,7 +23,7 @@ export const setupUserPlantGridEventListener = () => {
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
           renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants');
-          hideElements(plantLogTitle, addPlantBtn, userPlantsContainer );
+          hideElements(plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer);
         }
         return;
       }

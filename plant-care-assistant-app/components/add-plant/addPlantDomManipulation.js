@@ -11,10 +11,10 @@ import { appendChildren } from "../utils/gobalUtility";
  * @returns user plant upload form
  */
 export const createManualPlantForm = () => {
+  const backBtn = createElement({tagName: 'p', textContent: '← back to My Plants', classEl: 'back-button'});
   const plantForm = createElement({tagName: 'form', classEl: 'manual-plant-form'});
   const name = createElement({tagName: 'input', placeholder: 'Plant name'});
   const dateAdded = createElement({tagName: 'input', placeholder: 'Date added', type: 'date'});
-  const cancelBtn = createElement({tagName: 'button', textContent: 'Cancel', classEl: 'cancel-search-btn'});
 
   const plantPhoto = createElement({tagName: 'input', classEl: 'plant-photo-input'});
   plantPhoto.setAttribute('type', 'file');
@@ -25,5 +25,5 @@ export const createManualPlantForm = () => {
   const description = createElement({tagName: 'textarea', placeholder: 'Description'})
   appendChildren(plantForm, name, dateAdded, plantPhoto, description, submitBtn);
 
-  return { plantForm, name, dateAdded, plantPhoto, description, submitBtn, cancelBtn };
+  return { plantForm, name, dateAdded, plantPhoto, description, submitBtn, backBtn };
 }

@@ -20,16 +20,18 @@ const dynamicPlantLogElementsManager = () => {
       return { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer,userPlantsContainer, addPlantBtn };
     },
     getPlantLogElements: () => {
-      const plantLogTitle = document.querySelector('.section-title')
-      const addPlantBtn = document.querySelector('.add-new-plant-btn')
-      const userPlantsContainer = document.querySelector('.user-plants')
+      const plantLogTitle = document.querySelector('.section-title');
+      const searchContainer = document.querySelector('.search-container');
+      const addPlantBtn = document.querySelector('.add-new-plant-btn');
+      const userPlantsContainer = document.querySelector('.user-plants');
 
-      return { plantLogTitle, addPlantBtn, userPlantsContainer }; 
+      return { plantLogTitle, searchContainer, addPlantBtn, userPlantsContainer }; 
     },
     resetPlantLogElements: () => {
       console.log('123')
-      const { plantLogTitle, addPlantBtn, userPlantsContainer } = plantLogElements.getPlantLogElements();
+      const { plantLogTitle, searchContainer, addPlantBtn, userPlantsContainer } = plantLogElements.getPlantLogElements();
       plantLogTitle.style.display = 'block';
+      searchContainer.style.display = 'block';
       addPlantBtn.style.display = 'flex';
       userPlantsContainer.style.display = 'grid';
     }

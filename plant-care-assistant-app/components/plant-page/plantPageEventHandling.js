@@ -27,5 +27,11 @@ export const backToDashboardHandler = (mainSection, hiddenContainer, displayType
     return;
   }
 
+  if (mainSection.classList.contains('plant-log')) {
+    const { plantLogEl } = domElements;
+    plantLogElements.resetPlantLogElements();
+    return;
+  }
+
   showElements(displayType, hiddenContainer);
 }

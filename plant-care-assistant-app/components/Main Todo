@@ -8,38 +8,39 @@ TODO plant-quiz:
 
 TODO plant-log:
 - form error and message at renderManualPlantForm error handling
-- * add search field underneath title
 - max amount of plants shown in grid - add carousel function
-- 'back to My Plants' instead of cancel button
 
 TODO plant-page:
 - delete plant option
 - reset plant details (if added via search/quiz)
 - local storage
-- cut down large functions
 - (plant requirements)
 - (store plant elements in plantLogManager so dont have to keep recreating them)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
-- (plant suitability quiz, schedueler, plant logging, plant information via search, dashboard)
+- cut down large functions, full documentation, comments for complex logic and make code more readable, consistent names (eg. addPlantInit, plantQuizInit etc.)
+consistent backButton logic... removeChildren and then resetSectionElements.
+- make functions more generalised rather than specific using parameters vs conditional logic eg. backToDashboard handler
+- remove console.logs
+
 - consistent html structure for containers for each section. Consider having more static html elements eg. for the plantLog vs plantPage
 - compress dahsboardDomElementsMaager and globalDomElementsManager into one manager
 - consider caching / 'lazy loading' in dom element managers rather than returning queried dom elements each time
 - images for all plants in the main plant directory
-- fuller documentation (including at top of each file) + comments and readable code (eg parameters)
 - REVIEW ALL CODE and improve modularity/functional approach
-- remove console.logs
-- cut down all large functions
-- make functions more generalised rather than specific using parameters vs conditional logic
-- comments for complicated logic
+
+CSS:
+- review section CSS TODOs
 - error handling/error messages UI
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about etc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
 - accessibility (buttons, image alt etc.)
 - laptop css (responsive design)
+
 - unit testing / js tests
 - production ideas/hosting
 - login authentication
 - extra feature ideas eg. schedueler, AI, chatbot, journal entries
+- README file
