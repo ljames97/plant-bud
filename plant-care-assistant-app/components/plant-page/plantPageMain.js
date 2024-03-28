@@ -5,11 +5,10 @@
 
 import { createElement } from "../utils/globalDomManipulation";
 import { localEventManager, imageChangeHandler } from "../utils/globalEventHandling";
-import { appendChildren, getDate } from "../utils/gobalUtility";
-import { createDynamicPlantElements, refreshPlantGrid } from "./plantPageDomManipulation";
-import { backToDashboardHandler } from "./plantPageEventHandling";
+import { appendChildren, getDate, removeChildren } from "../utils/gobalUtility";
+import { createDynamicPlantElements } from "./plantPageDomManipulation";
 
-import { addPlantToGrid, myPlantsInit, plantLog, renderMyPlants } from "../plant-log/plantLogMain";
+import { addPlantToGrid, plantLog, renderMyPlants } from "../plant-log/plantLogMain";
 
 /**
  * Render plant details on screen
@@ -46,7 +45,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}))
+    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer, hiddenContainer}))
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       copyToMyPlants(plant);
@@ -54,9 +53,13 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
     })
   }
 
+  // localEventManager.addEventListener(backToDashboard, 'click', () => {
+  //   backToDashboardHandler(sectionContainer, hiddenContainer, displayType, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
+  // })
+
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    backToDashboardHandler(sectionContainer, hiddenContainer, displayType, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
-  })
+    resetSection('.plant-log', renderMyPlants);
+  }) 
 
   // add watering scheduele and other requirements (soil, light etc)
 }
@@ -123,11 +126,15 @@ const toggleEditMode = (plant, editBtn, elements) => {
     });
 
     const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: 'delete-plant-btn'});
-    appendChildren(elements.sectionContainer, deletePlantBtn);
+    const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: 'reset-plant-btn'});
+    appendChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
 
     localEventManager.addEventListener(deletePlantBtn, 'click', () => {
       deletePlantBtnHandler(plant);
     });
+    localEventManager.addEventListener(resetPlantDetailsBtn, 'click', () => {
+      resetPlantDetailsBtnHandler(plant, elements);
+    })
 
   } else {
     editBtn.textContent = 'Edit';
@@ -140,17 +147,17 @@ const toggleEditMode = (plant, editBtn, elements) => {
     plant.dateAdded = updatedDate;
     plant.description = updatedDescription;
 
+    const deletePlantBtn = document.querySelector('.delete-plant-btn');
+    const resetPlantDetailsBtn = document.querySelector('.reset-plant-btn');
+    removeChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
+
     plantLog.updatePlantInfo(plant);
-    refreshPlantGrid();
 
     elements.plantTitle.textContent = updatedName;
     elements.plantDate.textContent = updatedDate;
     elements.plantDescription.textContent = updatedDescription;
 
-    const imageInput = document.querySelector('.edit-plant-image');
-    if (imageInput) {
-      imageInput.remove();
-    }
+    removeImageInput();
   }
 }
 
@@ -159,8 +166,27 @@ const deletePlantBtnHandler = (plant) => {
   resetSection('.plant-log', renderMyPlants);
 }
 
+const resetPlantDetailsBtnHandler = (plant, elements) => {
+  const originalPlant = plantLog.getOriginalPlant(plant);
+
+  plant.name = originalPlant.name;
+  plant.dateAdded = originalPlant.dateAdded;
+  plant.description = originalPlant.description;
+  plant.image = originalPlant.image;
+
+  elements.sectionContainer.innerHTML = '';
+  renderPlantDetails(plant, elements.sectionContainer, elements.hiddenContainer, 'grid', '← back to My Plants');
+}
+
 const resetSection = (sectionClass, renderSection) => {
   const section = document.querySelector(sectionClass);
   section.innerHTML = '';
   renderSection();
+}
+
+const removeImageInput = () => {
+  const imageInput = document.querySelector('.edit-plant-image');
+  if (imageInput) {
+    imageInput.remove();
+  }
 }

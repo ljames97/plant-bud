@@ -28,7 +28,9 @@ export const refreshPlantGrid = () => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
   userPlantsContainer.innerHTML = '';
 
-  plantLog.userPlantLog.forEach(plant => {
+  const userPlantLog = plantLog.getUserPlantLog();
+
+  userPlantLog.forEach(plant => {
     addPlantToGrid(plant);
   })
 }

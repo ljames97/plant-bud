@@ -61,10 +61,13 @@ export const renderMyPlants = () => {
  */
 const plantLogManager = () => {
   let userPlantLog = [];
+  let originalPlantLog = [];
 
   return {
     addToUserPlantLog: (plant) => {
       userPlantLog.push(plant);
+      const clonePlant = JSON.parse(JSON.stringify(plant));
+      originalPlantLog.push(clonePlant);
     },
     deletePlantFromLog: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -95,8 +98,15 @@ const plantLogManager = () => {
     },
     getUserPlantLog: () => {
       return userPlantLog;
+    },
+    getOriginalPlantLog: () => {
+      return originalPlantLog;
+    },
+    getOriginalPlant: (plant) => {
+      const foundPlant = findItemInArray(originalPlantLog, plant.id);
+      return foundPlant;
+      }
     }
-  }
 }
 
 export const plantLog = plantLogManager();

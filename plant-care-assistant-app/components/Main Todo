@@ -11,16 +11,13 @@ TODO plant-log:
 - max amount of plants shown in grid - add carousel function
 
 TODO plant-page:
-- delete plant option
-- reset plant details (if added via search/quiz)
 - local storage
 - (plant requirements)
-- (store plant elements in plantLogManager so dont have to keep recreating them)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
 - cut down large functions, full documentation, comments for complex logic and make code more readable, consistent names (eg. addPlantInit, plantQuizInit etc.)
-consistent backButton logic... removeChildren and then resetSectionElements.
+consistent backButton logic... removeChildren and then resetSectionElements. eg. resetSection function in plantPage.js 
 - make functions more generalised rather than specific using parameters vs conditional logic eg. backToDashboard handler
 - remove console.logs
 
