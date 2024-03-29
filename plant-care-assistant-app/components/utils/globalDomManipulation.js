@@ -4,6 +4,7 @@
  */
 
 import { plantLogElements } from "../plant-log/plantLogDomManipulation";
+import { localEventManager } from "./globalEventHandling";
 import { hideElements, showElements } from "./gobalUtility";
 
 /**
@@ -107,4 +108,12 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
   }
 
   dashboardNavButtonHighlight();
+}
+
+export const clearSection = (element, eventRegistryName) => {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+
+  localEventManager.removeAllEventListeners(eventRegistryName);
 }

@@ -46,7 +46,7 @@ export const renderNewPlantSearch = () => {
 
   localEventManager.addEventListener(searchInput, 'input', () => {
     updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantDirectory, 'back to search');
-  })
+  }, 'PLANT_DISCOVERY')
 }
 
 /**
@@ -79,8 +79,8 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
       localEventManager.addEventListener(plantElement, 'click', () => {
         removeChildren(mainSection, sectionHeader, searchContainer, searchResultsContainer);
         appendChildren(mainSection, plantInfoContainer);
-        renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', backButtonText, '.plant-discovery', renderNewPlantSearch);
-      })
+        renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', backButtonText, '.plant-discovery', renderNewPlantSearch, 'PLANT_DISCOVERY');
+      }, 'PLANT_DISCOVERY')
     });
 
   } else {

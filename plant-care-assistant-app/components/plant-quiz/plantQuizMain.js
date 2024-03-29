@@ -45,7 +45,7 @@ export const renderPlantQuiz = () => {
 
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
     startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn, quizContainer);
-  });
+  }, 'PLANT_QUIZ');
 }
 
 /**
@@ -68,7 +68,7 @@ export const renderQuestion = (questionText, choices, category, questionId) => {
     appendChildren(choiceBtnContainer, choiceBtn);
     localEventManager.addEventListener(choiceBtn, 'click', () => {
       choiceBtnClickHandler(category, choice, questionId, quizContainer, questionTitle, choiceBtnContainer)
-    })
+    }, 'PLANT_QUIZ')
   });
 }
 
@@ -78,23 +78,23 @@ export const renderQuestion = (questionText, choices, category, questionId) => {
  * @returns 
  */
 const userAnswerManager = () => {
-  let userAnswerLog = {};
+  let userAnswers = {};
 
   return {
     addUserAnswer: (category, answer) => {
-      if (!userAnswerLog[category]) {
-        userAnswerLog[category] = answer;
+      if (!userAnswers[category]) {
+        userAnswers[category] = answer;
       } else {
-        userAnswerLog[category].push(answer);
+        userAnswers[category].push(answer);
       }
-      console.log(userAnswerLog);
+      console.log(userAnswers);
     },
     refreshAnswerLog: () => {
-      userAnswerLog = {};
-      console.log(userAnswerLog);
+      userAnswers = {};
+      console.log(userAnswers);
     },
     getUserAnswerLog: () => {
-      return userAnswerLog;
+      return userAnswers;
     }
   }
 }
@@ -153,8 +153,8 @@ const renderQuizResults = (results) => {
     localEventManager.addEventListener(resultTitle, 'click', () => {
       console.log(result);
       hideElements(quizContainer);
-      renderPlantDetails(result, plantInfoContainer, quizContainer, 'flex', '← back to results', '.plant-quiz', renderPlantQuiz);
-    })
+      renderPlantDetails(result, plantInfoContainer, quizContainer, 'flex', '← back to results', '.plant-quiz', renderPlantQuiz, 'PLANT_QUIZ');
+    }, 'PLANT_QUIZ')
   })
 }
 

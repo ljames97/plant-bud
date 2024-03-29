@@ -1,27 +1,26 @@
 // addPlantMain.js
 /**
- * Add new plant to the userPlantLog, validate plant details and submit new plant data.
+ * Add new plant to the userPlantLog and validate plant details.
  */
 
-import { domElements } from "../utils/globalDomManipulation";
+import { clearSection, domElements } from "../utils/globalDomManipulation";
 import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtility";
-import { submitHandler } from "./addPlantEventHandling";
+import { appendChildren } from "../utils/gobalUtility";
+import { submitNewPlantHandler } from "./addPlantEventHandling";
 import { createManualPlantForm } from "./addPlantDomManipulation";
-import { plantLogElements } from "../plant-log/plantLogDomManipulation";
+import { resetSection } from "../plant-page/plantPageMain";
+import { renderMyPlants } from "../plant-log/plantLogMain";
 
 /**
- * Render user plant form for manual plant entry.
+ * Render plant form for the user to manually upload a plant to 'My Plants'.
  * Sets up event listeners for image upload and form submission. The image upload
  * listener reads the selected file and stores its data URL for later use.
- * @param {HTMLElement} userSearch 
- * @param {HTMLElement} cancelSearchBtn 
  */
-export const renderManualPlantForm = (plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer) => {
+export const renderManualPlantForm = () => {
   const { plantLogEl } = domElements;
   const { plantForm, name, dateAdded, plantPhoto, description, submitBtn, backBtn } = createManualPlantForm();
 
-  hideElements(plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer);
+  clearSection(plantLogEl, 'PLANT_LOG');
   appendChildren(plantLogEl, backBtn, plantForm);
   
   let imageDataUrl = [];
@@ -30,21 +29,17 @@ export const renderManualPlantForm = (plantLogTitle, addPlantBtn, userPlantsCont
     imageChangeHandler(event, (dataUrl) => {
       imageDataUrl = dataUrl;
     })
-  });
+  }, 'ADD_PLANT');
 
   localEventManager.addEventListener(backBtn, 'click', () => {
-    cancelManualButtonClickHandler(plantForm, plantLogEl, backBtn);
-  })
+    resetSection('.plant-log', renderMyPlants);
+  }, 'ADD_PLANT');
 
   localEventManager.addEventListener(submitBtn, 'click', (event) => {
-    submitHandler(event, name, dateAdded, description, imageDataUrl, plantForm, backBtn);
-  });
+    submitNewPlantHandler(event, name, dateAdded, description, imageDataUrl);
+  }, 'ADD_PLANT');
 }
 
-const cancelManualButtonClickHandler = (plantForm, plantLogEl, backBtn) => {
-  removeChildren(plantLogEl, plantForm, backBtn);
-  plantLogElements.resetPlantLogElements();
-}
 /**
  * Validate plant data and return error messages
  * @param {string} name 

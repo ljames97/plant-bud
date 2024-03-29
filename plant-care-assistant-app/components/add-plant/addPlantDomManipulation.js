@@ -7,7 +7,7 @@ import { createElement } from "../utils/globalDomManipulation";
 import { appendChildren } from "../utils/gobalUtility";
 
 /**
- * Creates a form for user to upload a plant with custom title, description, photo and requirements.
+ * Returns form elements for user to upload a plant with custom title, description, photo and requirements.
  * TODO: Add support for specifying a watering schedule, similar plants, plant requirements etc.
  *
  * @returns html elements for creating the plant upload form in the addPlantMain module.

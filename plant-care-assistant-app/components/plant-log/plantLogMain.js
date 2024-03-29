@@ -48,11 +48,11 @@ export const renderMyPlants = () => {
   localEventManager.addEventListener(searchInput, 'input', () => {
     removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
     updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantLog.getUserPlantLog(), '← back to My Plants');
-  })
+  }, 'PLANT_LOG')
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
-    renderManualPlantForm(plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer);
-  });
+    renderManualPlantForm();
+  }, 'PLANT_LOG');
 }
 
 /**

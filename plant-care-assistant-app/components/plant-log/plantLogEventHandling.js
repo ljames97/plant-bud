@@ -3,8 +3,8 @@
  * Event handler logic.
  */
 
-import { renderPlantDetails } from "../plant-page/plantPageMain";
-import { domElements } from "../utils/globalDomManipulation";
+import { renderPlantDetails, resetSection } from "../plant-page/plantPageMain";
+import { clearSection, domElements } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { hideElements } from "../utils/gobalUtility";
 import { plantLogElements } from "./plantLogDomManipulation";
@@ -22,12 +22,12 @@ export const setupUserPlantGridEventListener = () => {
         const plantId = target.getAttribute('data-id');
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
-          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants', '.plant-log', renderMyPlants);
-          hideElements(plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer);
+          clearSection(plantLogEl, 'PLANT_LOG');
+          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants', '.plant-log', renderMyPlants, 'PLANT_LOG');
         }
         return;
       }
       target = target.parentNode;
     }
-  });
+  }, 'PLANT_LOG');
 }

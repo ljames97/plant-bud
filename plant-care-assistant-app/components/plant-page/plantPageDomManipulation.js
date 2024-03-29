@@ -5,7 +5,7 @@
 
 import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
-import { createElement } from "../utils/globalDomManipulation";
+import { clearSection, createElement } from "../utils/globalDomManipulation";
 
 /**
  * Create dynamic elements for the plant page.
@@ -26,10 +26,10 @@ export const createDynamicPlantElements = () => {
  */
 export const refreshPlantGrid = () => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
-  userPlantsContainer.innerHTML = '';
+
+  clearSection(userPlantsContainer, 'PLANT_LOG')
 
   const userPlantLog = plantLog.getUserPlantLog();
-
   userPlantLog.forEach(plant => {
     addPlantToGrid(plant);
   })

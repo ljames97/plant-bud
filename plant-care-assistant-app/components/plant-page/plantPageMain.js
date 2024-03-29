@@ -3,7 +3,7 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { createElement } from "../utils/globalDomManipulation";
+import { clearSection, createElement } from "../utils/globalDomManipulation";
 import { localEventManager, imageChangeHandler } from "../utils/globalEventHandling";
 import { appendChildren, getDate, removeChildren } from "../utils/gobalUtility";
 import { createDynamicPlantElements } from "./plantPageDomManipulation";
@@ -18,7 +18,7 @@ import { addPlantToGrid, plantLog, renderMyPlants } from "../plant-log/plantLogM
  * @param {string} displayType 
  * @param {string} backButtonText 
  */
-export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, displayType, backButtonText, sectionClass, sectionRender) => {
+export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, displayType, backButtonText, sectionClass, sectionRender, sectionEventRegistry) => {
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
   let sectionBtn = '';
@@ -45,21 +45,17 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer, hiddenContainer}, sectionClass, sectionRender))
+    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer, hiddenContainer}, sectionClass, sectionRender), 'PLANT_PAGE')
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       copyToMyPlants(plant);
       replaceButton(sectionBtn, plant);
-    })
+    }, 'PLANT_PAGE')
   }
 
-  // localEventManager.addEventListener(backToDashboard, 'click', () => {
-  //   backToDashboardHandler(sectionContainer, hiddenContainer, displayType, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
-  // })
-
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    resetSection(sectionClass, sectionRender);
-  }) 
+    resetSection(sectionClass, sectionRender, sectionEventRegistry);
+  }, 'PLANT_PAGE') 
 
   // add watering scheduele and other requirements (soil, light etc)
 }
@@ -75,15 +71,6 @@ const replaceButton = (button, plant) => {
   plant.isAdded = true;
 }
 
-/**
- * Add plant from quiz result or plant search to the plantLog and My Plants grid
- * @param {Object} plant 
- */
-export const addToMyPlants = (plant) => {
-  plantLog.addToUserPlantLog(plant);
-  addPlantToGrid(plant);
-}
-
 export const copyToMyPlants = (plant) => {
   const newPlant = {
     name: plant.name,
@@ -93,7 +80,8 @@ export const copyToMyPlants = (plant) => {
     id: plant.id
   };
 
-  addToMyPlants(newPlant);
+  plantLog.addToUserPlantLog(newPlant);
+  addPlantToGrid(newPlant);
 }
 
 /**
@@ -131,7 +119,7 @@ const toggleEditMode = (plant, editBtn, elements, sectionClass, sectionRender) =
 
     localEventManager.addEventListener(deletePlantBtn, 'click', () => {
       deletePlantBtnHandler(plant);
-    });
+    }, 'PLANT_PAGE');
     localEventManager.addEventListener(resetPlantDetailsBtn, 'click', () => {
       resetPlantDetailsBtnHandler(plant, elements, sectionClass, sectionRender);
     })
@@ -163,7 +151,7 @@ const toggleEditMode = (plant, editBtn, elements, sectionClass, sectionRender) =
 
 const deletePlantBtnHandler = (plant) => {
   plantLog.deletePlantFromLog(plant);
-  resetSection('.plant-log', renderMyPlants);
+  resetSection('.plant-log', renderMyPlants, 'ADD_PLANT');
 }
 
 const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, sectionRender) => {
@@ -175,12 +163,12 @@ const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, sectionRende
   plant.image = originalPlant.image;
 
   elements.sectionContainer.innerHTML = '';
-  renderPlantDetails(plant, elements.sectionContainer, elements.hiddenContainer, 'grid', '← back to My Plants', sectionClass, sectionRender);
+  renderPlantDetails(plant, elements.sectionContainer, elements.hiddenContainer, 'grid', '← back to My Plants', sectionClass, sectionRender, 'PLANT_PAGE');
 }
 
-const resetSection = (sectionClass, renderSection) => {
+export const resetSection = (sectionClass, renderSection, eventRegistryName) => {
   const section = document.querySelector(sectionClass);
-  section.innerHTML = '';
+  clearSection(section, eventRegistryName);
   renderSection();
 }
 

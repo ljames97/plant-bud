@@ -4,7 +4,7 @@
  */
 
 import { questions } from "../utils/data";
-import { createElement, domElements } from "../utils/globalDomManipulation";
+import { clearSection, createElement, domElements } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtility";
 import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuizMain";
@@ -41,7 +41,7 @@ export const restartQuizHandler = () => {
   const { plantQuiz } = domElements;
 
   userAnswerlog.refreshAnswerLog();
-  plantQuiz.innerHTML = '';
+  clearSection(plantQuiz, 'PLANT_QUIZ');
   renderPlantQuiz();
 }
 
@@ -58,7 +58,7 @@ export const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn, quiz
   const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz'})
   localEventManager.addEventListener(restartQuizBtn, 'click', () => {
     restartQuizHandler(quizContainer);
-  })
+  }, 'PLANT_QUIZ')
   appendChildren(quizContainer, restartQuizBtn);
 
   renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
