@@ -79,7 +79,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
       localEventManager.addEventListener(plantElement, 'click', () => {
         removeChildren(mainSection, sectionHeader, searchContainer, searchResultsContainer);
         appendChildren(mainSection, plantInfoContainer);
-        renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', backButtonText);
+        renderPlantDetails(plant, plantInfoContainer, searchContainer, 'flex', backButtonText, '.plant-discovery', renderNewPlantSearch);
       })
     });
 

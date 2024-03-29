@@ -1,6 +1,6 @@
 // addPlantEventHandling.js
 /**
- * Event handler logic.
+ * Event handler logic for adding new plant to 'My Plants'
  */
 
 import { domElements } from "../utils/globalDomManipulation";

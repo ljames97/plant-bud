@@ -153,7 +153,7 @@ const renderQuizResults = (results) => {
     localEventManager.addEventListener(resultTitle, 'click', () => {
       console.log(result);
       hideElements(quizContainer);
-      renderPlantDetails(result, plantInfoContainer, quizContainer, 'flex', '← back to results');
+      renderPlantDetails(result, plantInfoContainer, quizContainer, 'flex', '← back to results', '.plant-quiz', renderPlantQuiz);
     })
   })
 }

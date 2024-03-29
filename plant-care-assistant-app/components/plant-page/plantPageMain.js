@@ -18,7 +18,7 @@ import { addPlantToGrid, plantLog, renderMyPlants } from "../plant-log/plantLogM
  * @param {string} displayType 
  * @param {string} backButtonText 
  */
-export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, displayType, backButtonText) => {
+export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, displayType, backButtonText, sectionClass, sectionRender) => {
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
   let sectionBtn = '';
@@ -45,7 +45,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer, hiddenContainer}))
+    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer, hiddenContainer}, sectionClass, sectionRender))
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       copyToMyPlants(plant);
@@ -58,7 +58,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // })
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    resetSection('.plant-log', renderMyPlants);
+    resetSection(sectionClass, sectionRender);
   }) 
 
   // add watering scheduele and other requirements (soil, light etc)
@@ -102,7 +102,7 @@ export const copyToMyPlants = (plant) => {
  * @param {HTMLElement} editBtn 
  * @param {HTMLElement} elements 
  */
-const toggleEditMode = (plant, editBtn, elements) => {
+const toggleEditMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
   const isEditMode = editBtn.textContent === 'Edit';
 
   if (isEditMode) {
@@ -133,7 +133,7 @@ const toggleEditMode = (plant, editBtn, elements) => {
       deletePlantBtnHandler(plant);
     });
     localEventManager.addEventListener(resetPlantDetailsBtn, 'click', () => {
-      resetPlantDetailsBtnHandler(plant, elements);
+      resetPlantDetailsBtnHandler(plant, elements, sectionClass, sectionRender);
     })
 
   } else {
@@ -166,7 +166,7 @@ const deletePlantBtnHandler = (plant) => {
   resetSection('.plant-log', renderMyPlants);
 }
 
-const resetPlantDetailsBtnHandler = (plant, elements) => {
+const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, sectionRender) => {
   const originalPlant = plantLog.getOriginalPlant(plant);
 
   plant.name = originalPlant.name;
@@ -175,7 +175,7 @@ const resetPlantDetailsBtnHandler = (plant, elements) => {
   plant.image = originalPlant.image;
 
   elements.sectionContainer.innerHTML = '';
-  renderPlantDetails(plant, elements.sectionContainer, elements.hiddenContainer, 'grid', '← back to My Plants');
+  renderPlantDetails(plant, elements.sectionContainer, elements.hiddenContainer, 'grid', '← back to My Plants', sectionClass, sectionRender);
 }
 
 const resetSection = (sectionClass, renderSection) => {

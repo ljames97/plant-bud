@@ -1,14 +1,16 @@
 // addPlantDomManipulation.js
 /**
- * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ * For static DOM elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
 import { createElement } from "../utils/globalDomManipulation";
 import { appendChildren } from "../utils/gobalUtility";
 
 /**
- * Creates form for user to upload plant manually
- * @returns user plant upload form
+ * Creates a form for user to upload a plant with custom title, description, photo and requirements.
+ * TODO: Add support for specifying a watering schedule, similar plants, plant requirements etc.
+ *
+ * @returns html elements for creating the plant upload form in the addPlantMain module.
  */
 export const createManualPlantForm = () => {
   const backBtn = createElement({tagName: 'p', textContent: '← back to My Plants', classEl: 'back-button'});
@@ -21,7 +23,6 @@ export const createManualPlantForm = () => {
   plantPhoto.setAttribute('accept', 'image/*');
 
   const submitBtn = createElement({tagName: 'button', textContent: 'Add My Plant'});
-  // may add watering scheduele, similar plants etc.
   const description = createElement({tagName: 'textarea', placeholder: 'Description'})
   appendChildren(plantForm, name, dateAdded, plantPhoto, description, submitBtn);
 

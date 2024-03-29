@@ -8,7 +8,7 @@ import { domElements } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { hideElements } from "../utils/gobalUtility";
 import { plantLogElements } from "./plantLogDomManipulation";
-import { plantLog } from "./plantLogMain";
+import { plantLog, renderMyPlants } from "./plantLogMain";
 
 export const setupUserPlantGridEventListener = () => {
   const { plantLogEl } = domElements;
@@ -22,7 +22,7 @@ export const setupUserPlantGridEventListener = () => {
         const plantId = target.getAttribute('data-id');
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
-          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants');
+          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants', '.plant-log', renderMyPlants);
           hideElements(plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer);
         }
         return;

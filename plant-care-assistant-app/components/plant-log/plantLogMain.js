@@ -1,6 +1,6 @@
 // plantLogMain.js
 /**
- * For displaying user plants on the dashboard
+ * For displaying user plants on the dashboard.
  */
 
 import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
@@ -47,7 +47,7 @@ export const renderMyPlants = () => {
 
   localEventManager.addEventListener(searchInput, 'input', () => {
     removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
-    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantLog.userPlantLog, '← back to My Plants');
+    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantLog.getUserPlantLog(), '← back to My Plants');
   })
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
