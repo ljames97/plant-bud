@@ -1,7 +1,7 @@
 //plantQuizMain.js
 
 import { plantDirectory } from "../utils/data";
-import { createElement, domElements, prepareDashboard } from "../utils/globalDomManipulation"
+import { clearSection, createElement, domElements, prepareDashboard } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, randomiseArray } from "../utils/gobalUtility";
 import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";
@@ -82,11 +82,7 @@ const userAnswerManager = () => {
 
   return {
     addUserAnswer: (category, answer) => {
-      if (!userAnswers[category]) {
-        userAnswers[category] = answer;
-      } else {
-        userAnswers[category].push(answer);
-      }
+      userAnswers[category] = answer;
       console.log(userAnswers);
     },
     refreshAnswerLog: () => {

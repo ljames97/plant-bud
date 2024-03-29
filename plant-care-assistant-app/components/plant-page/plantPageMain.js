@@ -54,8 +54,8 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   }
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
-    resetSection(sectionClass, sectionRender, sectionEventRegistry);
-  }, 'PLANT_PAGE') 
+    resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
+  }, `PLANT_PAGE_${sectionClass}`);
 
   // add watering scheduele and other requirements (soil, light etc)
 }
