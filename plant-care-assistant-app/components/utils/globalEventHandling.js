@@ -6,7 +6,7 @@
 import { dashboardNavButtonHighlight, domElements, globalDomElements } from "./globalDomManipulation";
 
 import { startPlantQuiz } from "../plant-quiz/plantQuizMain";
-import { startPlantDiscovery } from "../plant-discovery/plantDiscoveryMain";
+import { plantDiscoveryInit } from "../plant-discovery/plantDiscoveryMain";
 import { myPlantsInit } from "../plant-log/plantLogMain";
 
 /**
@@ -121,7 +121,7 @@ export const setUpDashboardEventListeners = () => {
 
   localEventManager.addEventListener(myPlantsBtn, 'click', myPlantsInit, 'DASHBOARD');
   localEventManager.addEventListener(plantQuizBtn, 'click', startPlantQuiz, 'DASHBOARD');
-  localEventManager.addEventListener(discoverBtn, 'click', startPlantDiscovery, 'DASHBOARD');
+  localEventManager.addEventListener(discoverBtn, 'click', plantDiscoveryInit, 'DASHBOARD');
 }
 
 /**

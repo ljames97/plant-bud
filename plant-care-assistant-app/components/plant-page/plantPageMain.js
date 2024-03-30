@@ -14,11 +14,13 @@ import { addPlantToGrid, plantLog, renderMyPlants } from "../plant-log/plantLogM
  * Render plant details on screen
  * @param {Object} plant 
  * @param {HTMLElement} sectionContainer 
- * @param {HTMLElement} hiddenContainer 
- * @param {string} displayType 
+ * @param {HTMLElement} hiddenContainer REMOVE
+ * @param {string} displayType REMOVE
  * @param {string} backButtonText 
+ * @param {string} sectionClasee
+ * @param {string} sectionRender REMOVE
  */
-export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, displayType, backButtonText, sectionClass, sectionRender, sectionEventRegistry) => {
+export const renderPlantDetails = (plant, sectionContainer, backButtonText, sectionClass, sectionRender) => {
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
   let sectionBtn = '';
@@ -45,7 +47,7 @@ export const renderPlantDetails = (plant, sectionContainer, hiddenContainer, dis
   // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer, hiddenContainer}, sectionClass, sectionRender), 'PLANT_PAGE')
+    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
   } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       copyToMyPlants(plant);
@@ -85,68 +87,96 @@ export const copyToMyPlants = (plant) => {
 }
 
 /**
- * Toggle edit mode to edit plant details including title, image, date and notes.
- * @param {Object} plant 
- * @param {HTMLElement} editBtn 
- * @param {HTMLElement} elements 
+ * Toggle edit mode to edit plant details including title, image, date and description.
+ * @param {*} plant 
+ * @param {*} editBtn 
+ * @param {*} elements 
+ * @param {*} sectionClass 
+ * @param {*} sectionRender 
  */
 const toggleEditMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
   const isEditMode = editBtn.textContent === 'Edit';
 
   if (isEditMode) {
-    editBtn.textContent = 'Save';
-
-    elements.plantTitle.innerHTML = `<input type="text" class="edit-plant-title" value="${plant.name}">`;
-    elements.plantDate.innerHTML = `<input type="text" class="edit-plant-date" value="${plant.dateAdded}">`;
-    elements.plantDescription.innerHTML = `<textarea class="edit-plant-notes">${plant.description}</textarea>`;
-
-    const imageInput = document.createElement('input');
-    imageInput.type = 'file';
-    imageInput.classList.add('edit-plant-image');
-    imageInput.accept = 'image/*';
-    elements.plantImageContainer.insertBefore(imageInput, elements.plantImageContainer.firstChild);
-
-    imageInput.addEventListener('change', (event) => {
-      imageChangeHandler(event, (dataUrl) => {
-        plant.image = dataUrl;
-        elements.plantImage.src = dataUrl;
-      });
-    });
-
-    const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: 'delete-plant-btn'});
-    const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: 'reset-plant-btn'});
-    appendChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
-
-    localEventManager.addEventListener(deletePlantBtn, 'click', () => {
-      deletePlantBtnHandler(plant);
-    }, 'PLANT_PAGE');
-    localEventManager.addEventListener(resetPlantDetailsBtn, 'click', () => {
-      resetPlantDetailsBtnHandler(plant, elements, sectionClass, sectionRender);
-    })
-
+    editMode(plant, editBtn, elements, sectionClass, sectionRender);
   } else {
-    editBtn.textContent = 'Edit';
-
-    const updatedName = document.querySelector('.edit-plant-title').value;
-    const updatedDate = document.querySelector('.edit-plant-date').value;
-    const updatedDescription = document.querySelector('.edit-plant-notes').value;
-
-    plant.name = updatedName;
-    plant.dateAdded = updatedDate;
-    plant.description = updatedDescription;
-
-    const deletePlantBtn = document.querySelector('.delete-plant-btn');
-    const resetPlantDetailsBtn = document.querySelector('.reset-plant-btn');
-    removeChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
-
-    plantLog.updatePlantInfo(plant);
-
-    elements.plantTitle.textContent = updatedName;
-    elements.plantDate.textContent = updatedDate;
-    elements.plantDescription.textContent = updatedDescription;
-
-    removeImageInput();
+    saveMode(plant, editBtn, elements);
   }
+}
+
+/**
+ * 
+ * @param {*} plant 
+ * @param {*} editBtn 
+ * @param {*} elements 
+ * @param {*} sectionClass 
+ * @param {*} sectionRender 
+ */
+const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
+  editBtn.textContent = 'Save';
+  toggleEditFields(plant, elements);
+
+  const imageInput = document.createElement('input');
+  setUpImageInput(imageInput, elements, sectionClass);
+
+  const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: 'delete-plant-btn'});
+  const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: 'reset-plant-btn'});
+  appendChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
+
+  setUpDeleteResetBtns(plant, elements, sectionClass, sectionRender, deletePlantBtn, resetPlantDetailsBtn);
+}
+
+const toggleEditFields = (plant, elements) => {
+  elements.plantTitle.innerHTML = `<input type="text" class="edit-plant-title" value="${plant.name}">`;
+  elements.plantDate.innerHTML = `<input type="text" class="edit-plant-date" value="${plant.dateAdded}">`;
+  elements.plantDescription.innerHTML = `<textarea class="edit-plant-notes">${plant.description}</textarea>`;
+}
+
+const setUpImageInput = (imageInput, elements, sectionClass) => {
+  imageInput.type = 'file';
+  imageInput.classList.add('edit-plant-image');
+  imageInput.accept = 'image/*';
+  elements.plantImageContainer.insertBefore(imageInput, elements.plantImageContainer.firstChild);
+
+  localEventManager.addEventListener(imageInput, 'change', (event) => {
+    imageChangeHandler(event, (dataUrl) => {
+      plant.image = dataUrl;
+      elements.plantImage.src = dataUrl;
+    });
+  }, `PLANT_PAGE_${sectionClass}`);
+}
+
+const setUpDeleteResetBtns = (plant, elements, sectionClass, sectionRender, deletePlantBtn, resetPlantDetailsBtn) => {
+  localEventManager.addEventListener(deletePlantBtn, 'click', () => {
+    deletePlantBtnHandler(plant);
+  }, 'PLANT_PAGE');
+  localEventManager.addEventListener(resetPlantDetailsBtn, 'click', () => {
+    resetPlantDetailsBtnHandler(plant, elements, sectionClass, sectionRender);
+  });
+}
+
+const saveMode = (plant, editBtn, elements) => {
+  editBtn.textContent = 'Edit';
+
+  const updatedName = document.querySelector('.edit-plant-title').value;
+  const updatedDate = document.querySelector('.edit-plant-date').value;
+  const updatedDescription = document.querySelector('.edit-plant-notes').value;
+
+  plant.name = updatedName;
+  plant.dateAdded = updatedDate;
+  plant.description = updatedDescription;
+
+  const deletePlantBtn = document.querySelector('.delete-plant-btn');
+  const resetPlantDetailsBtn = document.querySelector('.reset-plant-btn');
+  removeChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
+
+  plantLog.updatePlantInfo(plant);
+
+  elements.plantTitle.textContent = updatedName;
+  elements.plantDate.textContent = updatedDate;
+  elements.plantDescription.textContent = updatedDescription;
+
+  removeImageInput();
 }
 
 const deletePlantBtnHandler = (plant) => {
@@ -163,7 +193,7 @@ const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, sectionRende
   plant.image = originalPlant.image;
 
   elements.sectionContainer.innerHTML = '';
-  renderPlantDetails(plant, elements.sectionContainer, elements.hiddenContainer, 'grid', '← back to My Plants', sectionClass, sectionRender, 'PLANT_PAGE');
+  renderPlantDetails(plant, elements.sectionContainer, '← back to My Plants', sectionClass, sectionRender);
 }
 
 export const resetSection = (sectionClass, renderSection, eventRegistryName) => {

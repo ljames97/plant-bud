@@ -1,13 +1,18 @@
 // plantDiscoveryDomManipulation.js
 /**
- * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
 import { createElement } from "../utils/globalDomManipulation";
 
 /**
- * Create search input field for user to search for a plant.
- * @returns search input field, search and cancel buttons.
+ * Creates and returns a search input field along with related UI elements for plant discovery.
+ * This includes the section header, title, description, and containers for the input and search results.
+ * 
+ * Note: This function does not append the created elements to the DOM. It's the caller's responsibility
+ * to place the returned elements appropriately in the application's UI.
+ * 
+ * @returns {Object} An object containing references to the created elements.
  */
 export const createSearchInput = () => {
   const sectionHeader = createElement({tagName: 'div', classEl: 'section-header'});

@@ -1,8 +1,18 @@
+// plantLogDomManipulation.js
+/**
+ * For static elements, dynamic elements, or utility functions for DOM manipulation. 
+ */
+
 import { createElement } from "../utils/globalDomManipulation"
 
 /**
- * Manage dyanamic plant log elements.
- * @returns functions to create, get and refresh dynamic plant log elements.
+ * Creates and returns dynamic plant log elements.
+ * This includes the section header, title, and containers for appending elements to the DOM.
+ * 
+ * Note: This function does not append the created elements to the DOM. It's the caller's responsibility
+ * to place the returned elements appropriately in the application's UI.
+ * 
+ * @returns {Object} An object containing references for the plant log section.
  */
 const dynamicPlantLogElementsManager = () => {
 
@@ -26,14 +36,6 @@ const dynamicPlantLogElementsManager = () => {
       const userPlantsContainer = document.querySelector('.user-plants');
 
       return { plantLogTitle, searchContainer, addPlantBtn, userPlantsContainer }; 
-    },
-    resetPlantLogElements: () => {
-      console.log('123')
-      const { plantLogTitle, searchContainer, addPlantBtn, userPlantsContainer } = plantLogElements.getPlantLogElements();
-      plantLogTitle.style.display = 'block';
-      searchContainer.style.display = 'block';
-      addPlantBtn.style.display = 'flex';
-      userPlantsContainer.style.display = 'grid';
     }
   }
 }

@@ -4,7 +4,7 @@
  */
 
 import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
-import { appendChildren, findItemInArray, hideElements, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
+import { appendChildren, findItemInArray, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
 import { dummyPlants } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
@@ -13,7 +13,7 @@ import { plantLogElements } from "./plantLogDomManipulation";
 import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 
 /**
- * Initialises the plant log ('My Plants') section of the app.
+ * Initialises the My Plants section of the app. This involves setting the css class on the active dashboard button.
  */
 export const myPlantsInit = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
@@ -33,8 +33,10 @@ export const myPlantsInit = () => {
   myPlantsBtn.classList.add('dormant');
 }
 
+/**
+ * Renders plant log elements on screen and calls functions to populate grid and set up event listeners. 
+ */
 export const renderMyPlants = () => {
-  console.log('rendering plants');
   const { plantLogEl } = domElements;
   const { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer, userPlantsContainer, addPlantBtn } = plantLogElements.createPlantLogElements();
 
@@ -43,21 +45,22 @@ export const renderMyPlants = () => {
   appendChildren(plantLogEl, sectionHeader, searchContainer, userPlantsContainer, addPlantBtn);
 
   populatePlantGrid();
-  setupUserPlantGridEventListener();
+  setupUserPlantGridEventListener(plantLogEl);
 
   localEventManager.addEventListener(searchInput, 'input', () => {
     removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
-    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, sectionHeader, searchContainer, plantLog.getUserPlantLog(), '← back to My Plants');
+    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, plantLog.getUserPlantLog(), '← back to My Plants', '.plant-log', renderMyPlants);
   }, 'PLANT_LOG')
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
-    renderManualPlantForm();
+    renderManualPlantForm(plantLogEl);
   }, 'PLANT_LOG');
 }
 
 /**
- * Store userPlantLog and return utility functions related to the plant log
- * @returns functions to add, remove, update and retrieve plants from the userPlantLog
+ * Store userPlantLog and return methods related to the plant log.
+ * Also stores the original plant data for users to reset any edits made to the original plant.
+ * @returns {Object} Methods to add, remove, update and retrieve plants from the userPlantLog.
  */
 const plantLogManager = () => {
   let userPlantLog = [];

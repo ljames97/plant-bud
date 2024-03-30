@@ -1,20 +1,25 @@
 // plantLogEventHandling.js
 /**
- * Event handler logic.
+ * Event handler logic the plant log section.
  */
 
-import { renderPlantDetails, resetSection } from "../plant-page/plantPageMain";
-import { clearSection, domElements } from "../utils/globalDomManipulation";
+import { renderPlantDetails } from "../plant-page/plantPageMain";
+import { clearSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
-import { hideElements } from "../utils/gobalUtility";
 import { plantLogElements } from "./plantLogDomManipulation";
 import { plantLog, renderMyPlants } from "./plantLogMain";
 
-export const setupUserPlantGridEventListener = () => {
-  const { plantLogEl } = domElements;
-  const { plantLogTitle, addPlantBtn, userPlantsContainer, searchContainer } = plantLogElements.getPlantLogElements();
+/**
+ * Sets up an event listener for clicks within the user plants grid in the My Plants section.
+ * Utilizes event delegation to handle clicks on dynamically added plant images, allowing for efficient
+ * event handling and reducing the need for attaching listeners to individual plants in the grid.
+ * 
+ * @param {HTMLElement} plantLogElement - The container element for the plant log section where events are monitored.
+ */
+export const setupUserPlantGridEventListener = (plantLogElement) => {
+  const { userPlantsContainer } = plantLogElements.getPlantLogElements();
 
-  // event propagation
+  // Event propagation for elements in the userPlantGrid.
   localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {
     let target = event.target;
     while (target && target !== userPlantsContainer) {
@@ -22,8 +27,8 @@ export const setupUserPlantGridEventListener = () => {
         const plantId = target.getAttribute('data-id');
         const plant = plantLog.getPlantById(plantId);
         if (plant) {
-          clearSection(plantLogEl, 'PLANT_LOG');
-          renderPlantDetails(plant, plantLogEl, userPlantsContainer, 'grid', '← back to My Plants', '.plant-log', renderMyPlants, 'PLANT_LOG');
+          clearSection(plantLogElement, 'PLANT_LOG');
+          renderPlantDetails(plant, plantLogElement, '← back to My Plants', '.plant-log', renderMyPlants);
         }
         return;
       }

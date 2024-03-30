@@ -16,7 +16,6 @@ TODO plant-page:
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
-- fix plant quiz bug, on second time round (after clicking back to quiz), also PLANT_PAGE remove event listeners
 - cut down large functions, full documentation, comments for complex logic and make code more readable, consistent names (eg. addPlantInit, plantQuizInit etc.)
 consistent backButton logic... removeChildren and then resetSectionElements. eg. resetSection function in plantPage.js 
 - make functions more generalised rather than specific using parameters vs conditional logic eg. backToDashboard handler
@@ -31,7 +30,7 @@ consistent backButton logic... removeChildren and then resetSectionElements. eg.
 
 CSS:
 - review section CSS TODOs
-- error handling/error messages UI
+- error handling/error messages UI, error handling for DOMManipulation functions
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about etc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
