@@ -1,5 +1,6 @@
 // plantDiscoveryMain.js
 /**
+ * Main file for the Plant Discovery module, centralising the module's functionality.
  * To search for plants in the plant directory and render results on screen.
  */
 
@@ -19,7 +20,6 @@ export const plantDiscoveryInit = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
   if (discoverBtn.classList.contains('active')) {
-    console.log('ACTIVE');
     return;
   }
 
@@ -45,7 +45,7 @@ export const renderNewPlantSearch = () => {
   appendChildren(plantDiscovery, sectionHeader, searchContainer);
 
   localEventManager.addEventListener(searchInput, 'input', () => {
-    updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, plantDirectory, 'back to search', '.plant-discovery', renderNewPlantSearch);
+    updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, plantDirectory, '← back to search', '.plant-discovery', renderNewPlantSearch);
   }, 'PLANT_DISCOVERY')
 }
 

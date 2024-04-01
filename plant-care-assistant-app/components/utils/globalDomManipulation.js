@@ -1,6 +1,7 @@
-// domManipulation.js
+// globalDomManipulation.js
 /**
- * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ * For static elements, dynamic elements, or utility functions for global DOM manipulation.
+ * Functions in this file are shared across several modules. 
  */
 
 import { plantLogElements } from "../plant-log/plantLogDomManipulation";
@@ -8,8 +9,8 @@ import { localEventManager } from "./globalEventHandling";
 import { hideElements, showElements } from "./gobalUtility";
 
 /**
- * Return static dom elements in the dashboard.
- * @returns html elements
+ * Return static DOM elements in the dashboard.
+ * @returns {Object} HTML elements
  */
 export const dashboardDomElementsManager = () => {
   const dashboard = document.querySelector('.dashboard');
@@ -23,6 +24,10 @@ export const dashboardDomElementsManager = () => {
   return { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn };
 }
 
+/**
+ * Return static global DOM elements.
+ * @returns {Object} HTML elements
+ */
 export const globalDomElementsManager = () => {
   const mobileNavModal = document.querySelector('.mobile-nav-modal');
   const mobileMenuBars = document.querySelector('.menu-bars');
@@ -110,10 +115,27 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
   dashboardNavButtonHighlight();
 }
 
+/**
+ * Clear the section by removing any child nodes. An alternative to innerHTML = ''.
+ * @param {} element 
+ * @param {*} eventRegistryName 
+ */
 export const clearSection = (element, eventRegistryName) => {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
 
   localEventManager.removeAllEventListeners(eventRegistryName);
+}
+
+/**
+ * Clear and re-render the section.
+ * @param {String} sectionClass - the class of the section element eg. 'plant-log', 'plant-quiz' etc.
+ * @param {Function} renderSection - function to render the section on screen eg. renderMyPlants.
+ * @param {String} eventRegistryName - event listener register connected to this section eg. 'MY_PLANTS'.
+ */
+export const resetSection = (sectionClass, renderSection, eventRegistryName) => {
+  const section = document.querySelector(sectionClass);
+  clearSection(section, eventRegistryName);
+  renderSection();
 }

@@ -1,5 +1,6 @@
 // plantLogMain.js
 /**
+ * Main file for the Plant Log module, centralising the module's functionality.
  * For displaying user plants on the dashboard.
  */
 
@@ -19,7 +20,6 @@ export const myPlantsInit = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
   if (myPlantsBtn.classList.contains('active')) {
-    console.log('ACTIVE');
     return;
   }
 

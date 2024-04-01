@@ -86,7 +86,7 @@ export const randomiseArray = (arr, size) => {
 }
 
 /**
- * Returns formatted date.
+ * Utility function to return formatted date.
  * @returns date in the format dd/mm/yyyy
  */
 export const getDate = () => {

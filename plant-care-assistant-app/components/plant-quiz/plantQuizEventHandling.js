@@ -10,14 +10,13 @@ import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtil
 import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuizMain";
 
 /**
- * Handle user choice for a given question, add choices to the userAnswerLog.
- * @param {*} category 
- * @param {*} choice 
- * @param {*} questionId 
- * @param {*} plantQuiz 
- * @param {*} questionTitle 
- * @param {*} choiceBtnContainer 
- * @returns 
+ * Handle user choice for a given question and add choices to the userAnswerLog.
+ * @param {String} category 
+ * @param {String} choice 
+ * @param {Number} questionId 
+ * @param {HTMLElement} plantQuiz 
+ * @param {String} questionTitle 
+ * @param {HTMLElement} choiceBtnContainer 
  */
 export const choiceBtnClickHandler = (category, choice, questionId, quizContainer, questionTitle, choiceBtnContainer) => {
   userAnswerlog.addUserAnswer(category, choice, questionId);
@@ -35,7 +34,7 @@ export const choiceBtnClickHandler = (category, choice, questionId, quizContaine
 }
 
 /**
- * Restart quiz.
+ * Restart quiz by refreshing the answer log, clearing the plant quiz section and re-rendering the section. 
  */
 export const restartQuizHandler = () => {
   const { plantQuiz } = domElements;

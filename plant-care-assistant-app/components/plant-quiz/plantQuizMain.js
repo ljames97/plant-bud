@@ -1,23 +1,25 @@
 //plantQuizMain.js
+/**
+ * Main file for the Plant Quiz module, centralising the module's functionality.
+ * For rendering the plant quiz, questions and resuls and for storing data in the userAnswerLog.
+ */
 
 import { plantDirectory } from "../utils/data";
-import { clearSection, createElement, domElements, prepareDashboard } from "../utils/globalDomManipulation"
+import { createElement, domElements, prepareDashboard } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, randomiseArray } from "../utils/gobalUtility";
 import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";
 import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandling";
-
 import { renderPlantDetails } from "../plant-page/plantPageMain";
 
 
 /**
- * Initialises the plant quiz by prepareing the dashboard and rendering the quiz on screen.
+ * Initialises the plant quiz by preparing the dashboard and rendering the quiz on screen.
  */
 export const startPlantQuiz = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
   if (plantQuizBtn.classList.contains('active')) {
-    console.log('ACTIVE');
     return;
   }
 
@@ -33,6 +35,7 @@ export const startPlantQuiz = () => {
 
 /**
  * Renders the initial quiz state on screen.
+ * @param {HTMLElement} plantQuiz 
  */
 export const renderPlantQuiz = () => {
   const { plantQuiz } = domElements;
@@ -62,7 +65,19 @@ export const renderQuestion = (questionText, choices, category, questionId) => {
   const choiceBtnContainer = createElement({tagName: 'div', classEl: 'choice-btn-container'});
 
   appendChildren(quizContainer, questionTitle, choiceBtnContainer);
-  
+  createChoiceButtons(choices, category, questionId, quizContainer, questionTitle, choiceBtnContainer);
+}
+
+/**
+ * Create choice buttons and assign event listeners to each button.
+ * @param {Array} choices 
+ * @param {String} category 
+ * @param {Number} questionId 
+ * @param {HTMLElement} quizContainer 
+ * @param {String} questionTitle 
+ * @param {HTMLElement} choiceBtnContainer 
+ */
+const createChoiceButtons = (choices, category, questionId, quizContainer, questionTitle, choiceBtnContainer) => {
   choices.forEach(choice => {
     const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: 'choice-btn'});
     appendChildren(choiceBtnContainer, choiceBtn);
@@ -75,7 +90,7 @@ export const renderQuestion = (questionText, choices, category, questionId) => {
 
 /**
  * Manages functions related to user answers. Add answer, clear answer log and get answer log.
- * @returns 
+ * @returns {Object} Methods for adding, refreshing and getting the userAnswers.
  */
 const userAnswerManager = () => {
   let userAnswers = {};
@@ -83,11 +98,9 @@ const userAnswerManager = () => {
   return {
     addUserAnswer: (category, answer) => {
       userAnswers[category] = answer;
-      console.log(userAnswers);
     },
     refreshAnswerLog: () => {
       userAnswers = {};
-      console.log(userAnswers);
     },
     getUserAnswerLog: () => {
       return userAnswers;
@@ -96,12 +109,28 @@ const userAnswerManager = () => {
 }
 
 /**
- * Get results of the quiz. Match suitable plants to users choices and render results on screen.
- * @param {Object} userAnswers 
+ * Get results of the quiz. Match suitable plants to the users choices and render results on screen.
+ * @param {Object} userAnswers - eg. 'skill': 'beginner', 
  */
 export const getQuizResults = (userAnswers) => {
   const plantData = plantDirectory;
+  const { suitablePlants, closestPlants } = findSuitablePlants(userAnswers, plantData);
 
+  // if there are no suitable plants, the next closest suitable plants will be displayed instead.
+  if (suitablePlants.length === 0) {
+    renderQuizResults(closestPlants);
+  } else {
+    renderQuizResults(suitablePlants);
+  }
+}
+
+/**
+ * Find plants with criteria that match the user answers.
+ * @param {*} userAnswers 
+ * @param {*} plantData 
+ * @returns 
+ */
+const findSuitablePlants = (userAnswers, plantData) => {
   const suitablePlants = plantData.filter(plant => {
     return plant.skill.includes(userAnswers.skill)
     && plant.location.includes(userAnswers.location)
@@ -119,11 +148,7 @@ export const getQuizResults = (userAnswers) => {
     && plant.transferToOutdoors.includes(userAnswers.transferToOutdoors)
   });
 
-  if (suitablePlants.length === 0) {
-    renderQuizResults(closestPlants);
-  } else {
-    renderQuizResults(suitablePlants);
-  }
+  return { suitablePlants, closestPlants };
 }
 
 /**
@@ -147,7 +172,6 @@ const renderQuizResults = (results) => {
     appendChildren(quizContainer, resultTitle);
 
     localEventManager.addEventListener(resultTitle, 'click', () => {
-      console.log(result);
       hideElements(quizContainer);
       renderPlantDetails(result, plantInfoContainer, '← back to results', '.plant-quiz', renderPlantQuiz);
     }, 'PLANT_QUIZ')

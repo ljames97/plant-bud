@@ -1,23 +1,23 @@
 // plantQuizDomManipulation.js
 /**
- * For stored dom elements, dynamic elements, and utility functions related to the dom. 
+ * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
 import { createElement } from "../utils/globalDomManipulation";
 
 /**
  * Create result title element.
- * @param {Array} result 
- * @returns 
+ * @param {Object} result 
+ * @returns {HTMLElement} Result title.
  */
 export const createResultElements = (result) => {
   const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: 'result-title'});
-  return { resultTitle };
+  return { resultTitle }
 }
 
 /**
  * Creates plant quiz elements.
- * @returns Plant quiz elements.
+ * @returns {Object} Plant quiz elements.
  */
 export const createPlantQuizElements = () => {
   const quizContainer = createElement({tagName: 'div', classEl: 'quiz-container'});

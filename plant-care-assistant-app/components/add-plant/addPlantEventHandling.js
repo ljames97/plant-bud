@@ -3,9 +3,9 @@
  * Event handler logic for adding a new plant to 'My Plants'.
  */
 
-import { resetSection } from "../plant-page/plantPageMain";
 import { validatePlantData } from "./addPlantMain";
 import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
+import { resetSection } from "../utils/globalDomManipulation";
 
 /**
  * Validates the form data, creates a new plant object, adds it to the plant log,

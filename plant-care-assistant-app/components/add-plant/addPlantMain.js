@@ -1,15 +1,15 @@
 // addPlantMain.js
 /**
- * Add new plant to the userPlantLog and validate plant details.
+ * Main file for the Add To Plant module, centralising the module's functionality.
+ * Render plant upload form, add new plant to the userPlantLog and validate plant details.
  */
 
-import { clearSection } from "../utils/globalDomManipulation";
+import { clearSection, resetSection } from "../utils/globalDomManipulation";
 import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
 
 import { submitNewPlantHandler } from "./addPlantEventHandling";
 import { createManualPlantForm } from "./addPlantDomManipulation";
-import { resetSection } from "../plant-page/plantPageMain";
 import { renderMyPlants } from "../plant-log/plantLogMain";
 
 /**

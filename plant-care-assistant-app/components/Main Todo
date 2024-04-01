@@ -12,15 +12,12 @@ TODO plant-log:
 
 TODO plant-page:
 - local storage
+- delete/reset plant details - Are you sure? UI
 - (plant requirements)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
-- cut down large functions, full documentation, comments for complex logic and make code more readable, consistent names (eg. addPlantInit, plantQuizInit etc.)
-consistent backButton logic... removeChildren and then resetSectionElements. eg. resetSection function in plantPage.js 
 - make functions more generalised rather than specific using parameters vs conditional logic eg. backToDashboard handler
-- remove console.logs
-
 - consistent html structure for containers for each section. Consider having more static html elements eg. for the plantLog vs plantPage
 - compress dahsboardDomElementsMaager and globalDomElementsManager into one manager
 - consider caching / 'lazy loading' in dom element managers rather than returning queried dom elements each time
@@ -35,10 +32,12 @@ CSS:
 - add hyperlinks to menu, contact page, about etc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
 - accessibility (buttons, image alt etc.)
-- laptop css (responsive design)
+- desktop css (responsive design)
 
 - unit testing / js tests
 - production ideas/hosting
 - login authentication
 - extra feature ideas eg. schedueler, AI, chatbot, journal entries
 - README file
+
+- react refactor
