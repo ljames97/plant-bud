@@ -3,11 +3,10 @@
  * Global event handler logic and initialisation.
  */
 
-import { dashboardNavButtonHighlight, domElements, globalDomElements } from "./globalDomManipulation";
-
-import { startPlantQuiz } from "../plant-quiz/plantQuizMain";
-import { plantDiscoveryInit } from "../plant-discovery/plantDiscoveryMain";
-import { myPlantsInit } from "../plant-log/plantLogMain";
+import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
+import { renderMyPlants } from "../plant-log/plantLogMain";
+import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
+import { dashboardNavButtonHighlight, domElements, globalDomElements, prepareDashboard } from "./globalDomManipulation";
 
 /**
  * Global initalisation for shared event handling.
@@ -24,9 +23,33 @@ export const homeInit = () => {
  * Initialises the dashboard.
  */
 export const dashboardInit = () => {
-  myPlantsInit();
+  sectionInit('MY_PLANTS');
   setUpDashboardEventListeners();
   dashboardNavButtonHighlight();
+}
+
+const sectionInit = (sectionName) => {
+  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+
+  const sectionMap = {
+    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants },
+    'PLANT_QUIZ': { button: plantQuizBtn, renderFunc: renderPlantQuiz },
+    'PLANT_DISCOVERY': { button: discoverBtn, renderFunc: renderNewPlantSearch }
+  }
+
+  const section = sectionMap[sectionName];
+  const otherButtons = Object.values(sectionMap).map(sec => sec.button).filter(btn => btn !== section.button);
+
+  if (!section || section.button.classList.contains('active')) {
+    return;
+  } if (section.button.classList.contains('dormant')) {
+    prepareDashboard(section.button, ...otherButtons);
+    return;
+  }
+
+  prepareDashboard(section.button, ...otherButtons);
+  section.renderFunc();
+  section.button.classList.add('dormant');
 }
 
 /**
@@ -117,9 +140,15 @@ export const localEventManager = eventManager();
 export const setUpDashboardEventListeners = () => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
-  localEventManager.addEventListener(myPlantsBtn, 'click', myPlantsInit, 'DASHBOARD');
-  localEventManager.addEventListener(plantQuizBtn, 'click', startPlantQuiz, 'DASHBOARD');
-  localEventManager.addEventListener(discoverBtn, 'click', plantDiscoveryInit, 'DASHBOARD');
+  localEventManager.addEventListener(myPlantsBtn, 'click', () => {
+    sectionInit('MY_PLANTS');
+  }, 'DASHBOARD');
+  localEventManager.addEventListener(plantQuizBtn, 'click', () => {
+    sectionInit('PLANT_QUIZ');
+  }, 'DASHBOARD');
+  localEventManager.addEventListener(discoverBtn, 'click', () => {
+    sectionInit('PLANT_DISCOVERY');
+  }, 'DASHBOARD');
 }
 
 /**

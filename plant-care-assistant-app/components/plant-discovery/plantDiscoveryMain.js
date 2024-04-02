@@ -12,27 +12,6 @@ import { createSearchInput } from "./plantDiscoveryDomManipulation";
 import { renderPlantDetails } from "../plant-page/plantPageMain";
 import { plantDirectory } from "../utils/data";
 
-
-/**
- * Initialise the plant discovery section of the app. This involves setting the css class on the active dashboard button.
- */
-export const plantDiscoveryInit = () => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
-
-  if (discoverBtn.classList.contains('active')) {
-    return;
-  }
-
-  if (discoverBtn.classList.contains('dormant')) {
-    prepareDashboard(discoverBtn, myPlantsBtn, plantQuizBtn);
-    return;
-  }
-
-  prepareDashboard(discoverBtn, myPlantsBtn, plantQuizBtn);
-  renderNewPlantSearch();
-  discoverBtn.classList.add('dormant');
-}
-
 /**
  * Render plant search input on screen. Gets search elements from createSearchInput and appends them to the DOM.
  */

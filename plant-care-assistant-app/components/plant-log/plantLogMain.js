@@ -14,26 +14,6 @@ import { plantLogElements } from "./plantLogDomManipulation";
 import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 
 /**
- * Initialises the My Plants section of the app. This involves setting the css class on the active dashboard button.
- */
-export const myPlantsInit = () => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
-
-  if (myPlantsBtn.classList.contains('active')) {
-    return;
-  }
-
-  if (myPlantsBtn.classList.contains('dormant')) {
-    prepareDashboard(myPlantsBtn, discoverBtn, plantQuizBtn);
-    return;
-  }
-
-  prepareDashboard(myPlantsBtn, discoverBtn, plantQuizBtn);
-  renderMyPlants();
-  myPlantsBtn.classList.add('dormant');
-}
-
-/**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners. 
  */
 export const renderMyPlants = () => {

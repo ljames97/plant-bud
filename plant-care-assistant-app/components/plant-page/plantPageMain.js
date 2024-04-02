@@ -9,7 +9,7 @@ import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, getDate, removeChildren } from "../utils/gobalUtility";
 import { createDynamicPlantElements, createSectionBtn, removeImageInput } from "./plantPageDomManipulation";
 
-import { addPlantToGrid, plantLog, renderMyPlants } from "../plant-log/plantLogMain";
+import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
 
 /**

@@ -87,29 +87,27 @@ export const dashboardNavButtonHighlight = () => {
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
 export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
-  const { plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+  const { plantLogEl, plantQuiz, plantDiscovery } = domElements;
   activeBtn.classList.add('active');
 
   inactiveBtn.forEach(button => {
     button.classList.remove('active');
   });
 
-  if (activeBtn !== myPlantsBtn) {
-    hideElements(plantLogEl);
-  } else {
-    showElements('flex', plantLogEl);
-  }
+  // Mapping from buttons to their corresponding sections
+  const buttonMap = {
+    myPlantsBtn: { section: plantLogEl, button: domElements.myPlantsBtn },
+    plantQuizBtn: { section: plantQuiz, button: domElements.plantQuizBtn },
+    discoverBtn: { section: plantDiscovery, button: domElements.discoverBtn }
+  };
 
-  if (activeBtn !== plantQuizBtn) {
-    hideElements(plantQuiz);
-  } else {
-    showElements('flex', plantQuiz);
-  }
+  // Find the active section based on the active button
+  const activeSection = Object.values(buttonMap).find(entry => entry.button === activeBtn)?.section;
 
-  if (activeBtn !== discoverBtn) {
-    hideElements(plantDiscovery);
-  } else {
-    showElements('flex', plantDiscovery);
+  [plantLogEl, plantQuiz, plantDiscovery].forEach(section => hideElements(section));
+
+  if (activeSection) {
+    showElements('flex', activeSection);
   }
 
   dashboardNavButtonHighlight();

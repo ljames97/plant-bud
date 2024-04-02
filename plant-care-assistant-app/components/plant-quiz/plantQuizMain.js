@@ -12,27 +12,6 @@ import { createPlantQuizElements, createResultElements } from "./plantQuizDomMan
 import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandling";
 import { renderPlantDetails } from "../plant-page/plantPageMain";
 
-
-/**
- * Initialises the plant quiz by preparing the dashboard and rendering the quiz on screen.
- */
-export const startPlantQuiz = () => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
-
-  if (plantQuizBtn.classList.contains('active')) {
-    return;
-  }
-
-  if (plantQuizBtn.classList.contains('dormant')) {
-    prepareDashboard(plantQuizBtn, myPlantsBtn, discoverBtn);
-    return;
-  }
-
-  prepareDashboard(plantQuizBtn, myPlantsBtn, discoverBtn);
-  renderPlantQuiz();
-  plantQuizBtn.classList.add('dormant');
-}
-
 /**
  * Renders the initial quiz state on screen.
  * @param {HTMLElement} plantQuiz 
