@@ -159,10 +159,10 @@ const setUpGlobalEventListeners = () => {
 
   localEventManager.addEventListener(mobileMenuBars, 'click', () => {
     toggleMobileNav(true);
-  });
+  }, 'MOBILE_NAV');
   localEventManager.addEventListener(mobileNavCloseBtn, 'click', () => {
     toggleMobileNav(false);
-  })
+  }, 'MOBILE_NAV');
 }
 
 /**

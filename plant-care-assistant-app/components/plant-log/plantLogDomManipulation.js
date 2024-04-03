@@ -26,16 +26,20 @@ const dynamicPlantLogElementsManager = () => {
       const searchResultsContainer = createElement({tagName: 'div', classEl: 'search-results'});
       const userPlantsContainer = createElement({tagName: 'div', classEl: 'user-plants'});
       const addPlantBtn = createElement({tagName: 'button', textContent: 'Add Plant!', classEl: 'add-new-plant-btn'});
+      const archiveBtn = createElement({tagName: 'button', textContent: 'Archived Plants', classEl: 'archive-plant-btn'});
 
-      return { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer,userPlantsContainer, addPlantBtn };
+      return { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer, userPlantsContainer, addPlantBtn, archiveBtn };
     },
     getPlantLogElements: () => {
       const plantLogTitle = document.querySelector('.section-title');
       const searchContainer = document.querySelector('.search-container');
+      const searchResultsContainer = document.querySelector('.search-results');
+      const searchInput = document.querySelector('.plant-search');
       const addPlantBtn = document.querySelector('.add-new-plant-btn');
       const userPlantsContainer = document.querySelector('.user-plants');
+      const archiveBtn = document.querySelector('.archive-plant-btn');
 
-      return { plantLogTitle, searchContainer, addPlantBtn, userPlantsContainer }; 
+      return { plantLogTitle, searchContainer, searchInput, searchResultsContainer, addPlantBtn, userPlantsContainer, archiveBtn }; 
     }
   }
 }

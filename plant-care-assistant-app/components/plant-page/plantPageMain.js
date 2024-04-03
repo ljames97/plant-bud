@@ -9,7 +9,7 @@ import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, getDate, removeChildren } from "../utils/gobalUtility";
 import { createDynamicPlantElements, createSectionBtn, removeImageInput } from "./plantPageDomManipulation";
 
-import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
+import { plantLog, renderDeletedPlants, renderMyPlants } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
 
 /**
@@ -37,15 +37,20 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   appendChildren(subHeader, backToDashboard, sectionBtn);
   appendChildren(sectionContainer, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
 
-  // conditional logic for edit button or add plant button depending on userplant vs result from plant quiz
+  // conditional logic for edit button, add plant button or unarchive button
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
     toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
-  } else if (sectionBtn.classList.contains('add-to-plants-btn')) {
+  } if (sectionBtn.textContent === 'Add to My Plants') {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       copyToMyPlants(plant);
       replaceButton(sectionBtn, plant);
     }, 'PLANT_PAGE')
+  } if (sectionBtn.textContent === 'Unarchive') {
+    localEventManager.addEventListener(sectionBtn, 'click', () => {
+      plantLog.removeFromDeletedPlants(plant);
+      renderDeletedPlants();
+    }, 'PLANT_PAGE');
   }
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
@@ -84,10 +89,10 @@ export const copyToMyPlants = (plant) => {
 /**
  * Toggle edit or save mode.
  * @param {Object} plant 
- * @param {HTMLElement} editBtn 
- * @param {Object} elements 
- * @param {string} sectionClass 
- * @param {Function} sectionRender 
+ * @param {HTMLElement} editBtn
+ * @param {Object} elements
+ * @param {string} sectionClass
+ * @param {Function} sectionRender
  */
 const toggleEditMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
   const isEditMode = editBtn.textContent === 'Edit';

@@ -55,8 +55,10 @@ export const removeImageInput = () => {
 export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
   if (backButtonText === '← back to My Plants') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: 'edit-btn'});
-  } else if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
+  } if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: 'add-to-plants-btn'});
+  } if (backButtonText === '← back to Plant Archive') {
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Unarchive', classEl: 'add-to-plants-btn'});
   } else {
     return sectionBtn = createElement({tagName: 'p', textContent: 'Added to My Plants'})
   }

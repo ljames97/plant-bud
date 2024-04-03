@@ -16,7 +16,7 @@ import { plantLog, renderMyPlants } from "./plantLogMain";
  * 
  * @param {HTMLElement} plantLogElement - The container element for the plant log section where events are monitored.
  */
-export const setupUserPlantGridEventListener = (plantLogElement) => {
+export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, sectionRender, backButtonText) => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
 
   // Event propagation for elements in the userPlantGrid.
@@ -25,10 +25,10 @@ export const setupUserPlantGridEventListener = (plantLogElement) => {
     while (target && target !== userPlantsContainer) {
       if (target.classList.contains('plant-image')) {
         const plantId = target.getAttribute('data-id');
-        const plant = plantLog.getPlantById(plantId);
+        const plant = plantLog.getPlantById(plantId, plantLogType);
         if (plant) {
           clearSection(plantLogElement, 'PLANT_LOG');
-          renderPlantDetails(plant, plantLogElement, '← back to My Plants', '.plant-log', renderMyPlants);
+          renderPlantDetails(plant, plantLogElement, backButtonText, '.plant-log', sectionRender);
         }
         return;
       }

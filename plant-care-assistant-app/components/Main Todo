@@ -17,15 +17,12 @@ TODO plant-page:
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
+- setupUserPlantGridEventListener, renderDeletedPlants, renderPlantGrid documentation
+- innerHTML change if possible
+- cached queryselector for all section DOM elements. And get elements rather than passing through paramters where possible
+
+CSS/aesthetics:
 - images for all plants in the main plant directory
-
-- deleted plants archive
-- innerHTML change
-
-- mobile nav bar event listener problem
-- REVIEW ALL CODE and improve modularity/functional approach
-
-CSS:
 - review section CSS TODOs
 - error handling/error messages UI, error handling for DOMManipulation functions
 - clean up css and public image folder

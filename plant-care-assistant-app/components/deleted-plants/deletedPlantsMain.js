@@ -1,7 +1,0 @@
-const renderDeletedPlants = () => {
-
-}
-
-const deletedPlantsManager = () => {
-  
-}
