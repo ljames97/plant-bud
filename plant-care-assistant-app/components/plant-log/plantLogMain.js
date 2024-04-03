@@ -4,8 +4,8 @@
  * For displaying user plants on the dashboard.
  */
 
-import { domElements, createElement } from "../utils/globalDomManipulation";
-import { appendChildren, findItemInArray, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
+import { domElements, createElement, clearSection, resetSection } from "../utils/globalDomManipulation";
+import { appendChildren, findItemInArray, hideElements, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
 import { dummyPlants } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
@@ -18,23 +18,53 @@ import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
  */
 export const renderMyPlants = () => {
   const { plantLogEl } = domElements;
-  const { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer, userPlantsContainer, addPlantBtn } = plantLogElements.createPlantLogElements();
+  const { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer, userPlantsContainer, addPlantBtn, archiveBtn } = plantLogElements.createPlantLogElements();
 
   appendChildren(sectionHeader, plantLogTitle)
   appendChildren(searchContainer, searchInput, searchResultsContainer)
-  appendChildren(plantLogEl, sectionHeader, searchContainer, userPlantsContainer, addPlantBtn);
+  appendChildren(plantLogEl, sectionHeader, searchContainer, userPlantsContainer, addPlantBtn, archiveBtn);
 
-  populatePlantGrid();
-  setupUserPlantGridEventListener(plantLogEl);
-
-  localEventManager.addEventListener(searchInput, 'input', () => {
-    removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
-    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, plantLog.getUserPlantLog(), '← back to My Plants', '.plant-log', renderMyPlants);
-  }, 'PLANT_LOG')
+  renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants', searchInput, archiveBtn, renderMyPlants);
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
     renderManualPlantForm(plantLogEl);
   }, 'PLANT_LOG');
+
+  localEventManager.addEventListener(archiveBtn, 'click', () => {
+    clearSection(userPlantsContainer, 'PLANT_LOG');
+    renderDeletedPlants()
+  }, 'PLANT_LOG');
+}
+
+export const renderDeletedPlants = () => {
+  const { plantLogEl } = domElements;
+  clearSection(plantLogEl, 'PLANT_LOG');
+  renderMyPlants();
+
+  const { plantLogTitle, userPlantsContainer, searchInput, archiveBtn, addPlantBtn } = plantLogElements.getPlantLogElements();
+  clearSection(userPlantsContainer, 'PLANT_LOG')
+  hideElements(addPlantBtn);
+  archiveBtn.textContent = 'Back to My Plants';
+  plantLogTitle.textContent = 'Plant Archive';
+
+  renderPlantGrid(plantLog.getDeletedPlants(), renderDeletedPlants, '← back to Plant Archive', searchInput);
+
+  localEventManager.addEventListener(archiveBtn, 'click', () => {
+    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+  }, 'PLANT_LOG');
+}
+
+const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInput) => {
+  const { plantLogEl } = domElements;
+  const { userPlantsContainer, addPlantBtn, searchResultsContainer } = plantLogElements.getPlantLogElements();
+
+  populatePlantGrid(plantLogType);
+  setupUserPlantGridEventListener(plantLogEl, plantLogType, sectionRender, backButtonText);
+
+  localEventManager.addEventListener(searchInput, 'input', () => {
+    removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
+    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, plantLogType, backButtonText, '.plant-log', sectionRender);
+  }, 'PLANT_LOG')
 }
 
 /**
@@ -45,17 +75,22 @@ export const renderMyPlants = () => {
 const plantLogManager = () => {
   let userPlantLog = [];
   let originalPlantLog = [];
+  let deletedPlantLog = [];
 
   return {
     addToUserPlantLog: (plant) => {
       userPlantLog.push(plant);
-      const clonePlant = JSON.parse(JSON.stringify(plant));
-      originalPlantLog.push(clonePlant);
+      const foundPlant = findItemInArray(originalPlantLog, plant.id);
+      if (!foundPlant) {
+        const clonePlant = JSON.parse(JSON.stringify(plant));
+        originalPlantLog.push(clonePlant);
+      }
     },
     deletePlantFromLog: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
         userPlantLog = removeItemFromArray(userPlantLog, plant.id);
+        deletedPlantLog.push(plant);
       } 
     },
     updatePlantInfo: (plant) => {
@@ -67,6 +102,13 @@ const plantLogManager = () => {
         foundPlant.image = plant.image;
       }
     },
+    removeFromDeletedPlants: (plant) => {
+      const foundPlant = findItemInArray(deletedPlantLog, plant.id);
+      if (foundPlant) {
+        deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
+        plantLog.addToUserPlantLog(plant);
+      }
+    },
     getPlant: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
@@ -75,9 +117,13 @@ const plantLogManager = () => {
         alert('Cannot find plant!');
       }
     },
-    getPlantById: (plantId) => {
+    getOriginalPlant: (plant) => {
+      const foundPlant = findItemInArray(originalPlantLog, plant.id);
+      return foundPlant;
+    },
+    getPlantById: (plantId, plantLogType) => {
       const userPlantLog = plantLog.getUserPlantLog();
-      return userPlantLog.find(plant => plant.id.toString() === plantId);
+      return plantLogType.find(plant => plant.id.toString() === plantId);
     },
     getUserPlantLog: () => {
       return userPlantLog;
@@ -85,17 +131,16 @@ const plantLogManager = () => {
     getOriginalPlantLog: () => {
       return originalPlantLog;
     },
-    getOriginalPlant: (plant) => {
-      const foundPlant = findItemInArray(originalPlantLog, plant.id);
-      return foundPlant;
-      }
+    getDeletedPlants: () => {
+      return deletedPlantLog;
     }
+  }
 }
 
 export const plantLog = plantLogManager();
 
 /**
- * Add and display a new plant on the userPlantGrid
+ * Add and display a new plant on the userPlantGrid.
  * @param {Object} newPlant 
  */
 export const addPlantToGrid = (newPlant) => {
@@ -113,11 +158,10 @@ export const addPlantToGrid = (newPlant) => {
 
 /**
  * Populate the plant grid with plants stored in the userPlantLog
+ * @param {Array} plants - eg. userPlantLog or archivedplants
  */
-export const populatePlantGrid = () => {
-  const userPlantLog = plantLog.getUserPlantLog() 
-  
-  userPlantLog.forEach(plant => {
+export const populatePlantGrid = (plants) => {  
+  plants.forEach(plant => {
     addPlantToGrid(plant);
   });
 }
