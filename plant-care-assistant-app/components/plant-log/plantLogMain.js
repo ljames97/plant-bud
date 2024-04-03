@@ -4,7 +4,7 @@
  * For displaying user plants on the dashboard.
  */
 
-import { domElements, createElement, prepareDashboard } from "../utils/globalDomManipulation";
+import { domElements, createElement } from "../utils/globalDomManipulation";
 import { appendChildren, findItemInArray, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
 import { dummyPlants } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";

@@ -17,13 +17,11 @@ TODO plant-page:
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
  FINAL TODO:
-- make functions more generalised rather than specific using parameters vs conditional logic
-createSectionBtn, myPlantsInit, prepareDashboard
-- consistent html structure for containers for each section. Consider having more static html elements eg. for the plantLog vs plantPage
-- compress dahsboardDomElementsMaager and globalDomElementsManager into one manager
-- consider caching / 'lazy loading' in dom element managers rather than returning queried dom elements each time
 - images for all plants in the main plant directory
+
+- deleted plants archive
 - innerHTML change
+
 - mobile nav bar event listener problem
 - REVIEW ALL CODE and improve modularity/functional approach
 

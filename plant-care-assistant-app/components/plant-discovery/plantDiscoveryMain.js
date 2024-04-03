@@ -4,7 +4,7 @@
  * To search for plants in the plant directory and render results on screen.
  */
 
-import { domElements, createElement, prepareDashboard, clearSection } from "../utils/globalDomManipulation"
+import { domElements, createElement, clearSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
 import { createSearchInput } from "./plantDiscoveryDomManipulation";

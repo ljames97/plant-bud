@@ -5,7 +5,7 @@
  */
 
 import { plantDirectory } from "../utils/data";
-import { createElement, domElements, prepareDashboard } from "../utils/globalDomManipulation"
+import { createElement, domElements } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, randomiseArray } from "../utils/gobalUtility";
 import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";

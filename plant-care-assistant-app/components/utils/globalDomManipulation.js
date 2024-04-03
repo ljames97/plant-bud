@@ -4,40 +4,55 @@
  * Functions in this file are shared across several modules. 
  */
 
-import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { localEventManager } from "./globalEventHandling";
 import { hideElements, showElements } from "./gobalUtility";
 
 /**
- * Return static DOM elements in the dashboard.
- * @returns {Object} HTML elements
+ * A manager for retreiving DOM elements.
+ * Elements are cached after initial query to improve performance. 
+ * @returns {Object} 
  */
-export const dashboardDomElementsManager = () => {
-  const dashboard = document.querySelector('.dashboard');
-  const plantLogEl = document.querySelector('.plant-log');
-  const plantQuiz = document.querySelector('.plant-quiz');
-  const plantDiscovery = document.querySelector('.plant-discovery')
-  const myPlantsBtn = document.querySelector('.my-plants-btn');
-  const plantQuizBtn = document.querySelector('.plant-quiz-btn');
-  const discoverBtn = document.querySelector('.discover-btn');
+const domElementsManager = () => {
+  // Cache objects for storing already queried DOM elements
+  let _globalDomElementsCache = null;
+  let _dashboardDomElementsCache = null;
 
-  return { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn };
+  return {
+    globalDomElements: () => {
+      if (_globalDomElementsCache) {
+        return _globalDomElementsCache;
+      }
+      // Query and cache if not already cached. 
+      const mobileNavModal = document.querySelector('.mobile-nav-modal');
+      const mobileMenuBars = document.querySelector('.menu-bars');
+      const mobileNavCloseBtn = document.querySelector('.mobile-nav-close-btn');
+
+      _globalDomElementsCache = { mobileNavModal, mobileMenuBars, mobileNavCloseBtn };
+      return _globalDomElementsCache;
+    },
+    dashboardDomElements: () => {
+      if (_dashboardDomElementsCache) {
+        return _dashboardDomElementsCache;
+      }
+
+      const dashboard = document.querySelector('.dashboard');
+      const plantLogEl = document.querySelector('.plant-log');
+      const plantQuiz = document.querySelector('.plant-quiz');
+      const plantDiscovery = document.querySelector('.plant-discovery')
+      const myPlantsBtn = document.querySelector('.my-plants-btn');
+      const plantQuizBtn = document.querySelector('.plant-quiz-btn');
+      const discoverBtn = document.querySelector('.discover-btn');
+
+      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn };
+      return _dashboardDomElementsCache;
+    }
+  }
 }
 
-/**
- * Return static global DOM elements.
- * @returns {Object} HTML elements
- */
-export const globalDomElementsManager = () => {
-  const mobileNavModal = document.querySelector('.mobile-nav-modal');
-  const mobileMenuBars = document.querySelector('.menu-bars');
-  const mobileNavCloseBtn = document.querySelector('.mobile-nav-close-btn');
+const getDomElements = domElementsManager();
 
-  return { mobileNavModal, mobileMenuBars, mobileNavCloseBtn };
-}
-
-export const domElements = dashboardDomElementsManager();
-export const globalDomElements = globalDomElementsManager();
+export const domElements = getDomElements.dashboardDomElements();
+export const globalDomElements = getDomElements.globalDomElements();
 
 /**
  * Utility function to create a new HTML element.
