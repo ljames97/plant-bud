@@ -15,6 +15,9 @@ import { plantLog, renderMyPlants } from "./plantLogMain";
  * event handling and reducing the need for attaching listeners to individual plants in the grid.
  * 
  * @param {HTMLElement} plantLogElement - The container element for the plant log section where events are monitored.
+ * @param {Array} plantLogType - eg. userPlantLog or deletedPlantLog.
+ * @param {Function} sectionRender - eg. renderMyPlants, renderDeletedPlants etc.
+ * @param {String} backButtonText - text for the back button eg. 'back to My Plants'.
  */
 export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, sectionRender, backButtonText) => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();

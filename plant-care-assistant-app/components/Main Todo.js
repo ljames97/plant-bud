@@ -1,3 +1,5 @@
+/* 
+
 TODO plant-discovery:
 - images on screen for search results
 
@@ -16,10 +18,9 @@ TODO plant-page:
 - (plant requirements)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
- FINAL TODO:
-- setupUserPlantGridEventListener, renderDeletedPlants, renderPlantGrid documentation
+FINAL TODO:
 - innerHTML change if possible
-- cached queryselector for all section DOM elements. And get elements rather than passing through paramters where possible
+- cached queryselector for all section DOM elements. And get elements rather than passing through parameters where possible
 
 CSS/aesthetics:
 - images for all plants in the main plant directory
@@ -38,3 +39,4 @@ CSS/aesthetics:
 - README file
 
 - react refactor
+*/

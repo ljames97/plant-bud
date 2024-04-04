@@ -14,7 +14,7 @@ import { plantLogElements } from "./plantLogDomManipulation";
 import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 
 /**
- * Renders plant log elements on screen and calls functions to populate grid and set up event listeners. 
+ * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.
  */
 export const renderMyPlants = () => {
   const { plantLogEl } = domElements;
@@ -36,6 +36,9 @@ export const renderMyPlants = () => {
   }, 'PLANT_LOG');
 }
 
+/**
+ * Render the deleted plants in the plant grid. Change the My Plants section into an Archive Plants section. 
+ */
 export const renderDeletedPlants = () => {
   const { plantLogEl } = domElements;
   clearSection(plantLogEl, 'PLANT_LOG');
@@ -54,6 +57,13 @@ export const renderDeletedPlants = () => {
   }, 'PLANT_LOG');
 }
 
+/**
+ * Render the plant grid. Eg. Either populate the grid with My Plants or with archived plants.
+ * @param {Array} plantLogType - eg. userPlantLog or deletedPlantLog.
+ * @param {Function} sectionRender - eg. renderMyPlants, renderDeletedPlants etc.
+ * @param {String} backButtonText - text for the back button eg. 'back to My Plants'.
+ * @param {HTMLElement} searchInput - input field for search.
+ */
 const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInput) => {
   const { plantLogEl } = domElements;
   const { userPlantsContainer, addPlantBtn, searchResultsContainer } = plantLogElements.getPlantLogElements();
@@ -109,6 +119,10 @@ const plantLogManager = () => {
         plantLog.addToUserPlantLog(plant);
       }
     },
+    permanentDelete: (plant) => {
+      deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
+      originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
+    },
     getPlant: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
@@ -122,7 +136,6 @@ const plantLogManager = () => {
       return foundPlant;
     },
     getPlantById: (plantId, plantLogType) => {
-      const userPlantLog = plantLog.getUserPlantLog();
       return plantLogType.find(plant => plant.id.toString() === plantId);
     },
     getUserPlantLog: () => {
@@ -166,6 +179,6 @@ export const populatePlantGrid = (plants) => {
   });
 }
 
-dummyPlants.forEach(plant => {
-  plantLog.addToUserPlantLog(plant);
-})
+// dummyPlants.forEach(plant => {
+//   plantLog.addToUserPlantLog(plant);
+// })

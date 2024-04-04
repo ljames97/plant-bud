@@ -6,11 +6,12 @@
 
 import { createElement, resetSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, getDate, removeChildren } from "../utils/gobalUtility";
+import { appendChildren, findItemInArray, getDate, removeChildren } from "../utils/gobalUtility";
 import { createDynamicPlantElements, createSectionBtn, removeImageInput } from "./plantPageDomManipulation";
 
 import { plantLog, renderDeletedPlants, renderMyPlants } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
+import { plantDirectory } from "../utils/data";
 
 /**
  * Render plant details on screen.
@@ -23,6 +24,7 @@ import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling"
 export const renderPlantDetails = (plant, sectionContainer, backButtonText, sectionClass, sectionRender) => {
   const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
   const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
+  const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: 'permanent-delete-btn'});
   let sectionBtn = '';
 
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
@@ -40,22 +42,61 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   // conditional logic for edit button, add plant button or unarchive button
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-    toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
-  } if (sectionBtn.textContent === 'Add to My Plants') {
+      toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
+  } 
+  
+  if (sectionBtn.textContent === 'Add to My Plants') {
     localEventManager.addEventListener(sectionBtn, 'click', () => {
-      copyToMyPlants(plant);
-      replaceButton(sectionBtn, plant);
-    }, 'PLANT_PAGE')
-  } if (sectionBtn.textContent === 'Unarchive') {
+      addToPlantsHandler(sectionBtn, plant);
+    }, 'PLANT_PAGE');
+  } 
+  
+  if (sectionBtn.textContent === 'Unarchive') {
+    appendChildren(subHeader, permanentDeleteBtn);
     localEventManager.addEventListener(sectionBtn, 'click', () => {
-      plantLog.removeFromDeletedPlants(plant);
-      renderDeletedPlants();
+      unarchiveBtnHandler(plant);
+    }, 'PLANT_PAGE');
+    localEventManager.addEventListener(permanentDeleteBtn, 'click', () => {
+      permanentDeleteBtnHandler(plant);
     }, 'PLANT_PAGE');
   }
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
     resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
   }, `PLANT_PAGE_${sectionClass}`);
+}
+
+/**
+ * Remove the plant from the deleted plants log and render the deleted plants page.
+ * @param {Object} plant 
+ */
+const unarchiveBtnHandler = (plant) => {
+  plantLog.removeFromDeletedPlants(plant);
+  renderDeletedPlants();
+}
+
+/**
+ * Add the plant to My Plants and change the button to text. 
+ * @param {HTMLElement} sectionBtn 
+ * @param {Object} plant 
+ */
+const addToPlantsHandler = (sectionBtn, plant) => {
+  copyToMyPlants(plant);
+  replaceButton(sectionBtn, plant);
+}
+
+/**
+ * Update the 'isAdded' for the plant if it was originally added from the plant directory.
+ * Remove the plant from all plant log arrays found in the plantLogManager.
+ * @param {Object} plant 
+ */
+const permanentDeleteBtnHandler = (plant) => {
+  const directoryPlant = findItemInArray(plantDirectory, plant.id);
+  if (directoryPlant) {
+    directoryPlant.isAdded = false;
+  }
+  plantLog.permanentDelete(plant);
+  renderDeletedPlants();
 }
 
 /**
