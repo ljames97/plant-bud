@@ -4,7 +4,7 @@
  */
 
 import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
-import { resetSection } from "../utils/globalDomManipulation";
+import { clearSection, resetSection } from "../utils/globalDomManipulation";
 import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
 import { renderPlantDetails } from "./plantPageMain";
 
@@ -32,7 +32,7 @@ export const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, secti
   plant.description = originalPlant.description;
   plant.image = originalPlant.image;
 
-  elements.sectionContainer.innerHTML = '';
+  clearSection(elements.sectionContainer, 'PLANT_PAGE');
   renderPlantDetails(plant, elements.sectionContainer, '← back to My Plants', sectionClass, sectionRender);
 }
 

@@ -4,7 +4,7 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { createElement, resetSection } from "../utils/globalDomManipulation";
+import { clearSection, createElement, resetSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, getDate, removeChildren } from "../utils/gobalUtility";
 import { createDynamicPlantElements, createSectionBtn, removeImageInput } from "./plantPageDomManipulation";
@@ -173,9 +173,17 @@ const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
  * @param {Object} elements 
  */
 const toggleEditFields = (plant, elements) => {
-  elements.plantTitle.innerHTML = `<input type="text" class="edit-plant-title" value="${plant.name}">`;
-  elements.plantDate.innerHTML = `<input type="text" class="edit-plant-date" value="${plant.dateAdded}">`;
-  elements.plantDescription.innerHTML = `<textarea class="edit-plant-notes">${plant.description}</textarea>`;
+  clearSection(elements.plantTitle, 'PLANT_PAGE');
+  clearSection(elements.plantDate, 'PLANT_PAGE');
+  clearSection(elements.plantDescription, 'PLANT_PAGE');
+
+  const titleInput = createElement({tagName: 'input', classEl: 'edit-plant-title', value: plant.name});
+  const dateInput = createElement({tagName: 'input', classEl: 'edit-plant-date', value: plant.dateAdded});
+  const descriptionInput = createElement({tagName: 'textarea', classEl: 'edit-plant-notes', value: plant.description});
+
+  appendChildren(elements.plantTitle, titleInput);
+  appendChildren(elements.plantDate, dateInput);
+  appendChildren(elements.plantDescription, descriptionInput);
 }
 
 /**

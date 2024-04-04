@@ -19,7 +19,6 @@ TODO plant-page:
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
 FINAL TODO:
-- innerHTML change if possible
 - cached queryselector for all section DOM elements. And get elements rather than passing through parameters where possible
 
 CSS/aesthetics:
