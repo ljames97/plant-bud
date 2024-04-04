@@ -15,6 +15,7 @@ import { createElement } from "../utils/globalDomManipulation"
  * @returns {Object} An object containing references for the plant log section.
  */
 const dynamicPlantLogElementsManager = () => {
+  let _plantLogElementsCache = null;
 
   return {
     createPlantLogElements: () => {
@@ -39,7 +40,8 @@ const dynamicPlantLogElementsManager = () => {
       const userPlantsContainer = document.querySelector('.user-plants');
       const archiveBtn = document.querySelector('.archive-plant-btn');
 
-      return { plantLogTitle, searchContainer, searchInput, searchResultsContainer, addPlantBtn, userPlantsContainer, archiveBtn }; 
+      return { plantLogTitle, searchContainer, searchInput, searchResultsContainer, addPlantBtn, userPlantsContainer, archiveBtn };
+
     }
   }
 }

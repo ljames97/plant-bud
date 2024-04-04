@@ -32,7 +32,7 @@ export const renderMyPlants = () => {
 
   localEventManager.addEventListener(archiveBtn, 'click', () => {
     clearSection(userPlantsContainer, 'PLANT_LOG');
-    renderDeletedPlants()
+    renderDeletedPlants();
   }, 'PLANT_LOG');
 }
 
@@ -40,6 +40,7 @@ export const renderMyPlants = () => {
  * Render the deleted plants in the plant grid. Change the My Plants section into an Archive Plants section. 
  */
 export const renderDeletedPlants = () => {
+  console.log('render')
   const { plantLogEl } = domElements;
   clearSection(plantLogEl, 'PLANT_LOG');
   renderMyPlants();

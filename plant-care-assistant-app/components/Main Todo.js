@@ -18,9 +18,6 @@ TODO plant-page:
 - (plant requirements)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
-FINAL TODO:
-- cached queryselector for all section DOM elements. And get elements rather than passing through parameters where possible
-
 CSS/aesthetics:
 - images for all plants in the main plant directory
 - review section CSS TODOs
@@ -38,4 +35,10 @@ CSS/aesthetics:
 - README file
 
 - react refactor
+
+CSS IDEAS:
+- start with My Plants page, remove header logo/image and footer. replace with icons, dark background, scrollable plant grid.
+- quiz, discover, add plant as icons in footer nav. 
+- decide wether to keep mobile menu bars or not (maybe keep classic design for desktop only)
+- change plant page, add blog and other features. 
 */

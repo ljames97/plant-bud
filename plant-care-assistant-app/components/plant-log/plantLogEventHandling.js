@@ -7,7 +7,7 @@ import { renderPlantDetails } from "../plant-page/plantPageMain";
 import { clearSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { plantLogElements } from "./plantLogDomManipulation";
-import { plantLog, renderMyPlants } from "./plantLogMain";
+import { plantLog } from "./plantLogMain";
 
 /**
  * Sets up an event listener for clicks within the user plants grid in the My Plants section.

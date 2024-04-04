@@ -39,7 +39,6 @@ export const renderNewPlantSearch = () => {
  * @param {function} sectionRender - renderMyPlants, renderPlantQuiz etc.
  */
 export const updateSearchResults = (mainSection, searchInput, searchResultsContainer, searchArray, backButtonText, sectionClass, sectionRender) => {
-
   clearSection(searchResultsContainer);
 
   if (searchInput.length === 0) {
