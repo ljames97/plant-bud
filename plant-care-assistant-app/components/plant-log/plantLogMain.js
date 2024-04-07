@@ -75,7 +75,10 @@ const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInpu
   localEventManager.addEventListener(searchInput, 'input', () => {
     removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
     updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, plantLogType, backButtonText, '.plant-log', sectionRender);
-  }, 'PLANT_LOG')
+    if (searchInput.value === '') {
+      appendChildren(plantLogEl, userPlantsContainer, addPlantBtn);
+    }
+  }, 'PLANT_LOG');
 }
 
 /**

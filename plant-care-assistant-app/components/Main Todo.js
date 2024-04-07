@@ -1,5 +1,13 @@
 /* 
 
+TODO
+- rearrange plant quiz and discovery into one section linked tot he search icon in footer nav. Add new plant section move to add icon
+= profile / home button functionality - or have profile button in top left alongside menu bars for about, contact etc.
+- css UI for each section.
+- UI flow ideas
+
+
+
 TODO plant-discovery:
 - images on screen for search results
 

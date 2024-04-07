@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="./components/styles/main.css"/>
     <link rel="stylesheet" type="text/css" href="./components/styles/dashboard.css"/>
     <link rel="stylesheet" type="text/css" href="./components/styles/plant-quiz.css"/>
@@ -34,28 +37,37 @@
     </header>
     <main>
       <div class="dashboard">
-        <nav class="dashboard-nav">
-          <ul class="dashboard-nav-items">
-            <button class="dashboard-nav-item my-plants-btn">My Plants</button>
-            <button class="dashboard-nav-item plant-quiz-btn">Plant Quiz</button>
-            <button class="dashboard-nav-item discover-btn">Discover</button>
-          </ul>
-        </nav>
         <div class="plant-log"></div>
         <div class="plant-quiz"></div>
         <div class="plant-discovery"></div>
+        
     </div>
     </main>
     <footer>
-      <nav>
+      <nav class="dashboard-nav">
+        <ul class="dashboard-nav-items">
+          <button class="dashboard-nav-item profile-btn">
+            <div class="profile-icon-container icon-container"></div>
+          <button class="dashboard-nav-item my-plants-btn">
+            <div class="plant-icon-container icon-container"></div>
+          </button>
+          <button class="dashboard-nav-item plant-quiz-btn">
+            <div class="add-icon-container icon-container"></div>
+          </button>
+          <button class="dashboard-nav-item discover-btn">
+            <div class="discover-icon-container icon-container"></div>
+          </button>
+        </ul>
+      </nav>
+      <!-- <nav> -->
         <!-- <ul class="footer-menu-items">
           <li class="footer-menu-item">CONTACT US</li>
           <li class="footer-menu-item">ABOUT</li>
           <li class="footer-menu-item">JOURNAL</li>
           <li class="footer-menu-item">NEWSLETTER</li>
         </ul> -->
-      </nav>
-      <p class="copyright">PlantBud | © 2024 All Rights Reserved</p>
+      <!-- </nav> -->
+      <!-- <p class="copyright">PlantBud | © 2024 All Rights Reserved</p> -->
     </footer>
     <script type="module" src="app.js" ></script>
   </body>

@@ -42,6 +42,15 @@ const domElementsManager = () => {
       const myPlantsBtn = document.querySelector('.my-plants-btn');
       const plantQuizBtn = document.querySelector('.plant-quiz-btn');
       const discoverBtn = document.querySelector('.discover-btn');
+      
+      // plant button dark/light icons
+      myPlantsBtn.lightIcon = '../../public/footer-nav-icons/plant.png';
+      plantQuizBtn.lightIcon = '../../public/footer-nav-icons/add.png';
+      discoverBtn.lightIcon = '../../public/footer-nav-icons/search.png';
+
+      myPlantsBtn.darkIcon = '../../public/footer-nav-icons-dark/plant.png';
+      plantQuizBtn.darkIcon = '../../public/footer-nav-icons-dark/add.png';
+      discoverBtn.darkIcon = '../../public/footer-nav-icons-dark/search.png';
 
       _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn };
       return _dashboardDomElementsCache;
@@ -89,9 +98,13 @@ export const dashboardNavButtonHighlight = () => {
 
   dashboardButtons.forEach(button => {
     if (button.classList.contains('active')) {
-      button.style.backgroundColor = '#cd7647';
+      button.style.backgroundColor = '#fcfaf7'
+      const iconContainer = button.querySelector('.icon-container');
+      iconContainer.style.backgroundImage = `url(${button.darkIcon})`;
     } else {
-      button.style.backgroundColor = '#8F4721'
+      button.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'
+      const iconContainer = button.querySelector('.icon-container');
+      iconContainer.style.backgroundImage = `url(${button.lightIcon})`;
     }
   });
 }
