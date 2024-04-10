@@ -18,9 +18,9 @@ import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "
  * @param {String} questionTitle 
  * @param {HTMLElement} choiceBtnContainer 
  */
-export const choiceBtnClickHandler = (category, choice, questionId, quizContainer, questionTitle, choiceBtnContainer) => {
+export const choiceBtnClickHandler = (category, choice, questionId, questionContainer, questionTitle, choiceBtnContainer) => {
   userAnswerlog.addUserAnswer(category, choice, questionId);
-  removeChildren(quizContainer, questionTitle, choiceBtnContainer);
+  removeChildren(questionContainer, questionTitle, choiceBtnContainer);
 
   if (questionId === 8) {
     const quizResults = userAnswerlog.getUserAnswerLog();
@@ -49,16 +49,15 @@ export const restartQuizHandler = () => {
  * @param {HTMLElement} quizTitle 
  * @param {HTMLElement} quizSubheader 
  * @param {HTMLElement} startQuizBtn 
- * @param {HTMLElement} plantQuiz 
+ * @param {HTMLElement} quizContainer 
  */
 export const startQuizBtnHandler = (quizTitle, quizSubheader, startQuizBtn, quizContainer) => {
   hideElements(quizTitle, quizSubheader, startQuizBtn)
 
-  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz'})
+  const restartQuizBtn = document.querySelector('.restart-quiz-btn');
   localEventManager.addEventListener(restartQuizBtn, 'click', () => {
     restartQuizHandler(quizContainer);
-  }, 'PLANT_QUIZ')
-  appendChildren(quizContainer, restartQuizBtn);
+  }, 'PLANT_QUIZ');
 
   renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
 }

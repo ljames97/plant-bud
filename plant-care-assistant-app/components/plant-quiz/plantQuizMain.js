@@ -7,7 +7,7 @@
 import { plantDirectory } from "../utils/data";
 import { createElement, domElements } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, hideElements, randomiseArray } from "../utils/gobalUtility";
+import { appendChildren, hideElements, randomiseArray, removeChildren } from "../utils/gobalUtility";
 import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";
 import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandling";
 import { renderPlantDetails } from "../plant-page/plantPageMain";
@@ -18,15 +18,19 @@ import { renderPlantDetails } from "../plant-page/plantPageMain";
  */
 export const renderPlantQuiz = () => {
   const { plantQuiz } = domElements;
-  const { quizContainer, quizTitle, quizSubheader, startQuizBtn } = createPlantQuizElements();
+  const { quizContainer, quizTitle, quizBanner, quizBannerContainer, questionContainer, cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, restartQuizBtn } = createPlantQuizElements();
 
-  appendChildren(quizContainer, quizTitle, quizSubheader, startQuizBtn);
+  appendChildren(questionContainer, quizSubtitle, quizDescription, cardContainer, startQuizBtn, moreInfoBtn);
+  appendChildren(quizBannerContainer, quizBanner);
+  appendChildren(quizContainer, quizTitle, quizBannerContainer, restartQuizBtn, questionContainer);
   appendChildren(plantQuiz, quizContainer);
 
   plantQuiz.classList.add('active');
+  restartQuizBtn.style.display = 'none';
 
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
-    startQuizBtnHandler(quizTitle, quizSubheader, startQuizBtn, quizContainer);
+    startQuizBtnHandler(quizTitle, quizDescription, startQuizBtn, quizContainer);
+    restartQuizBtn.style.display = 'block';
   }, 'PLANT_QUIZ');
 }
 
@@ -38,13 +42,13 @@ export const renderPlantQuiz = () => {
  * @param {number} questionId 
  */
 export const renderQuestion = (questionText, choices, category, questionId) => {
-  const quizContainer = document.querySelector('.quiz-container');
+  const questionContainer = document.querySelector('.question-container');
 
   const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: 'question-title'});
   const choiceBtnContainer = createElement({tagName: 'div', classEl: 'choice-btn-container'});
 
-  appendChildren(quizContainer, questionTitle, choiceBtnContainer);
-  createChoiceButtons(choices, category, questionId, quizContainer, questionTitle, choiceBtnContainer);
+  appendChildren(questionContainer, questionTitle, choiceBtnContainer);
+  createChoiceButtons(choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer);
 }
 
 /**
@@ -52,16 +56,16 @@ export const renderQuestion = (questionText, choices, category, questionId) => {
  * @param {Array} choices 
  * @param {String} category 
  * @param {Number} questionId 
- * @param {HTMLElement} quizContainer 
+ * @param {HTMLElement} questionContainer 
  * @param {String} questionTitle 
  * @param {HTMLElement} choiceBtnContainer 
  */
-const createChoiceButtons = (choices, category, questionId, quizContainer, questionTitle, choiceBtnContainer) => {
+const createChoiceButtons = (choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer) => {
   choices.forEach(choice => {
     const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: 'choice-btn'});
     appendChildren(choiceBtnContainer, choiceBtn);
     localEventManager.addEventListener(choiceBtn, 'click', () => {
-      choiceBtnClickHandler(category, choice, questionId, quizContainer, questionTitle, choiceBtnContainer)
+      choiceBtnClickHandler(category, choice, questionId, questionContainer, questionTitle, choiceBtnContainer)
     }, 'PLANT_QUIZ')
   });
 }
@@ -138,8 +142,10 @@ const renderQuizResults = (results) => {
   const { plantQuiz } = domElements;
 
   const quizContainer = document.querySelector('.quiz-container');
+  const questionContainer = document.querySelector('.question-container');
   const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
   appendChildren(plantQuiz, plantInfoContainer);
+  removeChildren(quizContainer, questionContainer)
 
   let displayedResults = results;
   if (results.length > 2) {

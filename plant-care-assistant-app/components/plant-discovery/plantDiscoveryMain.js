@@ -19,7 +19,7 @@ export const renderNewPlantSearch = () => {
   const { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchInput, searchResultsContainer } = createSearchInput();
   const { plantDiscovery } = domElements;
 
-  appendChildren(sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription);
+  appendChildren(sectionHeader, plantDiscoveryTitle, /** plantDiscoveryDescription */ );
   appendChildren(searchContainer, searchInput, searchResultsContainer);
   appendChildren(plantDiscovery, sectionHeader, searchContainer);
 
