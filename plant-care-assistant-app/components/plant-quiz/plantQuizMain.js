@@ -29,7 +29,7 @@ export const renderPlantQuiz = () => {
   restartQuizBtn.style.display = 'none';
 
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
-    startQuizBtnHandler(quizTitle, quizDescription, startQuizBtn, quizContainer);
+    startQuizBtnHandler(cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, quizContainer);
     restartQuizBtn.style.display = 'block';
   }, 'PLANT_QUIZ');
 }

@@ -5,11 +5,12 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-image: url('../../public/main-background.png');
+  background: linear-gradient(to bottom, #6B723F 0%, #334521 40%);
+  background-attachment: fixed;
   background-size: cover;
   color: #fcfaf7;
   font-family: 'Montserrat';
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   font-size: 0.9rem;
 }
 
@@ -88,7 +89,6 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 input {
@@ -102,8 +102,6 @@ input::placeholder {
 .plant-discovery {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .plant-search {
@@ -118,8 +116,8 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ECE8DF;
-  height: 100vh;
+  background-color: #fcfaf7;
+  ;
   color: black;
 }
 
@@ -132,19 +130,19 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .question-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #d6d1c9;
+  background-color: #F2F2F2;
   padding: 1rem;
   height: auto;
   margin: 0 1rem 1rem 1rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.2); */
   border: 1px solid rgba(255, 255, 255, 0.558);
 }
 
@@ -215,7 +213,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #e9e6de;
+  background-color: #FAFAFA;
   padding: 0.7rem;
   margin: -0.5rem;
   border-radius: 5px;
@@ -238,6 +236,8 @@ button {
 
 .card-subtitle {
   font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .quiz-subheader {
@@ -247,4 +247,118 @@ button {
 
 .quiz-description {
   margin-bottom: 2rem;
+}
+
+/** Plant search css */
+
+.plant-discovery {
+  padding-top: 1rem;
+}
+
+.section-header {
+  padding-left: 1rem;
+  margin-top: 3rem;
+}
+
+.discovery-search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.plant-search {
+  margin: 1rem 1rem 0 1rem;
+}
+
+.plant-element {
+  display: flex;
+  flex-direction: column;
+}
+
+.plant-result-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin: 0.8rem 0;
+}
+
+.plant-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.7rem;
+  margin-left: 0.7rem;
+  width: 90%;
+}
+
+.plant-result-image-container {
+  width: 15%;
+  height: 15%;
+}
+
+.plant-result-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.menu-dot {
+  height: 4px;
+  width: 4px;
+  background-color: white;
+  margin: 0 0.15rem;
+  border-radius: 100%;
+}
+
+.plant-result-title {
+  font-weight: bold;
+}
+
+.plant-result-description {
+  font-weight: 100;
+  margin-top: 0.3rem;
+}
+
+.plant-result-tag {
+  background-color: rgba(255, 255, 255, 0.224);
+  padding: 0.2rem 0.4rem;
+  width: 20%;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  font-size: 0.6rem;
+}
+
+.line-separator {
+  background-color: rgba(255, 255, 255, 0.15);
+  height: 3px;
+  width: 85%;
+  padding: 0 1rem;
+  align-self: center;
+}
+
+.search-tags {
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+} 
+
+.search-tag {
+  background-color: rgba(255, 255, 255, 0.224);
+  padding: 0.4rem 0.4rem;
+  margin-right: 0.5rem;
+  width: 20%;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+}
+
+#all-tag {
+  background-color: white;
+  color: black;
 }

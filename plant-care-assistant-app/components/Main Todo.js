@@ -1,6 +1,12 @@
 /* 
 
 TODO
+- plant-search quick add function
+- search icon in the search input field
+- small details (number of plants in directory, number in search result, add to directory button?)
+- plant page, plant log css
+- combine search and quiz into one
+- 
 - rearrange plant quiz and discovery into one section linked to the search icon in footer nav. Add new plant section move to add icon
 = profile / home button functionality - or have profile button in top left alongside menu bars for about, contact etc.
 - css UI for each section.
@@ -10,6 +16,7 @@ TODO plant-discovery:
 - images on screen for search results
 
 TODO plant-quiz:
+- clean up appendChildren elements, need additional containers
 - modal for plant quiz
 - quiz banner image
 - quiz css and extra features (sliders, progress bar etc...)

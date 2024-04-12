@@ -24,7 +24,7 @@ export const renderMyPlants = () => {
   appendChildren(searchContainer, searchInput, searchResultsContainer)
   appendChildren(plantLogEl, sectionHeader, searchContainer, userPlantsContainer, addPlantBtn, archiveBtn);
 
-  renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants', searchInput, archiveBtn, renderMyPlants);
+  renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants', searchInput);
 
   localEventManager.addEventListener(addPlantBtn, 'click', () => {
     renderManualPlantForm(plantLogEl);
@@ -68,6 +68,7 @@ export const renderDeletedPlants = () => {
 const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInput) => {
   const { plantLogEl } = domElements;
   const { userPlantsContainer, addPlantBtn, searchResultsContainer } = plantLogElements.getPlantLogElements();
+  const searchResults = document.querySelector('.search-results');
 
   populatePlantGrid(plantLogType);
   setupUserPlantGridEventListener(plantLogEl, plantLogType, sectionRender, backButtonText);
@@ -77,6 +78,7 @@ const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInpu
     updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, plantLogType, backButtonText, '.plant-log', sectionRender);
     if (searchInput.value === '') {
       appendChildren(plantLogEl, userPlantsContainer, addPlantBtn);
+      clearSection(searchResultsContainer);
     }
   }, 'PLANT_LOG');
 }

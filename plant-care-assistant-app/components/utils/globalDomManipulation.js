@@ -98,7 +98,7 @@ export const dashboardNavButtonHighlight = () => {
 
   dashboardButtons.forEach(button => {
     if (button.classList.contains('active')) {
-      button.style.backgroundColor = '#ECE8DF'
+      button.style.backgroundColor = '#fcfaf7';
       const iconContainer = button.querySelector('.icon-container');
       iconContainer.style.backgroundImage = `url(${button.darkIcon})`;
     } else {

@@ -30,11 +30,9 @@ export const createPlantQuizElements = () => {
   const quizDescription = createElement({tagName: 'p', classEl: 'quiz-description', textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
   const startQuizBtn = createElement({tagName: 'button', textContent: 'Start Quiz', classEl: 'start-quiz-btn'});
   const moreInfoBtn = createElement({tagName: 'button', textContent: 'More Info', classEl: 'more-info-btn'})
-  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz', classEl: 'restart-quiz-btn'})
-
+  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz', classEl: 'restart-quiz-btn'});
   quizBanner.src = '../../public/plant-quiz-banner.png';
 
-  // creating plant card - put into seperate function. Do same for other elements, cchange into factory function
   const snakePlantCard = createPlantCard('Snake Plant', 'For beginners', '../../public/snake-plant.png');
   const peaceLilyCard = createPlantCard('Peace Lily', 'Flowering plant', '../../public/peace-lily.png');
   const cardContainer = createElement({tagName: 'div', classEl: 'card-container'});

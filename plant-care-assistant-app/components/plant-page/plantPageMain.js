@@ -119,6 +119,8 @@ export const copyToMyPlants = (plant) => {
     name: plant.name,
     dateAdded: getDate(),
     description: plant.description,
+    shortDescription: plant.shortDescription,
+    skill: plant.skill,
     image: plant.image,
     id: plant.id
   };
