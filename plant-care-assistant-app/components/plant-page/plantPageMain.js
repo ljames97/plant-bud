@@ -82,7 +82,7 @@ const unarchiveBtnHandler = (plant) => {
  */
 const addToPlantsHandler = (sectionBtn, plant) => {
   copyToMyPlants(plant);
-  replaceButton(sectionBtn, plant);
+  replaceButton(sectionBtn, 'Added to My Plants', plant);
 }
 
 /**
@@ -102,10 +102,11 @@ const permanentDeleteBtnHandler = (plant) => {
 /**
  * Replace the 'Add to plants' button with 'Added to My Plants' message for plants that are already added to the users plant log.
  * @param {HTMLElement} button 
+ * @param {String} text 
  * @param {Object} plant 
  */
-const replaceButton = (button, plant) => {
-  const newText = createElement({tagName: 'p', textContent: 'Added to My Plants'});
+const replaceButton = (button, text, plant) => {
+  const newText = createElement({tagName: 'p', textContent: text});
   button.parentNode.replaceChild(newText, button);
   plant.isAdded = true;
 }

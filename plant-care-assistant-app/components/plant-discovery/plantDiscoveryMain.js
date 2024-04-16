@@ -9,8 +9,9 @@ import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
 import { createSearchInput } from "./plantDiscoveryDomManipulation";
 
-import { renderPlantDetails } from "../plant-page/plantPageMain";
+import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
 import { plantDirectory } from "../utils/data";
+import { plantLog } from "../plant-log/plantLogMain";
 
 /**
  * Render plant search input on screen. Gets search elements from createSearchInput and appends them to the DOM.
@@ -27,7 +28,9 @@ export const renderNewPlantSearch = () => {
 
   localEventManager.addEventListener(searchInput, 'input', () => {
     updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-  }, 'PLANT_DISCOVERY')
+  }, 'PLANT_DISCOVERY');
+
+  document.addEventListener('click', handleDocumentClick);
 }
 
 /**
@@ -75,7 +78,6 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
     appendChildren(plantLogEl, userPlantsContainer, addPlantBtn);
     resetSection('plant-log', renderMyPlants, 'PLANT_LOG');
   }
-  
 }
 
 const getFilteredPlantsArray = () => {
@@ -108,25 +110,77 @@ const createPlantResultElement = (plant) => {
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-result-image-container'});
   const lineSeparator = createElement({tagName: 'div', classEl: 'line-separator'});
   plantImage.src = plant.image;
-  const menuDots = createMenuDots();
+  const searchDropMenu = createElement({tagName: 'div', classEl: 'search-drop-menu'});
+  const menuDotContainer = createMenuDots();
+  plantElement.plantObject = plant;
 
   appendChildren(plantTextContainer, plantTitle, plantDescription, plantTag);
   appendChildren(plantImageContainer, plantImage);
-  appendChildren(plantResultContainer, plantImageContainer, plantTextContainer, menuDots);
+  appendChildren(searchDropMenu, menuDotContainer)
+  appendChildren(plantResultContainer, plantImageContainer, plantTextContainer, searchDropMenu);
   appendChildren(plantElement, plantResultContainer, lineSeparator);
+
+  setUpPlantElementListeners();
 
   return plantElement;
 }
 
 const createMenuDots = () => {
   let menuDot = '';
-  const menuContainer = createElement({tagName: 'div', classEl: 'menu-container'});
+  const menuDotContainer = createElement({tagName: 'div', classEl: 'menu-dots-container'});
   menuDot = createElement({tagName: 'div', classEl: 'menu-dot'});
-  appendChildren(menuContainer, menuDot);
+  appendChildren(menuDotContainer, menuDot);
   menuDot = createElement({tagName: 'div', classEl: 'menu-dot'});
-  appendChildren(menuContainer, menuDot);
+  appendChildren(menuDotContainer, menuDot);
   menuDot = createElement({tagName: 'div', classEl: 'menu-dot'});
-  appendChildren(menuContainer, menuDot);
+  appendChildren(menuDotContainer, menuDot);
 
-  return menuContainer;
+  return menuDotContainer;
+}
+
+const renderQuickAdd = (menuDots, plant) => {
+  const existingMenu = document.querySelector('.drop-menu-container');
+  if (existingMenu) {
+      existingMenu.remove();
+  }
+
+  const dropMenuContainer = createElement({tagName: 'div', classEl: 'drop-menu-container'});
+  const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: 'drop-menu-item'});
+
+  appendChildren(dropMenuContainer, quickAdd);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(quickAdd, 'click', () => {
+    quickAddHandler(quickAdd, plant);
+  })
+}
+
+const quickAddHandler = (quickAdd, plant) => {
+  copyToMyPlants(plant);
+  plant.isAdded = true;
+  replaceElement(quickAdd);
+}
+
+const replaceElement = (element) => {
+  const newText = createElement({tagName: 'p', textContent: 'Added', classEl: 'drop-menu-item'});
+  element.parentNode.replaceChild(newText, element);
+}
+
+const handleDocumentClick = (event) => {
+  const dropMenuContainer = document.querySelector('.drop-menu-container');
+  if (dropMenuContainer && !dropMenuContainer.contains(event.target)) {
+    dropMenuContainer.remove();
+  }
+}
+
+const setUpPlantElementListeners = () => {
+  const plantElements = document.querySelectorAll('.plant-element');
+  plantElements.forEach(plantElement => {
+      const searchDropMenu = plantElement.querySelector('.search-drop-menu');
+      
+      localEventManager.addEventListener(searchDropMenu, 'click', (event) => {
+        event.stopPropagation();
+        renderQuickAdd(searchDropMenu, plantElement.plantObject);
+      })
+  });
 }
