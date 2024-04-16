@@ -1,7 +1,6 @@
 /* 
 
 TODO
-- plant-search quick add function
 - search icon in the search input field
 - small details (number of plants in directory, number in search result, add to directory button?)
 - plant page, plant log css
