@@ -25,7 +25,8 @@ export const createSearchInput = () => {
   const plantDiscoveryDescription = createElement({tagName: 'p', textContent: 'Search our directory for plant information or find new plants to add to your dashboard', classEl: 'plant-discovery-description'});
   const searchContainer = createElement({tagName: 'div', classEl: 'discovery-search-container'});
   const { searchTags, tagButtons } = createSearchTags();
-  const searchInput = createElement({tagName: 'input', placeholder: 'Search Plants', classEl: 'plant-search'});
+  const searchInput = createElement({tagName: 'input', placeholder: 'Search', classEl: 'plant-search'});
+  const plantsFoundCounter = createElement({tagName: 'p', classEl: 'plants-found-counter', textContent: ''});
   const searchResultsContainer = createElement({tagName: 'div', classEl: 'search-results'});
 
   tagButtons.forEach(button => {
@@ -41,7 +42,7 @@ export const createSearchInput = () => {
 
   appendChildren(searchContainer, searchTags);
 
-  return { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchTags, searchInput, searchResultsContainer };
+  return { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchTags, searchInput, plantsFoundCounter, searchResultsContainer };
 }
 
 const createSearchTags = () => {

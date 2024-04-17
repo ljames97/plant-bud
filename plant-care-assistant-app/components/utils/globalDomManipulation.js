@@ -4,6 +4,7 @@
  * Functions in this file are shared across several modules. 
  */
 
+import { renderMyPlants } from "../plant-log/plantLogMain";
 import { localEventManager } from "./globalEventHandling";
 import { hideElements, showElements } from "./gobalUtility";
 
@@ -114,7 +115,7 @@ export const dashboardNavButtonHighlight = () => {
  * @param {HTMLElement} activeBtn - button clicked.
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
-export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
+export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
   const { plantLogEl, plantQuiz, plantDiscovery } = domElements;
   activeBtn.classList.add('active');
 
@@ -132,10 +133,10 @@ export const prepareDashboard = (activeBtn, ...inactiveBtn) => {
   // Find the active section based on the active button
   const activeSection = Object.values(buttonMap).find(entry => entry.button === activeBtn)?.section;
 
-  [plantLogEl, plantQuiz, plantDiscovery].forEach(section => hideElements(section));
+  [plantLogEl, plantQuiz, plantDiscovery].forEach(section => clearSection(section));
 
   if (activeSection) {
-    showElements('flex', activeSection);
+    renderFunc();
   }
 
   dashboardNavButtonHighlight();

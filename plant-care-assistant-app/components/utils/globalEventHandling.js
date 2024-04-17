@@ -6,7 +6,7 @@
 import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
 import { renderMyPlants } from "../plant-log/plantLogMain";
 import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
-import { dashboardNavButtonHighlight, domElements, globalDomElements, prepareDashboard } from "./globalDomManipulation";
+import { dashboardNavButtonHighlight, domElements, globalDomElements, prepareDashboard, resetSection } from "./globalDomManipulation";
 
 /**
  * Global initalisation for shared event handling.
@@ -32,9 +32,9 @@ const sectionInit = (sectionName) => {
   const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
 
   const sectionMap = {
-    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants },
-    'PLANT_QUIZ': { button: plantQuizBtn, renderFunc: renderPlantQuiz },
-    'PLANT_DISCOVERY': { button: discoverBtn, renderFunc: renderNewPlantSearch }
+    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants, class: 'plant-log' },
+    'PLANT_QUIZ': { button: plantQuizBtn, renderFunc: renderPlantQuiz, class: 'plant-quiz' },
+    'PLANT_DISCOVERY': { button: discoverBtn, renderFunc: renderNewPlantSearch, class: 'plant-discovery' }
   }
 
   const section = sectionMap[sectionName];
@@ -43,12 +43,12 @@ const sectionInit = (sectionName) => {
   if (!section || section.button.classList.contains('active')) {
     return;
   } if (section.button.classList.contains('dormant')) {
-    prepareDashboard(section.button, ...otherButtons);
+    prepareDashboard(section.button, section.renderFunc, ...otherButtons);
     return;
   }
 
-  prepareDashboard(section.button, ...otherButtons);
-  section.renderFunc();
+  prepareDashboard(section.button, section.renderFunc, ...otherButtons);
+  // section.renderFunc();
   section.button.classList.add('dormant');
 }
 

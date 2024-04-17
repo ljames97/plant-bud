@@ -4,8 +4,9 @@
  */
 
 import { renderPlantDetails } from "../plant-page/plantPageMain";
-import { clearSection } from "../utils/globalDomManipulation";
+import { clearSection, createElement } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
+import { appendChildren } from "../utils/gobalUtility";
 import { plantLogElements } from "./plantLogDomManipulation";
 import { plantLog } from "./plantLogMain";
 
@@ -21,6 +22,7 @@ import { plantLog } from "./plantLogMain";
  */
 export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, sectionRender, backButtonText) => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
+  const plantPageContainer = createElement({tagName: 'div', classEl: 'plant-page-container'});
 
   // Event propagation for elements in the userPlantGrid.
   localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {
@@ -31,7 +33,8 @@ export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, s
         const plant = plantLog.getPlantById(plantId, plantLogType);
         if (plant) {
           clearSection(plantLogElement, 'PLANT_LOG');
-          renderPlantDetails(plant, plantLogElement, backButtonText, '.plant-log', sectionRender);
+          appendChildren(plantLogElement, plantPageContainer);
+          renderPlantDetails(plant, plantPageContainer, backButtonText, '.plant-log', sectionRender);
         }
         return;
       }

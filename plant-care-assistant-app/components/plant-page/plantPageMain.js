@@ -7,9 +7,9 @@
 import { clearSection, createElement, resetSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, getDate, removeChildren } from "../utils/gobalUtility";
-import { createDynamicPlantElements, createSectionBtn, removeImageInput } from "./plantPageDomManipulation";
+import { createDynamicPlantElements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
 
-import { plantLog, renderDeletedPlants, renderMyPlants } from "../plant-log/plantLogMain";
+import { plantLog, renderDeletedPlants } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
 import { plantDirectory } from "../utils/data";
 
@@ -28,16 +28,22 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   let sectionBtn = '';
 
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
+  sectionBtn.classList.add('section-button');
   
-  const { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription } = createDynamicPlantElements();
+  const { headerContainer, plantTitle, navContainer, mainSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription } = createDynamicPlantElements();
   plantTitle.textContent = plant.name;
   plantDate.textContent = plant.dateAdded;
   plantDescription.textContent = plant.description;
   plantImage.src = plant.image;
 
+  const tagContainer = createTags(plant);
+
+  appendChildren(subHeader, backToDashboard);
+  appendChildren(headerContainer, plantTitle, sectionBtn);
   appendChildren(plantImageContainer, plantImage);
-  appendChildren(subHeader, backToDashboard, sectionBtn);
-  appendChildren(sectionContainer, subHeader, plantTitle, plantDate, plantImageContainer, plantDescription);
+  appendChildren(mainSection, plantImageContainer, tagContainer, plantDescriptionContainer)
+
+  appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection, plantDate);
 
   // conditional logic for edit button, add plant button or unarchive button
   if (sectionBtn.classList.contains('edit-btn')) {
@@ -64,6 +70,29 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   localEventManager.addEventListener(backToDashboard, 'click', () => {
     resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
   }, `PLANT_PAGE_${sectionClass}`);
+}
+
+const createTags = (plant) => {
+  let flowerTag, outdoorTag, effortTag
+
+  const skillTag = createTagButton(plant.skill[0]);
+  
+  if (plant.florwering && plant.florwering.includes('Yes')) {
+    flowerTag = createTagButton('Flowering');
+  }
+
+  if (plant.transferToOutdoors && plant.transferToOutdoors.includes('Yes')) {
+    outdoorTag = createTagButton('+ Outdoors');
+  }
+
+  if (plant.lowEffort && plant.lowEffort.includes('No')) {
+    effortTag = createTagButton('Low effort');
+  }
+
+  const tagContainer = createElement({tagName: 'div', classEl: 'tag-container'});
+  appendChildren(tagContainer, skillTag, flowerTag, outdoorTag, effortTag)
+
+  return tagContainer;
 }
 
 /**
@@ -127,7 +156,6 @@ export const copyToMyPlants = (plant) => {
   };
 
   plantLog.addToUserPlantLog(newPlant);
-  resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
 }
 
 /**

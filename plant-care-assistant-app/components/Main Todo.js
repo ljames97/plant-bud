@@ -1,13 +1,15 @@
 /* 
 
 TODO
-- search icon in the search input field
-- small details (number of plants in directory, number in search result, add to directory button?)
-- plant page, plant log css
+- tabs for plant page: About, More Info, Notes
+- plant log grid css
+- fix drop menu issues on plant log section
+- add plant section
+- quiz css finish
+- modal swipe add for quiz and plant page
+
 - combine search and quiz into one
-- 
-- rearrange plant quiz and discovery into one section linked to the search icon in footer nav. Add new plant section move to add icon
-= profile / home button functionality - or have profile button in top left alongside menu bars for about, contact etc.
+- profile / home button functionality - or have profile button in top left alongside menu bars for about, contact etc.
 - css UI for each section.
 - UI flow ideas
 

@@ -6,7 +6,7 @@
 
 import { domElements, createElement, clearSection, resetSection } from "../utils/globalDomManipulation";
 import { appendChildren, findItemInArray, hideElements, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
-import { dummyPlants } from "../utils/data";
+import { dummyPlants, plantDirectory } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
 import { renderManualPlantForm } from "../add-plant/addPlantMain";
@@ -68,7 +68,6 @@ export const renderDeletedPlants = () => {
 const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInput) => {
   const { plantLogEl } = domElements;
   const { userPlantsContainer, addPlantBtn, searchResultsContainer } = plantLogElements.getPlantLogElements();
-  const searchResults = document.querySelector('.search-results');
 
   populatePlantGrid(plantLogType);
   setupUserPlantGridEventListener(plantLogEl, plantLogType, sectionRender, backButtonText);
@@ -185,6 +184,6 @@ export const populatePlantGrid = (plants) => {
   });
 }
 
-// dummyPlants.forEach(plant => {
-//   plantLog.addToUserPlantLog(plant);
-// })
+dummyPlants.forEach(plant => {
+  plantLog.addToUserPlantLog(plant);
+})

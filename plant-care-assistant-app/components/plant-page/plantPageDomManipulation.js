@@ -6,19 +6,48 @@
 import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
 import { clearSection, createElement } from "../utils/globalDomManipulation";
+import { appendChildren } from "../utils/gobalUtility";
 
 /**
  * Create dynamic elements for the plant page.
  * @returns dynamic plant elements.
  */
 export const createDynamicPlantElements = () => {
+  const headerContainer = createElement({tagName: 'div', classEl: 'header-container'});
   const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
-  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
-  const plantImage = createElement({tagName: 'img'});
+  const navContainer = createNavButtons();
+  const mainSection = createElement({tagName: 'div', classEl: 'main-plant-section'})
+  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-page-image-container'});
+  const plantImage = createElement({tagName: 'img', classEl: 'plant-page-image'});
   const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
-  const plantDescription = createElement({tagName: 'p', classEl: 'plant-description'});
+  const { plantDescriptionContainer, plantDescription } = createDescriptionElement();
 
-  return { plantTitle, plantImageContainer, plantImage, plantDate, plantDescription };
+  return { headerContainer, plantTitle, navContainer, mainSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription };
+}
+
+const createDescriptionElement = () => {
+  const plantDescription = createElement({tagName: 'p', classEl: 'plant-description'});
+  const plantDescriptionHeader = createElement({tagName: 'p', textContent: 'About', classEl: 'plant-description-header'});
+  const plantDescriptionContainer = createElement({tagName: 'div', classEl: 'plant-description-container'});
+  appendChildren(plantDescriptionContainer, plantDescriptionHeader, plantDescription);
+
+  return { plantDescriptionContainer, plantDescription }
+}
+
+const createNavButtons = () => {
+  const navContainer = createElement({tagName: 'div', classEl: 'plant-page-nav-container'});
+  const aboutBtn = createElement({tagName: 'button', textContent: 'About', classEl: 'plant-page-nav-button'});
+  const requirementsBtn = createElement({tagName: 'button', textContent: 'Requirements', classEl: 'plant-page-nav-button'});
+  const userTasksBtn = createElement({tagName: 'button', textContent: 'My tasks', classEl: 'plant-page-nav-button'});
+
+  appendChildren(navContainer, aboutBtn, requirementsBtn, userTasksBtn);
+
+  return navContainer;
+}
+
+export const createTagButton = (tagName) => {
+  const tagButton = createElement({tagName: 'button', textContent: tagName, classEl: 'tag-button'});
+  return tagButton;
 }
 
 /**

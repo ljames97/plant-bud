@@ -4,7 +4,7 @@
  * To search for plants in the plant directory and render results on screen.
  */
 
-import { domElements, createElement, clearSection } from "../utils/globalDomManipulation"
+import { domElements, createElement, clearSection, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
 import { createSearchInput } from "./plantDiscoveryDomManipulation";
@@ -17,20 +17,20 @@ import { plantLog } from "../plant-log/plantLogMain";
  * Render plant search input on screen. Gets search elements from createSearchInput and appends them to the DOM.
  */
 export const renderNewPlantSearch = () => {
-  const { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchInput, searchResultsContainer } = createSearchInput();
+  const { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchInput, plantsFoundCounter, searchResultsContainer } = createSearchInput();
   const { plantDiscovery } = domElements;
 
   appendChildren(sectionHeader, plantDiscoveryTitle, /** plantDiscoveryDescription */ );
-  appendChildren(searchContainer, searchInput, searchResultsContainer);
+  appendChildren(searchContainer, searchInput, plantsFoundCounter, searchResultsContainer);
   appendChildren(plantDiscovery, sectionHeader, searchContainer);
 
   updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
 
   localEventManager.addEventListener(searchInput, 'input', () => {
     updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-  }, 'PLANT_DISCOVERY');
+  }, 'PLANT_SEARCH');
 
-  document.addEventListener('click', handleDocumentClick);
+  localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_SEARCH');
 }
 
 /**
@@ -59,25 +59,32 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
     const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
 
     filteredPlants.forEach(plant => {
-      const plantElement = createPlantResultElement(plant);
+      const plantElement = createPlantResultElement(plant, sectionClass);
       appendChildren(searchResultsContainer, plantElement);
 
       localEventManager.addEventListener(plantElement, 'click', () => {
         clearSection(mainSection);
         appendChildren(mainSection, plantInfoContainer);
         renderPlantDetails(plant, plantInfoContainer, backButtonText, sectionClass, sectionRender);
-      }, 'PLANT_DISCOVERY');
+      }, 'PLANT_SEARCH');
     });
 
-  } else {
-    const noResultsMessage = createElement({tagName: 'div', textContent: 'No plants found', classEl: 'no-results'});
-    appendChildren(searchResultsContainer, noResultsMessage);
+    setUpPlantElementListeners();
   }
 
-  if (searchInput.value === '') {
-    appendChildren(plantLogEl, userPlantsContainer, addPlantBtn);
-    resetSection('plant-log', renderMyPlants, 'PLANT_LOG');
+  updatePlantCounter(filteredPlants);
+}
+
+const updatePlantCounter = (filteredPlants) => {
+  const plantsFoundCounter = document.querySelector('.plants-found-counter');
+  
+  if (!plantsFoundCounter) {
+    return;
   }
+
+  const plantsFound = filteredPlants.length;
+  const text = plantsFound > 1 || plantsFound === 0 ? `${plantsFound} plants found` : `${plantsFound} plant found`;
+  plantsFoundCounter.textContent = text;
 }
 
 const getFilteredPlantsArray = () => {
@@ -99,7 +106,7 @@ const getFilteredPlantsArray = () => {
   }
 }
 
-const createPlantResultElement = (plant) => {
+const createPlantResultElement = (plant, sectionClass) => {
   const plantElement = createElement({tagName: 'div', classEl: 'plant-element'});
   const plantResultContainer = createElement({tagName: 'div', classEl: 'plant-result-container'});
   const plantTextContainer = createElement({tagName: 'div', classEl: 'plant-text-container'});
@@ -110,8 +117,8 @@ const createPlantResultElement = (plant) => {
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-result-image-container'});
   const lineSeparator = createElement({tagName: 'div', classEl: 'line-separator'});
   plantImage.src = plant.image;
-  const searchDropMenu = createElement({tagName: 'div', classEl: 'search-drop-menu'});
   const menuDotContainer = createMenuDots();
+  const searchDropMenu = createElement({tagName: 'div', classEl: 'search-drop-menu'});
   plantElement.plantObject = plant;
 
   appendChildren(plantTextContainer, plantTitle, plantDescription, plantTag);
@@ -152,7 +159,7 @@ const renderQuickAdd = (menuDots, plant) => {
 
   localEventManager.addEventListener(quickAdd, 'click', () => {
     quickAddHandler(quickAdd, plant);
-  })
+  }, 'PLANT_SEARCH');
 }
 
 const quickAddHandler = (quickAdd, plant) => {
@@ -181,6 +188,6 @@ const setUpPlantElementListeners = () => {
       localEventManager.addEventListener(searchDropMenu, 'click', (event) => {
         event.stopPropagation();
         renderQuickAdd(searchDropMenu, plantElement.plantObject);
-      })
+      }, 'PLANT_SEARCH')
   });
 }

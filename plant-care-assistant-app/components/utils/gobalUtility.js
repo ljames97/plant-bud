@@ -44,7 +44,11 @@ export const removeChildren = (parent, ...children) => {
  * @param  {...HTMLElement} children 
  */
 export const appendChildren = (parent, ...children) => {
-  children.forEach(child => parent.appendChild(child));
+  children.forEach(child => {
+    if (child) {
+      parent.appendChild(child);
+    }
+  }); 
 }
 
 /**

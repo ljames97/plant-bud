@@ -5,27 +5,10 @@
 
 // dummy plants:
 export const dummyPlants = [
-  {
-    name: 'Spider Plant',
-    dateAdded: '21-Jan',
-    description: 'A new plant with long spider-like leaves',
-    image: '../public/dummy-plants/spider-plant.jpg',
-    id: 1
-  },
-  {
-    name: 'Apple Tree',
-    dateAdded: '02-Feb',
-    description: 'An apple tree grown from seed, first time growing a real apple tree!',
-    image: '../public/dummy-plants/apple-tree.jpg',
-    id: 2
-  },
-  {
-    name: 'Peace Lily',
-    dateAdded: '12-Dec',
-    description: 'A peace lily with white flowers, best bloom in spring/summer',
-    image: '../public/dummy-plants/peace-lily.jpg',
-    id: 3
-  }
+  { name: 'Snake Plant', id: 1, image: '../public/dummy-plants/spider-plant.jpg', skill: ['Beginner'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['No'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes'], time: ['Not much', 'A lot'], interest: ['Not really', 'Kind of'], lowEffort: ['Yes'], shortDescription: 'Tough and adaptable, perfect for beginners.', waterSchedule: 'Every 2-3 weeks, less often in winter.', tempLight: 'Indirect sunlight to partial shade. 15-26°C.', description: 'The Snake Plant, or Sansevieria, is a highly durable and low-maintenance indoor plant known for its air-purifying qualities. Its stiff, upright leaves grow vertically, making it an ideal plant for small spaces.' },
+,
+  { name: 'Peace Lily', id: 4, image: '../public/dummy-plants/peace-lily.jpg', skill: ['Beginner', 'Medium'], location: ['Home', 'Office', 'Bedroom', 'Living Room'], flowering: ['Yes'], size: ['Short', 'Tall'], transferToOutdoors: ['Yes', 'No'], time: ['A lot', 'Not much'], interest: ['Kind of', 'Very'], lowEffort: ['Yes'], src: '../public/dummy-plants/peace-lily.jpg', shortDescription: 'Elegant white flowers, thrives in medium to low light.', waterSchedule: 'Keep soil moist; water weekly.', tempLight: 'Low to medium light. 18-26°C.', description: 'Peace Lilies are charming plants with glossy green leaves and white flowers that can boost the aesthetic of any room. Beyond their beauty, they are known for their ability to purify the air. Peace Lilies prefer low to medium light and moist soil, making them suitable for areas away from direct sunlight. Theyre resilient and forgiving, signaling their need for water by drooping slightly.' },
+
 ];
 
 //plant directory for all plant data including name, image src, location etc.

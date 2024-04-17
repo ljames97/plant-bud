@@ -23,7 +23,7 @@ const dynamicPlantLogElementsManager = () => {
       const plantLogTitle = createElement({tagName: 'h1', textContent: 'My Plants', classEl: 'section-title'});
       const searchContainer = createElement({tagName: 'div', classEl: 'search-container'});
       searchContainer.classList.add('plant-log');
-      const searchInput = createElement({tagName: 'input', placeholder: 'Search plants', classEl: 'plant-search'});
+      const searchInput = createElement({tagName: 'input', placeholder: 'Search', classEl: 'plant-search'});
       const searchResultsContainer = createElement({tagName: 'div', classEl: 'search-results'});
       const userPlantsContainer = createElement({tagName: 'div', classEl: 'user-plants'});
       const addPlantBtn = createElement({tagName: 'button', textContent: 'Add Plant!', classEl: 'add-new-plant-btn'});
