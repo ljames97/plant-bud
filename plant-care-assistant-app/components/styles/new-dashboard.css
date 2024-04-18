@@ -425,17 +425,18 @@ button {
 .header-container {
   display: flex;
   justify-content: space-between;
-  margin: 1rem 0;
+  margin: 1.5rem 0 1rem 0;
   padding: 0 1rem;
 }
 
 .plant-page-container {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #f2ece5;
   color: black;
   height: 100vh;
   z-index: 1;
+  padding: 1rem;
 }
 
 .plant-page-nav-container {
@@ -447,10 +448,12 @@ button {
 .plant-page-nav-button {
   width: 100%;
   border-radius: 7px;
+  background-color: #dcd5cd;
 }
 
 .section-button {
-  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+  width: auto;
 }
 
 .main-plant-section {
@@ -475,6 +478,13 @@ button {
   line-height: 1.2rem;
 }
 
+.plant-description-container {
+  background-color: #dcd5cd;
+  padding: 1rem 0.3rem;
+  border-radius: 10px;
+  margin: 0 1rem;
+}
+
 .tag-container {
   display: flex;
   align-self: flex-start;
@@ -494,7 +504,4 @@ button {
   margin-bottom: 0.3rem;
   font-weight: bold;
 }
-
-
-
 

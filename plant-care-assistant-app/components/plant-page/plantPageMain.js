@@ -6,8 +6,8 @@
 
 import { clearSection, createElement, resetSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, findItemInArray, getDate, removeChildren } from "../utils/gobalUtility";
-import { createDynamicPlantElements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
+import { appendChildren, findItemInArray, getDate, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
+import { createDynamicPlantElements, createRequirements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
 
 import { plantLog, renderDeletedPlants } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
@@ -30,7 +30,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
   sectionBtn.classList.add('section-button');
   
-  const { headerContainer, plantTitle, navContainer, mainSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription } = createDynamicPlantElements();
+  const { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription } = createDynamicPlantElements(plant, sectionClass);
   plantTitle.textContent = plant.name;
   plantDate.textContent = plant.dateAdded;
   plantDescription.textContent = plant.description;
@@ -41,8 +41,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   appendChildren(subHeader, backToDashboard);
   appendChildren(headerContainer, plantTitle, sectionBtn);
   appendChildren(plantImageContainer, plantImage);
-  appendChildren(mainSection, plantImageContainer, tagContainer, plantDescriptionContainer)
-
+  appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
   appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection, plantDate);
 
   // conditional logic for edit button, add plant button or unarchive button
@@ -245,4 +244,9 @@ const saveMode = (plant, editBtn, elements) => {
   elements.plantDescription.textContent = updatedDescription;
 
   removeImageInput();
+}
+
+export const renderPlantSection = (activeSection, ...inactiveSections) => {
+  hideElements(...inactiveSections);
+  showElements('block', activeSection);
 }

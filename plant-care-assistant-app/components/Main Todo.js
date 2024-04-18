@@ -2,19 +2,19 @@
 
 TODO
 - tabs for plant page: About, More Info, Notes
+- edit button css
 - plant log grid css
-- fix drop menu issues on plant log section
-- add plant section
-- quiz css finish
-- modal swipe add for quiz and plant page
-
+- fix drop menu issues on plant log section (turn into select option)
+- remove tasks from plantdiscovery version of plantpage and move 'add to my plants' button to bottom of page
 - combine search and quiz into one
-- profile / home button functionality - or have profile button in top left alongside menu bars for about, contact etc.
-- css UI for each section.
-- UI flow ideas
+- add new plant section
+- quiz css finish
+- modal swipe for quiz and plant page
+- text for footer menu icons (Home, My plants, Add, Discover)
 
-TODO plant-discovery:
-- images on screen for search results
+- profile / home button functionality -
+or have profile button in top left alongside menu bars for about, contact etc.
+and have home button for overview of the daily tasks list, gardening tips, suggested plants, weather/time/location
 
 TODO plant-quiz:
 - clean up appendChildren elements, need additional containers
@@ -41,14 +41,17 @@ CSS/aesthetics:
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
 - accessibility (buttons, image alt etc.)
 - desktop css (responsive design)
+- review/document all functions
 
 - unit testing / js tests
 - production ideas/hosting
-- login authentication
-- extra feature ideas eg. schedueler, AI, chatbot, journal entries
+- login authentication + default login page
+- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities
 - README file
 
 - react refactor
+
+- new project
 
 CSS IDEAS:
 - start with My Plants page, remove header logo/image and footer. replace with icons, dark background, scrollable plant grid.

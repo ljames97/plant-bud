@@ -145,7 +145,7 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
 /**
  * Clear the section by removing any child nodes. An alternative to innerHTML = ''.
  * @param {} element 
- * @param {*} eventRegistryName 
+ * @param {} eventRegistryName 
  */
 export const clearSection = (element, eventRegistryName) => {
   while (element.firstChild) {

@@ -106,7 +106,7 @@ const getFilteredPlantsArray = () => {
   }
 }
 
-const createPlantResultElement = (plant, sectionClass) => {
+const createPlantResultElement = (plant) => {
   const plantElement = createElement({tagName: 'div', classEl: 'plant-element'});
   const plantResultContainer = createElement({tagName: 'div', classEl: 'plant-result-container'});
   const plantTextContainer = createElement({tagName: 'div', classEl: 'plant-text-container'});

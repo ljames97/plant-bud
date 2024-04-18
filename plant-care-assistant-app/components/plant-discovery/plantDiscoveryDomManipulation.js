@@ -31,7 +31,7 @@ export const createSearchInput = () => {
 
   tagButtons.forEach(button => {
     localEventManager.addEventListener(button, 'click', () => {
-      buttonHighlight(button, ...button.inactiveBtns);
+      buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
       if (button.textContent === 'All') {
         updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
         return;
@@ -64,14 +64,15 @@ const createSearchTags = () => {
   return { searchTags, tagButtons };
 }
 
-const buttonHighlight = (activeBtn, ...inactiveBtns) => {
+// needs to be placed in global domManipulation
+export const buttonHighlight = (activeBtn, activeBtnColor, inactiveBtnColor, activeTextColor, inactiveTextColor, ...inactiveBtns) => {
   activeBtn.classList.add('active');
-  activeBtn.style.backgroundColor = 'white';
-  activeBtn.style.color = 'black';
+  activeBtn.style.backgroundColor = activeBtnColor;
+  activeBtn.style.color = activeTextColor;
 
   inactiveBtns.forEach(button => {
-    button.style.backgroundColor = 'rgba(255, 255, 255, 0.224)';
-    button.style.color = 'white';
+    button.style.backgroundColor = inactiveBtnColor;
+    button.style.color = inactiveTextColor;
     button.classList.remove('active');
   });
 }
