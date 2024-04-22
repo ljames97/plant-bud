@@ -6,20 +6,21 @@
 import { buttonHighlight } from "../plant-discovery/plantDiscoveryDomManipulation";
 import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
+import { createResultElements } from "../plant-quiz/plantQuizDomManipulation";
 import { clearSection, createElement } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren } from "../utils/gobalUtility";
+import { appendChildren, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
 import { renderPlantSection } from "./plantPageMain";
 
 /**
  * Create dynamic elements for the plant page.
  * @returns dynamic plant elements.
  */
-export const createDynamicPlantElements = (plant, sectionClass) => {
-  const { mainSection, aboutSection, requirementsSection, tasksSection } = createMainSection(plant);
+export const createDynamicPlantElements = (plant, sectionBtn, sectionClass) => {
+  const { mainSection, aboutSection, requirementsSection, tasksSection } = createMainSection(plant, sectionClass);
   const headerContainer = createElement({tagName: 'div', classEl: 'header-container'});
   const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
-  const navContainer = createNavButtons(aboutSection, requirementsSection, tasksSection, sectionClass);
+  const navContainer = createNavButtons(aboutSection, requirementsSection, tasksSection, sectionBtn, sectionClass);
   const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-page-image-container'});
   const plantImage = createElement({tagName: 'img', classEl: 'plant-page-image'});
   const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
@@ -28,10 +29,10 @@ export const createDynamicPlantElements = (plant, sectionClass) => {
   return { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription };
 }
 
-const createMainSection = (plant) => {
+const createMainSection = (plant, sectionClass) => {
   const aboutSection = createElement({tagName: 'div', classEl: 'about-section'});
-  const requirementsSection = createRequirements(plant);
-  const tasksSection = createUserTasks();
+  const requirementsSection = createRequirements(plant, sectionClass);
+  const tasksSection = createUserTasks(sectionClass);
   const mainSection = createElement({tagName: 'div', classEl: 'main-plant-section'});
 
   appendChildren(mainSection, aboutSection, requirementsSection, tasksSection);
@@ -39,23 +40,154 @@ const createMainSection = (plant) => {
   return { mainSection, aboutSection, requirementsSection, tasksSection };
 }
 
-export const createRequirements = (plant) => {
+export const createRequirements = (plant, sectionClass) => {
   const requirementsSection = createElement({tagName: 'div', classEl: 'requirements-section'});
+  const requirements = createElement({tagName: 'div', classEl: 'requirements'})
+  const waterScheduleMain = createElement({tagName: 'div', classEl: 'requirement-container'});
+  const waterScheduleIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'});
+  const waterScheduleIcon = createElement({tagName: 'img', classEl: 'water-scheduele-icon'});
+  const tempLightMain = createElement({tagName: 'div', classEl: 'requirement-container'});
+  const tempLightIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'});
+  const tempLightIcon = createElement({tagName: 'img', classEl: 'temp-light-icon'});
   const waterSchedule = createElement({tagName: 'p', textContent: plant.waterSchedule, classEl: 'requirement'});
   const tempLight = createElement({tagName: 'p', textContent: plant.tempLight, classEl: 'requirement'});
+  const requirementModal = createElement({tagName: 'div', classEl: 'requirement-modal'});
+  requirementModal.classList.add('plant-page-modal');
   requirementsSection.style.display = 'none';
-  appendChildren(requirementsSection, waterSchedule, tempLight);
+  waterScheduleIcon.src = '../../public/water-icon.png';
+  tempLightIcon.src = '../../public/sun-icon.png';
+
+  // allow user to upload their own requirements
+  const addRequirementBtn = createElement({tagName: 'button', classEl: 'add-requirement-btn'});
+  const addBtnImageContainer = createElement({tagName: 'div', classEl: 'add-btn-image-container'});
+  const addBtnImage = createElement({tagName: 'img', classEl: 'add-btn-image'});
+  addBtnImage.src = '../../public/add-icon-1.png';
+
+  appendChildren(addBtnImageContainer, addBtnImage)
+  appendChildren(addRequirementBtn, addBtnImageContainer);
+
+  appendChildren(waterScheduleIconContainer, waterScheduleIcon);
+  appendChildren(tempLightIconContainer, tempLightIcon);
+  appendChildren(waterScheduleMain, waterScheduleIconContainer, waterSchedule);
+  appendChildren(tempLightMain, tempLightIconContainer, tempLight);
+  appendChildren(requirements, waterScheduleMain, tempLightMain)
+  appendChildren(requirementsSection, requirements, requirementModal, addRequirementBtn);
+
+  localEventManager.addEventListener(addRequirementBtn, 'click', () => {
+    addNewRequirementHandler(requirementModal, requirements, sectionClass);
+  }, `PLANT_PAGE_${sectionClass}`)
 
   return requirementsSection;
 }
 
-const createUserTasks = () => {
+const addNewRequirementHandler = (requirementModal, requirements, sectionClass) => {
+  const modalOverlay = document.querySelector('.modal-overlay');
+  const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: 'requirement-input'});
+  const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: 'submit-requirement-btn'});
+  const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: 'cancel-btn'});
+  modalOverlay.style.display = 'flex';
+  requirementModal.style.display = 'flex';
+
+  appendChildren(requirementModal, cancelBtn, addRequirementInput, submitBtn);
+  appendChildren(modalOverlay, requirementModal);
+
+  // appendChildren(addRequirementContainer, addRequirementInput, submitBtn, cancelBtn);
+  // showElements('flex', addRequirementContainer);
+
+  localEventManager.addEventListener(submitBtn, 'click', () => {
+    submitRequirementHandler(requirementModal, requirements, addRequirementInput);
+  }, `PLANT_PAGE_${sectionClass}`);
+
+  localEventManager.addEventListener(cancelBtn, 'click', () => {
+    removeModal(requirementModal);
+  }, `PLANT_PAGE_${sectionClass}`);
+
+  localEventManager.addEventListener(modalOverlay, 'click', () => {
+    removeModal(requirementModal);
+  }, `PLANT_PAGE_${sectionClass}`)
+
+  localEventManager.addEventListener(requirementModal, 'click', (event) => {
+    event.stopPropagation();
+  }, `PLANT_PAGE_${sectionClass}`)
+}
+
+const submitRequirementHandler = (requirementModal, requirements, addRequirementInput) => {
+  if (addRequirementInput.value === '') {
+    return;
+  }
+  removeModal(requirementModal);
+  const newUserRequirmentContainer = createElement({tagName: 'div', classEl: 'requirement-container'});
+  const newUserRequirementIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'})
+  const newUserRequirementIcon = createElement({tagName: 'img', classEl: 'requirement-icon'});
+  const newUserRequirement = createElement({tagName: 'p', textContent: addRequirementInput.value, classEl: 'requirement'})
+  newUserRequirementIcon.src = '../../public/plant-pot-icon.png';
+
+  appendChildren(newUserRequirementIconContainer, newUserRequirementIcon);
+  appendChildren(newUserRequirmentContainer, newUserRequirementIconContainer, newUserRequirement);
+  appendChildren(requirements, newUserRequirmentContainer);
+}
+
+const removeModal = (modal) => {
+  const modalOverlay = document.querySelector('.modal-overlay');
+  clearSection(modal);
+  removeChildren(modalOverlay, modal);
+  modalOverlay.style.display = 'none';
+}
+
+const createUserTasks = (sectionClass) => {
   const userTaskSection = createElement({tagName: 'div', classEl: 'tasks-section'});
-  const newTaskDummy = createElement({tagName: 'p', textContent: 'NEW TASK'});
+  const newTaskBtn = createElement({tagName: 'button', classEl: 'add-task-btn'});
+  const newTaskImgContainer = createElement({tagName: 'div', classEl: 'new-task-image-container'});
+  const newTaskImg = createElement({tagName: 'img', classEl: 'new-task-image'});
   userTaskSection.style.display = 'none';
-  appendChildren(userTaskSection, newTaskDummy);
+  newTaskImg.src = '../../public/add-icon-1.png';
+  appendChildren(newTaskImgContainer, newTaskImg);
+  appendChildren(newTaskBtn, newTaskImgContainer);
+  appendChildren(userTaskSection, newTaskBtn);
+
+
+  localEventManager.addEventListener(newTaskBtn, 'click', () => {
+    addNewTaskHandler(userTaskSection, newTaskBtn, sectionClass);
+  }, `PLANT_PAGE_${sectionClass}`)
 
   return userTaskSection;
+}
+
+const addNewTaskHandler = (userTaskSection, newTaskBtn, sectionClass) => {
+  hideElements(newTaskBtn);
+  const newTaskContainer = createElement({tagName: 'div', classEl: 'new-task-container'});
+  const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: 'new-task-input'});
+  const newTaskAddBtn = createElement({tagName: 'button', textContent: '+', classEl: 'new-task-add-btn'});
+  const cancelTaskBtn = createElement({tagName: 'button', textContent: 'Cancel', classEL: 'cancel-task-btn'});
+  appendChildren(newTaskContainer, newTaskInput, newTaskAddBtn, cancelTaskBtn);
+  appendChildren(userTaskSection, newTaskContainer);
+
+  localEventManager.addEventListener(newTaskAddBtn, 'click', () => {
+    submitTaskHandler(newTaskInput, newTaskContainer, newTaskBtn);
+  }, `PLANT_PAGE_${sectionClass}`);
+
+  localEventManager.addEventListener(cancelTaskBtn, 'click', () => {
+    cancelTaskHandler(userTaskSection, newTaskContainer, newTaskBtn);
+  }, `PLANT_PAGE_${sectionClass}`)
+}
+
+const cancelTaskHandler = (userTaskSection, newTaskContainer, newTaskBtn) => {
+  removeChildren(userTaskSection, newTaskContainer);
+  showElements('block', newTaskBtn);
+}
+
+const submitTaskHandler = (newTaskInput, newTaskContainer, newTaskBtn) => {
+  if (newTaskInput.value === '') {
+    return;
+  }
+  const userTaskSection = document.querySelector('.tasks-section');
+  const newTask = createElement({tagName: 'div', classEl: 'new-task'});
+  const newUserTask = createElement({tagName: 'p', textContent: newTaskInput.value, classEl: 'new-user-task'});
+  const taskSelectBtn = createElement({tagName: 'button', classEl: 'select-btn'});
+  appendChildren(newTask, newUserTask, taskSelectBtn);
+  appendChildren(userTaskSection, newTask);
+  removeChildren(userTaskSection, newTaskContainer);
+  showElements('block', newTaskBtn);
 }
 
 const createDescriptionElement = () => {
@@ -67,11 +199,12 @@ const createDescriptionElement = () => {
   return { plantDescriptionContainer, plantDescription }
 }
 
-const createNavButtons = (aboutSection, requirementsSection, tasksSection, sectionClass) => {
+const createNavButtons = (aboutSection, requirementsSection, tasksSection, sectionBtn, sectionClass) => {
   const navContainer = createElement({tagName: 'div', classEl: 'plant-page-nav-container'});
   const aboutBtn = createElement({tagName: 'button', textContent: 'About', classEl: 'plant-page-nav-button', id: 'about-nav'});
   const requirementsBtn = createElement({tagName: 'button', textContent: 'Requirements', classEl: 'plant-page-nav-button', id: 'requirement-nav'});
   const userTasksBtn = createElement({tagName: 'button', textContent: 'Tasks', classEl: 'plant-page-nav-button', id: 'task-nav'});
+  const editBtn = document.querySelector('.edit-btn');
   aboutBtn.classList.add('active');
 
   // nav btn data

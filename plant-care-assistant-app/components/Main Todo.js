@@ -3,18 +3,21 @@
 TODO
 - tabs for plant page: About, More Info, Notes
 - edit button css
+- tag button click to find similar plants
 - plant log grid css
 - fix drop menu issues on plant log section (turn into select option)
 - remove tasks from plantdiscovery version of plantpage and move 'add to my plants' button to bottom of page
+or create new function to deal with plantpage render for specific sections
 - combine search and quiz into one
 - add new plant section
 - quiz css finish
 - modal swipe for quiz and plant page
 - text for footer menu icons (Home, My plants, Add, Discover)
+- turn all forms into <form>
 
 - profile / home button functionality -
-or have profile button in top left alongside menu bars for about, contact etc.
-and have home button for overview of the daily tasks list, gardening tips, suggested plants, weather/time/location
+or have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
+and have home button for overview of the daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
 
 TODO plant-quiz:
 - clean up appendChildren elements, need additional containers
@@ -29,6 +32,7 @@ TODO plant-log:
 TODO plant-page:
 - local storage
 - delete/reset plant details - Are you sure? UI
+- modal for new requirements and task
 - (plant requirements)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
@@ -46,16 +50,11 @@ CSS/aesthetics:
 - unit testing / js tests
 - production ideas/hosting
 - login authentication + default login page
-- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities
+- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?)
 - README file
 
 - react refactor
 
-- new project
+- new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
 
-CSS IDEAS:
-- start with My Plants page, remove header logo/image and footer. replace with icons, dark background, scrollable plant grid.
-- quiz, discover, add plant as icons in footer nav. 
-- decide wether to keep mobile menu bars or not (maybe keep classic design for desktop only)
-- change plant page, add blog and other features. 
 */

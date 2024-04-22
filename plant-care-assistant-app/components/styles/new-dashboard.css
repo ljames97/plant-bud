@@ -152,7 +152,7 @@ button {
   background-color: #334521;
   color: white;
   padding: 0.4rem 1.4rem;
-  width: 20%;
+  width: auto;
   border: none;
   border-radius: 10px;
   font-size: 0.8rem;
@@ -434,9 +434,11 @@ button {
   flex-direction: column;
   background-color: #f2ece5;
   color: black;
-  height: 100vh;
   z-index: 1;
   padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto;
+  height: 100vh;
 }
 
 .plant-page-nav-container {
@@ -460,6 +462,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
 }
 
 .plant-page-image-container {
@@ -505,3 +508,144 @@ button {
   font-weight: bold;
 }
 
+.requirement-icon-container {
+  width: 10%;
+  margin-right: 0.8rem;
+}
+
+.water-scheduele-icon,
+.temp-light-icon,
+.requirement-icon {
+  width: 100%;
+  height: 100%;
+}
+
+
+.requirement-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.requirements-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 75vh;
+}
+
+.add-requirement-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  padding: 1.5rem;
+  margin-top: auto;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 100%;
+}
+
+.add-btn-image-container {
+  width: 100%;
+}
+
+.add-btn-image {
+  width: 100%;
+}
+
+.about-section {
+  flex-direction: column;
+}
+
+.add-task-btn {
+  width: auto;
+}
+
+.tasks-section {
+  min-height: 75vh;
+}
+
+.add-task-btn  {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  padding: 1.5rem;
+  border-radius: 100%;
+  width: 5rem;
+  height: 5rem;
+  margin-top: auto;
+}
+
+.new-task-image-container {
+  width: 100%;
+}
+
+.new-task-image {
+  width: 100%;
+}
+
+.requirements-section {
+  padding: 0 1rem;
+}
+
+.add-requirement-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.plant-page-modal {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #dcd5cd;
+  padding: 2rem 1rem;
+  width: 14rem;
+  align-self: center;
+}
+
+.cancel-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: black;
+  width: 2rem;
+  height: 2rem;
+  padding: 0rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  margin-top: -1.2rem;
+  align-self: flex-end;
+}
+
+.select-type {
+  margin-bottom: 1rem;
+  width: 10rem;
+  color: black;
+}
+
+.requirement-input {
+  margin-bottom: 1rem;
+  width: 10rem;
+  color: black;
+}
+
+.submit-requirement-btn {
+  width: auto;
+  padding: 1rem;
+}
+
+.modal-overlay {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #222e16;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  background-color: rgba(0,0,0,0.4);
+  backdrop-filter: blur(5px);
+}

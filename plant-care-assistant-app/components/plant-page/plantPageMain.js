@@ -7,7 +7,7 @@
 import { clearSection, createElement, resetSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, getDate, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
-import { createDynamicPlantElements, createRequirements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
+import { createDynamicPlantElements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
 
 import { plantLog, renderDeletedPlants } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
@@ -30,7 +30,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
   sectionBtn.classList.add('section-button');
   
-  const { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription } = createDynamicPlantElements(plant, sectionClass);
+  const { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription } = createDynamicPlantElements(plant, sectionBtn, sectionClass);
   plantTitle.textContent = plant.name;
   plantDate.textContent = plant.dateAdded;
   plantDescription.textContent = plant.description;
@@ -72,9 +72,11 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
 }
 
 const createTags = (plant) => {
-  let flowerTag, outdoorTag, effortTag
+  let skillTag, flowerTag, outdoorTag, effortTag
 
-  const skillTag = createTagButton(plant.skill[0]);
+  if (plant.skill) {
+    skillTag = createTagButton(plant.skill[0]);
+  }
   
   if (plant.florwering && plant.florwering.includes('Yes')) {
     flowerTag = createTagButton('Flowering');
@@ -150,6 +152,11 @@ export const copyToMyPlants = (plant) => {
     description: plant.description,
     shortDescription: plant.shortDescription,
     skill: plant.skill,
+    flowering: plant.flowering,
+    transferToOutdoors: plant.transferToOutdoors,
+    waterSchedule: plant.waterSchedule,
+    tempLight: plant.tempLight,
+    lowEffort: plant.lowEffort,
     image: plant.image,
     id: plant.id
   };
@@ -248,5 +255,5 @@ const saveMode = (plant, editBtn, elements) => {
 
 export const renderPlantSection = (activeSection, ...inactiveSections) => {
   hideElements(...inactiveSections);
-  showElements('block', activeSection);
+  showElements('flex', activeSection);
 }
