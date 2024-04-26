@@ -157,7 +157,9 @@ export const copyToMyPlants = (plant) => {
     tempLight: plant.tempLight,
     lowEffort: plant.lowEffort,
     image: plant.image,
-    id: plant.id
+    id: plant.id,
+    requirements: plant.requirements,
+    tasks: plant.tasks
   };
 
   plantLog.addToUserPlantLog(newPlant);

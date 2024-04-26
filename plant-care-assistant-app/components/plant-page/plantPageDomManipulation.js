@@ -8,7 +8,7 @@ import { plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
 import { clearSection, createElement } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
+import { appendChildren, findItemInArray, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
 import { renderPlantSection } from "./plantPageMain";
 
 /**
@@ -32,7 +32,7 @@ const createMainSection = (plant, sectionClass) => {
   const plantPageModal = createElement({tagName: 'div', classEl: 'requirement-modal'});
   const aboutSection = createElement({tagName: 'div', classEl: 'about-section'});
   const requirementsSection = createRequirements(plantPageModal, plant, sectionClass);
-  const tasksSection = createUserTasks(plantPageModal, sectionClass);
+  const tasksSection = createUserTasks(plant, plantPageModal, sectionClass);
   const mainSection = createElement({tagName: 'div', classEl: 'main-plant-section'});
 
   appendChildren(mainSection, aboutSection, requirementsSection, tasksSection);
@@ -56,6 +56,7 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
   waterScheduleIcon.src = '../../public/water-icon.png';
   tempLightIcon.src = '../../public/sun-icon.png';
 
+
   // allow user to upload their own requirements
   const addRequirementBtn = createElement({tagName: 'button', classEl: 'add-requirement-btn'});
   const addBtnImageContainer = createElement({tagName: 'div', classEl: 'add-btn-image-container'});
@@ -72,14 +73,20 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
   appendChildren(requirements, waterScheduleMain, tempLightMain)
   appendChildren(requirementsSection, requirements, plantPageModal, addRequirementBtn);
 
+  if (plant.requirements.length > 0) {
+    plant.requirements.forEach(item => {
+      submitRequirementHandler(plant, requirements, item);
+    });
+  }
+
   localEventManager.addEventListener(addRequirementBtn, 'click', () => {
-    addNewRequirementHandler(plantPageModal, requirements, sectionClass);
+    addNewRequirementHandler(plantPageModal, requirements, sectionClass, plant);
   }, `PLANT_PAGE_${sectionClass}`)
 
   return requirementsSection;
 }
 
-const addNewRequirementHandler = (plantPageModal, requirements, sectionClass) => {
+const addNewRequirementHandler = (plantPageModal, requirements, sectionClass, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: 'plant-page-input'});
   const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: 'submit-requirement-btn'});
@@ -89,15 +96,15 @@ const addNewRequirementHandler = (plantPageModal, requirements, sectionClass) =>
   appendChildren(plantPageModal, cancelBtn, addRequirementInput, submitBtn);
   appendChildren(modalOverlay, plantPageModal);
 
-  setUpModalEventListeners(submitBtn, cancelBtn, plantPageModal, requirements, addRequirementInput, sectionClass, submitRequirementHandler);
+  setUpModalEventListeners(submitBtn, cancelBtn, plantPageModal, requirements, addRequirementInput, sectionClass, submitRequirementHandler, plant);
 }
 
-const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionElement, userInput, sectionClass, submitHandler) => {
+const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionElement, userInput, sectionClass, submitHandler, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
 
   localEventManager.addEventListener(submitBtn, 'click', () => {
     removeModal(modal);
-    submitHandler(sectionElement, userInput, sectionClass);
+    submitHandler(plant, sectionElement, userInput.value, sectionClass);
   }, `PLANT_PAGE_${sectionClass}`);
 
   localEventManager.addEventListener(cancelBtn, 'click', () => {
@@ -113,19 +120,24 @@ const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionElement, u
   }, `PLANT_PAGE_${sectionClass}`)
 }
 
-const submitRequirementHandler = (requirements, addRequirementInput) => {
-  if (addRequirementInput.value === '') {
+const submitRequirementHandler = (plant, requirements, addRequirementInput) => {
+  if (addRequirementInput === '') {
     return;
   }
   const newUserRequirmentContainer = createElement({tagName: 'div', classEl: 'requirement-container'});
   const newUserRequirementIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'})
   const newUserRequirementIcon = createElement({tagName: 'img', classEl: 'requirement-icon'});
-  const newUserRequirement = createElement({tagName: 'p', textContent: addRequirementInput.value, classEl: 'requirement'})
+  const newUserRequirement = createElement({tagName: 'p', textContent: addRequirementInput, classEl: 'requirement'})
   newUserRequirementIcon.src = '../../public/plant-pot-icon.png';
 
   appendChildren(newUserRequirementIconContainer, newUserRequirementIcon);
   appendChildren(newUserRequirmentContainer, newUserRequirementIconContainer, newUserRequirement);
   appendChildren(requirements, newUserRequirmentContainer);
+
+  if (!plant.requirements.includes(addRequirementInput)) {
+    plant.requirements.push(addRequirementInput);
+    console.log(plant);
+  }
 }
 
 const removeModal = (modal) => {
@@ -135,7 +147,7 @@ const removeModal = (modal) => {
   modalOverlay.style.display = 'none';
 }
 
-const createUserTasks = (plantPageModal, sectionClass) => {
+const createUserTasks = (plant, plantPageModal, sectionClass) => {
   const userTaskSection = createElement({tagName: 'div', classEl: 'tasks-section'});
   const tasks = createElement({tagName: 'div', classEl: 'tasks'});
   const newTaskBtn = createElement({tagName: 'button', classEl: 'add-task-btn'});
@@ -148,14 +160,20 @@ const createUserTasks = (plantPageModal, sectionClass) => {
   appendChildren(newTaskBtn, newTaskImgContainer);
   appendChildren(userTaskSection, tasks, newTaskBtn);
 
+  if (plant.tasks.length > 0) {
+    plant.tasks.forEach(task => {
+      submitTaskHandler(plant, tasks, task.description, sectionClass)
+    })
+  }
+
   localEventManager.addEventListener(newTaskBtn, 'click', () => {
-    addNewTaskHandler(plantPageModal, tasks, sectionClass);
+    addNewTaskHandler(plantPageModal, tasks, sectionClass, plant);
   }, `PLANT_PAGE_${sectionClass}`)
 
   return userTaskSection;
 }
 
-const addNewTaskHandler = (plantPageModal, tasks, sectionClass) => {
+const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: 'plant-page-input'});
   const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: 'submit-requirement-btn'});
@@ -166,7 +184,7 @@ const addNewTaskHandler = (plantPageModal, tasks, sectionClass) => {
   appendChildren(plantPageModal, cancelTaskBtn, newTaskInput, newTaskAddBtn);
   appendChildren(modalOverlay, plantPageModal);
 
-  setUpModalEventListeners(newTaskAddBtn, cancelTaskBtn, plantPageModal, tasks, newTaskInput, sectionClass, submitTaskHandler);
+  setUpModalEventListeners(newTaskAddBtn, cancelTaskBtn, plantPageModal, tasks, newTaskInput, sectionClass, submitTaskHandler, plant);
 }
 
 const setUpModal = (modalOverlay, modal) => {
@@ -174,35 +192,56 @@ const setUpModal = (modalOverlay, modal) => {
   modal.style.display = 'flex';
 }
 
-const submitTaskHandler = (tasks, newTaskInput, sectionClass) => {
-  if (newTaskInput.value === '') {
+const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
+  if (newTaskInput === '') {
     return;
   }
 
-  const newTask = createElement({tagName: 'div', classEl: 'new-task'});
+  const newTaskElement = createElement({tagName: 'div', classEl: 'new-task'});
   const taskSelectBtn = createElement({tagName: 'button', classEl: 'select-btn'});
-  const newUserTask = createElement({tagName: 'p', textContent: newTaskInput.value, classEl: 'new-user-task'});
-  taskSelectBtn.selected = false;
+  const newUserTask = createElement({tagName: 'p', textContent: newTaskInput, classEl: 'new-user-task'});
 
-  appendChildren(newTask, taskSelectBtn, newUserTask);
-  appendChildren(tasks, newTask);
+  appendChildren(newTaskElement, taskSelectBtn, newUserTask);
+  appendChildren(tasks, newTaskElement);
+
+  console.log(plant);
+
+  if (!plant.tasks.some(task => task.description === newTaskInput)) {
+    const newTask = {
+      description: newTaskInput,
+      selected: false
+    }
+    plant.tasks.push(newTask);
+  }
+
+  const foundTask = plant.tasks.find(task => task.description === newTaskInput);
+  setSelect(foundTask, taskSelectBtn);
 
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
-    selectButtonHandler(taskSelectBtn)
+    selectButtonHandler(taskSelectBtn, foundTask);
   }, `PLANT_PAGE_${sectionClass}`);
 }
 
-const selectButtonHandler = (taskSelectBtn) => {
-  if (taskSelectBtn.selected === false) {
+const setSelect = (task, taskSelectBtn) => {
+  if (task.selected === false) {
+    taskSelectBtn.style.backgroundColor = 'transparent';
+    taskSelectBtn.style.border = '0.5px black solid';
+  } else {
     taskSelectBtn.style.backgroundColor = 'green';
     taskSelectBtn.style.border = 'none';
-    taskSelectBtn.selected = true;
+  }
+}
+
+const selectButtonHandler = (taskSelectBtn, task) => {
+  if (task.selected === false) {
+    taskSelectBtn.style.backgroundColor = 'green';
+    taskSelectBtn.style.border = 'none';
+    task.selected = true;
   } else {
     taskSelectBtn.style.backgroundColor = 'transparent';
     taskSelectBtn.style.border = '0.5px black solid';
-    taskSelectBtn.selected = false;
+    task.selected = false;
   }
-
 }
 
 const createDescriptionElement = () => {

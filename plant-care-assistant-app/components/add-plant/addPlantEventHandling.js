@@ -30,7 +30,9 @@ export const submitNewPlantHandler = (event, plantName, dateAdded, description, 
     dateAdded: dateAdded.value,
     description: description.value,
     image: imageDataUrl,
-    id: Date.now()
+    id: Date.now(),
+    requirements: [],
+    tasks: []
   };
 
   plantLog.addToUserPlantLog(newPlant);
