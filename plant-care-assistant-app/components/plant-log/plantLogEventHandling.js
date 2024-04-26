@@ -22,7 +22,7 @@ import { plantLog } from "./plantLogMain";
  */
 export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, sectionRender, backButtonText) => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
-  const plantPageContainer = createElement({tagName: 'div', classEl: 'plant-page-container'});
+  const plantPageContainer = createElement({tagName: 'div', classEl: ['plant-page-container']});
 
   // Event propagation for elements in the userPlantGrid.
   localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {

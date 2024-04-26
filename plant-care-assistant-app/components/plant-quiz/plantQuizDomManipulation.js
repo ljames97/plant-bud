@@ -12,7 +12,7 @@ import { appendChildren } from "../utils/gobalUtility";
  * @returns {HTMLElement} Result title.
  */
 export const createResultElements = (result) => {
-  const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: 'result-title'});
+  const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: ['result-title']});
   return { resultTitle }
 }
 
@@ -21,21 +21,21 @@ export const createResultElements = (result) => {
  * @returns {Object} Plant quiz elements.
  */
 export const createPlantQuizElements = () => {
-  const quizContainer = createElement({tagName: 'div', classEl: 'quiz-container'});
-  const quizTitle = createElement({tagName: 'h1', classEl: 'section-title', textContent: 'Plant Quiz'});
-  const quizBanner = createElement({tagName: 'img', classEl: 'quiz-banner'});
-  const quizBannerContainer = createElement({tagName: 'div', classEl: 'quiz-banner-container'});
-  const questionContainer = createElement({tagName: 'div', classEl: 'question-container'});
-  const quizSubtitle = createElement({tagName: 'p', textContent: 'Find suitable plants', classEl: 'quiz-subheader'});
-  const quizDescription = createElement({tagName: 'p', classEl: 'quiz-description', textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
-  const startQuizBtn = createElement({tagName: 'button', textContent: 'Start Quiz', classEl: 'start-quiz-btn'});
-  const moreInfoBtn = createElement({tagName: 'button', textContent: 'More Info', classEl: 'more-info-btn'})
-  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz', classEl: 'restart-quiz-btn'});
+  const quizContainer = createElement({tagName: 'div', classEl: ['quiz-container']});
+  const quizTitle = createElement({tagName: 'h1', classEl: ['section-title'], textContent: 'Plant Quiz'});
+  const quizBanner = createElement({tagName: 'img', classEl: ['quiz-banner']});
+  const quizBannerContainer = createElement({tagName: 'div', classEl: ['quiz-banner-container']});
+  const questionContainer = createElement({tagName: 'div', classEl: ['question-container']});
+  const quizSubtitle = createElement({tagName: 'p', textContent: 'Find suitable plants', classEl: ['quiz-subheader']});
+  const quizDescription = createElement({tagName: 'p', classEl: ['quiz-description'], textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
+  const startQuizBtn = createElement({tagName: 'button', textContent: 'Start Quiz', classEl: ['start-quiz-btn']});
+  const moreInfoBtn = createElement({tagName: 'button', textContent: 'More Info', classEl: ['more-info-btn']})
+  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz', classEl: ['restart-quiz-btn']});
   quizBanner.src = '../../public/plant-quiz-banner.png';
 
   const snakePlantCard = createPlantCard('Snake Plant', 'For beginners', '../../public/snake-plant.png');
   const peaceLilyCard = createPlantCard('Peace Lily', 'Flowering plant', '../../public/peace-lily.png');
-  const cardContainer = createElement({tagName: 'div', classEl: 'card-container'});
+  const cardContainer = createElement({tagName: 'div', classEl: ['card-container']});
 
   appendChildren(cardContainer, snakePlantCard, peaceLilyCard);
 
@@ -43,11 +43,11 @@ export const createPlantQuizElements = () => {
 }
 
 const createPlantCard = (title, subtitle, imageSrc) => {
-  const plantCard = createElement({tagName: 'div', classEl: 'plant-card'});
-  const cardTitle = createElement({tagName: 'p', textContent: title, classEl: 'card-title'});
-  const cardSubtitle = createElement({tagName: 'p', textContent: subtitle, classEl: 'card-subtitle'});
-  const cardImageContainer = createElement({tagName: 'div', classEl: 'card-image-container'});
-  const cardImage = createElement({tagName: 'img', classEl: 'card-image'});
+  const plantCard = createElement({tagName: 'div', classEl: ['plant-card']});
+  const cardTitle = createElement({tagName: 'p', textContent: title, classEl: ['card-title']});
+  const cardSubtitle = createElement({tagName: 'p', textContent: subtitle, classEl: ['card-subtitle']});
+  const cardImageContainer = createElement({tagName: 'div', classEl: ['card-image-container']});
+  const cardImage = createElement({tagName: 'img', classEl: ['card-image']});
 
   cardImage.src = imageSrc;
 

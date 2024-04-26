@@ -44,8 +44,8 @@ export const renderPlantQuiz = () => {
 export const renderQuestion = (questionText, choices, category, questionId) => {
   const questionContainer = document.querySelector('.question-container');
 
-  const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: 'question-title'});
-  const choiceBtnContainer = createElement({tagName: 'div', classEl: 'choice-btn-container'});
+  const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: ['question-title']});
+  const choiceBtnContainer = createElement({tagName: 'div', classEl: ['choice-btn-container']});
 
   appendChildren(questionContainer, questionTitle, choiceBtnContainer);
   createChoiceButtons(choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer);
@@ -62,7 +62,7 @@ export const renderQuestion = (questionText, choices, category, questionId) => {
  */
 const createChoiceButtons = (choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer) => {
   choices.forEach(choice => {
-    const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: 'choice-btn'});
+    const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: ['choice-btn']});
     appendChildren(choiceBtnContainer, choiceBtn);
     localEventManager.addEventListener(choiceBtn, 'click', () => {
       choiceBtnClickHandler(category, choice, questionId, questionContainer, questionTitle, choiceBtnContainer)
@@ -143,7 +143,7 @@ const renderQuizResults = (results) => {
 
   const quizContainer = document.querySelector('.quiz-container');
   const questionContainer = document.querySelector('.question-container');
-  const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
+  const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
   appendChildren(plantQuiz, plantInfoContainer);
   removeChildren(quizContainer, questionContainer)
 

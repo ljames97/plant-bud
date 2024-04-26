@@ -17,10 +17,10 @@ import { plantLog } from "../plant-log/plantLogMain";
  * Render plant search input on screen. Gets search elements from createSearchInput and appends them to the DOM.
  */
 export const renderNewPlantSearch = () => {
-  const { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchInput, plantsFoundCounter, searchResultsContainer } = createSearchInput();
+  const { sectionHeader, plantDiscoveryTitle, searchContainer, searchInput, plantsFoundCounter, searchResultsContainer } = createSearchInput();
   const { plantDiscovery } = domElements;
 
-  appendChildren(sectionHeader, plantDiscoveryTitle, /** plantDiscoveryDescription */ );
+  appendChildren(sectionHeader, plantDiscoveryTitle );
   appendChildren(searchContainer, searchInput, plantsFoundCounter, searchResultsContainer);
   appendChildren(plantDiscovery, sectionHeader, searchContainer);
 
@@ -56,7 +56,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
 
   // render matching plant results on screen.
   if (filteredPlants.length > 0) {
-    const plantInfoContainer = createElement({tagName: 'div', classEl: 'plant-info'});
+    const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
 
     filteredPlants.forEach(plant => {
       const plantElement = createPlantResultElement(plant, sectionClass);
@@ -107,18 +107,18 @@ const getFilteredPlantsArray = () => {
 }
 
 const createPlantResultElement = (plant) => {
-  const plantElement = createElement({tagName: 'div', classEl: 'plant-element'});
-  const plantResultContainer = createElement({tagName: 'div', classEl: 'plant-result-container'});
-  const plantTextContainer = createElement({tagName: 'div', classEl: 'plant-text-container'});
-  const plantTitle = createElement({tagName: 'p', textContent: plant.name, classEl: 'plant-result-title'});
-  const plantDescription = createElement({tagName: 'p', textContent: plant.shortDescription ? plant.shortDescription : 'Add short description', classEl: 'plant-result-description'});
-  const plantTag = createElement({tagName: 'p', textContent: plant.skill ? plant.skill[0] : 'Add skill', classEl: 'plant-result-tag'});
-  const plantImage = createElement({tagName: 'img', classEl: 'plant-result-image'});
-  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-result-image-container'});
-  const lineSeparator = createElement({tagName: 'div', classEl: 'line-separator'});
+  const plantElement = createElement({tagName: 'div', classEl: ['plant-element']});
+  const plantResultContainer = createElement({tagName: 'div', classEl: ['plant-result-container']});
+  const plantTextContainer = createElement({tagName: 'div', classEl: ['plant-text-container']});
+  const plantTitle = createElement({tagName: 'p', textContent: plant.name, classEl: ['plant-result-title']});
+  const plantDescription = createElement({tagName: 'p', textContent: plant.shortDescription, classEl: ['plant-result-description']});
+  const plantTag = createElement({tagName: 'p', textContent: plant.skill, classEl: ['plant-result-tag']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-result-image']});
+  const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-result-image-container']});
+  const lineSeparator = createElement({tagName: 'div', classEl: ['line-separator']});
   plantImage.src = plant.image;
   const menuDotContainer = createMenuDots();
-  const searchDropMenu = createElement({tagName: 'div', classEl: 'search-drop-menu'});
+  const searchDropMenu = createElement({tagName: 'div', classEl: ['search-drop-menu']});
   plantElement.plantObject = plant;
 
   appendChildren(plantTextContainer, plantTitle, plantDescription, plantTag);
@@ -134,12 +134,12 @@ const createPlantResultElement = (plant) => {
 
 const createMenuDots = () => {
   let menuDot = '';
-  const menuDotContainer = createElement({tagName: 'div', classEl: 'menu-dots-container'});
-  menuDot = createElement({tagName: 'div', classEl: 'menu-dot'});
+  const menuDotContainer = createElement({tagName: 'div', classEl: ['menu-dots-container']});
+  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
   appendChildren(menuDotContainer, menuDot);
-  menuDot = createElement({tagName: 'div', classEl: 'menu-dot'});
+  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
   appendChildren(menuDotContainer, menuDot);
-  menuDot = createElement({tagName: 'div', classEl: 'menu-dot'});
+  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
   appendChildren(menuDotContainer, menuDot);
 
   return menuDotContainer;
@@ -151,8 +151,8 @@ const renderQuickAdd = (menuDots, plant) => {
       existingMenu.remove();
   }
 
-  const dropMenuContainer = createElement({tagName: 'div', classEl: 'drop-menu-container'});
-  const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: 'drop-menu-item'});
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
 
   appendChildren(dropMenuContainer, quickAdd);
   appendChildren(menuDots, dropMenuContainer);
@@ -169,7 +169,7 @@ const quickAddHandler = (quickAdd, plant) => {
 }
 
 const replaceElement = (element) => {
-  const newText = createElement({tagName: 'p', textContent: 'Added', classEl: 'drop-menu-item'});
+  const newText = createElement({tagName: 'p', textContent: 'Added', classEl: ['drop-menu-item']});
   element.parentNode.replaceChild(newText, element);
 }
 

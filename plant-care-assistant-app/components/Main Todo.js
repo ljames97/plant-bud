@@ -1,14 +1,16 @@
 /* 
 
 TODO
-- store tasks/new requirements in plant object
 - tag button click to find similar plants
-- option to delete/edit requirement/task in modal
+- option to add new tags
+- option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
+- notification icon on tasks tab
+- + icon on overview, add user comments
 
-- plant log grid css
-- fix drop menu issues on plant log section (turn into select option)
-- remove tasks from plantdiscovery version of plantpage and move 'add to my plants' button to bottom of page
-or create new function to deal with plantpage render for specific sections/appearance
+- css for task list
+- select option/quick menu (delete/new task) on each plant image in grid
+- pin plant to top of grid
+- simple plant page for the plant library elements
 
 - combine search and quiz into one
 - add new plant section
@@ -17,11 +19,15 @@ or create new function to deal with plantpage render for specific sections/appea
 - text for footer menu icons (Home, My plants, Add, Discover)
 - turn all forms into <form> wiht label, aria etc.
 - swpie to remove tasks / requirements
-- tasks ideas: name, notes, date, alert
+- tasks ideas: name, notes, date, alert, priority
+- tasks needs to be 1 tas(k) in plant log
+
+- tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks
 
 - profile / home button functionality -
 or have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
 and have home button for overview of the daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
+
 
 TODO plant-quiz:
 - clean up appendChildren elements, need additional containers

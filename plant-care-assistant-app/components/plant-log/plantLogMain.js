@@ -18,44 +18,34 @@ import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
  */
 export const renderMyPlants = () => {
   const { plantLogEl } = domElements;
-  const { sectionHeader, plantLogTitle, searchContainer, searchInput, searchResultsContainer, userPlantsContainer, addPlantBtn, archiveBtn } = plantLogElements.createPlantLogElements();
+  const { sectionHeader, menuButtons, plantInfoBar, plantLogTitle, userPlantsContainer } = plantLogElements.createPlantLogElements();
+
+  const { numberOfPlants, numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
+  plantInfoBar.textContent = `${numberOfPlants} Plants, ${numberOfTasks} Tasks`;
 
   appendChildren(sectionHeader, plantLogTitle)
-  appendChildren(searchContainer, searchInput, searchResultsContainer)
-  appendChildren(plantLogEl, sectionHeader, searchContainer, userPlantsContainer, addPlantBtn, archiveBtn);
+  appendChildren(plantLogEl, sectionHeader, menuButtons, plantInfoBar, userPlantsContainer);
 
-  renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants', searchInput);
+  renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
+}
 
-  localEventManager.addEventListener(addPlantBtn, 'click', () => {
-    renderManualPlantForm(plantLogEl);
-  }, 'PLANT_LOG');
+export const setPlantInfoBar = (userPlants, plantInfoBar) => {
+  const numberOfTasks = userPlants.reduce((total, plant) => {
+    return total + (plant.tasks ? plant.tasks.length : 0)
+  }, 0);
+  const numberOfPlants = userPlants.length
 
-  localEventManager.addEventListener(archiveBtn, 'click', () => {
-    clearSection(userPlantsContainer, 'PLANT_LOG');
-    renderDeletedPlants();
-  }, 'PLANT_LOG');
+  return {numberOfPlants, numberOfTasks}
 }
 
 /**
  * Render the deleted plants in the plant grid. Change the My Plants section into an Archive Plants section. 
  */
 export const renderDeletedPlants = () => {
-  console.log('render')
-  const { plantLogEl } = domElements;
-  clearSection(plantLogEl, 'PLANT_LOG');
-  renderMyPlants();
-
-  const { plantLogTitle, userPlantsContainer, searchInput, archiveBtn, addPlantBtn } = plantLogElements.getPlantLogElements();
+  const { userPlantsContainer, plantInfoBar } = plantLogElements.getPlantLogElements();
   clearSection(userPlantsContainer, 'PLANT_LOG')
-  hideElements(addPlantBtn);
-  archiveBtn.textContent = 'Back to My Plants';
-  plantLogTitle.textContent = 'Plant Archive';
-
-  renderPlantGrid(plantLog.getDeletedPlants(), renderDeletedPlants, '← back to Plant Archive', searchInput);
-
-  localEventManager.addEventListener(archiveBtn, 'click', () => {
-    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
-  }, 'PLANT_LOG');
+  renderPlantGrid(plantLog.getDeletedPlants(), renderMyPlants, '← back to Plant Archive');
+  plantInfoBar.textContent = `${plantLog.getDeletedPlants().length} Plants`;
 }
 
 /**
@@ -63,23 +53,11 @@ export const renderDeletedPlants = () => {
  * @param {Array} plantLogType - eg. userPlantLog or deletedPlantLog.
  * @param {Function} sectionRender - eg. renderMyPlants, renderDeletedPlants etc.
  * @param {String} backButtonText - text for the back button eg. 'back to My Plants'.
- * @param {HTMLElement} searchInput - input field for search.
  */
-const renderPlantGrid = (plantLogType, sectionRender, backButtonText, searchInput) => {
+export const renderPlantGrid = (plantLogType, sectionRender, backButtonText) => {
   const { plantLogEl } = domElements;
-  const { userPlantsContainer, addPlantBtn, searchResultsContainer } = plantLogElements.getPlantLogElements();
-
   populatePlantGrid(plantLogType);
   setupUserPlantGridEventListener(plantLogEl, plantLogType, sectionRender, backButtonText);
-
-  localEventManager.addEventListener(searchInput, 'input', () => {
-    removeChildren(plantLogEl, userPlantsContainer, addPlantBtn);
-    updateSearchResults(plantLogEl, searchInput.value, searchResultsContainer, plantLogType, backButtonText, '.plant-log', sectionRender);
-    if (searchInput.value === '') {
-      appendChildren(plantLogEl, userPlantsContainer, addPlantBtn);
-      clearSection(searchResultsContainer);
-    }
-  }, 'PLANT_LOG');
 }
 
 /**
@@ -163,14 +141,19 @@ export const plantLog = plantLogManager();
  */
 export const addPlantToGrid = (newPlant) => {
   const userPlantsContainer = document.querySelector('.user-plants');
-  const userPlantContainer = createElement({tagName: 'div', classEl: 'user-plant'});
-  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-image-container'});
-  const plantImage = createElement({tagName: 'img', classEl: 'plant-image', dataAttributes: { 'id': newPlant.id.toString() }});
+  const userPlantContainer = createElement({tagName: 'div', classEl: ['user-plant']});
+  const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-image-container']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-image'], dataAttributes: { 'id': newPlant.id.toString() }});
+  const taskCounter = createElement({tagName: 'p', classEl: ['task-counter']});
   const plantTitle = createElement({tagName: 'p', textContent: newPlant.name});
-  plantImage.src = newPlant.image
+  plantImage.src = newPlant.image;
+  if (newPlant.tasks) {
+    taskCounter.textContent = `${newPlant.tasks.length} tasks`;
+  }
+
 
   appendChildren(plantImageContainer, plantImage);
-  appendChildren(userPlantContainer, plantImageContainer, plantTitle);
+  appendChildren(userPlantContainer, plantImageContainer, taskCounter, plantTitle);
   appendChildren(userPlantsContainer, userPlantContainer);
 }
 

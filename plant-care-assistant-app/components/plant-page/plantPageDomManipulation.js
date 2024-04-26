@@ -17,23 +17,23 @@ import { renderPlantSection } from "./plantPageMain";
  */
 export const createDynamicPlantElements = (plant, sectionBtn, sectionClass) => {
   const { mainSection, aboutSection, requirementsSection, tasksSection } = createMainSection(plant, sectionClass);
-  const headerContainer = createElement({tagName: 'div', classEl: 'header-container'});
-  const plantTitle = createElement({tagName: 'h1', classEl: 'plant-title'});
+  const headerContainer = createElement({tagName: 'div', classEl: ['header-container']});
+  const plantTitle = createElement({tagName: 'h1', classEl: ['plant-title']});
   const navContainer = createNavButtons(aboutSection, requirementsSection, tasksSection, sectionBtn, sectionClass);
-  const plantImageContainer = createElement({tagName: 'div', classEl: 'plant-page-image-container'});
-  const plantImage = createElement({tagName: 'img', classEl: 'plant-page-image'});
-  const plantDate = createElement({tagName: 'p', classEl: 'plant-date'});
+  const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-page-image-container']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-page-image']});
+  const plantDate = createElement({tagName: 'p', classEl: ['plant-date']});
   const { plantDescriptionContainer, plantDescription } = createDescriptionElement();
 
   return { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription };
 }
 
 const createMainSection = (plant, sectionClass) => {
-  const plantPageModal = createElement({tagName: 'div', classEl: 'requirement-modal'});
-  const aboutSection = createElement({tagName: 'div', classEl: 'about-section'});
+  const plantPageModal = createElement({tagName: 'div', classEl: ['requirement-modal']});
+  const aboutSection = createElement({tagName: 'div', classEl: ['about-section']});
   const requirementsSection = createRequirements(plantPageModal, plant, sectionClass);
   const tasksSection = createUserTasks(plant, plantPageModal, sectionClass);
-  const mainSection = createElement({tagName: 'div', classEl: 'main-plant-section'});
+  const mainSection = createElement({tagName: 'div', classEl: ['main-plant-section']});
 
   appendChildren(mainSection, aboutSection, requirementsSection, tasksSection);
 
@@ -41,16 +41,16 @@ const createMainSection = (plant, sectionClass) => {
 }
 
 export const createRequirements = (plantPageModal, plant, sectionClass) => {
-  const requirementsSection = createElement({tagName: 'div', classEl: 'requirements-section'});
-  const requirements = createElement({tagName: 'div', classEl: 'requirements'})
-  const waterScheduleMain = createElement({tagName: 'div', classEl: 'requirement-container'});
-  const waterScheduleIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'});
-  const waterScheduleIcon = createElement({tagName: 'img', classEl: 'water-scheduele-icon'});
-  const tempLightMain = createElement({tagName: 'div', classEl: 'requirement-container'});
-  const tempLightIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'});
-  const tempLightIcon = createElement({tagName: 'img', classEl: 'temp-light-icon'});
-  const waterSchedule = createElement({tagName: 'p', textContent: plant.waterSchedule, classEl: 'requirement'});
-  const tempLight = createElement({tagName: 'p', textContent: plant.tempLight, classEl: 'requirement'});
+  const requirementsSection = createElement({tagName: 'div', classEl: ['requirements-section']});
+  const requirements = createElement({tagName: 'div', classEl: ['requirements']})
+  const waterScheduleMain = createElement({tagName: 'div', classEl: ['requirement-container']});
+  const waterScheduleIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']});
+  const waterScheduleIcon = createElement({tagName: 'img', classEl: ['water-scheduele-icon']});
+  const tempLightMain = createElement({tagName: 'div', classEl: ['requirement-container']});
+  const tempLightIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']});
+  const tempLightIcon = createElement({tagName: 'img', classEl: ['temp-light-icon']});
+  const waterSchedule = createElement({tagName: 'p', textContent: plant.waterSchedule, classEl: ['requirement']});
+  const tempLight = createElement({tagName: 'p', textContent: plant.tempLight, classEl: ['requirement']});
   plantPageModal.classList.add('plant-page-modal');
   requirementsSection.style.display = 'none';
   waterScheduleIcon.src = '../../public/water-icon.png';
@@ -58,9 +58,9 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
 
 
   // allow user to upload their own requirements
-  const addRequirementBtn = createElement({tagName: 'button', classEl: 'add-requirement-btn'});
-  const addBtnImageContainer = createElement({tagName: 'div', classEl: 'add-btn-image-container'});
-  const addBtnImage = createElement({tagName: 'img', classEl: 'add-btn-image'});
+  const addRequirementBtn = createElement({tagName: 'button', classEl: ['add-requirement-btn']});
+  const addBtnImageContainer = createElement({tagName: 'div', classEl: ['add-btn-image-container']});
+  const addBtnImage = createElement({tagName: 'img', classEl: ['add-btn-image']});
   addBtnImage.src = '../../public/add-icon-1.png';
 
   appendChildren(addBtnImageContainer, addBtnImage)
@@ -73,7 +73,7 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
   appendChildren(requirements, waterScheduleMain, tempLightMain)
   appendChildren(requirementsSection, requirements, plantPageModal, addRequirementBtn);
 
-  if (plant.requirements.length > 0) {
+  if (plant.requirements) {
     plant.requirements.forEach(item => {
       submitRequirementHandler(plant, requirements, item);
     });
@@ -88,9 +88,9 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
 
 const addNewRequirementHandler = (plantPageModal, requirements, sectionClass, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: 'plant-page-input'});
-  const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: 'submit-requirement-btn'});
-  const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: 'cancel-btn'});
+  const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: ['plant-page-input']});
+  const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: ['submit-requirement-btn']});
+  const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn']});
   setUpModal(modalOverlay, plantPageModal);
 
   appendChildren(plantPageModal, cancelBtn, addRequirementInput, submitBtn);
@@ -124,10 +124,10 @@ const submitRequirementHandler = (plant, requirements, addRequirementInput) => {
   if (addRequirementInput === '') {
     return;
   }
-  const newUserRequirmentContainer = createElement({tagName: 'div', classEl: 'requirement-container'});
-  const newUserRequirementIconContainer = createElement({tagName: 'div', classEl: 'requirement-icon-container'})
-  const newUserRequirementIcon = createElement({tagName: 'img', classEl: 'requirement-icon'});
-  const newUserRequirement = createElement({tagName: 'p', textContent: addRequirementInput, classEl: 'requirement'})
+  const newUserRequirmentContainer = createElement({tagName: 'div', classEl: ['requirement-container']});
+  const newUserRequirementIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']})
+  const newUserRequirementIcon = createElement({tagName: 'img', classEl: ['requirement-icon']});
+  const newUserRequirement = createElement({tagName: 'p', textContent: addRequirementInput, classEl: ['requirement']})
   newUserRequirementIcon.src = '../../public/plant-pot-icon.png';
 
   appendChildren(newUserRequirementIconContainer, newUserRequirementIcon);
@@ -148,11 +148,11 @@ const removeModal = (modal) => {
 }
 
 const createUserTasks = (plant, plantPageModal, sectionClass) => {
-  const userTaskSection = createElement({tagName: 'div', classEl: 'tasks-section'});
-  const tasks = createElement({tagName: 'div', classEl: 'tasks'});
-  const newTaskBtn = createElement({tagName: 'button', classEl: 'add-task-btn'});
-  const newTaskImgContainer = createElement({tagName: 'div', classEl: 'new-task-image-container'});
-  const newTaskImg = createElement({tagName: 'img', classEl: 'new-task-image'});
+  const userTaskSection = createElement({tagName: 'div', classEl: ['tasks-section']});
+  const tasks = createElement({tagName: 'div', classEl: ['tasks']});
+  const newTaskBtn = createElement({tagName: 'button', classEl: ['add-task-btn']});
+  const newTaskImgContainer = createElement({tagName: 'div', classEl: ['new-task-image-container']});
+  const newTaskImg = createElement({tagName: 'img', classEl: ['new-task-image']});
   userTaskSection.style.display = 'none';
   newTaskImg.src = '../../public/add-icon-1.png';
 
@@ -160,7 +160,7 @@ const createUserTasks = (plant, plantPageModal, sectionClass) => {
   appendChildren(newTaskBtn, newTaskImgContainer);
   appendChildren(userTaskSection, tasks, newTaskBtn);
 
-  if (plant.tasks.length > 0) {
+  if (plant.tasks) {
     plant.tasks.forEach(task => {
       submitTaskHandler(plant, tasks, task.description, sectionClass)
     })
@@ -175,9 +175,9 @@ const createUserTasks = (plant, plantPageModal, sectionClass) => {
 
 const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: 'plant-page-input'});
-  const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: 'submit-requirement-btn'});
-  const cancelTaskBtn = createElement({tagName: 'button', textContent: 'X', classEl: 'cancel-btn'});
+  const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: ['plant-page-input']});
+  const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-requirement-btn']});
+  const cancelTaskBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn']});
 
   setUpModal(modalOverlay, plantPageModal);
 
@@ -197,9 +197,9 @@ const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
     return;
   }
 
-  const newTaskElement = createElement({tagName: 'div', classEl: 'new-task'});
-  const taskSelectBtn = createElement({tagName: 'button', classEl: 'select-btn'});
-  const newUserTask = createElement({tagName: 'p', textContent: newTaskInput, classEl: 'new-user-task'});
+  const newTaskElement = createElement({tagName: 'div', classEl: ['new-task']});
+  const taskSelectBtn = createElement({tagName: 'button', classEl: ['select-btn']});
+  const newUserTask = createElement({tagName: 'p', textContent: newTaskInput, classEl: ['new-user-task']});
 
   appendChildren(newTaskElement, taskSelectBtn, newUserTask);
   appendChildren(tasks, newTaskElement);
@@ -245,19 +245,19 @@ const selectButtonHandler = (taskSelectBtn, task) => {
 }
 
 const createDescriptionElement = () => {
-  const plantDescription = createElement({tagName: 'p', classEl: 'plant-description'});
-  const plantDescriptionHeader = createElement({tagName: 'p', textContent: 'Overview', classEl: 'plant-description-header'});
-  const plantDescriptionContainer = createElement({tagName: 'div', classEl: 'plant-description-container'});
+  const plantDescription = createElement({tagName: 'p', classEl: ['plant-description']});
+  const plantDescriptionHeader = createElement({tagName: 'p', textContent: 'Overview', classEl: ['plant-description-header']});
+  const plantDescriptionContainer = createElement({tagName: 'div', classEl: ['plant-description-container']});
   appendChildren(plantDescriptionContainer, plantDescriptionHeader, plantDescription);
 
   return { plantDescriptionContainer, plantDescription }
 }
 
 const createNavButtons = (aboutSection, requirementsSection, tasksSection, sectionBtn, sectionClass) => {
-  const navContainer = createElement({tagName: 'div', classEl: 'plant-page-nav-container'});
-  const aboutBtn = createElement({tagName: 'button', textContent: 'About', classEl: 'plant-page-nav-button', id: 'about-nav'});
-  const requirementsBtn = createElement({tagName: 'button', textContent: 'Requirements', classEl: 'plant-page-nav-button', id: 'requirement-nav'});
-  const userTasksBtn = createElement({tagName: 'button', textContent: 'Tasks', classEl: 'plant-page-nav-button', id: 'task-nav'});
+  const navContainer = createElement({tagName: 'div', classEl: ['plant-page-nav-container']});
+  const aboutBtn = createElement({tagName: 'button', textContent: 'About', classEl: ['plant-page-nav-button'], id: 'about-nav'});
+  const requirementsBtn = createElement({tagName: 'button', textContent: 'Requirements', classEl: ['plant-page-nav-button'], id: 'requirement-nav'});
+  const userTasksBtn = createElement({tagName: 'button', textContent: 'Tasks', classEl: ['plant-page-nav-button'], id: 'task-nav'});
   const editBtn = document.querySelector('.edit-btn');
   aboutBtn.classList.add('active');
 
@@ -296,7 +296,7 @@ const createNavButtons = (aboutSection, requirementsSection, tasksSection, secti
 }
 
 export const createTagButton = (tagName) => {
-  const tagButton = createElement({tagName: 'button', textContent: tagName, classEl: 'tag-button'});
+  const tagButton = createElement({tagName: 'button', textContent: tagName, classEl: ['tag-button']});
   return tagButton;
 }
 
@@ -335,11 +335,11 @@ export const removeImageInput = () => {
  */
 export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
   if (backButtonText === '← back to My Plants') {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: 'edit-btn'});
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: ['edit-btn']});
   } if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: 'add-to-plants-btn'});
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: ['add-to-plants-btn']});
   } if (backButtonText === '← back to Plant Archive') {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Unarchive', classEl: 'add-to-plants-btn'});
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Unarchive', classEl: ['add-to-plants-btn']});
   } else {
     return sectionBtn = createElement({tagName: 'p', textContent: 'Added to My Plants'})
   }

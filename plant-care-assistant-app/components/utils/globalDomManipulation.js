@@ -74,11 +74,11 @@ export const globalDomElements = getDomElements.globalDomElements();
  * @param {string} value - Value attribute for input elements.
  * @returns {HTMLElement} Newly created HTML element.
  */
-export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '', type = '', fr = '', dataAttributes = {} }) => {
+export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = [], id = '', value = '', type = '', fr = '', dataAttributes = {} }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
-  if (classEl) element.classList.add(classEl);
+  if (classEl) classEl.forEach(cl => element.classList.add(cl));
   if (id) element.id = id;
   if (value) element.value = value;
   if (type) element.type = type;
@@ -149,11 +149,16 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
  * @param {} eventRegistryName 
  */
 export const clearSection = (element, eventRegistryName) => {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
+  if (element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  
+    localEventManager.removeAllEventListeners(eventRegistryName);
+  } else {
+    return
   }
 
-  localEventManager.removeAllEventListeners(eventRegistryName);
 }
 
 /**

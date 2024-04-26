@@ -13,12 +13,12 @@ import { appendChildren } from "../utils/gobalUtility";
  * @returns {Object} An object containing references for the addPlant section.
  */
 export const createManualPlantForm = () => {
-  const backBtn = createElement({tagName: 'p', textContent: '← back to My Plants', classEl: 'back-button'});
-  const plantForm = createElement({tagName: 'form', classEl: 'manual-plant-form'});
+  const backBtn = createElement({tagName: 'p', textContent: '← back to My Plants', classEl: ['back-button']});
+  const plantForm = createElement({tagName: 'form', classEl: ['manual-plant-form']});
   const name = createElement({tagName: 'input', placeholder: 'Plant name'});
   const dateAdded = createElement({tagName: 'input', placeholder: 'Date added', type: 'date'});
 
-  const plantPhoto = createElement({tagName: 'input', classEl: 'plant-photo-input'});
+  const plantPhoto = createElement({tagName: 'input', classEl: ['plant-photo-input']});
   plantPhoto.setAttribute('type', 'file');
   plantPhoto.setAttribute('accept', 'image/*');
 

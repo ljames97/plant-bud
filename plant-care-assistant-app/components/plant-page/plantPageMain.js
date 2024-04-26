@@ -9,7 +9,7 @@ import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, getDate, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
 import { createDynamicPlantElements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
 
-import { plantLog, renderDeletedPlants } from "../plant-log/plantLogMain";
+import { plantLog } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
 import { plantDirectory } from "../utils/data";
 
@@ -22,9 +22,9 @@ import { plantDirectory } from "../utils/data";
  * @param {Function} sectionRender
  */
 export const renderPlantDetails = (plant, sectionContainer, backButtonText, sectionClass, sectionRender) => {
-  const subHeader = createElement({tagName: 'div', classEl: 'sub-header'});
+  const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
   const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
-  const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: 'permanent-delete-btn'});
+  const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: ['permanent-delete-btn']});
   let sectionBtn = '';
 
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
@@ -58,10 +58,10 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   if (sectionBtn.textContent === 'Unarchive') {
     appendChildren(subHeader, permanentDeleteBtn);
     localEventManager.addEventListener(sectionBtn, 'click', () => {
-      unarchiveBtnHandler(plant);
+      unarchiveBtnHandler(plant, sectionClass, sectionRender);
     }, 'PLANT_PAGE');
     localEventManager.addEventListener(permanentDeleteBtn, 'click', () => {
-      permanentDeleteBtnHandler(plant);
+      permanentDeleteBtnHandler(plant, sectionClass, sectionRender);
     }, 'PLANT_PAGE');
   }
 
@@ -89,7 +89,7 @@ const createTags = (plant) => {
     effortTag = createTagButton('Low effort');
   }
 
-  const tagContainer = createElement({tagName: 'div', classEl: 'tag-container'});
+  const tagContainer = createElement({tagName: 'div', classEl: ['tag-container']});
   appendChildren(tagContainer, skillTag, flowerTag, outdoorTag, effortTag)
 
   return tagContainer;
@@ -99,9 +99,9 @@ const createTags = (plant) => {
  * Remove the plant from the deleted plants log and render the deleted plants page.
  * @param {Object} plant 
  */
-const unarchiveBtnHandler = (plant) => {
+const unarchiveBtnHandler = (plant, sectionClass, sectionRender) => {
   plantLog.removeFromDeletedPlants(plant);
-  renderDeletedPlants();
+  resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
 }
 
 /**
@@ -119,13 +119,13 @@ const addToPlantsHandler = (sectionBtn, plant) => {
  * Remove the plant from all plant log arrays found in the plantLogManager.
  * @param {Object} plant 
  */
-const permanentDeleteBtnHandler = (plant) => {
+const permanentDeleteBtnHandler = (plant, sectionClass, sectionRender) => {
   const directoryPlant = findItemInArray(plantDirectory, plant.id);
   if (directoryPlant) {
     directoryPlant.isAdded = false;
   }
   plantLog.permanentDelete(plant);
-  renderDeletedPlants();
+  resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`)
 }
 
 /**
@@ -195,9 +195,9 @@ const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
   editBtn.textContent = 'Save';
   toggleEditFields(plant, elements);
 
-  const imageInput = createElement({tagName: 'input', classEl: 'file-input', id: 'file-upload', type: 'file'});
-  const label = createElement({tagName: 'label', classEl: 'file-upload-label', fr: 'file-upload'});
-  const imageInputImg = createElement({tagName: 'img', classEl: 'image-input-img'})
+  const imageInput = createElement({tagName: 'input', classEl: ['file-input'], id: 'file-upload', type: 'file'});
+  const label = createElement({tagName: 'label', classEl: ['file-upload-label'], fr: 'file-upload'});
+  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img']})
   const imageContainer = document.querySelector('.plant-page-image-container');
   imageInputImg.src = '../../public/footer-nav-icons/add.png';
 
@@ -205,9 +205,9 @@ const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
   appendChildren(imageContainer, label);
   setUpImageInput(imageInput, elements, sectionClass, plant);
 
-  const buttonContainer = createElement({tagName: 'div', classEl: 'edit-button-container'});
-  const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: 'delete-plant-btn'});
-  const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: 'reset-plant-btn'});
+  const buttonContainer = createElement({tagName: 'div', classEl: ['edit-button-container']});
+  const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: ['delete-plant-btn']});
+  const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: ['reset-plant-btn']});
   const aboutSection = document.querySelector('.about-section')
   appendChildren(buttonContainer, resetPlantDetailsBtn, deletePlantBtn)
   appendChildren(aboutSection, buttonContainer);
@@ -224,8 +224,8 @@ const toggleEditFields = (plant, elements) => {
   clearSection(elements.plantTitle, 'PLANT_PAGE');
   clearSection(elements.plantDescription, 'PLANT_PAGE');
 
-  const titleInput = createElement({tagName: 'input', classEl: 'edit-plant-title', placeholder: plant.name});
-  const descriptionInput = createElement({tagName: 'textarea', classEl: 'edit-plant-notes', value: plant.description});
+  const titleInput = createElement({tagName: 'input', classEl: ['edit-plant-title'], placeholder: plant.name});
+  const descriptionInput = createElement({tagName: 'textarea', classEl: ['edit-plant-notes'], value: plant.description});
 
   appendChildren(elements.plantTitle, titleInput);
   appendChildren(elements.plantDescription, descriptionInput);

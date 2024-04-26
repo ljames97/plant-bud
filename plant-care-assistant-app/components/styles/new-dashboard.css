@@ -105,7 +105,7 @@ input::placeholder {
 }
 
 .plant-search {
-  border: 2px rgba(252, 250, 247, 0.8) solid;
+  border: 2px rgba(252, 250, 247, 0.671) solid;
   background-color: transparent;
   padding: 0.5rem;
   border-radius: 1rem;
@@ -122,7 +122,6 @@ input::placeholder {
 
 .section-title {
   align-self: flex-start;
-  padding-left: 1rem;
 }
 
 .quiz-container {
@@ -191,7 +190,8 @@ button {
 .plant-image-container {
   align-self: center;
   height: auto;
-  width: 50%;
+  width: 100%;
+  margin-bottom: 0.2rem;
 }
 
 .plant-image {
@@ -350,7 +350,7 @@ button {
 
 .line-separator {
   background-color: rgba(255, 255, 255, 0.15);
-  height: 3px;
+  height: 2px;
   width: 85%;
   padding: 0 1rem;
   align-self: center;
@@ -372,7 +372,8 @@ button {
   font-size: 0.7rem;
 }
 
-#all-tag {
+#all-tag,
+#log-all {
   background-color: white;
   color: black;
 }
@@ -792,3 +793,38 @@ textarea {
 .reset-plant-btn {
   background-color: #6B723F;
 }
+
+/** plant log css*/
+
+.plant-image {
+  height: auto;
+  border-radius: 10px;
+  border: none;
+}
+
+.user-plants {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  padding: 1rem;
+}
+
+.task-counter {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0 0.2rem 0;
+}
+
+.user-plant {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.plant-info-bar {
+  padding: 1rem 0 0 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
