@@ -30,9 +30,8 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
   sectionBtn.classList.add('section-button');
   
-  const { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription } = createDynamicPlantElements(plant, sectionBtn, sectionClass);
+  const { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDescriptionContainer, plantDescription } = createDynamicPlantElements(plant, sectionBtn, sectionClass);
   plantTitle.textContent = plant.name;
-  plantDate.textContent = plant.dateAdded;
   plantDescription.textContent = plant.description;
   plantImage.src = plant.image;
 
@@ -42,12 +41,12 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   appendChildren(headerContainer, plantTitle, sectionBtn);
   appendChildren(plantImageContainer, plantImage);
   appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
-  appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection, plantDate);
+  appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
 
   // conditional logic for edit button, add plant button or unarchive button
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
-      toggleEditMode(plant, sectionBtn, {plantTitle, plantDate, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
+      toggleEditMode(plant, sectionBtn, {plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
   } 
   
   if (sectionBtn.textContent === 'Add to My Plants') {
@@ -194,12 +193,22 @@ const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
   editBtn.textContent = 'Save';
   toggleEditFields(plant, elements);
 
-  const imageInput = document.createElement('input');
+  const imageInput = createElement({tagName: 'input', classEl: 'file-input', id: 'file-upload', type: 'file'});
+  const label = createElement({tagName: 'label', classEl: 'file-upload-label', fr: 'file-upload'});
+  const imageInputImg = createElement({tagName: 'img', classEl: 'image-input-img'})
+  const imageContainer = document.querySelector('.plant-page-image-container');
+  imageInputImg.src = '../../public/footer-nav-icons/add.png';
+
+  appendChildren(label, imageInputImg, imageInput);
+  appendChildren(imageContainer, label);
   setUpImageInput(imageInput, elements, sectionClass, plant);
 
+  const buttonContainer = createElement({tagName: 'div', classEl: 'edit-button-container'});
   const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: 'delete-plant-btn'});
   const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: 'reset-plant-btn'});
-  appendChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
+  const aboutSection = document.querySelector('.about-section')
+  appendChildren(buttonContainer, resetPlantDetailsBtn, deletePlantBtn)
+  appendChildren(aboutSection, buttonContainer);
 
   setUpDeleteResetBtns(plant, elements, sectionClass, sectionRender, deletePlantBtn, resetPlantDetailsBtn);
 }
@@ -211,15 +220,12 @@ const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
  */
 const toggleEditFields = (plant, elements) => {
   clearSection(elements.plantTitle, 'PLANT_PAGE');
-  clearSection(elements.plantDate, 'PLANT_PAGE');
   clearSection(elements.plantDescription, 'PLANT_PAGE');
 
-  const titleInput = createElement({tagName: 'input', classEl: 'edit-plant-title', value: plant.name});
-  const dateInput = createElement({tagName: 'input', classEl: 'edit-plant-date', value: plant.dateAdded});
+  const titleInput = createElement({tagName: 'input', classEl: 'edit-plant-title', placeholder: plant.name});
   const descriptionInput = createElement({tagName: 'textarea', classEl: 'edit-plant-notes', value: plant.description});
 
   appendChildren(elements.plantTitle, titleInput);
-  appendChildren(elements.plantDate, dateInput);
   appendChildren(elements.plantDescription, descriptionInput);
 }
 
@@ -231,29 +237,43 @@ const toggleEditFields = (plant, elements) => {
  */
 const saveMode = (plant, editBtn, elements) => {
   editBtn.textContent = 'Edit';
+  const plantDate = document.querySelector('.plant-date');
 
-  const updatedName = document.querySelector('.edit-plant-title').value;
-  const updatedDate = document.querySelector('.edit-plant-date').value;
-  const updatedDescription = document.querySelector('.edit-plant-notes').value;
+  let updatedName = document.querySelector('.edit-plant-title').value;
+  let updatedDescription = document.querySelector('.edit-plant-notes').value;
 
-  plant.name = updatedName;
-  plant.dateAdded = updatedDate;
-  plant.description = updatedDescription;
+  if (updatedName !== '') {
+    plant.name = updatedName;
+  } else {
+    updatedName = plant.name;
+  }
 
-  const deletePlantBtn = document.querySelector('.delete-plant-btn');
-  const resetPlantDetailsBtn = document.querySelector('.reset-plant-btn');
-  removeChildren(elements.sectionContainer, deletePlantBtn, resetPlantDetailsBtn);
+  if (updatedDescription !== '') {
+    plant.description = updatedDescription;
+  } else {
+    updatedDescription = plant.description
+  }
+
+  const buttonContainer = document.querySelector('.edit-button-container');
+  const aboutSection = document.querySelector('.about-section')
+  removeChildren(aboutSection, buttonContainer);
 
   plantLog.updatePlantInfo(plant);
 
   elements.plantTitle.textContent = updatedName;
-  elements.plantDate.textContent = updatedDate;
   elements.plantDescription.textContent = updatedDescription;
 
   removeImageInput();
 }
 
-export const renderPlantSection = (activeSection, ...inactiveSections) => {
+export const renderPlantSection = (activeSection, editBtnState, ...inactiveSections) => {
+  const editBtn = document.querySelector('.edit-btn');
   hideElements(...inactiveSections);
   showElements('flex', activeSection);
+
+  if (editBtnState === false) {
+    hideElements(editBtn);
+  } else {
+    showElements('block', editBtn);
+  }
 }

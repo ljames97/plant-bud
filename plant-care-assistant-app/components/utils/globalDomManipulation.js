@@ -74,7 +74,7 @@ export const globalDomElements = getDomElements.globalDomElements();
  * @param {string} value - Value attribute for input elements.
  * @returns {HTMLElement} Newly created HTML element.
  */
-export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '', type = '', dataAttributes = {} }) => {
+export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = '', id = '', value = '', type = '', fr = '', dataAttributes = {} }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
@@ -82,6 +82,7 @@ export const createElement = ( { tagName = '', placeholder = '', textContent = '
   if (id) element.id = id;
   if (value) element.value = value;
   if (type) element.type = type;
+  if (fr) element.htmlFor = fr;
 
   Object.keys(dataAttributes).forEach(key => {
     element.setAttribute(`data-${key}`, dataAttributes[key]);

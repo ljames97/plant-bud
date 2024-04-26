@@ -1,19 +1,23 @@
 /* 
 
 TODO
-- tabs for plant page: About, More Info, Notes
-- edit button css
+- store tasks/new requirements in plant object
 - tag button click to find similar plants
+- option to delete/edit requirement/task in modal
+
 - plant log grid css
 - fix drop menu issues on plant log section (turn into select option)
 - remove tasks from plantdiscovery version of plantpage and move 'add to my plants' button to bottom of page
-or create new function to deal with plantpage render for specific sections
+or create new function to deal with plantpage render for specific sections/appearance
+
 - combine search and quiz into one
 - add new plant section
 - quiz css finish
 - modal swipe for quiz and plant page
 - text for footer menu icons (Home, My plants, Add, Discover)
-- turn all forms into <form>
+- turn all forms into <form> wiht label, aria etc.
+- swpie to remove tasks / requirements
+- tasks ideas: name, notes, date, alert
 
 - profile / home button functionality -
 or have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
@@ -31,8 +35,7 @@ TODO plant-log:
 
 TODO plant-page:
 - local storage
-- delete/reset plant details - Are you sure? UI
-- modal for new requirements and task
+- delete/reset plant details - Are you sure? also prompt to save
 - (plant requirements)
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
