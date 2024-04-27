@@ -37,7 +37,7 @@ export const createSearchInput = () => {
         return;
       }
       updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-    }, 'PLANT_DISCOVERY');
+    }, 'PLANT_SEAR');
   });
 
   appendChildren(searchContainer, searchTags);
