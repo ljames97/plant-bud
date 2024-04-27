@@ -208,6 +208,7 @@ const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
 
   if (!plant.tasks.some(task => task.description === newTaskInput)) {
     const newTask = {
+      id: Date.now(),
       description: newTaskInput,
       selected: false
     }
@@ -215,31 +216,31 @@ const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
   }
 
   const foundTask = plant.tasks.find(task => task.description === newTaskInput);
-  setSelect(foundTask, taskSelectBtn);
+  setSelectButton(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
 
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
-    selectButtonHandler(taskSelectBtn, foundTask);
+    selectButtonHandler(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
   }, `PLANT_PAGE_${sectionClass}`);
 }
 
-const setSelect = (task, taskSelectBtn) => {
+export const setSelectButton = (task, taskSelectBtn, activeColor, activeBorder, inactiveColor, inactiveBorder) => {
   if (task.selected === false) {
-    taskSelectBtn.style.backgroundColor = 'transparent';
-    taskSelectBtn.style.border = '0.5px black solid';
+    taskSelectBtn.style.backgroundColor = inactiveColor;
+    taskSelectBtn.style.border = inactiveBorder;
   } else {
-    taskSelectBtn.style.backgroundColor = 'green';
-    taskSelectBtn.style.border = 'none';
+    taskSelectBtn.style.backgroundColor = activeColor;
+    taskSelectBtn.style.border = activeBorder;
   }
 }
 
-const selectButtonHandler = (taskSelectBtn, task) => {
+export const selectButtonHandler = (task, taskSelectBtn, activeColor, activeBorder, inactiveColor, inactiveBorder) => {
   if (task.selected === false) {
-    taskSelectBtn.style.backgroundColor = 'green';
-    taskSelectBtn.style.border = 'none';
+    taskSelectBtn.style.backgroundColor = activeColor;
+    taskSelectBtn.style.border = activeBorder;
     task.selected = true;
   } else {
-    taskSelectBtn.style.backgroundColor = 'transparent';
-    taskSelectBtn.style.border = '0.5px black solid';
+    taskSelectBtn.style.backgroundColor = inactiveColor;
+    taskSelectBtn.style.border = inactiveBorder;
     task.selected = false;
   }
 }

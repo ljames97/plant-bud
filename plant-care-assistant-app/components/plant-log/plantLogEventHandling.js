@@ -26,6 +26,8 @@ export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, s
 
   // Event propagation for elements in the userPlantGrid.
   localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {
+    localEventManager.removeAllEventListeners('PLANT_NAV');
+    localEventManager.removeAllEventListeners('PLANT_SEARCH');
     let target = event.target;
     while (target && target !== userPlantsContainer) {
       if (target.classList.contains('plant-image')) {
@@ -40,5 +42,6 @@ export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, s
       }
       target = target.parentNode;
     }
+
   }, 'PLANT_LOG');
 }

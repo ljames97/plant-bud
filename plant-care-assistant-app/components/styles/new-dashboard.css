@@ -285,7 +285,6 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 0.7rem;
   margin-left: 0.7rem;
   width: 90%;
 }
@@ -330,11 +329,14 @@ button {
 }
 
 .plant-result-title {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.924)
 }
 
 .plant-result-description {
   font-weight: 100;
+  font-size: 0.85rem;
   margin-top: 0.3rem;
 }
 
@@ -369,7 +371,7 @@ button {
   text-align: center;
   border-radius: 10px;
   margin-top: 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 #all-tag,
@@ -388,7 +390,7 @@ button {
 
 .plants-found-counter {
   padding: 1rem 1rem 0 1rem;
-  color: rgba(255, 255, 255, 0.435);
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   font-size: 0.8rem;
 }
@@ -806,7 +808,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .task-counter {
@@ -822,9 +824,86 @@ textarea {
 }
 
 .plant-info-bar {
-  padding: 1rem 0 0 1rem;
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.75rem;
   font-weight: 600;
 }
 
+.task-element {
+  display:  flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+.task-result-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.task-selector {
+  margin-right: 1rem;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
+  border-radius: 100%;
+  padding: 0;
+  align-self: center;
+  background-color: rgba(255, 255, 255, 0.224);
+}
+
+.task-line-seperator {
+  width: 90%;
+}
+
+.plant-task-image-container {
+  min-width: 3rem; 
+  height: 3rem;
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  margin-right: 0.8rem;
+}
+
+.plant-task-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.plant-task-text {
+  width: 85%;
+}
+
+.drop-menu-item {
+  margin-bottom: 1rem;
+  padding: 0 0.2rem;
+}
+
+.drop-menu-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-bar-container {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.edit-plant-log-container {
+  display: flex;
+  justify-self: flex-end;
+}
+
+.plant-info-bar {
+  width: 100%;
+}
+
+.edit-plant-log-button {
+  width: auto;
+  height: auto;
+  padding: 0.3rem 1.2rem;
+  margin: 0rem 0.5rem;
+  font-size: 0.7rem;
+}

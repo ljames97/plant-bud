@@ -31,6 +31,7 @@ export const renderNewPlantSearch = () => {
   }, 'PLANT_SEARCH');
 
   localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_SEARCH');
+  localEventManager.removeAllEventListeners('PLANT_NAV');
 }
 
 /**
@@ -112,7 +113,7 @@ const createPlantResultElement = (plant) => {
   const plantTextContainer = createElement({tagName: 'div', classEl: ['plant-text-container']});
   const plantTitle = createElement({tagName: 'p', textContent: plant.name, classEl: ['plant-result-title']});
   const plantDescription = createElement({tagName: 'p', textContent: plant.shortDescription, classEl: ['plant-result-description']});
-  const plantTag = createElement({tagName: 'p', textContent: plant.skill, classEl: ['plant-result-tag']});
+  const plantTag = createElement({tagName: 'p', textContent: plant.skill[0], classEl: ['plant-result-tag']});
   const plantImage = createElement({tagName: 'img', classEl: ['plant-result-image']});
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-result-image-container']});
   const lineSeparator = createElement({tagName: 'div', classEl: ['line-separator']});
@@ -123,16 +124,16 @@ const createPlantResultElement = (plant) => {
 
   appendChildren(plantTextContainer, plantTitle, plantDescription, plantTag);
   appendChildren(plantImageContainer, plantImage);
-  appendChildren(searchDropMenu, menuDotContainer)
+  appendChildren(searchDropMenu, menuDotContainer);
   appendChildren(plantResultContainer, plantImageContainer, plantTextContainer, searchDropMenu);
   appendChildren(plantElement, plantResultContainer, lineSeparator);
 
-  setUpPlantElementListeners();
+  setUpPlantElementListeners('.plant-element', createMenuItems);
 
   return plantElement;
 }
 
-const createMenuDots = () => {
+export const createMenuDots = () => {
   let menuDot = '';
   const menuDotContainer = createElement({tagName: 'div', classEl: ['menu-dots-container']});
   menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
@@ -145,12 +146,15 @@ const createMenuDots = () => {
   return menuDotContainer;
 }
 
-const renderQuickAdd = (menuDots, plant) => {
+const renderQuickAdd = (menuDots, plant, createMenuItems, plantElement) => {
   const existingMenu = document.querySelector('.drop-menu-container');
   if (existingMenu) {
       existingMenu.remove();
   }
+  createMenuItems(menuDots, plant, plantElement);
+}
 
+const createMenuItems = (menuDots, plant) => {
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
   const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
 
@@ -173,21 +177,21 @@ const replaceElement = (element) => {
   element.parentNode.replaceChild(newText, element);
 }
 
-const handleDocumentClick = (event) => {
+export const handleDocumentClick = (event) => {
   const dropMenuContainer = document.querySelector('.drop-menu-container');
   if (dropMenuContainer && !dropMenuContainer.contains(event.target)) {
     dropMenuContainer.remove();
   }
 }
 
-const setUpPlantElementListeners = () => {
-  const plantElements = document.querySelectorAll('.plant-element');
-  plantElements.forEach(plantElement => {
+export const setUpPlantElementListeners = (elementClass, createMenuFunc) => {
+  const element = document.querySelectorAll(elementClass);
+  element.forEach(plantElement => {
       const searchDropMenu = plantElement.querySelector('.search-drop-menu');
       
       localEventManager.addEventListener(searchDropMenu, 'click', (event) => {
         event.stopPropagation();
-        renderQuickAdd(searchDropMenu, plantElement.plantObject);
+        renderQuickAdd(searchDropMenu, plantElement.plantObject, createMenuFunc, plantElement);
       }, 'PLANT_SEARCH')
   });
 }

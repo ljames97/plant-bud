@@ -84,6 +84,10 @@ const eventManager = () => {
       handlers[registryName][eventType].push({ element, handler });
     },
 
+    getHandlers: () => {
+      console.log(handlers);
+    },
+
     /**
      * Removes an event listener from a specified element within a named registry.
      * After removal, it cleans up empty registries and event type collections as needed.

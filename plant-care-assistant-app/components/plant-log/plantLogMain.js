@@ -18,15 +18,18 @@ import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
  */
 export const renderMyPlants = () => {
   const { plantLogEl } = domElements;
-  const { sectionHeader, menuButtons, plantInfoBar, plantLogTitle, userPlantsContainer } = plantLogElements.createPlantLogElements();
+  const { sectionHeader, menuButtons, plantInfoBar, infoBarContainer, plantLogTitle, userPlantsContainer } = plantLogElements.createPlantLogElements();
 
   const { numberOfPlants, numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
-  plantInfoBar.textContent = `${numberOfPlants} Plants, ${numberOfTasks} Tasks`;
+  plantInfoBar.textContent = `${numberOfPlants} plants, ${numberOfTasks} tasks`;
 
   appendChildren(sectionHeader, plantLogTitle)
-  appendChildren(plantLogEl, sectionHeader, menuButtons, plantInfoBar, userPlantsContainer);
+  appendChildren(plantLogEl, sectionHeader, menuButtons, infoBarContainer, userPlantsContainer);
 
   renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
+
+  localEventManager.removeAllEventListeners('PLANT_SEARCH');
+  localEventManager.removeAllEventListeners('PLANT_DISCOVERY');
 }
 
 export const setPlantInfoBar = (userPlants, plantInfoBar) => {
@@ -45,7 +48,7 @@ export const renderDeletedPlants = () => {
   const { userPlantsContainer, plantInfoBar } = plantLogElements.getPlantLogElements();
   clearSection(userPlantsContainer, 'PLANT_LOG')
   renderPlantGrid(plantLog.getDeletedPlants(), renderMyPlants, '← back to Plant Archive');
-  plantInfoBar.textContent = `${plantLog.getDeletedPlants().length} Plants`;
+  plantInfoBar.textContent = `${plantLog.getDeletedPlants().length} archived plants`;
 }
 
 /**
@@ -129,6 +132,16 @@ const plantLogManager = () => {
     },
     getDeletedPlants: () => {
       return deletedPlantLog;
+    },
+    deletePlantTask: (plantTaskId) => {
+      userPlantLog.forEach(plant => {
+        if (plant.tasks) {
+          const index = plant.tasks.findIndex(task => task.id === plantTaskId);
+          if (index !== -1) {
+            plant.tasks.splice(index, 1);
+          }
+        }
+      });
     }
   }
 }

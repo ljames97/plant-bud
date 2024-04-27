@@ -2,18 +2,18 @@
 
 TODO
 - tag button click to find similar plants
-- option to add new tags
+- option to add new tagButtons
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
-- notification icon on tasks tab
+- notification icon on tasks tab and tasks nav button in My Plants
 - + icon on overview, add user comments
 
-- css for task list
 - select option/quick menu (delete/new task) on each plant image in grid
-- pin plant to top of grid
+- task edit
+- task tabs for incomplete/complete
 - simple plant page for the plant library elements
 
 - combine search and quiz into one
-- add new plant section
+- 'add new plant' section
 - quiz css finish
 - modal swipe for quiz and plant page
 - text for footer menu icons (Home, My plants, Add, Discover)
@@ -21,8 +21,10 @@ TODO
 - swpie to remove tasks / requirements
 - tasks ideas: name, notes, date, alert, priority
 - tasks needs to be 1 tas(k) in plant log
+- images for all plants in the main plant directory
 
 - tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks
+- less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
 
 - profile / home button functionality -
 or have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
@@ -36,6 +38,7 @@ TODO plant-quiz:
 - quiz css and extra features (sliders, progress bar etc...)
 
 TODO plant-log:
+- pin plant to top of grid
 - form error and message at renderManualPlantForm error handling
 - max amount of plants shown in grid - add carousel function
 
@@ -46,8 +49,6 @@ TODO plant-page:
 - (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
 
 CSS/aesthetics:
-- images for all plants in the main plant directory
-- review section CSS TODOs
 - error handling/error messages UI, error handling for DOMManipulation functions
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about etc

@@ -4,9 +4,11 @@
  */
 
 import { buttonHighlight } from "../plant-discovery/plantDiscoveryDomManipulation";
+import { createMenuDots, handleDocumentClick, setUpPlantElementListeners } from "../plant-discovery/plantDiscoveryMain";
+import { selectButtonHandler, setSelectButton } from "../plant-page/plantPageDomManipulation";
 import { clearSection, createElement, domElements, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren } from "../utils/gobalUtility";
+import { appendChildren, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
 import { plantLog, renderDeletedPlants, renderMyPlants, renderPlantGrid, setPlantInfoBar } from "./plantLogMain";
 
 /**
@@ -25,20 +27,58 @@ const dynamicPlantLogElementsManager = () => {
     createPlantLogElements: () => {
       const sectionHeader = createElement({tagName: 'div', classEl: ['section-header']});
       const plantLogTitle = createElement({tagName: 'h1', textContent: 'My Plants', classEl: ['section-title']});
+      const infoBarContainer = createElement({tagName: 'div', classEl: ['info-bar-container']});
       const plantInfoBar = createElement({tagName: 'div', classEl: ['plant-info-bar']});
+      const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container']});
+      const editButton = createElement({tagName: 'button', classEl: ['edit-plant-log-button', 'search-tag'], textContent: 'Edit'});
+      editButton.editMode = false;
+      const editDots = createMenuDots();
       const userPlantsContainer = createElement({tagName: 'div', classEl: ['user-plants']});
       const menuButtons = createMenuButtons();
 
-      return { sectionHeader, menuButtons, plantInfoBar, plantLogTitle, userPlantsContainer };
+      appendChildren(editButtonContainer, editButton, editDots);
+      appendChildren(infoBarContainer, plantInfoBar, editButtonContainer);
+      hideElements(editDots);
+
+      localEventManager.addEventListener(editButton, 'click', () => {
+        editButtonHandler(editDots, editButton);
+      }, 'PLANT_EDIT');
+
+      return { sectionHeader, menuButtons, plantInfoBar, infoBarContainer, plantLogTitle, userPlantsContainer };
     },
+
     getPlantLogElements: () => {
       const plantLogTitle = document.querySelector('.section-title');
       const addPlantBtn = document.querySelector('.add-new-plant-btn');
       const userPlantsContainer = document.querySelector('.user-plants');
       const plantInfoBar = document.querySelector('.plant-info-bar');
+      const editButtonContainer = document.querySelector('.edit-plant-log-container');
+      const editButton = document.querySelector('.edit-plant-log-button');
+      const editDots = document.querySelector('.menu-dots-container');
 
-      return { plantLogTitle, addPlantBtn, userPlantsContainer, plantInfoBar };
+      return { plantLogTitle, addPlantBtn, userPlantsContainer, plantInfoBar, editButtonContainer, editButton, editDots };
     }
+  }
+}
+
+const editButtonHandler = (editDots, editButton) => {
+  if (editButton.editMode) {
+    hideElements(editDots);
+    editButton.textContent = 'Edit';
+    editButton.editMode = false;
+  } else {
+    showElements('flex', editDots);
+    editButton.textContent = 'Cancel';
+    editButton.editMode = true;
+  }
+}
+
+const resetEditButton = () => {
+  const { editButton, editDots } = plantLogElements.getPlantLogElements();
+  if (editButton.editMode) {
+    hideElements(editDots);
+    editButton.textContent = 'Edit';
+    editButton.editMode = false;
   }
 }
 
@@ -64,31 +104,41 @@ const createMenuButtons = () => {
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(archive, 'click', () => {
+    const { editButtonContainer } = plantLogElements.getPlantLogElements();
     clearSection(searchTaskContainer, 'PLANT_LOG');
+    resetEditButton();
+    showElements('flex', editButtonContainer);
     renderDeletedPlants();
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(tasks, 'click', () => {
-    const { plantInfoBar,  } = plantLogElements.getPlantLogElements();
-    renderTasksList();
-    const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
-    plantInfoBar.textContent = `${numberOfTasks} Tasks`;
+    const { plantInfoBar, editButtonContainer } = plantLogElements.getPlantLogElements();
+    clearSection(searchTaskContainer, 'PLANT_LOG');
+    hideElements(editButtonContainer);
+    renderTasksList(tasks);
+    updateTaskBar(plantInfoBar);
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(all, 'click', () => {
-    const { userPlantsContainer, plantInfoBar,  } = plantLogElements.getPlantLogElements();
+    const { userPlantsContainer, plantInfoBar, editButtonContainer} = plantLogElements.getPlantLogElements();
     clearSection(userPlantsContainer, 'PLANT_LOG');
     clearSection(searchTaskContainer, 'PLANT_LOG');
+    resetEditButton();
+    showElements('flex', editButtonContainer);
     renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
-    
     const { numberOfPlants, numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
-    plantInfoBar.textContent = `${numberOfPlants} Plants, ${numberOfTasks} Tasks`;
+    plantInfoBar.textContent = `${numberOfPlants} plants, ${numberOfTasks} tasks`;
 
   }, 'PLANT_NAV')
 
   appendChildren(menuButtons, all, tasks, archive);
 
   return menuButtons;
+}
+
+const updateTaskBar = (plantInfoBar) => {
+  const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
+  plantInfoBar.textContent = `${numberOfTasks} tasks`;
 }
 
 const renderTasksList = () => {
@@ -107,25 +157,73 @@ const renderTasksList = () => {
       });
     }
   });
+
+  setUpPlantElementListeners('.task-element', createTaskMenu);
+
+  localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
 }
 
 const createTaskElement = (plant, task) => {
   const taskElement = createElement({tagName: 'div', classEl: ['task-element']});
+  const taskContainer = createElement({tagName: 'div', classEl: ['task-result-container']})
   const taskSelector = createElement({tagName: 'button', classEl: ['task-selector']});
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-task-image-container']});
   const plantImage = createElement({tagName: 'img', classEl: ['plant-task-image']});
   const plantTaskTextContainer = createElement({tagName: 'p', classEl: ['plant-task-text']});
-  const plantTitle = createElement({tagName: 'p', classEl: ['plant-task-title']});
-  let taskDescription = createElement({tagName: 'p', classEl: ['task-description']});
+  const plantTitle = createElement({tagName: 'p', classEl: ['plant-task-title', 'plant-result-title'], textContent: plant.name});
+  let taskDescription = createElement({tagName: 'p', classEl: ['task-description', 'plant-result-description'], textContent: task.description});
+  const lineSeparator = createElement({tagName: 'div', classEl: ['line-separator', 'task-line-seperator']});
+  const menuDotContainer = createMenuDots();
+  const searchDropMenu = createElement({tagName: 'div', classEl: ['search-drop-menu']});
+  taskElement.plantObject = task;
 
-  plantTitle.textContent = plant.name;
-  taskDescription.textContent = task.description;
+  setSelectButton(task, taskSelector, 'rgba(255, 255, 255, 0.95)', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
+
+  plantImage.src = plant.image;
 
   appendChildren(plantImageContainer, plantImage);
   appendChildren(plantTaskTextContainer, plantTitle, taskDescription);
-  appendChildren(taskElement, taskSelector, plantImageContainer, plantTaskTextContainer);
+  appendChildren(searchDropMenu, menuDotContainer);
+  appendChildren(taskContainer, taskSelector, plantImageContainer, plantTaskTextContainer, searchDropMenu);
+  appendChildren(taskElement, taskContainer, lineSeparator);
+
+  localEventManager.addEventListener(taskSelector, 'click', () => {
+    selectButtonHandler(task, taskSelector, 'rgba(255, 255, 255, 0.95)', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
+  }, 'PLANT_LOG');
 
   return taskElement;
+}
+
+const createTaskMenu = (menuDots, task, taskElement) => {
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const editTask = createElement({tagName: 'p', textContent: 'Edit', classEl: ['drop-menu-item']});
+  const deleteTask = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item']});
+
+  appendChildren(dropMenuContainer, editTask, deleteTask);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(editTask, 'click', () => {
+    editTaskHandler();
+  }, 'PLANT_LOG');
+
+  localEventManager.addEventListener(deleteTask, 'click', () => {
+    deleteTaskHandler(task, taskElement);
+  }, 'PLANT_LOG');
+}
+
+const editTaskHandler = () => {
+  console.log('edit task modal');
+}
+
+const deleteTaskHandler = (task, taskElement) => {
+  const { plantInfoBar,  } = plantLogElements.getPlantLogElements();
+  plantLog.deletePlantTask(task.id);
+
+  if (taskElement && taskElement.parentNode) {
+    taskElement.parentNode.removeChild(taskElement);
+  }
+
+  updateTaskBar(plantInfoBar);
 }
 
 export const plantLogElements = dynamicPlantLogElementsManager();
