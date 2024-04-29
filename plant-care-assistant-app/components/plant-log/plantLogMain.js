@@ -11,7 +11,7 @@ import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
 import { renderManualPlantForm } from "../add-plant/addPlantMain";
 import { plantLogElements } from "./plantLogDomManipulation";
-import { updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
+import { createMenuDots, handleDocumentClick, toggleMenu, updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.
@@ -157,17 +157,61 @@ export const addPlantToGrid = (newPlant) => {
   const userPlantContainer = createElement({tagName: 'div', classEl: ['user-plant']});
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-image-container']});
   const plantImage = createElement({tagName: 'img', classEl: ['plant-image'], dataAttributes: { 'id': newPlant.id.toString() }});
+  const editButtons = createElement({tagName: 'div', classEl: ['edit-plant-buttons']});
+  const selectButton = createElement({tagName: 'button', classEl: ['plant-select-button']});
+  const menuDots = createMenuDots();
   const taskCounter = createElement({tagName: 'p', classEl: ['task-counter']});
   const plantTitle = createElement({tagName: 'p', textContent: newPlant.name});
   plantImage.src = newPlant.image;
+  menuDots.classList.add('plant-menu');
   if (newPlant.tasks) {
     taskCounter.textContent = `${newPlant.tasks.length} tasks`;
   }
 
-
-  appendChildren(plantImageContainer, plantImage);
+  appendChildren(editButtons, selectButton, menuDots);
+  appendChildren(plantImageContainer, plantImage, editButtons);
   appendChildren(userPlantContainer, plantImageContainer, taskCounter, plantTitle);
   appendChildren(userPlantsContainer, userPlantContainer);
+
+  localEventManager.addEventListener(menuDots, 'click', (event) => {
+      renderQuickMenu(event, createPlantMenu, menuDots, newPlant);
+      localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
+    }, 'PLANT_LOG');
+}
+
+// global
+export const renderQuickMenu = (event, createMenuFunc, menuDots, plantOrTask, element) => {
+  event.stopPropagation();
+  toggleMenu();
+  createMenuFunc(menuDots, plantOrTask, element);
+}
+
+const createPlantMenu = (menuDots, plant) => {
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const newTask = createElement({tagName: 'p', textContent: 'New task', classEl: ['drop-menu-item']});
+  const addTag = createElement({tagName: 'p', textContent: 'New tag', classEl: ['drop-menu-item']});
+  const pinPlant = createElement({tagName: 'p', textContent: 'Pin', classEl: ['drop-menu-item']});
+  const deletePlant = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item']});
+
+  appendChildren(dropMenuContainer, newTask, addTag, pinPlant, deletePlant);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(newTask, 'click', () => {
+    console.log('new task modal');
+    console.log(plant);
+  })
+
+  localEventManager.addEventListener(addTag, 'click', () => {
+    console.log('new tag modal');
+  })
+
+  localEventManager.addEventListener(pinPlant, 'click', () => {
+    console.log('pin to top');
+  })
+
+  localEventManager.addEventListener(deletePlant, 'click', () => {
+    console.log('delete from log');
+  })
 }
 
 /**

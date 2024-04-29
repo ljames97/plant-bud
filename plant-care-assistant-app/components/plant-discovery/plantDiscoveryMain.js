@@ -11,7 +11,7 @@ import { createSearchInput } from "./plantDiscoveryDomManipulation";
 
 import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
 import { plantDirectory } from "../utils/data";
-import { plantLog } from "../plant-log/plantLogMain";
+import { plantLog, renderQuickMenu } from "../plant-log/plantLogMain";
 
 /**
  * Render plant search input on screen. Gets search elements from createSearchInput and appends them to the DOM.
@@ -69,8 +69,6 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
         renderPlantDetails(plant, plantInfoContainer, backButtonText, sectionClass, sectionRender);
       }, 'PLANT_SEARCH');
     });
-
-    setUpPlantElementListeners();
   }
 
   updatePlantCounter(filteredPlants);
@@ -128,7 +126,10 @@ const createPlantResultElement = (plant) => {
   appendChildren(plantResultContainer, plantImageContainer, plantTextContainer, searchDropMenu);
   appendChildren(plantElement, plantResultContainer, lineSeparator);
 
-  setUpPlantElementListeners('.plant-element', createMenuItems);
+  localEventManager.addEventListener(menuDotContainer, 'click', (event) => {
+    renderQuickMenu(event, createMenuItems, menuDotContainer, plant);
+    localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
+  }, 'PLANT_LOG');
 
   return plantElement;
 }
@@ -146,12 +147,11 @@ export const createMenuDots = () => {
   return menuDotContainer;
 }
 
-const renderQuickAdd = (menuDots, plant, createMenuItems, plantElement) => {
+export const toggleMenu = () => {
   const existingMenu = document.querySelector('.drop-menu-container');
   if (existingMenu) {
       existingMenu.remove();
   }
-  createMenuItems(menuDots, plant, plantElement);
 }
 
 const createMenuItems = (menuDots, plant) => {
@@ -182,16 +182,4 @@ export const handleDocumentClick = (event) => {
   if (dropMenuContainer && !dropMenuContainer.contains(event.target)) {
     dropMenuContainer.remove();
   }
-}
-
-export const setUpPlantElementListeners = (elementClass, createMenuFunc) => {
-  const element = document.querySelectorAll(elementClass);
-  element.forEach(plantElement => {
-      const searchDropMenu = plantElement.querySelector('.search-drop-menu');
-      
-      localEventManager.addEventListener(searchDropMenu, 'click', (event) => {
-        event.stopPropagation();
-        renderQuickAdd(searchDropMenu, plantElement.plantObject, createMenuFunc, plantElement);
-      }, 'PLANT_SEARCH')
-  });
 }

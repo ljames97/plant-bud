@@ -4,12 +4,12 @@
  */
 
 import { buttonHighlight } from "../plant-discovery/plantDiscoveryDomManipulation";
-import { createMenuDots, handleDocumentClick, setUpPlantElementListeners } from "../plant-discovery/plantDiscoveryMain";
+import { createMenuDots, handleDocumentClick, toggleMenu } from "../plant-discovery/plantDiscoveryMain";
 import { selectButtonHandler, setSelectButton } from "../plant-page/plantPageDomManipulation";
 import { clearSection, createElement, domElements, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
-import { plantLog, renderDeletedPlants, renderMyPlants, renderPlantGrid, setPlantInfoBar } from "./plantLogMain";
+import { plantLog, populatePlantGrid, renderDeletedPlants, renderMyPlants, renderPlantGrid, renderQuickMenu, setPlantInfoBar } from "./plantLogMain";
 
 /**
  * Creates and returns dynamic plant log elements.
@@ -30,7 +30,7 @@ const dynamicPlantLogElementsManager = () => {
       const infoBarContainer = createElement({tagName: 'div', classEl: ['info-bar-container']});
       const plantInfoBar = createElement({tagName: 'div', classEl: ['plant-info-bar']});
       const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container']});
-      const editButton = createElement({tagName: 'button', classEl: ['edit-plant-log-button', 'search-tag'], textContent: 'Edit'});
+      const editButton = createElement({tagName: 'button', classEl: ['edit-plant-log-button', 'search-tag'], textContent: 'Select'});
       editButton.editMode = false;
       const editDots = createMenuDots();
       const userPlantsContainer = createElement({tagName: 'div', classEl: ['user-plants']});
@@ -61,15 +61,75 @@ const dynamicPlantLogElementsManager = () => {
   }
 }
 
+export const plantLogElements = dynamicPlantLogElementsManager();
+
 const editButtonHandler = (editDots, editButton) => {
+  const selectButton = document.querySelectorAll('.plant-select-button');
+  const menu = document.querySelectorAll('.plant-menu');
+  const archiveBtn = document.getElementById('log-archive');
   if (editButton.editMode) {
     hideElements(editDots);
-    editButton.textContent = 'Edit';
+    editButton.textContent = 'Select';
     editButton.editMode = false;
+
+    selectButton.forEach(btn => btn.style.display = 'none');
+    menu.forEach(menu => menu.style.display = 'flex');
+
+    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+
   } else {
     showElements('flex', editDots);
     editButton.textContent = 'Cancel';
+
+    selectButton.forEach(btn => btn.style.display = 'block');
+    menu.forEach(menu => menu.style.display = 'none');
+
     editButton.editMode = true;
+    setUpPlantEventListener();
+  }
+}
+
+// merge with setUpPlantGridEventListener
+const setUpPlantEventListener = () => {
+  const userPlantsContainer = document.querySelector('.user-plants');
+
+  localEventManager.removeAllEventListeners('PLANT_CONTAINER');
+
+  localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {
+    let target = event.target;
+    while (target && target !== userPlantsContainer) {
+      if (target.classList.contains('plant-image')) {
+        const plantId = target.getAttribute('data-id');
+        const plant = plantLog.getPlantById(plantId, plantLog.getUserPlantLog());
+        const userPlantContainer = target.closest('.user-plant');
+        const selectButton = userPlantContainer.querySelector('.plant-select-button');
+        if (plant) {
+          toggleSelectButton(selectButton);
+          togglePlantSelect(plant);
+        }
+        return;
+      }
+      target = target.parentNode;
+    }
+
+  }, 'PLANT_CONTAINER');
+
+  const toggleSelectButton = (selectButton) => {
+    if (!selectButton.isSelected) {
+      selectButton.style.backgroundColor = 'white';
+      selectButton.isSelected = true;
+    } else {
+      selectButton.style.backgroundColor = 'transparent';
+      selectButton.isSelected = false;
+    }
+  }
+
+  const togglePlantSelect = (plant) => {
+    if (!plant.selected) {
+      plant.selected = true
+    } else {
+      plant.selected = false;
+    }
   }
 }
 
@@ -104,11 +164,7 @@ const createMenuButtons = () => {
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(archive, 'click', () => {
-    const { editButtonContainer } = plantLogElements.getPlantLogElements();
-    clearSection(searchTaskContainer, 'PLANT_LOG');
-    resetEditButton();
-    showElements('flex', editButtonContainer);
-    renderDeletedPlants();
+    archiveBtnClickHandler(searchTaskContainer);
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(tasks, 'click', () => {
@@ -136,6 +192,14 @@ const createMenuButtons = () => {
   return menuButtons;
 }
 
+const archiveBtnClickHandler = (searchTaskContainer) => {
+  const { editButtonContainer } = plantLogElements.getPlantLogElements();
+  clearSection(searchTaskContainer, 'PLANT_LOG');
+  resetEditButton();
+  showElements('flex', editButtonContainer);
+  renderDeletedPlants();
+}
+
 const updateTaskBar = (plantInfoBar) => {
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
   plantInfoBar.textContent = `${numberOfTasks} tasks`;
@@ -157,10 +221,6 @@ const renderTasksList = () => {
       });
     }
   });
-
-  setUpPlantElementListeners('.task-element', createTaskMenu);
-
-  localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
 }
 
 const createTaskElement = (plant, task) => {
@@ -189,6 +249,11 @@ const createTaskElement = (plant, task) => {
 
   localEventManager.addEventListener(taskSelector, 'click', () => {
     selectButtonHandler(task, taskSelector, 'rgba(255, 255, 255, 0.95)', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
+  }, 'PLANT_LOG');
+
+  localEventManager.addEventListener(menuDotContainer, 'click', (event) => {
+    renderQuickMenu(event, createTaskMenu, menuDotContainer, task, taskElement);
+    localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
   }, 'PLANT_LOG');
 
   return taskElement;
@@ -226,4 +291,3 @@ const deleteTaskHandler = (task, taskElement) => {
   updateTaskBar(plantInfoBar);
 }
 
-export const plantLogElements = dynamicPlantLogElementsManager();

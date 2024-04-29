@@ -7,8 +7,10 @@ TODO
 - notification icon on tasks tab and tasks nav button in My Plants
 - + icon on overview, add user comments
 
-- select option/quick menu (delete/new task) on each plant image in grid
-- task edit
+- plant select edit (select all, delete selected, add tag, add task)
+- plant menu modals/functionality
+- task edit modal (on plant log and plant page)
+
 - task tabs for incomplete/complete
 - simple plant page for the plant library elements
 
@@ -17,7 +19,6 @@ TODO
 - quiz css finish
 - modal swipe for quiz and plant page
 - text for footer menu icons (Home, My plants, Add, Discover)
-- turn all forms into <form> wiht label, aria etc.
 - swpie to remove tasks / requirements
 - tasks ideas: name, notes, date, alert, priority
 - tasks needs to be 1 tas(k) in plant log
@@ -53,7 +54,7 @@ CSS/aesthetics:
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about etc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
-- accessibility (buttons, image alt etc.)
+- accessibility (buttons, image alt etc.), turn all forms into <form> wiht label, aria etc.
 - desktop css (responsive design)
 - review/document all functions
 
