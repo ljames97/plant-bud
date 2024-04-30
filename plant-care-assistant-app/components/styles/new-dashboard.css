@@ -617,11 +617,11 @@ button {
 }
 
 .cancel-btn {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  color: black;
+  color: white;
   width: 2rem;
   height: 2rem;
   padding: 0rem;
@@ -932,4 +932,60 @@ textarea {
   border-radius: 50%;
   background-color: transparent;
   border: none;
+}
+
+.new-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-input {
+  margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.224);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+}
+
+.submit-btn {
+  background-color: white;
+  color: black;
+}
+
+.plant-log-tag {
+  width: auto;
+  padding: 0.4rem 0.6rem;
+  margin: 0.5rem 0;
+  margin-right: 0.5rem;
+}
+
+.edit-tag-buttons {
+  display: flex;
+  width: 110%;
+  align-self: center;
+  justify-content: space-between;
+}
+
+.delete-tag-btn {
+  background-color: rgba(255, 255, 255, 0.224);;
+  color: white;
+}
+
+/** plant-log */
+
+.user-plant {
+  position: relative;
+}
+
+.pin-icon-container {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 10%;
+  height: auto;
+}
+
+.pin-icon-img {
+  width: 100%;
 }

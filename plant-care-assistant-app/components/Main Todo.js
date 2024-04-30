@@ -8,7 +8,7 @@ TODO
 - + icon on overview, add user comments
 
 - plant select edit (select all, delete selected, add tag, add task)
-- plant menu modals/functionality
+- clean up repeated code, error modals (too many tags), limit tag letter count
 - task edit modal (on plant log and plant page)
 
 - task tabs for incomplete/complete

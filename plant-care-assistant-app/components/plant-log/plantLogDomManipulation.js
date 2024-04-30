@@ -9,7 +9,7 @@ import { selectButtonHandler, setSelectButton } from "../plant-page/plantPageDom
 import { clearSection, createElement, domElements, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
-import { plantLog, populatePlantGrid, renderDeletedPlants, renderMyPlants, renderPlantGrid, renderQuickMenu, setPlantInfoBar } from "./plantLogMain";
+import { plantLog, populatePlantGrid, renderDeletedPlants, renderMyPlants, renderPlantGrid, renderQuickMenu, resetPlantGrid, setPlantInfoBar } from "./plantLogMain";
 
 /**
  * Creates and returns dynamic plant log elements.
@@ -176,12 +176,11 @@ const createMenuButtons = () => {
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(all, 'click', () => {
-    const { userPlantsContainer, plantInfoBar, editButtonContainer} = plantLogElements.getPlantLogElements();
-    clearSection(userPlantsContainer, 'PLANT_LOG');
+    const { plantInfoBar, editButtonContainer} = plantLogElements.getPlantLogElements();
     clearSection(searchTaskContainer, 'PLANT_LOG');
     resetEditButton();
     showElements('flex', editButtonContainer);
-    renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
+    resetPlantGrid()
     const { numberOfPlants, numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
     plantInfoBar.textContent = `${numberOfPlants} plants, ${numberOfTasks} tasks`;
 

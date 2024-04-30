@@ -91,7 +91,7 @@ const addNewRequirementHandler = (plantPageModal, requirements, sectionClass, pl
   const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: ['plant-page-input']});
   const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: ['submit-requirement-btn']});
   const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn']});
-  setUpModal(modalOverlay, plantPageModal);
+  setUpModal(plantPageModal);
 
   appendChildren(plantPageModal, cancelBtn, addRequirementInput, submitBtn);
   appendChildren(modalOverlay, plantPageModal);
@@ -140,9 +140,9 @@ const submitRequirementHandler = (plant, requirements, addRequirementInput) => {
   }
 }
 
-const removeModal = (modal) => {
+export const removeModal = (modal, eventRegistry) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  clearSection(modal);
+  clearSection(modal, eventRegistry);
   removeChildren(modalOverlay, modal);
   modalOverlay.style.display = 'none';
 }
@@ -179,7 +179,7 @@ const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) => {
   const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-requirement-btn']});
   const cancelTaskBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn']});
 
-  setUpModal(modalOverlay, plantPageModal);
+  setUpModal(plantPageModal);
 
   appendChildren(plantPageModal, cancelTaskBtn, newTaskInput, newTaskAddBtn);
   appendChildren(modalOverlay, plantPageModal);
@@ -187,15 +187,21 @@ const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) => {
   setUpModalEventListeners(newTaskAddBtn, cancelTaskBtn, plantPageModal, tasks, newTaskInput, sectionClass, submitTaskHandler, plant);
 }
 
-const setUpModal = (modalOverlay, modal) => {
+export const setUpModal = (modal, menuContainer, eventRegistry) => {
+  const modalOverlay = document.querySelector('.modal-overlay');
   modalOverlay.style.display = 'flex';
   modal.style.display = 'flex';
+
+  localEventManager.addEventListener(modalOverlay, 'click', () => {
+    removeModal(modal, eventRegistry);
+  }, eventRegistry);
+
+  localEventManager.addEventListener(modal, 'click', (event) => {
+    event.stopPropagation();
+  }, eventRegistry);
 }
 
 const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
-  if (newTaskInput === '') {
-    return;
-  }
 
   const newTaskElement = createElement({tagName: 'div', classEl: ['new-task']});
   const taskSelectBtn = createElement({tagName: 'button', classEl: ['select-btn']});
