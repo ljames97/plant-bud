@@ -989,3 +989,15 @@ textarea {
 .pin-icon-img {
   width: 100%;
 }
+
+.select-menu {
+  margin-top: 5rem;
+  z-index: 1;
+}
+
+.modal-error-message {
+  display: none;
+  color: orange;
+  font-weight: 600;
+  padding-bottom: 1rem;
+}

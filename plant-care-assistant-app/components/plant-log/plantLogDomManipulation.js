@@ -44,6 +44,10 @@ const dynamicPlantLogElementsManager = () => {
         editButtonHandler(editDots, editButton);
       }, 'PLANT_EDIT');
 
+      localEventManager.addEventListener(editDots, 'click', (event) => {
+        editSelectHandler(event, editDots);
+      }, 'PLANT_EDIT');
+
       return { sectionHeader, menuButtons, plantInfoBar, infoBarContainer, plantLogTitle, userPlantsContainer };
     },
 
@@ -61,12 +65,31 @@ const dynamicPlantLogElementsManager = () => {
   }
 }
 
+const editSelectHandler = (event, menuDots) => {
+  renderQuickMenu(event, createSelectMenu, menuDots, null);
+}
+
+const createSelectMenu = (menuDots) => {
+  const userPlants = plantLog.getUserPlantLog();
+  const selectedPlants = userPlants.filter(plant => plant.selected === true);
+
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'select-menu']});
+  const deleteSelected = createElement({tagName: 'p', textContent: 'Delete selected', classEl: ['drop-menu-item']});
+
+  appendChildren(dropMenuContainer, deleteSelected);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(deleteSelected, 'click', () => {
+    selectedPlants.forEach(plant => plantLog.deletePlantFromLog(plant));
+    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+  })
+}
+
 export const plantLogElements = dynamicPlantLogElementsManager();
 
 const editButtonHandler = (editDots, editButton) => {
   const selectButton = document.querySelectorAll('.plant-select-button');
   const menu = document.querySelectorAll('.plant-menu');
-  const archiveBtn = document.getElementById('log-archive');
   if (editButton.editMode) {
     hideElements(editDots);
     editButton.textContent = 'Select';
@@ -104,7 +127,7 @@ const setUpPlantEventListener = () => {
         const userPlantContainer = target.closest('.user-plant');
         const selectButton = userPlantContainer.querySelector('.plant-select-button');
         if (plant) {
-          toggleSelectButton(selectButton);
+          toggleSelectButton(selectButton, plant);
           togglePlantSelect(plant);
         }
         return;
@@ -114,7 +137,7 @@ const setUpPlantEventListener = () => {
 
   }, 'PLANT_CONTAINER');
 
-  const toggleSelectButton = (selectButton) => {
+  const toggleSelectButton = (selectButton, plant) => {
     if (!selectButton.isSelected) {
       selectButton.style.backgroundColor = 'white';
       selectButton.isSelected = true;
@@ -180,7 +203,7 @@ const createMenuButtons = () => {
     clearSection(searchTaskContainer, 'PLANT_LOG');
     resetEditButton();
     showElements('flex', editButtonContainer);
-    resetPlantGrid()
+    resetPlantGrid(plantLog.getUserPlantLog())
     const { numberOfPlants, numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
     plantInfoBar.textContent = `${numberOfPlants} plants, ${numberOfTasks} tasks`;
 
@@ -195,7 +218,7 @@ const archiveBtnClickHandler = (searchTaskContainer) => {
   const { editButtonContainer } = plantLogElements.getPlantLogElements();
   clearSection(searchTaskContainer, 'PLANT_LOG');
   resetEditButton();
-  showElements('flex', editButtonContainer);
+  hideElements(editButtonContainer);
   renderDeletedPlants();
 }
 

@@ -14,6 +14,7 @@ import { plantLogElements } from "./plantLogDomManipulation";
 import { createMenuDots, handleDocumentClick, toggleMenu, updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 import { removeModal, setUpModal } from "../plant-page/plantPageDomManipulation";
 import { deletePlantBtnHandler } from "../plant-page/plantPageEventHandling";
+import { permanentDeletePlant } from "../plant-page/plantPageMain";
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.
@@ -89,6 +90,7 @@ const plantLogManager = () => {
       if (foundPlant) {
         userPlantLog = removeItemFromArray(userPlantLog, plant.id);
         deletedPlantLog.push(plant);
+        plant.archived = true;
       } 
     },
     updatePlantInfo: (plant) => {
@@ -105,6 +107,7 @@ const plantLogManager = () => {
       if (foundPlant) {
         deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
         plantLog.addToUserPlantLog(plant);
+        plant.archived = false;
       }
     },
     permanentDelete: (plant) => {
@@ -190,7 +193,11 @@ export const addPlantToGrid = (newPlant) => {
   }
 
   localEventManager.addEventListener(menuDots, 'click', (event) => {
+    if (!newPlant.archived) {
       renderQuickMenu(event, createPlantMenu, menuDots, newPlant);
+    } else {
+      renderQuickMenu(event, createArchivePlantMenu, menuDots, newPlant);
+    }
       localEventManager.addEventListener(document, 'click', handleDocumentClick, 'DOCUMENT');
     }, 'DOCUMENT');
 }
@@ -198,37 +205,40 @@ export const addPlantToGrid = (newPlant) => {
 const createTags = (plant) => {
   const tagContainer = createElement({tagName: 'div', classEl: ['plant-tag-container']});
   const tags = plant.tags
-  tags.forEach(tag => {
-    const newTag = createElement({tagName: 'button', textContent: tag.description, classEl: ['search-tag', 'plant-log-tag']});
-    appendChildren(tagContainer, newTag);
-    localEventManager.addEventListener(newTag, 'click', () => {
-      editTagHandler(newTag, plant);
-    })
-  });
+  if (tags) {
+    tags.forEach(tag => {
+      const newTag = createElement({tagName: 'button', textContent: tag.description, classEl: ['search-tag', 'plant-log-tag']});
+      appendChildren(tagContainer, newTag);
+      localEventManager.addEventListener(newTag, 'click', () => {
+        editTagHandler(newTag, plant);
+      })
+    });
+  }
 
   return tagContainer;
 }
 
 const editTagHandler = (newTag, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  const editTaskModal = createElement({tagName: 'div', classEl: ['new-modal']});
-  const editTaskInput = createElement({tagName: 'input', placeholder: newTag.textContent, classEl: ['new-input']});
+  const editTagModal = createElement({tagName: 'div', classEl: ['new-modal']});
+  const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message']});
+  const editTagInput = createElement({tagName: 'input', placeholder: newTag.textContent, classEl: ['new-input']});
   const editTagButtons = createElement({tagName: 'div', classEl: ['edit-tag-buttons']});
   const deleteBtn = createElement({tagName: 'button', textContent: 'Delete', classEl: ['delete-tag-btn']});
   const updateBtn = createElement({tagName: 'button', textContent: 'Update', classEl: ['update-tag-btn', 'submit-btn']});
 
-  setUpModal(editTaskModal, null, 'PLANT_LOG');
+  setUpModal(editTagModal, null, 'PLANT_LOG');
 
   appendChildren(editTagButtons, deleteBtn, updateBtn);
-  appendChildren(editTaskModal, editTaskInput, editTagButtons);
-  appendChildren(modalOverlay, editTaskModal);
+  appendChildren(editTagModal, errorMessage, editTagInput, editTagButtons);
+  appendChildren(modalOverlay, editTagModal);
 
   localEventManager.addEventListener(deleteBtn, 'click', () => {
-    deleteTagHandler(newTag, plant, editTaskModal);
+    deleteTagHandler(newTag, plant, editTagModal);
   });
 
-  localEventManager.addEventListener(editTagButtons, 'click', () => {
-    updateTagHandler(newTag, plant, editTaskModal, editTaskInput);
+  localEventManager.addEventListener(updateBtn, 'click', () => {
+    updateTagHandler(newTag, plant, editTagModal, editTagInput, errorMessage);
   })
 }
 
@@ -236,24 +246,30 @@ const deleteTagHandler = (newTag, plant, editTaskModal) => {
   const foundTag = plant.tags.find(tag => tag.description === newTag.textContent);
   plant.tags = removeItemFromArray(plant.tags, foundTag.id);
   removeModal(editTaskModal, 'PLANT_LOG');
-  resetPlantGrid();
+  resetPlantGrid(plantLog.getUserPlantLog());
 }
 
-const updateTagHandler = (newTag, plant, editTaskModal, editTaskInput) => {
-  if (editTaskInput.value === '') {
+const updateTagHandler = (newTag, plant, editTagModal, editTagInput, errorMessage) => {
+  if (editTagInput.value === '') {
     return;
   }
+
+  if (editTagInput.value.length > 10) {
+    errorMessage.style.display = 'block';
+    return;
+  }
+
   const foundTag = plant.tags.find(tag => tag.description === newTag.textContent);
-  foundTag.description = editTaskInput.value;
-  removeModal(editTaskModal, 'PLANT_LOG');
-  resetPlantGrid();
+  foundTag.description = editTagInput.value;
+  removeModal(editTagModal, 'PLANT_LOG');
+  resetPlantGrid(plantLog.getUserPlantLog());
 }
 
 //global
-export const resetPlantGrid = () => {
+export const resetPlantGrid = (plantArray) => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
   clearSection(userPlantsContainer, 'PLANT_LOG');
-  renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
+  renderPlantGrid(plantArray, renderMyPlants, '← back to My Plants');
 }
 
 // global
@@ -263,8 +279,24 @@ export const renderQuickMenu = (event, createMenuFunc, menuDots, plantOrTask, el
   createMenuFunc(menuDots, plantOrTask, element);
 }
 
-const createArchivePlantMenu = () => {
-  
+const createArchivePlantMenu = (menuDots, plant) => {
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const unarchive = createElement({tagName: 'p', textContent: 'Unarchive', classEl: ['drop-menu-item']});
+  const permanentDelete = createElement({tagName: 'p', textContent: 'Permanent delete', classEl: ['drop-menu-item']});
+
+  appendChildren(dropMenuContainer, unarchive, permanentDelete);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(unarchive, 'click', () => {
+    plantLog.removeFromDeletedPlants(plant);
+    renderDeletedPlants();
+  }, 'PLANT_LOG');
+
+  localEventManager.addEventListener(permanentDelete, 'click', () => {
+    permanentDeletePlant(plant);
+    renderDeletedPlants();
+  },'PLANT_LOG')
+
 }
 
 const createPlantMenu = (menuDots, plant) => {
@@ -282,6 +314,11 @@ const createPlantMenu = (menuDots, plant) => {
   })
 
   localEventManager.addEventListener(addTag, 'click', () => {
+    if (plant.tags.length > 1) {
+      renderMaxTagsError();
+      return;
+    }
+
     addNewTagHandler(plant);
   })
 
@@ -292,6 +329,19 @@ const createPlantMenu = (menuDots, plant) => {
   localEventManager.addEventListener(deletePlant, 'click', () => {
     deletePlantBtnHandler(plant);
   })
+}
+
+const renderMaxTagsError = () => {
+  const modalOverlay = document.querySelector('.modal-overlay');
+  const menuContainer = document.querySelector('.drop-menu-container');
+  const errorModal = createElement({tagName: 'div', classEl: ['new-modal']});
+  const errorMessage = createElement({tagName: 'p', textContent: 'Maximum tags added for this plant!', classEl: ['modal-error-message']});
+  errorMessage.style.display = 'block';
+
+  setUpModal(errorModal, menuContainer, 'PLANT_LOG');
+
+  appendChildren(errorModal, errorMessage);
+  appendChildren(modalOverlay, errorModal);
 }
 
 const pinPlantHandler = (event, plant) => {
@@ -305,7 +355,7 @@ const pinPlantHandler = (event, plant) => {
     plant.pinned = false;
   }
 
-  resetPlantGrid();
+  resetPlantGrid(plantLog.getUserPlantLog());
 }
 
 const addNewTaskHandler = (plant) => {
@@ -331,31 +381,32 @@ const addNewTagHandler = (plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const menuContainer = document.querySelector('.drop-menu-container');
   const newTagModal = createElement({tagName: 'div', classEl: ['new-modal']});
+  const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message']});
   const newTagInput = createElement({tagName: 'input', placeholder: 'e.g. New, Flowering', classEl: ['new-input']});
   const submitBtn = createElement({tagName: 'button', textContent: 'Add tag', classEl: ['submit-btn']});
   const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn']});
 
   setUpModal(newTagModal, menuContainer, 'PLANT_LOG');
 
-  appendChildren(newTagModal, cancelBtn, newTagInput, submitBtn);
+  appendChildren(newTagModal, errorMessage, cancelBtn, newTagInput, submitBtn);
   appendChildren(modalOverlay, newTagModal);
 
   localEventManager.addEventListener(submitBtn, 'click', () => {
-    submitTagHandler(plant, newTagInput.value, newTagModal);
+    submitTagHandler(plant, newTagInput.value, newTagModal, errorMessage);
   }, 'PLANT_LOG');
 }
 
-const submitTagHandler = (plant, newTagInput, newTagModal) => {
+const submitTagHandler = (plant, newTagInput, newTagModal, errorMessage) => {
   if (newTagInput === '') {
     return;
   }
 
-  removeModal(newTagModal, 'PLANT_LOG');
-  
-  if (plant.tags.length > 1) {
-    console.log('Maximum tags created!');
+  if (newTagInput.length > 10) {
+    errorMessage.style.display = 'block';
     return;
   }
+
+  removeModal(newTagModal, 'PLANT_LOG');
 
   if (!plant.tags.some(tag => tag.description === newTagInput)) {
     const newTag = {
@@ -366,7 +417,7 @@ const submitTagHandler = (plant, newTagInput, newTagModal) => {
     console.log(plant.tags);
   }
 
-  resetPlantGrid();
+  resetPlantGrid(plantLog.getUserPlantLog());
 }
 
 const submitTaskHandler = (plant, newTaskInput, newTaskModal) => {
@@ -384,6 +435,8 @@ const submitTaskHandler = (plant, newTaskInput, newTaskModal) => {
     }
     plant.tasks.push(newTask);
   }
+
+  resetPlantGrid(plantLog.getUserPlantLog());
 }
 
 const movePlantToTop = (userPlantContainer) => {

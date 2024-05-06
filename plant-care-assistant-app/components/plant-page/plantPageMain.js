@@ -120,12 +120,16 @@ const addToPlantsHandler = (sectionBtn, plant) => {
  * @param {Object} plant 
  */
 const permanentDeleteBtnHandler = (plant, sectionClass, sectionRender) => {
+  permanentDeletePlant(plant);
+  resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`)
+}
+
+export const permanentDeletePlant = (plant) => {
   const directoryPlant = findItemInArray(plantDirectory, plant.id);
   if (directoryPlant) {
     directoryPlant.isAdded = false;
   }
   plantLog.permanentDelete(plant);
-  resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`)
 }
 
 /**
@@ -239,7 +243,6 @@ const toggleEditFields = (plant, elements) => {
  */
 const saveMode = (plant, editBtn, elements) => {
   editBtn.textContent = 'Edit';
-  const plantDate = document.querySelector('.plant-date');
 
   let updatedName = document.querySelector('.edit-plant-title').value;
   let updatedDescription = document.querySelector('.edit-plant-notes').value;
