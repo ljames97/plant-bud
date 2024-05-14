@@ -3,9 +3,8 @@
  * Event handler logic for adding a new plant to 'My Plants'.
  */
 
-import { validatePlantData } from "./addPlantMain";
 import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
-import { resetSection } from "../utils/globalDomManipulation";
+import { domElements, resetSection } from "../utils/globalDomManipulation";
 
 /**
  * Validates the form data, creates a new plant object, adds it to the plant log,
@@ -17,24 +16,24 @@ import { resetSection } from "../utils/globalDomManipulation";
  * @param {HTMLElement} imageDataUrl
  */
 export const submitNewPlantHandler = (event, plantName, dateAdded, description, imageDataUrl) => {
+  const { myPlantsBtn } = domElements;
   event.preventDefault();
 
-  const dataValidation = validatePlantData(plantName.value, dateAdded.value, imageDataUrl);
-  if (!dataValidation.isValid) {
-    console.log(dataValidation.errors);
-    return;
-  }
-
   const newPlant = {
-    name: plantName.value,
-    dateAdded: dateAdded.value,
-    description: description.value,
+    name: plantName,
+    dateAdded: dateAdded,
+    description: description,
     image: imageDataUrl,
     id: Date.now(),
     requirements: [],
-    tasks: []
+    tasks: [],
+    tags: []
   };
 
   plantLog.addToUserPlantLog(newPlant);
-  resetSection('.plant-log', renderMyPlants, 'ADD_PLANT');
+  
+  if (myPlantsBtn.classList.contains('active')) {
+    console.log('RENDER')
+    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+  }
 }

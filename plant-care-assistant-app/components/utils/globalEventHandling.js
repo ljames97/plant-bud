@@ -3,6 +3,8 @@
  * Global event handler logic and initialisation.
  */
 
+import { renderAddPlantModal } from "../add-plant/addPlantMain";
+import { renderDiscoveryPage } from "../discovery-page/discoveryPage";
 import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
 import { renderMyPlants } from "../plant-log/plantLogMain";
 import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
@@ -29,12 +31,13 @@ export const dashboardInit = () => {
 }
 
 const sectionInit = (sectionName) => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
 
   const sectionMap = {
-    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants, class: 'plant-log' },
-    'PLANT_QUIZ': { button: plantQuizBtn, renderFunc: renderPlantQuiz, class: 'plant-quiz' },
-    'PLANT_DISCOVERY': { button: discoverBtn, renderFunc: renderNewPlantSearch, class: 'plant-discovery' }
+    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants },
+    'PLANT_QUIZ': { button: quizBtn, renderFunc: renderPlantQuiz },
+    'ADD_PLANT': { button: addNewPlantBtn, renderFunc: renderAddPlantModal },
+    'PLANT_LIBRARY': { button: libraryBtn, renderFunc: renderNewPlantSearch }
   }
 
   const section = sectionMap[sectionName];
@@ -48,7 +51,6 @@ const sectionInit = (sectionName) => {
   }
 
   prepareDashboard(section.button, section.renderFunc, ...otherButtons);
-  // section.renderFunc();
   section.button.classList.add('dormant');
 }
 
@@ -142,16 +144,19 @@ export const localEventManager = eventManager();
  * This includes listeners for searching plants, adding new plants, etc.
  */
 export const setUpDashboardEventListeners = () => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
 
   localEventManager.addEventListener(myPlantsBtn, 'click', () => {
     sectionInit('MY_PLANTS');
   }, 'DASHBOARD');
-  localEventManager.addEventListener(plantQuizBtn, 'click', () => {
+  localEventManager.addEventListener(addNewPlantBtn, 'click', () => {
+    sectionInit('ADD_PLANT');
+  }, 'DASHBOARD');
+  localEventManager.addEventListener(quizBtn, 'click', () => {
     sectionInit('PLANT_QUIZ');
   }, 'DASHBOARD');
-  localEventManager.addEventListener(discoverBtn, 'click', () => {
-    sectionInit('PLANT_DISCOVERY');
+  localEventManager.addEventListener(libraryBtn, 'click', () => {
+    sectionInit('PLANT_LIBRARY');
   }, 'DASHBOARD');
 }
 

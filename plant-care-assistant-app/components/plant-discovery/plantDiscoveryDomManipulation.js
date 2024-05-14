@@ -19,7 +19,7 @@ import { renderNewPlantSearch, updateSearchResults } from "./plantDiscoveryMain"
  * @returns {Object} An object containing references to the created elements.
  */
 export const createSearchInput = () => {
-  const { plantDiscovery } = domElements;
+  const { plantLibrary } = domElements;
   const sectionHeader = createElement({tagName: 'div', classEl: ['section-header']});
   const plantDiscoveryTitle = createElement({tagName: 'h1', textContent: 'Plant Library', classEl: ['plant-discovery-title']});
   const plantDiscoveryDescription = createElement({tagName: 'p', textContent: 'Search our directory for plant information or find new plants to add to your dashboard', classEl: ['plant-discovery-description']});
@@ -33,10 +33,10 @@ export const createSearchInput = () => {
     localEventManager.addEventListener(button, 'click', () => {
       buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
       if (button.textContent === 'All') {
-        updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+        updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
         return;
       }
-      updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+      updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
     }, 'PLANT_SEAR');
   });
 

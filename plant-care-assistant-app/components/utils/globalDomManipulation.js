@@ -39,21 +39,24 @@ const domElementsManager = () => {
       const dashboard = document.querySelector('.dashboard');
       const plantLogEl = document.querySelector('.plant-log');
       const plantQuiz = document.querySelector('.plant-quiz');
-      const plantDiscovery = document.querySelector('.plant-discovery')
+      const plantLibrary = document.querySelector('.plant-library')
       const myPlantsBtn = document.querySelector('.my-plants-btn');
-      const plantQuizBtn = document.querySelector('.plant-quiz-btn');
-      const discoverBtn = document.querySelector('.discover-btn');
+      const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
+      const quizBtn = document.querySelector('.quiz-btn');
+      const libraryBtn = document.querySelector('.library-btn');
       
       // plant button dark/light icons
-      myPlantsBtn.lightIcon = '../../public/footer-nav-icons/plant.png';
-      plantQuizBtn.lightIcon = '../../public/footer-nav-icons/add.png';
-      discoverBtn.lightIcon = '../../public/footer-nav-icons/search.png';
+      myPlantsBtn.lightIcon = '../../public/plant-icon-light.png';
+      addNewPlantBtn.lightIcon = '../../public/footer-nav-icons/add.png';
+      quizBtn.lightIcon = '../../public/quiz-icon-light.png';
+      libraryBtn.lightIcon = '../../public/footer-nav-icons/search.png';
 
-      myPlantsBtn.darkIcon = '../../public/footer-nav-icons-dark/plant.png';
-      plantQuizBtn.darkIcon = '../../public/footer-nav-icons-dark/add.png';
-      discoverBtn.darkIcon = '../../public/footer-nav-icons-dark/search.png';
+      myPlantsBtn.darkIcon = '../../public/plant-icon-dark.png';
+      addNewPlantBtn.darkIcon = '../../public/footer-nav-icons-dark/add.png';
+      quizBtn.darkIcon = '../../public/quiz-icon-dark.png';
+      libraryBtn.darkIcon = '../../public/footer-nav-icons-dark/search.png';
 
-      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantDiscovery, myPlantsBtn, plantQuizBtn, discoverBtn };
+      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantLibrary, myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn };
       return _dashboardDomElementsCache;
     }
   }
@@ -95,8 +98,8 @@ export const createElement = ( { tagName = '', placeholder = '', textContent = '
  * Highlight the active dashboard button. Eg. My Plants, Plant Quiz or Discover.
  */
 export const dashboardNavButtonHighlight = () => {
-  const { myPlantsBtn, plantQuizBtn, discoverBtn } = domElements;
-  const dashboardButtons = [myPlantsBtn, plantQuizBtn, discoverBtn];
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
+  const dashboardButtons = [myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn];
 
   dashboardButtons.forEach(button => {
     if (button.classList.contains('active')) {
@@ -117,7 +120,14 @@ export const dashboardNavButtonHighlight = () => {
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
 export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
-  const { plantLogEl, plantQuiz, plantDiscovery } = domElements;
+  const { plantLogEl, plantQuiz, plantLibrary } = domElements;
+  
+  if (activeBtn === domElements.addNewPlantBtn) {
+    // Handle the case where addNewPlantBtn is clicked
+    renderFunc();
+    return;
+  }
+
   activeBtn.classList.add('active');
 
   inactiveBtn.forEach(button => {
@@ -127,14 +137,15 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
   // Mapping from buttons to their corresponding sections
   const buttonMap = {
     myPlantsBtn: { section: plantLogEl, button: domElements.myPlantsBtn },
-    plantQuizBtn: { section: plantQuiz, button: domElements.plantQuizBtn },
-    discoverBtn: { section: plantDiscovery, button: domElements.discoverBtn }
+    addNewPlantBtn: { button: domElements.addNewPlantBtn },
+    quizBtn: { section: plantQuiz, button: domElements.quizBtn },
+    libraryBtn: { section: plantLibrary, button: domElements.libraryBtn }
   };
 
   // Find the active section based on the active button
   const activeSection = Object.values(buttonMap).find(entry => entry.button === activeBtn)?.section;
 
-  [plantLogEl, plantQuiz, plantDiscovery].forEach(section => clearSection(section));
+  [plantLogEl, plantQuiz, plantLibrary].forEach(section => clearSection(section));
 
   if (activeSection) {
     renderFunc();

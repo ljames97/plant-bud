@@ -9,8 +9,7 @@ import { appendChildren, findItemInArray, hideElements, removeChildren, removeIt
 import { dummyPlants, plantDirectory } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
 import { localEventManager } from "../utils/globalEventHandling";
-import { renderManualPlantForm } from "../add-plant/addPlantMain";
-import { plantLogElements } from "./plantLogDomManipulation";
+import { plantLogElements, updateTaskBar } from "./plantLogDomManipulation";
 import { createMenuDots, handleDocumentClick, toggleMenu, updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 import { removeModal, setUpModal } from "../plant-page/plantPageDomManipulation";
 import { deletePlantBtnHandler } from "../plant-page/plantPageEventHandling";
@@ -21,23 +20,28 @@ import { permanentDeletePlant } from "../plant-page/plantPageMain";
  */
 export const renderMyPlants = () => {
   const { plantLogEl } = domElements;
-  const { sectionHeader, menuButtons, plantInfoBar, infoBarContainer, plantLogTitle, userPlantsContainer } = plantLogElements.createPlantLogElements();
-
-  const { numberOfPlants, numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
-  plantInfoBar.textContent = `${numberOfPlants} plants, ${numberOfTasks} tasks`;
+  const { sectionHeader, menuButtons, infoBarContainer, taskSelectContainer, plantLogTitle, userPlantsContainer } = plantLogElements.createPlantLogElements();
 
   appendChildren(sectionHeader, plantLogTitle)
-  appendChildren(plantLogEl, sectionHeader, menuButtons, infoBarContainer, userPlantsContainer);
+  appendChildren(plantLogEl, sectionHeader, menuButtons, infoBarContainer, taskSelectContainer, userPlantsContainer);
 
   renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
+  updatePlantInfoBar();
 
   localEventManager.removeAllEventListeners('PLANT_SEARCH');
-  localEventManager.removeAllEventListeners('PLANT_DISCOVERY');
+  localEventManager.removeAllEventListeners('PLANT_LIBRARY');
 }
 
-export const setPlantInfoBar = (userPlants, plantInfoBar) => {
+export const updatePlantInfoBar = () => {
+  const { plantInfoBar } = plantLogElements.getPlantLogElements();
+  const { numberOfPlants } = setPlantInfoBar(plantLog.getUserPlantLog());
+  plantInfoBar.textContent = `${numberOfPlants} plants`;
+}
+
+export const setPlantInfoBar = (userPlants) => {
   const numberOfTasks = userPlants.reduce((total, plant) => {
-    return total + (plant.tasks ? plant.tasks.length : 0)
+    const unselectedTasksCount = plant.tasks ? plant.tasks.filter(task => !task.selected).length : 0;
+    return total + unselectedTasksCount;
   }, 0);
   const numberOfPlants = userPlants.length
 
@@ -170,13 +174,17 @@ export const addPlantToGrid = (newPlant) => {
   const plantTitle = createElement({tagName: 'p', textContent: newPlant.name});
   const pinIconContainer = createElement({tagName: 'div', classEl: ['pin-icon-container']});
   const pinIcon = createElement({tagName: 'img', classEl: ['pin-icon-img']});
+  // const taskCountIcon = createElement({tagName: 'div', classEl: ['task-count-icon']});
   pinIcon.src = '../../public/pin-icon.png'
 
   plantImage.src = newPlant.image;
   menuDots.classList.add('plant-menu');
   
   if (newPlant.tasks) {
-    taskCounter.textContent = `${newPlant.tasks.length} tasks`;
+    const unselectedTasksCount = newPlant.tasks ? newPlant.tasks.filter(task => !task.selected).length : 0;
+    taskCounter.textContent = `${unselectedTasksCount} tasks`;
+    // taskCountIcon.textContent = unselectedTasksCount;
+    // taskCountIcon.style.display = unselectedTasksCount > 0 ? 'block' : 'none';
   }
 
   appendChildren(editButtons, selectButton, menuDots);
@@ -437,6 +445,15 @@ const submitTaskHandler = (plant, newTaskInput, newTaskModal) => {
   }
 
   resetPlantGrid(plantLog.getUserPlantLog());
+  updatePlantInfoBar();
+  updateTaskIcon();
+}
+
+export const updateTaskIcon = () => {
+  const taskCountIcon = document.querySelector('.task-count-icon');
+  const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
+  taskCountIcon.textContent = numberOfTasks;
+  taskCountIcon.style.display = numberOfTasks > 0 ? 'block' : 'none';
 }
 
 const movePlantToTop = (userPlantContainer) => {

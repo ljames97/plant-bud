@@ -32,7 +32,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(106, 123, 101, 0.4);
+  background-color: rgba(81, 89, 78, 0.8);
   border-radius: 40px;
   margin: 1rem;
   margin-bottom: 0;
@@ -55,25 +55,13 @@ footer {
   padding: 1rem;
   border-radius: 100%;
   border: none;
-  margin: 0 1rem;
+  margin: 0 0.8rem;
 }
 
 .icon-container {
   width: 1.5rem;
   height: 1.5rem;
   background-size: cover;
-}
-
-.plant-icon-container {
-  background-image: url('../../public/footer-nav-icons/plant.png');
-}
-
-.add-icon-container {
-  background-image: url('../../public/footer-nav-icons/add.png');
-}
-
-.discover-icon-container {
-  background-image: url('../../public/footer-nav-icons/search.png');
 }
 
 .profile-icon-container {
@@ -102,6 +90,9 @@ input::placeholder {
 .plant-discovery {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .plant-search {
@@ -149,7 +140,7 @@ input::placeholder {
 
 button {
   background-color: #334521;
-  color: white;
+  color: #FCFAF7;
   padding: 0.4rem 1.4rem;
   width: auto;
   border: none;
@@ -323,7 +314,7 @@ button {
 .menu-dot {
   height: 4px;
   width: 4px;
-  background-color: white;
+  background-color: #FCFAF7;
   margin: 0 0.15rem;
   border-radius: 100%;
 }
@@ -376,7 +367,7 @@ button {
 
 #all-tag,
 #log-all {
-  background-color: white;
+  background-color: #FCFAF7;
   color: black;
 }
 
@@ -404,6 +395,7 @@ button {
   height: 100vh;
   top: 0;
   padding: 1rem 1rem;
+  z-index: 2;
 }
 
 
@@ -534,13 +526,14 @@ button {
 .requirement-container {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .requirements-section {
   display: flex;
   flex-direction: column;
   min-height: 75vh;
+  margin-top: 1rem;
 }
 
 .add-requirement-btn {
@@ -621,7 +614,7 @@ button {
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  color: white;
+  color: #FCFAF7;
   width: 2rem;
   height: 2rem;
   padding: 0rem;
@@ -948,7 +941,7 @@ textarea {
 }
 
 .submit-btn {
-  background-color: white;
+  background-color: #FCFAF7;
   color: black;
 }
 
@@ -968,13 +961,14 @@ textarea {
 
 .delete-tag-btn {
   background-color: rgba(255, 255, 255, 0.224);;
-  color: white;
+  color: #FCFAF7;
 }
 
 /** plant-log */
 
 .user-plant {
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .pin-icon-container {
@@ -1000,4 +994,109 @@ textarea {
   color: orange;
   font-weight: 600;
   padding-bottom: 1rem;
+}
+
+.task-select-container {
+  display: none;
+  padding-left: 1rem;
+}
+
+.task-select {
+  margin-right: 0.5rem;
+  font-weight: 100;
+  font-size: 0.8rem;
+}
+
+.to-do-select {
+  font-weight: 600;
+}
+
+.task-count-icon {
+  position: absolute;
+  background-color: #1e310b;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.825);
+  font-size: 0.7rem;
+  font-weight: 600;
+  height: 1.2rem;
+  width: 1.2rem;
+  border-radius: 50%;
+  top: -10px;
+  right: -5px;
+  line-height: 1.2rem;
+}
+
+#log-tasks {
+  position: relative;
+}
+
+/** discovery page */
+
+.discovery-button {
+  background-color: rgba(255, 255, 255, 0.15);
+  width: 10rem;
+  height: 10rem;
+  margin-bottom: 1rem;
+}
+
+/** nav buttons */
+.add-new-plant-btn {
+  padding: 0;
+  align-self: center;
+}
+
+/** add plant */
+.description-input {
+  height: 5rem;
+  color: #FCFAF7;
+}
+
+.description-input::placeholder {
+  color: #FCFAF7;
+}
+
+.photo-input {
+  display: none;
+}
+
+.file-upload {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.next-button {
+  width: 6rem;
+  align-self: center;
+}
+
+.modal-error-message {
+  align-self: center;
+}
+
+.large-image {
+  width: 70%;
+}
+
+.upload-image-heading {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.plant-form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/** dashboard nav */
+
+.dashboard-nav-item-container {
+  text-align: center;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.dashboard-nav-item-container p {
+  margin-top: 0.7rem;
 }

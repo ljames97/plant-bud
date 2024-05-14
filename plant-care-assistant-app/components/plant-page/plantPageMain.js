@@ -50,6 +50,10 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   } 
   
   if (sectionBtn.textContent === 'Add to My Plants') {
+    const tasksBtn = document.getElementById('task-nav');
+    const requirmentBtn = document.querySelector('.add-requirement-btn');
+    tasksBtn.style.display = 'none';
+    requirmentBtn.style.display = 'none';
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       addToPlantsHandler(sectionBtn, plant);
     }, 'PLANT_PAGE');
@@ -201,7 +205,7 @@ const editMode = (plant, editBtn, elements, sectionClass, sectionRender) => {
 
   const imageInput = createElement({tagName: 'input', classEl: ['file-input'], id: 'file-upload', type: 'file'});
   const label = createElement({tagName: 'label', classEl: ['file-upload-label'], fr: 'file-upload'});
-  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img']})
+  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img']});
   const imageContainer = document.querySelector('.plant-page-image-container');
   imageInputImg.src = '../../public/footer-nav-icons/add.png';
 

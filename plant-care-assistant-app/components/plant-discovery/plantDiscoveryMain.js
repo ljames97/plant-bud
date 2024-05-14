@@ -18,16 +18,16 @@ import { plantLog, renderQuickMenu } from "../plant-log/plantLogMain";
  */
 export const renderNewPlantSearch = () => {
   const { sectionHeader, plantDiscoveryTitle, searchContainer, searchInput, plantsFoundCounter, searchResultsContainer } = createSearchInput();
-  const { plantDiscovery } = domElements;
+  const { plantLibrary } = domElements;
 
   appendChildren(sectionHeader, plantDiscoveryTitle );
   appendChildren(searchContainer, searchInput, plantsFoundCounter, searchResultsContainer);
-  appendChildren(plantDiscovery, sectionHeader, searchContainer);
+  appendChildren(plantLibrary, sectionHeader, searchContainer);
 
-  updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+  updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
 
   localEventManager.addEventListener(searchInput, 'input', () => {
-    updateSearchResults(plantDiscovery, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+    updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
   }, 'PLANT_SEARCH');
 
   localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_SEARCH');
