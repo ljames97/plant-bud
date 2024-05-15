@@ -265,7 +265,7 @@ const createNavButtons = (aboutSection, requirementsSection, tasksSection, secti
   const aboutBtn = createElement({tagName: 'button', textContent: 'About', classEl: ['plant-page-nav-button'], id: 'about-nav'});
   const requirementsBtn = createElement({tagName: 'button', textContent: 'Requirements', classEl: ['plant-page-nav-button'], id: 'requirement-nav'});
   const userTasksBtn = createElement({tagName: 'button', textContent: 'Tasks', classEl: ['plant-page-nav-button'], id: 'task-nav'});
-  const editBtn = document.querySelector('.edit-btn');
+  // const editBtn = document.querySelector('.edit-btn');
   aboutBtn.classList.add('active');
 
   // nav btn data

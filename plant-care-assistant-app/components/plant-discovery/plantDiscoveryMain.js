@@ -6,7 +6,7 @@
 
 import { domElements, createElement, clearSection, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren } from "../utils/gobalUtility";
+import { appendChildren, hideElements } from "../utils/gobalUtility";
 import { createSearchInput } from "./plantDiscoveryDomManipulation";
 
 import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
@@ -64,7 +64,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
       appendChildren(searchResultsContainer, plantElement);
 
       localEventManager.addEventListener(plantElement, 'click', () => {
-        clearSection(mainSection);
+        hideElements(mainSection);
         appendChildren(mainSection, plantInfoContainer);
         renderPlantDetails(plant, plantInfoContainer, backButtonText, sectionClass, sectionRender);
       }, 'PLANT_SEARCH');

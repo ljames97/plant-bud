@@ -5,13 +5,13 @@ TODO
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
 - + icon on overview, add user comments
 
-- quiz css finish
-
 - modal swipe for quiz and plant page
 - swpie to remove tasks / requirements
 - tasks ideas: name, notes, date, alert, priority
 - tasks needs to be 1 tas(k) in plant log
 - images for all plants in the main plant directory
+
+- more info btn on quiz
 
 - tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
@@ -50,7 +50,7 @@ CSS/aesthetics:
 - unit testing / js tests
 - production ideas/hosting
 - login authentication + default login page
-- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?)
+- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?), server to store/fetch user data
 - README file
 
 - react refactor

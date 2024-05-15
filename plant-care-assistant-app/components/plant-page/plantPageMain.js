@@ -12,6 +12,7 @@ import { createDynamicPlantElements, createSectionBtn, createTagButton, removeIm
 import { plantLog } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
 import { plantDirectory } from "../utils/data";
+import { renderQuizResults } from "../plant-quiz/plantQuizMain";
 
 /**
  * Render plant details on screen.
@@ -49,7 +50,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
       toggleEditMode(plant, sectionBtn, {plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
   } 
   
-  if (sectionBtn.textContent === 'Add to My Plants') {
+  if (sectionBtn.textContent === 'Add to My Plants' || sectionBtn.textContent === 'Added to My Plants') {
     const tasksBtn = document.getElementById('task-nav');
     const requirmentBtn = document.querySelector('.add-requirement-btn');
     tasksBtn.style.display = 'none';
@@ -70,6 +71,17 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   }
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
+    const plantInfoContainer = document.querySelector('.plant-info');
+    if (plantInfoContainer) {
+      const quizContainer = document.querySelector('.quiz-container');
+      const resultContainers = document.querySelectorAll('.result-container');
+      plantInfoContainer.remove();
+      resultContainers.forEach(result => result.remove());
+      showElements('flex', quizContainer);
+      renderQuizResults(quizContainer.plantResults);
+      return;
+    }
+
     resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
   }, `PLANT_PAGE_${sectionClass}`);
 }
@@ -285,4 +297,5 @@ export const renderPlantSection = (activeSection, editBtnState, ...inactiveSecti
   } else {
     showElements('block', editBtn);
   }
+
 }

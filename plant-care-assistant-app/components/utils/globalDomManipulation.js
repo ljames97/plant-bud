@@ -107,7 +107,7 @@ export const dashboardNavButtonHighlight = () => {
       const iconContainer = button.querySelector('.icon-container');
       iconContainer.style.backgroundImage = `url(${button.darkIcon})`;
     } else {
-      button.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'
+      button.style.backgroundColor = 'rgba(172, 172, 172, 0.3)'
       const iconContainer = button.querySelector('.icon-container');
       iconContainer.style.backgroundImage = `url(${button.lightIcon})`;
     }
@@ -145,9 +145,13 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
   // Find the active section based on the active button
   const activeSection = Object.values(buttonMap).find(entry => entry.button === activeBtn)?.section;
 
-  [plantLogEl, plantQuiz, plantLibrary].forEach(section => clearSection(section));
+  [plantLogEl, plantQuiz, plantLibrary].forEach(section => {
+    clearSection(section)
+    section.style.height = '0'
+  });
 
   if (activeSection) {
+    activeSection.style.height = '100vh';
     renderFunc();
   }
 

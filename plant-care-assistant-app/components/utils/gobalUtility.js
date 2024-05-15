@@ -57,7 +57,9 @@ export const appendChildren = (parent, ...children) => {
  */
 export const hideElements = (...elements) => {
   elements.forEach(element => {
-    element.style.display = 'none';
+    if (element) {
+      element.style.display = 'none';
+    }
   });
 }
 
@@ -68,7 +70,9 @@ export const hideElements = (...elements) => {
  */
 export const showElements = (displayType, ...elements) => {
   elements.forEach(element => {
-    element.style.display = `${displayType}`;
+    if (element) {
+      element.style.display = `${displayType}`;
+    }
   })
 }
 

@@ -7,7 +7,7 @@
 import { plantDirectory } from "../utils/data";
 import { createElement, domElements } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, hideElements, randomiseArray, removeChildren } from "../utils/gobalUtility";
+import { appendChildren, hideElements, randomiseArray, removeChildren, showElements } from "../utils/gobalUtility";
 import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";
 import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandling";
 import { renderPlantDetails } from "../plant-page/plantPageMain";
@@ -18,19 +18,19 @@ import { renderPlantDetails } from "../plant-page/plantPageMain";
  */
 export const renderPlantQuiz = () => {
   const { plantQuiz } = domElements;
-  const { quizContainer, quizTitle, quizBanner, quizBannerContainer, questionContainer, cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, restartQuizBtn } = createPlantQuizElements();
+  const { quizContainer, quizTitle, questionContainer, cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, restartQuizBtn } = createPlantQuizElements();
 
   appendChildren(questionContainer, quizSubtitle, quizDescription, cardContainer, startQuizBtn, moreInfoBtn);
-  appendChildren(quizBannerContainer, quizBanner);
-  appendChildren(quizContainer, quizTitle, quizBannerContainer, restartQuizBtn, questionContainer);
+  appendChildren(quizContainer, restartQuizBtn, quizTitle, questionContainer);
   appendChildren(plantQuiz, quizContainer);
 
-  plantQuiz.classList.add('active');
+  // plantQuiz.classList.add('active');
   restartQuizBtn.style.display = 'none';
 
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
     startQuizBtnHandler(cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, quizContainer);
     restartQuizBtn.style.display = 'block';
+    quizTitle.style.display = 'none';
   }, 'PLANT_QUIZ');
 }
 
@@ -138,12 +138,13 @@ const findSuitablePlants = (userAnswers, plantData) => {
  * Render quiz results on screen.
  * @param {Array} results 
  */
-const renderQuizResults = (results) => {
+export const renderQuizResults = (results) => {
   const { plantQuiz } = domElements;
 
   const quizContainer = document.querySelector('.quiz-container');
   const questionContainer = document.querySelector('.question-container');
   const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
+  plantInfoContainer.style.display = 'none'
   appendChildren(plantQuiz, plantInfoContainer);
   removeChildren(quizContainer, questionContainer)
 
@@ -152,12 +153,15 @@ const renderQuizResults = (results) => {
     displayedResults = randomiseArray(results, 2);
   }
 
-  displayedResults.forEach(result => {
-    const { resultTitle } = createResultElements(result);
-    appendChildren(quizContainer, resultTitle);
+  quizContainer.plantResults = displayedResults;
 
-    localEventManager.addEventListener(resultTitle, 'click', () => {
+  displayedResults.forEach(result => {
+    const { resultContainer } = createResultElements(result);
+    appendChildren(quizContainer, resultContainer);
+
+    localEventManager.addEventListener(resultContainer, 'click', () => {
       hideElements(quizContainer);
+      showElements('block', plantInfoContainer);
       renderPlantDetails(result, plantInfoContainer, '← back to results', '.plant-quiz', renderPlantQuiz);
     }, 'PLANT_QUIZ')
   })

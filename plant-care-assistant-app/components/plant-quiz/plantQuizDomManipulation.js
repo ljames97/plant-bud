@@ -12,8 +12,16 @@ import { appendChildren } from "../utils/gobalUtility";
  * @returns {HTMLElement} Result title.
  */
 export const createResultElements = (result) => {
+  const resultContainer = createElement({tagName: 'div', classEl: ['result-container']});
   const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: ['result-title']});
-  return { resultTitle }
+  const resultImageContainer = createElement({tagName: 'div', classEl: ['result-image-container']});
+  const resultImage = createElement({tagName: 'img'});
+  resultImage.src = result.image;
+
+  appendChildren(resultImageContainer, resultImage);
+  appendChildren(resultContainer, resultImageContainer, resultTitle);
+
+  return { resultContainer }
 }
 
 /**
@@ -23,15 +31,15 @@ export const createResultElements = (result) => {
 export const createPlantQuizElements = () => {
   const quizContainer = createElement({tagName: 'div', classEl: ['quiz-container']});
   const quizTitle = createElement({tagName: 'h1', classEl: ['section-title'], textContent: 'Plant Quiz'});
-  const quizBanner = createElement({tagName: 'img', classEl: ['quiz-banner']});
-  const quizBannerContainer = createElement({tagName: 'div', classEl: ['quiz-banner-container']});
+  // const quizBanner = createElement({tagName: 'img', classEl: ['quiz-banner']});
+  // const quizBannerContainer = createElement({tagName: 'div', classEl: ['quiz-banner-container']});
   const questionContainer = createElement({tagName: 'div', classEl: ['question-container']});
   const quizSubtitle = createElement({tagName: 'p', textContent: 'Find suitable plants', classEl: ['quiz-subheader']});
   const quizDescription = createElement({tagName: 'p', classEl: ['quiz-description'], textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
   const startQuizBtn = createElement({tagName: 'button', textContent: 'Start Quiz', classEl: ['start-quiz-btn']});
   const moreInfoBtn = createElement({tagName: 'button', textContent: 'More Info', classEl: ['more-info-btn']})
-  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart quiz', classEl: ['restart-quiz-btn']});
-  quizBanner.src = '../../public/plant-quiz-banner.png';
+  const restartQuizBtn = createElement({tagName: 'p', textContent: '← restart', classEl: ['restart-quiz-btn']});
+  // quizBanner.src = '../../public/plant-quiz-banner.png';
 
   const snakePlantCard = createPlantCard('Snake Plant', 'For beginners', '../../public/snake-plant.png');
   const peaceLilyCard = createPlantCard('Peace Lily', 'Flowering plant', '../../public/peace-lily.png');
@@ -39,7 +47,7 @@ export const createPlantQuizElements = () => {
 
   appendChildren(cardContainer, snakePlantCard, peaceLilyCard);
 
-  return { quizContainer, quizTitle, quizBanner, quizBannerContainer, questionContainer, quizSubtitle, cardContainer, quizDescription, startQuizBtn, moreInfoBtn, restartQuizBtn };
+  return { quizContainer, quizTitle, questionContainer, quizSubtitle, cardContainer, quizDescription, startQuizBtn, moreInfoBtn, restartQuizBtn };
 }
 
 const createPlantCard = (title, subtitle, imageSrc) => {
