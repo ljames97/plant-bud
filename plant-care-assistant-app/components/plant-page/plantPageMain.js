@@ -72,7 +72,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
     const plantInfoContainer = document.querySelector('.plant-info');
-    if (plantInfoContainer) {
+    if (plantInfoContainer.quizResult) {
       const quizContainer = document.querySelector('.quiz-container');
       const resultContainers = document.querySelectorAll('.result-container');
       plantInfoContainer.remove();
@@ -82,6 +82,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
       return;
     }
 
+    plantInfoContainer.remove();
     resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
   }, `PLANT_PAGE_${sectionClass}`);
 }

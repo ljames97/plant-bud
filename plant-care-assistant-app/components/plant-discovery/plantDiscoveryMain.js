@@ -64,7 +64,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
       appendChildren(searchResultsContainer, plantElement);
 
       localEventManager.addEventListener(plantElement, 'click', () => {
-        hideElements(mainSection);
+        clearSection(mainSection, 'PLANT_SEARCH');
         appendChildren(mainSection, plantInfoContainer);
         renderPlantDetails(plant, plantInfoContainer, backButtonText, sectionClass, sectionRender);
       }, 'PLANT_SEARCH');

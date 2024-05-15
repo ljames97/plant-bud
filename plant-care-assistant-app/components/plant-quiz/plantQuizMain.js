@@ -154,6 +154,7 @@ export const renderQuizResults = (results) => {
   }
 
   quizContainer.plantResults = displayedResults;
+  plantInfoContainer.quizResult = true;
 
   displayedResults.forEach(result => {
     const { resultContainer } = createResultElements(result);
