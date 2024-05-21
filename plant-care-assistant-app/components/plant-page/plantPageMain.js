@@ -7,7 +7,7 @@
 import { clearSection, createElement, resetSection } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, getDate, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
-import { createDynamicPlantElements, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
+import { createDynamicPlantElements, createIcon, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
 
 import { plantLog } from "../plant-log/plantLogMain";
 import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
@@ -24,8 +24,10 @@ import { renderQuizResults } from "../plant-quiz/plantQuizMain";
  */
 export const renderPlantDetails = (plant, sectionContainer, backButtonText, sectionClass, sectionRender) => {
   const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
-  const backToDashboard = createElement({tagName: 'p', textContent: backButtonText});
   const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: ['permanent-delete-btn']});
+  const backToDashboard = createElement({tagName: 'div', classEl: ['back-button']});
+  const backButtonImg = createElement({tagName: 'img'});
+  backButtonImg.src = '../../public/back-button.png';
   let sectionBtn = '';
 
   sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
@@ -38,8 +40,8 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
 
   const tagContainer = createTags(plant);
 
-  appendChildren(subHeader, backToDashboard);
-  appendChildren(headerContainer, plantTitle, sectionBtn);
+  appendChildren(backToDashboard, backButtonImg);
+  appendChildren(headerContainer, backToDashboard, plantTitle, sectionBtn);
   appendChildren(plantImageContainer, plantImage);
   appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
   appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
@@ -50,7 +52,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
       toggleEditMode(plant, sectionBtn, {plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
   } 
   
-  if (sectionBtn.textContent === 'Add to My Plants' || sectionBtn.textContent === 'Added to My Plants') {
+  if (sectionBtn.textContent === 'Add to plants' || sectionBtn.textContent === '') {
     const tasksBtn = document.getElementById('task-nav');
     const requirmentBtn = document.querySelector('.add-requirement-btn');
     tasksBtn.style.display = 'none';
@@ -72,7 +74,7 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {
     const plantInfoContainer = document.querySelector('.plant-info');
-    if (plantInfoContainer.quizResult) {
+    if (plantInfoContainer && plantInfoContainer.quizResult) {
       const quizContainer = document.querySelector('.quiz-container');
       const resultContainers = document.querySelectorAll('.result-container');
       plantInfoContainer.remove();
@@ -80,9 +82,10 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
       showElements('flex', quizContainer);
       renderQuizResults(quizContainer.plantResults);
       return;
+    } else if (plantInfoContainer && !plantInfoContainer.quizResult) {
+      plantInfoContainer.remove();
     }
 
-    plantInfoContainer.remove();
     resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
   }, `PLANT_PAGE_${sectionClass}`);
 }
@@ -128,7 +131,7 @@ const unarchiveBtnHandler = (plant, sectionClass, sectionRender) => {
  */
 const addToPlantsHandler = (sectionBtn, plant) => {
   copyToMyPlants(plant);
-  replaceButton(sectionBtn, 'Added to My Plants', plant);
+  replaceButton(sectionBtn, plant);
 }
 
 /**
@@ -155,9 +158,9 @@ export const permanentDeletePlant = (plant) => {
  * @param {String} text 
  * @param {Object} plant 
  */
-const replaceButton = (button, text, plant) => {
-  const newText = createElement({tagName: 'p', textContent: text});
-  button.parentNode.replaceChild(newText, button);
+const replaceButton = (button, plant) => {
+  const newIcon = createIcon();
+  button.parentNode.replaceChild(newIcon, button);
   plant.isAdded = true;
 }
 

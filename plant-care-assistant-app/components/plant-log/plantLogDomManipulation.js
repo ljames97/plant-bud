@@ -355,10 +355,11 @@ const createTaskMenu = (menuDots, task, taskElement) => {
   localEventManager.addEventListener(deleteTask, 'click', () => {
     deleteTaskHandler(task, taskElement);
     updateTaskIcon();
+    updateTaskBar();
   }, 'PLANT_LOG');
 }
 
-const editTaskHandler = (task) => {
+export const editTaskHandler = (task) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const editTaskModal = createElement({tagName: 'div', classEl: ['new-modal']});
   const editTaskInput = createElement({tagName: 'input', placeholder: task.description, classEl: ['new-input']});
@@ -391,6 +392,10 @@ const resetTaskSection = () => {
   const todoBtn = document.querySelector('.to-do-select');
   const searchTaskContainer = document.querySelector('.task-results');
 
+  if (!completeBtn) {
+    return;
+  }
+
   if (completeBtn.active === true) {
     taskSelectHandler(completeBtn, todoBtn, true, searchTaskContainer);
   } else {
@@ -400,13 +405,11 @@ const resetTaskSection = () => {
   updateTaskBar();
 }
 
-const deleteTaskHandler = (task, taskElement) => {
+export const deleteTaskHandler = (task, taskElement) => {
   plantLog.deletePlantTask(task.id);
 
   if (taskElement && taskElement.parentNode) {
     taskElement.parentNode.removeChild(taskElement);
   }
-
-  updateTaskBar();
 }
 

@@ -167,6 +167,9 @@ const createMenuItems = (menuDots, plant) => {
 }
 
 const quickAddHandler = (quickAdd, plant) => {
+  if (plant.isAdded === true) {
+    return;
+  }
   copyToMyPlants(plant);
   plant.isAdded = true;
   replaceElement(quickAdd);

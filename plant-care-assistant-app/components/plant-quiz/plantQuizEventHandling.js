@@ -50,10 +50,10 @@ export const restartQuizHandler = () => {
  * @param {HTMLElement} startQuizBtn 
  * @param {HTMLElement} quizContainer 
  */
-export const startQuizBtnHandler = (cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, quizContainer) => {
-  hideElements(cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn)
+export const startQuizBtnHandler = (cardContainer, quizSubtitle, quizDescription, startQuizBtn, quizContainer) => {
+  hideElements(cardContainer, quizSubtitle, quizDescription, startQuizBtn)
 
-  const restartQuizBtn = document.querySelector('.restart-quiz-btn');
+  const restartQuizBtn = document.querySelector('.back-button');
   localEventManager.addEventListener(restartQuizBtn, 'click', () => {
     restartQuizHandler(quizContainer);
   }, 'PLANT_QUIZ');

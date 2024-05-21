@@ -5,38 +5,27 @@ TODO
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
 - + icon on overview, add user comments
 
-- modal swipe for quiz and plant page
-- swpie to remove tasks / requirements
 - tasks ideas: name, notes, date, alert, priority
 - tasks needs to be 1 tas(k) in plant log
-- images for all plants in the main plant directory
+- task edit on plant page needs to update 
+- edit/delete requirements 
 
-- more info btn on quiz
-
-- tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks
+- tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks, full JDOCS documentation
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
 
 - profile / home button functionality -
-or have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
+have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
 and have home button for overview of the daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
 
 
 TODO plant-quiz:
 - clean up appendChildren elements, need additional containers
 - modal for plant quiz
-- quiz banner image
-- quiz css and extra features (sliders, progress bar etc...)
-
-TODO plant-log:
-- pin plant to top of grid
-- form error and message at renderManualPlantForm error handling
-- max amount of plants shown in grid - add carousel function
+- quiz css and extra features (sliders, progress bar etc...) also progress bar for when adding new plant
 
 TODO plant-page:
-- local storage
-- delete/reset plant details - Are you sure? also prompt to save
-- (plant requirements)
-- (css/UI considerations for the plant search. eg. perhaps a modal for the search instead of cancel button + animations)
+- local storage/server ideas
+- delete/reset plant details - Are you sure? also prompt to save  
 
 CSS/aesthetics:
 - error handling/error messages UI, error handling for DOMManipulation functions

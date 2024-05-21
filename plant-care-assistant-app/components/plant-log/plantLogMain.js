@@ -473,7 +473,3 @@ export const populatePlantGrid = (plants) => {
     addPlantToGrid(plant);
   });
 }
-
-dummyPlants.forEach(plant => {
-  plantLog.addToUserPlantLog(plant);
-})

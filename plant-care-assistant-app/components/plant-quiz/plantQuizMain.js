@@ -18,9 +18,9 @@ import { renderPlantDetails } from "../plant-page/plantPageMain";
  */
 export const renderPlantQuiz = () => {
   const { plantQuiz } = domElements;
-  const { quizContainer, quizTitle, questionContainer, cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, restartQuizBtn } = createPlantQuizElements();
+  const { quizContainer, quizTitle, questionContainer, cardContainer, quizSubtitle, quizDescription, startQuizBtn, restartQuizBtn } = createPlantQuizElements();
 
-  appendChildren(questionContainer, quizSubtitle, quizDescription, cardContainer, startQuizBtn, moreInfoBtn);
+  appendChildren(questionContainer, quizSubtitle, quizDescription, cardContainer, startQuizBtn);
   appendChildren(quizContainer, restartQuizBtn, quizTitle, questionContainer);
   appendChildren(plantQuiz, quizContainer);
 
@@ -28,7 +28,7 @@ export const renderPlantQuiz = () => {
   restartQuizBtn.style.display = 'none';
 
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
-    startQuizBtnHandler(cardContainer, quizSubtitle, quizDescription, startQuizBtn, moreInfoBtn, quizContainer);
+    startQuizBtnHandler(cardContainer, quizSubtitle, quizDescription, startQuizBtn, quizContainer);
     restartQuizBtn.style.display = 'block';
     quizTitle.style.display = 'none';
   }, 'PLANT_QUIZ');

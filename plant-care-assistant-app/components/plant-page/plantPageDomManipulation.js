@@ -4,8 +4,9 @@
  */
 
 import { buttonHighlight } from "../plant-discovery/plantDiscoveryDomManipulation";
-import { plantLogElements } from "../plant-log/plantLogDomManipulation";
-import { addPlantToGrid, plantLog } from "../plant-log/plantLogMain";
+import { createMenuDots, handleDocumentClick } from "../plant-discovery/plantDiscoveryMain";
+import { deleteTaskHandler, editTaskHandler, plantLogElements } from "../plant-log/plantLogDomManipulation";
+import { addPlantToGrid, plantLog, renderQuickMenu } from "../plant-log/plantLogMain";
 import { clearSection, createElement } from "../utils/globalDomManipulation";
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
@@ -206,8 +207,10 @@ const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
   const newTaskElement = createElement({tagName: 'div', classEl: ['new-task']});
   const taskSelectBtn = createElement({tagName: 'button', classEl: ['select-btn']});
   const newUserTask = createElement({tagName: 'p', textContent: newTaskInput, classEl: ['new-user-task']});
+  const menuDots = createMenuDots();
+  menuDots.classList.add('plant-page-task-menu')
 
-  appendChildren(newTaskElement, taskSelectBtn, newUserTask);
+  appendChildren(newTaskElement, taskSelectBtn, newUserTask, menuDots);
   appendChildren(tasks, newTaskElement);
 
   console.log(plant);
@@ -227,6 +230,29 @@ const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
     selectButtonHandler(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
   }, `PLANT_PAGE_${sectionClass}`);
+
+  localEventManager.addEventListener(menuDots, 'click', (event) => {
+    renderQuickMenu(event, createTaskMenu, menuDots, foundTask, newTaskElement);
+    localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_PAGE');
+  })
+}
+
+const createTaskMenu = (menuDots, task, taskElement) => {
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const editTask = createElement({tagName: 'p', textContent: 'Edit', classEl: ['drop-menu-item']});
+  const deleteTask = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item']});
+
+  appendChildren(dropMenuContainer, editTask, deleteTask);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(editTask, 'click', () => {
+    editTaskHandler(task);
+
+  }, 'PLANT_PAGE');
+
+  localEventManager.addEventListener(deleteTask, 'click', () => {
+    deleteTaskHandler(task, taskElement);
+  }, 'PLANT_PAGE');
 }
 
 export const setSelectButton = (task, taskSelectBtn, activeColor, activeBorder, inactiveColor, inactiveBorder) => {
@@ -344,10 +370,19 @@ export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
   if (backButtonText === '← back to My Plants') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: ['edit-btn']});
   } if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Add to My Plants', classEl: ['add-to-plants-btn']});
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Add to plants', classEl: ['add-to-plants-btn']});
   } if (backButtonText === '← back to Plant Archive') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Unarchive', classEl: ['add-to-plants-btn']});
   } else {
-    return sectionBtn = createElement({tagName: 'p', textContent: 'Added to My Plants'})
+    return sectionBtn = createIcon();
   }
+}
+
+export const createIcon = () => {
+  const newIcon = createElement({tagName: 'div', classEl: ['added-to-plants-icon', 'back-button']});
+  const newIconImg = createElement({tagName: 'img'});
+  newIconImg.src = '../../public/added-icon.png'
+  appendChildren(newIcon, newIconImg);
+
+  return newIcon;
 }
