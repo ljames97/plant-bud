@@ -370,7 +370,7 @@ export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
   if (backButtonText === '← back to My Plants') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: ['edit-btn']});
   } if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Add to plants', classEl: ['add-to-plants-btn']});
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Add plant', classEl: ['add-to-plants-btn']});
   } if (backButtonText === '← back to Plant Archive') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Unarchive', classEl: ['add-to-plants-btn']});
   } else {

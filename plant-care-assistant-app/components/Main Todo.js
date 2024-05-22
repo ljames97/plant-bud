@@ -5,10 +5,12 @@ TODO
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
 - + icon on overview, add user comments
 
+- task tick icon
 - tasks ideas: name, notes, date, alert, priority
 - tasks needs to be 1 tas(k) in plant log
 - task edit on plant page needs to update 
-- edit/delete requirements 
+- edit/delete requirements
+- more text for the add new plant modal/slider progress
 
 - tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks, full JDOCS documentation
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
@@ -36,13 +38,15 @@ CSS/aesthetics:
 - desktop css (responsive design)
 - review/document all functions
 
+
+- server to store/fetch user data
 - unit testing / js tests
 - production ideas/hosting
 - login authentication + default login page
-- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?), server to store/fetch user data
+- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?)
 - README file
 
-- react refactor
+- react refactor (June)
 
 - new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
 

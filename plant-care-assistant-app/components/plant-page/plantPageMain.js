@@ -46,13 +46,15 @@ export const renderPlantDetails = (plant, sectionContainer, backButtonText, sect
   appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
   appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
 
+  window.scrollTo(0, 0);
+
   // conditional logic for edit button, add plant button or unarchive button
   if (sectionBtn.classList.contains('edit-btn')) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
       toggleEditMode(plant, sectionBtn, {plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer}, sectionClass, sectionRender), `PLANT_PAGE_${sectionClass}`)
   } 
   
-  if (sectionBtn.textContent === 'Add to plants' || sectionBtn.textContent === '') {
+  if (sectionBtn.textContent === 'Add plant' || sectionBtn.textContent === '') {
     const tasksBtn = document.getElementById('task-nav');
     const requirmentBtn = document.querySelector('.add-requirement-btn');
     tasksBtn.style.display = 'none';
@@ -183,7 +185,8 @@ export const copyToMyPlants = (plant) => {
     image: plant.image,
     id: plant.id,
     requirements: plant.requirements,
-    tasks: plant.tasks
+    tasks: plant.tasks,
+    tags: plant.tags
   };
 
   plantLog.addToUserPlantLog(newPlant);

@@ -13,7 +13,7 @@ import { domElements, resetSection } from "../utils/globalDomManipulation";
  * @param {HTMLElement} plantName - user input field for plant name (date, description etc.)
  * @param {HTMLElement} dateAdded 
  * @param {HTMLElement} description 
- * @param {HTMLElement} imageDataUrl
+ * @param {String} imageDataUrl - image url
  */
 export const submitNewPlantHandler = (event, plantName, dateAdded, description, imageDataUrl) => {
   const { myPlantsBtn } = domElements;
@@ -31,9 +31,8 @@ export const submitNewPlantHandler = (event, plantName, dateAdded, description, 
   };
 
   plantLog.addToUserPlantLog(newPlant);
-  
+
   if (myPlantsBtn.classList.contains('active')) {
-    console.log('RENDER')
     resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
   }
 }

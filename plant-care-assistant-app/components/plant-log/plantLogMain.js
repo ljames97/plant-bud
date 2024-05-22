@@ -322,12 +322,14 @@ const createPlantMenu = (menuDots, plant) => {
   })
 
   localEventManager.addEventListener(addTag, 'click', () => {
+    console.log(plant);
     if (plant.tags.length > 1) {
       renderMaxTagsError();
       return;
     }
 
     addNewTagHandler(plant);
+    console.log('click')
   })
 
   localEventManager.addEventListener(pinPlant, 'click', (event) => {

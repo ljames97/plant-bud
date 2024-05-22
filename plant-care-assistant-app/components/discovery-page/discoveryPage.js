@@ -2,7 +2,7 @@ import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
 import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
 import { clearSection, createElement, domElements } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, removeChildren } from "../utils/gobalUtility";
+import { appendChildren } from "../utils/gobalUtility";
 
 
 export const renderDiscoveryPage = () => {
