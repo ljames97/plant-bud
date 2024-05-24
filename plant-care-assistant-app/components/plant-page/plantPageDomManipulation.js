@@ -3,12 +3,10 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { buttonHighlight } from "../plant-discovery/plantDiscoveryDomManipulation";
-import { createMenuDots, handleDocumentClick } from "../plant-discovery/plantDiscoveryMain";
 import { deleteTaskHandler, editTaskHandler, plantLogElements } from "../plant-log/plantLogDomManipulation";
 import { addPlantToGrid, plantLog, renderQuickMenu } from "../plant-log/plantLogMain";
-import { clearSection, createElement } from "../utils/globalDomManipulation";
-import { localEventManager } from "../utils/globalEventHandling";
+import { buttonHighlight, clearSection, createElement, createMenuDots } from "../utils/globalDomManipulation";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, findItemInArray, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
 import { renderPlantSection } from "./plantPageMain";
 

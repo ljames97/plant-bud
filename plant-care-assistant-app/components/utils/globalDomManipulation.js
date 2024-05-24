@@ -6,7 +6,7 @@
 
 import { renderMyPlants } from "../plant-log/plantLogMain";
 import { localEventManager } from "./globalEventHandling";
-import { hideElements, showElements } from "./gobalUtility";
+import { appendChildren, hideElements, showElements } from "./gobalUtility";
 
 /**
  * A manager for retreiving DOM elements.
@@ -186,4 +186,43 @@ export const resetSection = (sectionClass, renderSection, eventRegistryName) => 
   const section = document.querySelector(sectionClass);
   clearSection(section, eventRegistryName);
   renderSection();
+}
+
+/**
+ * Highlights the active button and adds/removes 'active' class from the button class list.
+ * Best used for highlighting navigation buttons.
+ * @param {*} activeBtn 
+ * @param {*} activeBtnColor 
+ * @param {*} inactiveBtnColor 
+ * @param {*} activeTextColor 
+ * @param {*} inactiveTextColor 
+ * @param  {...any} inactiveBtns 
+ */
+export const buttonHighlight = (activeBtn, activeBtnColor, inactiveBtnColor, activeTextColor, inactiveTextColor, ...inactiveBtns) => {
+  activeBtn.classList.add('active');
+  activeBtn.style.backgroundColor = activeBtnColor;
+  activeBtn.style.color = activeTextColor;
+
+  inactiveBtns.forEach(button => {
+    button.style.backgroundColor = inactiveBtnColor;
+    button.style.color = inactiveTextColor;
+    button.classList.remove('active');
+  });
+}
+
+/**
+ * Creates and returns the menu dots container element.
+ * @returns Menu dots container element.
+ */
+export const createMenuDots = () => {
+  let menuDot = '';
+  const menuDotContainer = createElement({tagName: 'div', classEl: ['menu-dots-container']});
+  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
+  appendChildren(menuDotContainer, menuDot);
+  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
+  appendChildren(menuDotContainer, menuDot);
+  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
+  appendChildren(menuDotContainer, menuDot);
+
+  return menuDotContainer;
 }

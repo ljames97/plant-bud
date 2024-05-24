@@ -3,10 +3,11 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { plantDirectory } from "../utils/data";
-import { createElement, domElements } from "../utils/globalDomManipulation";
-import { localEventManager } from "../utils/globalEventHandling";
+import { renderQuickMenu } from "../plant-log/plantLogMain";
+import { buttonHighlight, createElement, createMenuDots, domElements } from "../utils/globalDomManipulation";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
+import { quickAddHandler } from "./planrDiscoveryEventHandling";
 import { renderNewPlantSearch, updateSearchResults } from "./plantDiscoveryMain";
 
 /**
@@ -37,7 +38,7 @@ export const createSearchInput = () => {
         return;
       }
       updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-    }, 'PLANT_SEAR');
+    }, 'PLANT_SEARCH');
   });
 
   appendChildren(searchContainer, searchTags);
@@ -45,6 +46,10 @@ export const createSearchInput = () => {
   return { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchTags, searchInput, plantsFoundCounter, searchResultsContainer };
 }
 
+/**
+ * Creates and returns search tags for plant discovery.
+ * @returns {Object} An object containing references to the created elements.
+ */
 const createSearchTags = () => {
   const searchTags = createElement({tagName: 'div', classEl: ['search-tags']});
   const allTag = createElement({tagName: 'button', textContent: 'All', classEl: ['search-tag'], id: 'all-tag'});
@@ -64,15 +69,72 @@ const createSearchTags = () => {
   return { searchTags, tagButtons };
 }
 
-// needs to be placed in global domManipulation
-export const buttonHighlight = (activeBtn, activeBtnColor, inactiveBtnColor, activeTextColor, inactiveTextColor, ...inactiveBtns) => {
-  activeBtn.classList.add('active');
-  activeBtn.style.backgroundColor = activeBtnColor;
-  activeBtn.style.color = activeTextColor;
+/**
+ * Creates and returns a plant result element with the provided plant data.
+ * @param {Object} plant - plant object containing details to be displayed.
+ * @returns Plant result element.
+ */
+export const createPlantResultElement = (plant) => {
+  const plantElement = createElement({tagName: 'div', classEl: ['plant-element']});
+  const plantResultContainer = createElement({tagName: 'div', classEl: ['plant-result-container']});
+  const plantTextContainer = createElement({tagName: 'div', classEl: ['plant-text-container']});
+  const plantTitle = createElement({tagName: 'p', textContent: plant.name, classEl: ['plant-result-title']});
+  const plantDescription = createElement({tagName: 'p', textContent: plant.shortDescription, classEl: ['plant-result-description']});
+  const plantTag = createElement({tagName: 'p', textContent: plant.skill[0], classEl: ['plant-result-tag']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-result-image']});
+  const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-result-image-container']});
+  const lineSeparator = createElement({tagName: 'div', classEl: ['line-separator']});
+  plantImage.src = plant.image;
+  const menuDotContainer = createMenuDots();
+  const searchDropMenu = createElement({tagName: 'div', classEl: ['search-drop-menu']});
+  plantElement.plantObject = plant;
 
-  inactiveBtns.forEach(button => {
-    button.style.backgroundColor = inactiveBtnColor;
-    button.style.color = inactiveTextColor;
-    button.classList.remove('active');
-  });
+  appendChildren(plantTextContainer, plantTitle, plantDescription, plantTag);
+  appendChildren(plantImageContainer, plantImage);
+  appendChildren(searchDropMenu, menuDotContainer);
+  appendChildren(plantResultContainer, plantImageContainer, plantTextContainer, searchDropMenu);
+  appendChildren(plantElement, plantResultContainer, lineSeparator);
+
+  localEventManager.addEventListener(menuDotContainer, 'click', (event) => {
+    renderQuickMenu(event, createMenuItems, menuDotContainer, plant);
+    localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
+  }, 'PLANT_LOG');
+
+  return plantElement;
+}
+
+/**
+ * Toggles the visibility of the menu by removing the existing drop menu container if it exists.
+ */
+export const toggleMenu = () => {
+  const existingMenu = document.querySelector('.drop-menu-container');
+  if (existingMenu) {
+      existingMenu.remove();
+  }
+}
+
+/**
+ * Creates and appends menu items to the menu dots container.
+ * @param {HTMLElement} menuDots - menu dots container element.
+ * @param {Object} plant - plant object for which the menu items are being created.
+ */
+const createMenuItems = (menuDots, plant) => {
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
+
+  appendChildren(dropMenuContainer, quickAdd);
+  appendChildren(menuDots, dropMenuContainer);
+
+  localEventManager.addEventListener(quickAdd, 'click', () => {
+    quickAddHandler(quickAdd, plant);
+  }, 'PLANT_SEARCH');
+}
+
+/**
+ * Replaces an element with a new element indicating the plant has been added.
+ * @param {HTMLElement} element - element to be replaced.
+ */
+export const replaceElement = (element) => {
+  const newText = createElement({tagName: 'p', textContent: 'Added', classEl: ['drop-menu-item']});
+  element.parentNode.replaceChild(newText, element);
 }

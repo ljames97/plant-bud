@@ -4,17 +4,15 @@
  * To search for plants in the plant directory and render results on screen.
  */
 
-import { domElements, createElement, clearSection, resetSection } from "../utils/globalDomManipulation"
-import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, hideElements } from "../utils/gobalUtility";
-import { createSearchInput } from "./plantDiscoveryDomManipulation";
-
-import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
+import { domElements, createElement, clearSection } from "../utils/globalDomManipulation"
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
+import { appendChildren } from "../utils/gobalUtility";
+import { createPlantResultElement, createSearchInput } from "./plantDiscoveryDomManipulation";
 import { plantDirectory } from "../utils/data";
-import { plantLog, renderQuickMenu } from "../plant-log/plantLogMain";
+import { plantElementClickHandler } from "./planrDiscoveryEventHandling";
 
 /**
- * Render plant search input on screen. Gets search elements from createSearchInput and appends them to the DOM.
+ * Render plant search input on screen. Get search elements from createSearchInput and append to the DOM.
  */
 export const renderNewPlantSearch = () => {
   const { sectionHeader, plantDiscoveryTitle, searchContainer, searchInput, plantsFoundCounter, searchResultsContainer } = createSearchInput();
@@ -36,13 +34,13 @@ export const renderNewPlantSearch = () => {
 
 /**
  * Live search results as user types plant name into the search field.
- * @param {HTMLElement} mainSection - eg. plantLogEl, plantQuiz, plantDiscovery.
- * @param {HTMLElement} searchInput
- * @param {HTMLElement} searchResultsContainer
- * @param {Array} searchArray - plantDirectory or userPlantLog.
- * @param {string} backButtonText - '← back to My Plants', '← back to Plant Quiz' etc.
- * @param {string} sectionClass - '.plant-log', '.plant-quiz' etc.
- * @param {function} sectionRender - renderMyPlants, renderPlantQuiz etc.
+ * @param {HTMLElement} mainSection - main section element where search results will be appended.
+ * @param {string} searchInput - current search input value.
+ * @param {HTMLElement} searchResultsContainer - container for displaying search results.
+ * @param {Array} searchArray - array to search within (plantDirectory or userPlantLog).
+ * @param {string} backButtonText - text for the back button.
+ * @param {string} sectionClass - class for the section.
+ * @param {Function} sectionRender - function to render the section.
  */
 export const updateSearchResults = (mainSection, searchInput, searchResultsContainer, searchArray, backButtonText, sectionClass, sectionRender) => {
   clearSection(searchResultsContainer);
@@ -64,9 +62,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
       appendChildren(searchResultsContainer, plantElement);
 
       localEventManager.addEventListener(plantElement, 'click', () => {
-        clearSection(mainSection, 'PLANT_SEARCH');
-        appendChildren(mainSection, plantInfoContainer);
-        renderPlantDetails(plant, plantInfoContainer, backButtonText, sectionClass, sectionRender);
+        plantElementClickHandler(mainSection, plantInfoContainer, plant, backButtonText, sectionClass, sectionRender);
       }, 'PLANT_SEARCH');
     });
   }
@@ -74,6 +70,10 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
   updatePlantCounter(filteredPlants);
 }
 
+/**
+ * Updates the plant counter display based on the number of filtered plants
+ * @param {Array} filteredPlants - array of filtered plant objects.
+ */
 const updatePlantCounter = (filteredPlants) => {
   const plantsFoundCounter = document.querySelector('.plants-found-counter');
   
@@ -86,6 +86,10 @@ const updatePlantCounter = (filteredPlants) => {
   plantsFoundCounter.textContent = text;
 }
 
+/**
+ * Filters the plant directory based on the active skill tag button.
+ * @returns Array of filtered plant objects based on the selected skill tag.
+ */
 const getFilteredPlantsArray = () => {
   const allTag = document.getElementById('all-tag');
   const beginnerTag = document.getElementById('beginner-tag');
@@ -102,87 +106,5 @@ const getFilteredPlantsArray = () => {
         return plantDirectory.filter(plant => plant.skill[0] === button.textContent);
       }
     }
-  }
-}
-
-const createPlantResultElement = (plant) => {
-  const plantElement = createElement({tagName: 'div', classEl: ['plant-element']});
-  const plantResultContainer = createElement({tagName: 'div', classEl: ['plant-result-container']});
-  const plantTextContainer = createElement({tagName: 'div', classEl: ['plant-text-container']});
-  const plantTitle = createElement({tagName: 'p', textContent: plant.name, classEl: ['plant-result-title']});
-  const plantDescription = createElement({tagName: 'p', textContent: plant.shortDescription, classEl: ['plant-result-description']});
-  const plantTag = createElement({tagName: 'p', textContent: plant.skill[0], classEl: ['plant-result-tag']});
-  const plantImage = createElement({tagName: 'img', classEl: ['plant-result-image']});
-  const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-result-image-container']});
-  const lineSeparator = createElement({tagName: 'div', classEl: ['line-separator']});
-  plantImage.src = plant.image;
-  const menuDotContainer = createMenuDots();
-  const searchDropMenu = createElement({tagName: 'div', classEl: ['search-drop-menu']});
-  plantElement.plantObject = plant;
-
-  appendChildren(plantTextContainer, plantTitle, plantDescription, plantTag);
-  appendChildren(plantImageContainer, plantImage);
-  appendChildren(searchDropMenu, menuDotContainer);
-  appendChildren(plantResultContainer, plantImageContainer, plantTextContainer, searchDropMenu);
-  appendChildren(plantElement, plantResultContainer, lineSeparator);
-
-  localEventManager.addEventListener(menuDotContainer, 'click', (event) => {
-    renderQuickMenu(event, createMenuItems, menuDotContainer, plant);
-    localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
-  }, 'PLANT_LOG');
-
-  return plantElement;
-}
-
-export const createMenuDots = () => {
-  let menuDot = '';
-  const menuDotContainer = createElement({tagName: 'div', classEl: ['menu-dots-container']});
-  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
-  appendChildren(menuDotContainer, menuDot);
-  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
-  appendChildren(menuDotContainer, menuDot);
-  menuDot = createElement({tagName: 'div', classEl: ['menu-dot']});
-  appendChildren(menuDotContainer, menuDot);
-
-  return menuDotContainer;
-}
-
-export const toggleMenu = () => {
-  const existingMenu = document.querySelector('.drop-menu-container');
-  if (existingMenu) {
-      existingMenu.remove();
-  }
-}
-
-const createMenuItems = (menuDots, plant) => {
-  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
-  const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
-
-  appendChildren(dropMenuContainer, quickAdd);
-  appendChildren(menuDots, dropMenuContainer);
-
-  localEventManager.addEventListener(quickAdd, 'click', () => {
-    quickAddHandler(quickAdd, plant);
-  }, 'PLANT_SEARCH');
-}
-
-const quickAddHandler = (quickAdd, plant) => {
-  if (plant.isAdded === true) {
-    return;
-  }
-  copyToMyPlants(plant);
-  plant.isAdded = true;
-  replaceElement(quickAdd);
-}
-
-const replaceElement = (element) => {
-  const newText = createElement({tagName: 'p', textContent: 'Added', classEl: ['drop-menu-item']});
-  element.parentNode.replaceChild(newText, element);
-}
-
-export const handleDocumentClick = (event) => {
-  const dropMenuContainer = document.querySelector('.drop-menu-container');
-  if (dropMenuContainer && !dropMenuContainer.contains(event.target)) {
-    dropMenuContainer.remove();
   }
 }

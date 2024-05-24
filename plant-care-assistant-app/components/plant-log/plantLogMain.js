@@ -4,16 +4,16 @@
  * For displaying user plants on the dashboard.
  */
 
-import { domElements, createElement, clearSection, resetSection } from "../utils/globalDomManipulation";
+import { domElements, createElement, clearSection, resetSection, createMenuDots } from "../utils/globalDomManipulation";
 import { appendChildren, findItemInArray, hideElements, removeChildren, removeItemFromArray } from "../utils/gobalUtility";
 import { dummyPlants, plantDirectory } from "../utils/data";
 import { setupUserPlantGridEventListener } from "./plantLogEventHandling";
-import { localEventManager } from "../utils/globalEventHandling";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
 import { plantLogElements, updateTaskBar } from "./plantLogDomManipulation";
-import { createMenuDots, handleDocumentClick, toggleMenu, updateSearchResults } from "../plant-discovery/plantDiscoveryMain";
 import { removeModal, setUpModal } from "../plant-page/plantPageDomManipulation";
 import { deletePlantBtnHandler } from "../plant-page/plantPageEventHandling";
 import { permanentDeletePlant } from "../plant-page/plantPageMain";
+import { toggleMenu } from "../plant-discovery/plantDiscoveryDomManipulation";
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.

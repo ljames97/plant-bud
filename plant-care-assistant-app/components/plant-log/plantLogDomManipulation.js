@@ -3,13 +3,11 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { buttonHighlight } from "../plant-discovery/plantDiscoveryDomManipulation";
-import { createMenuDots, handleDocumentClick, toggleMenu } from "../plant-discovery/plantDiscoveryMain";
 import { removeModal, selectButtonHandler, setSelectButton, setUpModal } from "../plant-page/plantPageDomManipulation";
-import { clearSection, createElement, domElements, resetSection } from "../utils/globalDomManipulation"
+import { buttonHighlight, clearSection, createElement, createMenuDots, domElements, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
-import { plantLog, populatePlantGrid, renderDeletedPlants, renderMyPlants, renderPlantGrid, renderQuickMenu, resetPlantGrid, setPlantInfoBar, updatePlantInfoBar, updateTaskIcon } from "./plantLogMain";
+import { appendChildren, hideElements, showElements } from "../utils/gobalUtility";
+import { plantLog, renderDeletedPlants, renderMyPlants, renderQuickMenu, resetPlantGrid, setPlantInfoBar, updatePlantInfoBar, updateTaskIcon } from "./plantLogMain";
 
 /**
  * Creates and returns dynamic plant log elements.
@@ -66,6 +64,8 @@ const dynamicPlantLogElementsManager = () => {
   }
 }
 
+export const plantLogElements = dynamicPlantLogElementsManager();
+
 const editSelectHandler = (event, menuDots) => {
   renderQuickMenu(event, createSelectMenu, menuDots, null);
 }
@@ -81,12 +81,14 @@ const createSelectMenu = (menuDots) => {
   appendChildren(menuDots, dropMenuContainer);
 
   localEventManager.addEventListener(deleteSelected, 'click', () => {
-    selectedPlants.forEach(plant => plantLog.deletePlantFromLog(plant));
-    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+    deleteSelectedHandler(selectedPlants);
   })
 }
 
-export const plantLogElements = dynamicPlantLogElementsManager();
+export const deleteSelectedHandler = (selectedPlants) => {
+  selectedPlants.forEach(plant => plantLog.deletePlantFromLog(plant));
+  resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+}
 
 const editButtonHandler = (editDots, editButton) => {
   const selectButton = document.querySelectorAll('.plant-select-button');

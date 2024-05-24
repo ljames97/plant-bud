@@ -4,7 +4,6 @@
  */
 
 import { renderAddPlantModal } from "../add-plant/addPlantMain";
-import { renderDiscoveryPage } from "../discovery-page/discoveryPage";
 import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
 import { renderMyPlants } from "../plant-log/plantLogMain";
 import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
@@ -202,5 +201,16 @@ const toggleMobileNav = (isOpen) => {
     mobileNavModal.classList.add('show');
   } else {
     mobileNavModal.classList.remove('show');
+  }
+}
+
+/**
+ * Handles document click events to remove the drop menu container if the click is outside the container.
+ * @param {Event} event 
+ */
+export const handleDocumentClick = (event) => {
+  const dropMenuContainer = document.querySelector('.drop-menu-container');
+  if (dropMenuContainer && !dropMenuContainer.contains(event.target)) {
+    dropMenuContainer.remove();
   }
 }
