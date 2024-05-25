@@ -4,10 +4,8 @@
  */
 
 import { createElement } from "../utils/globalDomManipulation";
-import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
-import { backButtonHandler, nextButtonHandler } from "./addPlantEventHandling";
-import { updateModalContent } from "./addPlantMain";
+import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantEventHandling";
 
 /**
  * Create elements for the add new plant modal. 
@@ -48,20 +46,12 @@ const createFileInputElements = (input) => {
   const heading = createElement({tagName: 'p', textContent: 'Upload a photo', classEl: ['upload-image-heading']});
   const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img']});
   imageInputImg.src = '../../public/footer-nav-icons/add.png';
-  let imageUrl;
 
   appendChildren(labelElement, heading, imageInputImg, input);
 
-  localEventManager.addEventListener(input, 'change', (event) => {
-    imageChangeHandler(event, (dataUrl) => {
-      imageUrl = dataUrl;
-      imageInputImg.src = dataUrl;
-      imageInputImg.classList.add('large-image');
-      heading.style.display = 'none';
-    })
-  }, 'ADD_PLANT');
+  const getImageUrl = setUpInputChangeListener(input, imageInputImg, heading);
 
-  return { labelElement, getImageUrl: () => imageUrl };
+  return { labelElement, getImageUrl };
 }
 
 /**
@@ -84,26 +74,7 @@ const createButtons = (state, input, errorMessage, buttonText, isFileInput, getI
   }
   appendChildren(buttons, nextButton);
 
-  localEventManager.addEventListener(nextButton, 'click', (event) => {
-    if (input.value === '') {
-      errorMessage.style.display = 'block';
-      return;
-    }
-    const userInput = isFileInput ? input.files[0] : input.value;
-    const modal = document.querySelector('.new-modal');
-    const newState = nextButtonHandler(userInput, state, event, getImageUrl(), modal, backButton);
-    if (modal) {
-      updateModalContent(modal, newState);
-    }
-  }, 'ADD_PLANT');
-
-  localEventManager.addEventListener(backButton, 'click', () => {
-    const modal = document.querySelector('.new-modal');
-    const newState = backButtonHandler(state);
-    if (modal) {
-      updateModalContent(modal, newState);
-    }
-  }, 'ADD_PLANT');
+  setUpButtonEventListeners(nextButton, input, errorMessage, isFileInput, state, getImageUrl, backButton);
 
   return { buttons, nextButton, backButton };
 }

@@ -7,6 +7,7 @@ import { removeModal, selectButtonHandler, setSelectButton, setUpModal } from ".
 import { buttonHighlight, clearSection, createElement, createMenuDots, domElements, resetSection } from "../utils/globalDomManipulation"
 import { localEventManager } from "../utils/globalEventHandling";
 import { appendChildren, hideElements, showElements } from "../utils/gobalUtility";
+import { deleteSelectedHandler, editButtonHandler, editSelectHandler, serUpMenuButtonListeners, setUpPlantLogListeners, setUpTaskSelectListeners, taskSelectHandler } from "./plantLogEventHandling";
 import { plantLog, renderDeletedPlants, renderMyPlants, renderQuickMenu, resetPlantGrid, setPlantInfoBar, updatePlantInfoBar, updateTaskIcon } from "./plantLogMain";
 
 /**
@@ -39,13 +40,7 @@ const dynamicPlantLogElementsManager = () => {
       appendChildren(infoBarContainer, plantInfoBar, editButtonContainer);
       hideElements(editDots);
 
-      localEventManager.addEventListener(editButton, 'click', () => {
-        editButtonHandler(editDots, editButton);
-      }, 'PLANT_EDIT');
-
-      localEventManager.addEventListener(editDots, 'click', (event) => {
-        editSelectHandler(event, editDots);
-      }, 'PLANT_EDIT');
+      setUpPlantLogListeners(editButton, editDots);
 
       return { sectionHeader, menuButtons, plantInfoBar, infoBarContainer, taskSelectContainer, plantLogTitle, userPlantsContainer };
     },
@@ -66,11 +61,11 @@ const dynamicPlantLogElementsManager = () => {
 
 export const plantLogElements = dynamicPlantLogElementsManager();
 
-const editSelectHandler = (event, menuDots) => {
-  renderQuickMenu(event, createSelectMenu, menuDots, null);
-}
-
-const createSelectMenu = (menuDots) => {
+/**
+ * Creates the select menu with options based on user plant selections.
+ * @param {HTMLElement} menuDots 
+ */
+export const createSelectMenu = (menuDots) => {
   const userPlants = plantLog.getUserPlantLog();
   const selectedPlants = userPlants.filter(plant => plant.selected === true);
 
@@ -85,81 +80,36 @@ const createSelectMenu = (menuDots) => {
   })
 }
 
-export const deleteSelectedHandler = (selectedPlants) => {
-  selectedPlants.forEach(plant => plantLog.deletePlantFromLog(plant));
-  resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
-}
-
-const editButtonHandler = (editDots, editButton) => {
-  const selectButton = document.querySelectorAll('.plant-select-button');
-  const menu = document.querySelectorAll('.plant-menu');
-  if (editButton.editMode) {
-    hideElements(editDots);
-    editButton.textContent = 'Select';
-    editButton.editMode = false;
-
-    selectButton.forEach(btn => btn.style.display = 'none');
-    menu.forEach(menu => menu.style.display = 'flex');
-
-    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
-
+/**
+ * Toggles select state of select button.
+ * @param {HTMLElement} selectButton 
+ */
+export const toggleSelectButton = (selectButton) => {
+  if (!selectButton.isSelected) {
+    selectButton.style.backgroundColor = 'white';
+    selectButton.isSelected = true;
   } else {
-    showElements('flex', editDots);
-    editButton.textContent = 'Cancel';
-
-    selectButton.forEach(btn => btn.style.display = 'block');
-    menu.forEach(menu => menu.style.display = 'none');
-
-    editButton.editMode = true;
-    setUpPlantEventListener();
+    selectButton.style.backgroundColor = 'transparent';
+    selectButton.isSelected = false;
   }
 }
 
-// merge with setUpPlantGridEventListener
-const setUpPlantEventListener = () => {
-  const userPlantsContainer = document.querySelector('.user-plants');
-
-  localEventManager.removeAllEventListeners('PLANT_CONTAINER');
-
-  localEventManager.addEventListener(userPlantsContainer, 'click', (event) => {
-    let target = event.target;
-    while (target && target !== userPlantsContainer) {
-      if (target.classList.contains('plant-image')) {
-        const plantId = target.getAttribute('data-id');
-        const plant = plantLog.getPlantById(plantId, plantLog.getUserPlantLog());
-        const userPlantContainer = target.closest('.user-plant');
-        const selectButton = userPlantContainer.querySelector('.plant-select-button');
-        if (plant) {
-          toggleSelectButton(selectButton, plant);
-          togglePlantSelect(plant);
-        }
-        return;
-      }
-      target = target.parentNode;
-    }
-
-  }, 'PLANT_CONTAINER');
-
-  const toggleSelectButton = (selectButton) => {
-    if (!selectButton.isSelected) {
-      selectButton.style.backgroundColor = 'white';
-      selectButton.isSelected = true;
-    } else {
-      selectButton.style.backgroundColor = 'transparent';
-      selectButton.isSelected = false;
-    }
-  }
-
-  const togglePlantSelect = (plant) => {
-    if (!plant.selected) {
-      plant.selected = true
-    } else {
-      plant.selected = false;
-    }
+/**
+ * Toggles select state of plant.
+ * @param {Object} plant - 
+ */
+export const togglePlantSelect = (plant) => {
+  if (!plant.selected) {
+    plant.selected = true
+  } else {
+    plant.selected = false;
   }
 }
 
-const resetEditButton = () => {
+/**
+ * Resets the edit button state and hides edit options.
+ */
+export const resetEditButton = () => {
   const { editButton, editDots } = plantLogElements.getPlantLogElements();
   if (editButton.editMode) {
     hideElements(editDots);
@@ -168,6 +118,9 @@ const resetEditButton = () => {
   }
 }
 
+/**
+ * Creates and returns the menu buttons for the plant log.
+ */
 const createMenuButtons = () => {
   const {plantLogEl} = domElements
   const menuButtons = createElement({tagName: 'div', classEl: ['search-tags']});
@@ -188,52 +141,24 @@ const createMenuButtons = () => {
   archive.inactiveBtns = [all, tasks]
   const menuButtonsArray = [all, tasks, archive];
 
-  menuButtonsArray.forEach(button => {
-    localEventManager.addEventListener(button, 'click', () => {
-      buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
-      }
-    )
-  }, 'PLANT_NAV');
-
-  localEventManager.addEventListener(archive, 'click', () => {
-    archiveBtnClickHandler();
-  }, 'PLANT_NAV');
-
-  localEventManager.addEventListener(tasks, 'click', () => {
-    taskBtnHandler();
-  }, 'PLANT_NAV');
-
-  localEventManager.addEventListener(all, 'click', () => {
-    allBtnClickHandler();
-  }, 'PLANT_NAV')
+  serUpMenuButtonListeners(menuButtonsArray, archive, tasks, all);
 
   appendChildren(menuButtons, all, tasks, archive);
 
   return menuButtons;
 }
 
-const allBtnClickHandler = () => {
-  const { editButtonContainer} = plantLogElements.getPlantLogElements();
-  const searchTaskContainer = document.querySelector('.task-results');
+/**
+ * Displays the task selection container.
+ */
+export const renderTaskSelect = () => {
   const taskSelectContainer = document.querySelector('.task-select-container');
-  clearSection(searchTaskContainer, 'PLANT_LOG');
-  hideElements(taskSelectContainer);
-  resetEditButton();
-  showElements('flex', editButtonContainer);
-  resetPlantGrid(plantLog.getUserPlantLog());
-  updatePlantInfoBar();
+  taskSelectContainer.style.display = 'flex';
 }
 
-const taskBtnHandler = () => {
-  const { editButtonContainer } = plantLogElements.getPlantLogElements();
-  const searchTaskContainer = document.querySelector('.task-results');
-  clearSection(searchTaskContainer, 'PLANT_LOG');
-  hideElements(editButtonContainer);
-  renderTasksList(false);
-  renderTaskSelect();
-  updateTaskBar();
-}
-
+/**
+ * Creates and returns the task selection container with options for task filtering.
+ */
 const createTaskSelect = () => {
   const searchTaskContainer = document.querySelector('.task-results');
   const taskSelectContainer = createElement({tagName: 'div', classEl: ['task-select-container']});
@@ -243,48 +168,25 @@ const createTaskSelect = () => {
 
   appendChildren(taskSelectContainer, todo, separator, completed);
 
-  localEventManager.addEventListener(completed, 'click', () => {
-    taskSelectHandler(completed, todo, true, searchTaskContainer);
-    completed.active = true;
-  });
-
-  localEventManager.addEventListener(todo, 'click', () => {
-    taskSelectHandler(todo, completed, false, searchTaskContainer);
-    completed.active = false;
-  })
+  setUpTaskSelectListeners(completed, todo, searchTaskContainer);
 
   return taskSelectContainer;
 }
 
-const taskSelectHandler = (activeBtn, inactiveBtn, completedTaskState, searchTaskContainer) => {
-  clearSection(searchTaskContainer, 'PLANT_LOG');
-  renderTasksList(completedTaskState);
-  activeBtn.style.fontWeight = 600;
-  inactiveBtn.style.fontWeight = 100;
-}
-
-const renderTaskSelect = () => {
-  const taskSelectContainer = document.querySelector('.task-select-container');
-  taskSelectContainer.style.display = 'flex';
-}
-
-const archiveBtnClickHandler = () => {
-  const { editButtonContainer } = plantLogElements.getPlantLogElements();
-  const searchTaskContainer = document.querySelector('.task-results');
-  const taskSelectContainer = document.querySelector('.task-select-container');
-  clearSection(searchTaskContainer, 'PLANT_LOG');
-  resetEditButton();
-  hideElements(editButtonContainer, taskSelectContainer);
-  renderDeletedPlants();
-}
-
+/**
+ * Updates the task information bar with the current number of tasks.
+ */
 export const updateTaskBar = () => {
   const { plantInfoBar,  } = plantLogElements.getPlantLogElements();
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
   plantInfoBar.textContent = `${numberOfTasks} tasks`;
 }
 
-const renderTasksList = (completedState) => {
+/**
+ * Renders the list of tasks based on their completion state.
+ * @param {Boolean} completedState -  boolean indicating whether to show completed tasks.
+ */
+export const renderTasksList = (completedState) => {
   const { plantLogEl } = domElements
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
@@ -304,6 +206,11 @@ const renderTasksList = (completedState) => {
   });
 }
 
+/**
+ * Creates and returns a task element for a specific plant task.
+ * @param {Object} plant 
+ * @param {Object} task 
+ */
 const createTaskElement = (plant, task) => {
   const taskElement = createElement({tagName: 'div', classEl: ['task-element']});
   const taskContainer = createElement({tagName: 'div', classEl: ['task-result-container']})
@@ -342,6 +249,14 @@ const createTaskElement = (plant, task) => {
   return taskElement;
 }
 
+// render/update needs to go in Main.js. only create/toggle should be in DomManipulation.js
+
+/**
+ * Creates the task menu with options to edit or delete the task.
+ * @param {HTMLElement} menuDots - menu dots container element.
+ * @param {Object} task - task object.
+ * @param {HTMLElement} taskElement - task element in the DOM.
+ */
 const createTaskMenu = (menuDots, task, taskElement) => {
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
   const editTask = createElement({tagName: 'p', textContent: 'Edit', classEl: ['drop-menu-item']});
@@ -361,6 +276,10 @@ const createTaskMenu = (menuDots, task, taskElement) => {
   }, 'PLANT_LOG');
 }
 
+/**
+ * Handles the task edit action and displays the edit task modal.
+ * @param {Object} task 
+ */
 export const editTaskHandler = (task) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const editTaskModal = createElement({tagName: 'div', classEl: ['new-modal']});
@@ -378,6 +297,12 @@ export const editTaskHandler = (task) => {
 
 }
 
+/**
+ * Handles updating the task description and refreshing the task section.
+ * @param {Object} task 
+ * @param {HTMLElement} editTaskInput 
+ * @param {HTMLElement} editTaskModal 
+ */
 const updateTaskHandler = (task, editTaskInput, editTaskModal) => {
   if (editTaskInput.value === '') {
     return;
@@ -389,6 +314,9 @@ const updateTaskHandler = (task, editTaskInput, editTaskModal) => {
   resetTaskSection();
 }
 
+/**
+ * Resets the task section based on the current selection (completed or to-do).
+ */
 const resetTaskSection = () => {
   const completeBtn = document.querySelector('.completed-select');
   const todoBtn = document.querySelector('.to-do-select');
@@ -407,6 +335,11 @@ const resetTaskSection = () => {
   updateTaskBar();
 }
 
+/**
+ * Handles task deletion and removes task element from the DOM.
+ * @param {Object} task 
+ * @param {HTMLElement} taskElement 
+ */
 export const deleteTaskHandler = (task, taskElement) => {
   plantLog.deletePlantTask(task.id);
 
@@ -414,4 +347,3 @@ export const deleteTaskHandler = (task, taskElement) => {
     taskElement.parentNode.removeChild(taskElement);
   }
 }
-

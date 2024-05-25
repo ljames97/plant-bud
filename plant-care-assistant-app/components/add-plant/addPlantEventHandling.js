@@ -6,6 +6,29 @@
 import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
 import { removeModal } from "../plant-page/plantPageDomManipulation";
 import { domElements, resetSection } from "../utils/globalDomManipulation";
+import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
+import { updateModalContent } from "./addPlantMain";
+
+/**
+ * Sets up event listener for uploading user image.
+ * @param {HTMLElement} input 
+ * @param {HTMLElement} imageInputImg 
+ * @param {HTMLElement} heading 
+ */
+export const setUpInputChangeListener = (input, imageInputImg, heading) => {
+  let imageUrl;
+
+  localEventManager.addEventListener(input, 'change', (event) => {
+    imageChangeHandler(event, (dataUrl) => {
+      imageUrl = dataUrl;
+      imageInputImg.src = dataUrl;
+      imageInputImg.classList.add('large-image');
+      heading.style.display = 'none';
+    })
+  }, 'ADD_PLANT');
+
+  return () => imageUrl;
+}
 
 /**
  * Validates the form data, creates a new plant object, adds it to the plant log,
@@ -36,6 +59,40 @@ export const submitNewPlantHandler = (event, plantName, dateAdded, description, 
   if (myPlantsBtn.classList.contains('active')) {
     resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
   }
+}
+
+/**
+ * Sets up event listeners for the "Next" and "Back" button elements in the add new plant form.
+ * Handles click events to process user input, manage state transitions, and update the modal content accordingly.
+ * @param {HTMLElement} nextButton - button element that moves the form to next step or submits form.
+ * @param {HTMLElement} input - input element where the user enters data.
+ * @param {HTMLElement} errorMessage - element that displays an error message if the input is invalid.
+ * @param {Boolean} isFileInput - indicating whether the input is a file input.
+ * @param {Object} state - current state of the form, including the current step and accumulated input from user.
+ * @param {Function} getImageUrl - retrieves the URL of the selected image file, if applicable.
+ * @param {HTMLElement} backButton - element that moves the form to previous step.
+ */
+export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFileInput, state, getImageUrl, backButton) => {
+  localEventManager.addEventListener(nextButton, 'click', (event) => {
+    if (input.value === '') {
+      errorMessage.style.display = 'block';
+      return;
+    }
+    const userInput = isFileInput ? input.files[0] : input.value;
+    const modal = document.querySelector('.new-modal');
+    const newState = nextButtonHandler(userInput, state, event, getImageUrl(), modal, backButton);
+    if (modal) {
+      updateModalContent(modal, newState);
+    }
+  }, 'ADD_PLANT');
+
+  localEventManager.addEventListener(backButton, 'click', () => {
+    const modal = document.querySelector('.new-modal');
+    const newState = backButtonHandler(state);
+    if (modal) {
+      updateModalContent(modal, newState);
+    }
+  }, 'ADD_PLANT');
 }
 
 /**

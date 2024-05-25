@@ -4,11 +4,10 @@
  */
 
 import { renderQuickMenu } from "../plant-log/plantLogMain";
-import { buttonHighlight, createElement, createMenuDots, domElements } from "../utils/globalDomManipulation";
+import { createElement, createMenuDots, domElements } from "../utils/globalDomManipulation";
 import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
-import { quickAddHandler } from "./planrDiscoveryEventHandling";
-import { renderNewPlantSearch, updateSearchResults } from "./plantDiscoveryMain";
+import { quickAddHandler, setUpTagButtonListeners } from "./planrDiscoveryEventHandling";
 
 /**
  * Creates and returns a search input field along with related UI elements for plant discovery.
@@ -30,16 +29,7 @@ export const createSearchInput = () => {
   const plantsFoundCounter = createElement({tagName: 'p', classEl: ['plants-found-counter'], textContent: ''});
   const searchResultsContainer = createElement({tagName: 'div', classEl: ['search-results']});
 
-  tagButtons.forEach(button => {
-    localEventManager.addEventListener(button, 'click', () => {
-      buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
-      if (button.textContent === 'All') {
-        updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-        return;
-      }
-      updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-    }, 'PLANT_SEARCH');
-  });
+  setUpTagButtonListeners(tagButtons, plantLibrary, searchInput, searchResultsContainer);
 
   appendChildren(searchContainer, searchTags);
 

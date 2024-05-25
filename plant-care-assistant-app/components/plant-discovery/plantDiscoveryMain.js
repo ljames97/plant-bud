@@ -9,7 +9,7 @@ import { handleDocumentClick, localEventManager } from "../utils/globalEventHand
 import { appendChildren } from "../utils/gobalUtility";
 import { createPlantResultElement, createSearchInput } from "./plantDiscoveryDomManipulation";
 import { plantDirectory } from "../utils/data";
-import { plantElementClickHandler } from "./planrDiscoveryEventHandling";
+import { plantElementClickHandler, setUpPlantSearchListeners } from "./planrDiscoveryEventHandling";
 
 /**
  * Render plant search input on screen. Get search elements from createSearchInput and append to the DOM.
@@ -24,12 +24,7 @@ export const renderNewPlantSearch = () => {
 
   updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
 
-  localEventManager.addEventListener(searchInput, 'input', () => {
-    updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-  }, 'PLANT_SEARCH');
-
-  localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_SEARCH');
-  localEventManager.removeAllEventListeners('PLANT_NAV');
+  setUpPlantSearchListeners(searchInput, plantLibrary, searchResultsContainer);
 }
 
 /**

@@ -4,9 +4,11 @@
  */
 
 import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
-import { clearSection } from "../utils/globalDomManipulation";
+import { buttonHighlight, clearSection } from "../utils/globalDomManipulation";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
 import { appendChildren } from "../utils/gobalUtility";
 import { replaceElement } from "./plantDiscoveryDomManipulation";
+import { renderNewPlantSearch, updateSearchResults } from "./plantDiscoveryMain";
 
 /**
  * Handles the click event on a plant element, clearing the main section and rendering the plant details.
@@ -36,4 +38,39 @@ export const quickAddHandler = (quickAdd, plant) => {
   copyToMyPlants(plant);
   plant.isAdded = true;
   replaceElement(quickAdd);
+}
+
+/**
+ * Sets up event listeners for tag buttons. Handles rendering applicable search results for each tag and highlighting the active button. 
+ * @param {HTMLElement} tagButtons 
+ * @param {HTMLElement} plantLibrary 
+ * @param {HTMLElement} searchInput 
+ * @param {HTMLElement} searchResultsContainer 
+ */
+export const setUpTagButtonListeners = (tagButtons, plantLibrary, searchInput, searchResultsContainer) => {
+  tagButtons.forEach(button => {
+    localEventManager.addEventListener(button, 'click', () => {
+      buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
+      if (button.textContent === 'All') {
+        updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+        return;
+      }
+      updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+    }, 'PLANT_SEARCH');
+  });
+}
+
+/**
+ * Sets up event listeners for the plant search page. Handles updating search results according to user search input and handles document click.
+ * @param {HTMLElement} searchInput 
+ * @param {HTMLElement} plantLibrary 
+ * @param {HTMLElement} searchResultsContainer 
+ */
+export const setUpPlantSearchListeners = (searchInput, plantLibrary, searchResultsContainer) => {
+  localEventManager.addEventListener(searchInput, 'input', () => {
+    updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
+  }, 'PLANT_SEARCH');
+
+  localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_SEARCH');
+  localEventManager.removeAllEventListeners('PLANT_NAV');
 }
