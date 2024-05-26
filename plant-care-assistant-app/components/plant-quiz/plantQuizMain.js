@@ -5,11 +5,11 @@
  */
 
 import { plantDirectory } from "../utils/data";
-import { createElement, domElements } from "../utils/globalDomManipulation"
-import { localEventManager } from "../utils/globalEventHandling";
+import { createElement, domElements } from "../utils/globalDomUtils"
+import { localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren, hideElements, randomiseArray, removeChildren, showElements } from "../utils/gobalUtility";
-import { createPlantQuizElements, createResultElements } from "./plantQuizDomManipulation";
-import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandling";
+import { createPlantQuizElements, createResultElements } from "./plantQuizDomUtils";
+import { choiceBtnClickHandler, startQuizBtnHandler } from "./plantQuizEventHandlers";
 import { renderPlantDetails } from "../plant-page/plantPageMain";
 
 /**

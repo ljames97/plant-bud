@@ -14,6 +14,7 @@ TODO
 
 - tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks, full JDOCS documentation
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
+- clean up / seperate css
 
 - profile / home button functionality -
 have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc

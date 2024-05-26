@@ -4,10 +4,10 @@
  * Render plant upload modal, add new plant to the userPlantLog and validate plant details.
  */
 
-import { clearSection, createElement } from "../utils/globalDomManipulation";
+import { clearSection, createElement } from "../utils/globalDomUtils";
 import { appendChildren } from "../utils/gobalUtility";
-import { setUpModal } from "../plant-page/plantPageDomManipulation";
-import { createModalElements } from "./addPlantdomManipulation";
+import { setUpModal } from "../plant-page/plantPageDomUtils";
+import { createModalElements } from "./addPlantDomUtils";
 
 /**
  * Render plant form for the user to manually upload a plant to 'My Plants'.

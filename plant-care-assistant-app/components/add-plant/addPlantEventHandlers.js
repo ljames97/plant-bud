@@ -4,9 +4,9 @@
  */
 
 import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
-import { removeModal } from "../plant-page/plantPageDomManipulation";
-import { domElements, resetSection } from "../utils/globalDomManipulation";
-import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
+import { removeModal } from "../plant-page/plantPageDomUtils";
+import { domElements, resetSection } from "../utils/globalDomUtils";
+import { imageChangeHandler, localEventManager } from "../utils/globalEventHandlers";
 import { updateModalContent } from "./addPlantMain";
 
 /**

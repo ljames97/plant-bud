@@ -4,8 +4,8 @@
  */
 
 import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
-import { clearSection, resetSection } from "../utils/globalDomManipulation";
-import { imageChangeHandler, localEventManager } from "../utils/globalEventHandling";
+import { clearSection, resetSection } from "../utils/globalDomUtils";
+import { imageChangeHandler, localEventManager } from "../utils/globalEventHandlers";
 import { renderPlantDetails } from "./plantPageMain";
 
 /**

@@ -5,7 +5,7 @@
  */
 
 import { renderMyPlants } from "../plant-log/plantLogMain";
-import { localEventManager } from "./globalEventHandling";
+import { localEventManager } from "./globalEventHandlers";
 import { appendChildren, hideElements, showElements } from "./gobalUtility";
 
 /**

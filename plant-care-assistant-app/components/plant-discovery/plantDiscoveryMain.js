@@ -4,12 +4,12 @@
  * To search for plants in the plant directory and render results on screen.
  */
 
-import { domElements, createElement, clearSection } from "../utils/globalDomManipulation"
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
+import { domElements, createElement, clearSection } from "../utils/globalDomUtils"
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren } from "../utils/gobalUtility";
-import { createPlantResultElement, createSearchInput } from "./plantDiscoveryDomManipulation";
+import { createPlantResultElement, createSearchInput } from "./plantDiscoveryDomUtils";
 import { plantDirectory } from "../utils/data";
-import { plantElementClickHandler, setUpPlantSearchListeners } from "./planrDiscoveryEventHandling";
+import { plantElementClickHandler, setUpPlantSearchListeners } from "./plantDiscoveryEventHandlers";
 
 /**
  * Render plant search input on screen. Get search elements from createSearchInput and append to the DOM.

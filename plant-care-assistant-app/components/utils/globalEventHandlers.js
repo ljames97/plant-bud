@@ -7,7 +7,7 @@ import { renderAddPlantModal } from "../add-plant/addPlantMain";
 import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
 import { renderMyPlants } from "../plant-log/plantLogMain";
 import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
-import { dashboardNavButtonHighlight, domElements, globalDomElements, prepareDashboard, resetSection } from "./globalDomManipulation";
+import { dashboardNavButtonHighlight, domElements, globalDomElements, prepareDashboard, resetSection } from "./globalDomUtils";
 
 /**
  * Global initalisation for shared event handling.

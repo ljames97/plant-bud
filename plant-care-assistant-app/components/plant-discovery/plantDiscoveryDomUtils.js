@@ -3,11 +3,11 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { renderQuickMenu } from "../plant-log/plantLogMain";
-import { createElement, createMenuDots, domElements } from "../utils/globalDomManipulation";
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
+import { renderQuickMenu } from "../plant-log/dom-utils/menuDomUtils";
+import { createElement, createMenuDots, domElements } from "../utils/globalDomUtils";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren } from "../utils/gobalUtility";
-import { quickAddHandler, setUpTagButtonListeners } from "./planrDiscoveryEventHandling";
+import { quickAddHandler, setUpTagButtonListeners } from "./plantDiscoveryEventHandlers";
 
 /**
  * Creates and returns a search input field along with related UI elements for plant discovery.

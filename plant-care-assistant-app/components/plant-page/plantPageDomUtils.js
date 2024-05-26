@@ -1,13 +1,15 @@
-// plantPageDomManipulation.js
+// plantPageDomUtils.js
 /**
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { deleteTaskHandler, editTaskHandler, plantLogElements } from "../plant-log/plantLogDomManipulation";
-import { addPlantToGrid, plantLog, renderQuickMenu } from "../plant-log/plantLogMain";
-import { buttonHighlight, clearSection, createElement, createMenuDots } from "../utils/globalDomManipulation";
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
-import { appendChildren, findItemInArray, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
+import { addPlantToGrid } from "../plant-log/dom-utils/gridManagement";
+import { renderQuickMenu } from "../plant-log/dom-utils/menuDomUtils";
+import { plantLogElements } from "../plant-log/dom-utils/plantLogDomUtils";
+import { plantLog } from "../plant-log/plantLogMain";
+import { buttonHighlight, clearSection, createElement, createMenuDots } from "../utils/globalDomUtils";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
+import { appendChildren, removeChildren } from "../utils/gobalUtility";
 import { renderPlantSection } from "./plantPageMain";
 
 /**

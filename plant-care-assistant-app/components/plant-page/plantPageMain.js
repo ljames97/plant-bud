@@ -4,13 +4,13 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { clearSection, createElement, resetSection } from "../utils/globalDomManipulation";
-import { localEventManager } from "../utils/globalEventHandling";
+import { clearSection, createElement, resetSection } from "../utils/globalDomUtils";
+import { localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren, findItemInArray, getDate, hideElements, removeChildren, showElements } from "../utils/gobalUtility";
-import { createDynamicPlantElements, createIcon, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomManipulation";
+import { createDynamicPlantElements, createIcon, createSectionBtn, createTagButton, removeImageInput } from "./plantPageDomUtils";
 
 import { plantLog } from "../plant-log/plantLogMain";
-import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandling";
+import { setUpDeleteResetBtns, setUpImageInput } from "./plantPageEventHandlers";
 import { plantDirectory } from "../utils/data";
 import { renderQuizResults } from "../plant-quiz/plantQuizMain";
 

@@ -3,7 +3,7 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { createElement } from "../utils/globalDomManipulation";
+import { createElement } from "../utils/globalDomUtils";
 import { appendChildren } from "../utils/gobalUtility";
 
 /**

@@ -4,8 +4,8 @@
  */
 
 import { questions } from "../utils/data";
-import { clearSection, createElement, domElements } from "../utils/globalDomManipulation";
-import { localEventManager } from "../utils/globalEventHandling";
+import { clearSection, createElement, domElements } from "../utils/globalDomUtils";
+import { localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtility";
 import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuizMain";
 

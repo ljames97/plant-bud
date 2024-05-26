@@ -4,10 +4,10 @@
  */
 
 import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
-import { buttonHighlight, clearSection } from "../utils/globalDomManipulation";
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandling";
+import { buttonHighlight, clearSection } from "../utils/globalDomUtils";
+import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren } from "../utils/gobalUtility";
-import { replaceElement } from "./plantDiscoveryDomManipulation";
+import { replaceElement } from "./plantDiscoveryDomUtils";
 import { renderNewPlantSearch, updateSearchResults } from "./plantDiscoveryMain";
 
 /**

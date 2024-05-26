@@ -1,11 +1,11 @@
-// addPlantDomManipulation.js
+// addPlantDomUtils.js
 /**
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { createElement } from "../utils/globalDomManipulation";
+import { createElement } from "../utils/globalDomUtils";
 import { appendChildren } from "../utils/gobalUtility";
-import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantEventHandling";
+import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantEventHandlers";
 
 /**
  * Create elements for the add new plant modal. 
