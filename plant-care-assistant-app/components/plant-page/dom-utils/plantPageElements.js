@@ -1,6 +1,9 @@
 import { createElement, createIcon } from "../../utils/globalDomUtils";
 import { appendChildren } from "../../utils/gobalUtility";
 import { createNavButtons } from "./navDomUtils";
+import { createRequirements } from "./requirementsDomUtils";
+import { createTags } from "./tagDomUtils";
+import { createUserTasks } from "./tasksDomUtils";
 
 /**
  * Create dynamic elements for the plant page.

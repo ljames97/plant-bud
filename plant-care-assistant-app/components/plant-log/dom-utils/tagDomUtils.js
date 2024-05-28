@@ -3,7 +3,6 @@
  * For managing tags within the Plant Log section.
  */
 
-import { setUpModal } from "../../plant-page/dom-utils/plantPageHelpers";
 import { createElement } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
@@ -13,7 +12,7 @@ import { editTagHandler } from "../event-handlers";
  * Creates and returns a container of tags for a given plant, setting up click event listeners for editing each tag.
  * @param {Object} plant 
  */
-export const createTags = (plant) => {
+export const createPlantLogTags = (plant) => {
   const tagContainer = createElement({tagName: 'div', classEl: ['plant-tag-container']});
   const tags = plant.tags
   if (tags) {
@@ -32,7 +31,7 @@ export const createTags = (plant) => {
 /**
  * Displays an error modal indicating that the maximum number of tags has been added for a plant.
  */
-export const renderMaxTagsError = () => {
+export const renderMaximumTagsError = () => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const menuContainer = document.querySelector('.drop-menu-container');
   const errorModal = createElement({tagName: 'div', classEl: ['new-modal']});

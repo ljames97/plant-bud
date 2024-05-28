@@ -4,14 +4,14 @@
  * Event handler logic for managing tasks within the plant log section of the application.
 */
 
-import { removeModal, selectButtonHandler, setUpModal } from "../../plant-page/dom-utils/plantPageHelpers";
-import { clearSection, createElement } from "../../utils/globalDomUtils";
+import { selectButtonHandler } from "../../plant-page/event-handlers";
+import { clearSection, createElement, removeModal, setUpModal } from "../../utils/globalDomUtils";
 import { handleDocumentClick, localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
-import { resetPlantGrid } from "../dom-utils";
+import { createTaskMenu, resetPlantGrid } from "../dom-utils";
 import { renderQuickMenu } from "../dom-utils";
 import { updatePlantInfoBar } from "../dom-utils";
-import { createTaskMenu, renderTasksList, resetTaskSection, updateTaskBar, updateTaskIcon } from "../dom-utils";
+import { renderTasksList, resetTaskSection, updateTaskBar, updateTaskIcon } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 
 /**
@@ -24,12 +24,12 @@ export const setUpTaskSelectListeners = (completed, todo, searchTaskContainer) =
   localEventManager.addEventListener(completed, 'click', () => {
     taskSelectHandler(completed, todo, true, searchTaskContainer);
     completed.active = true;
-  });
+  }, 'PLANT_TASK');
 
   localEventManager.addEventListener(todo, 'click', () => {
     taskSelectHandler(todo, completed, false, searchTaskContainer);
     completed.active = false;
-  })
+  }, 'PLANT_TASK');
 }
 
 /**

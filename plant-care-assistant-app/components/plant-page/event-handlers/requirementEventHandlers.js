@@ -1,5 +1,5 @@
 import { setUpModalEventListeners } from "./plantPageEventHandlers";
-import { createElement, setUpModal } from "../../utils/globalDomUtils";
+import { createElement, removeModal, setUpModal } from "../../utils/globalDomUtils";
 import { appendChildren } from "../../utils/gobalUtility";
 
 /**
@@ -28,10 +28,14 @@ export const addNewRequirementHandler = (plantPageModal, requirements, sectionCl
  * @param {HTMLElement} requirements - container element for requirements.
  * @param {HTMLElement} addRequirementInput - input element for the new requirement.
  */
-export const submitRequirementHandler = (plant, requirements, addRequirementInput) => {
+export const submitRequirementHandler = (plant, requirements, addRequirementInput, modal) => {
   if (addRequirementInput === '') {
     return;
   }
+
+  console.log(modal);
+  removeModal(modal);
+
   const newUserRequirmentContainer = createElement({tagName: 'div', classEl: ['requirement-container']});
   const newUserRequirementIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']})
   const newUserRequirementIcon = createElement({tagName: 'img', classEl: ['requirement-icon']});

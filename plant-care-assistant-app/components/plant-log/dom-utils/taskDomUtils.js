@@ -3,7 +3,7 @@
  * For managing tasks within the Plant Log section
 */
 
-import { setSelectButton } from "../../plant-page/dom-utils/plantPageHelpers";
+import { setSelectButton } from "../../plant-page/dom-utils";
 import { clearSection, createElement, createMenuDots, domElements } from "../../utils/globalDomUtils";
 import { appendChildren } from "../../utils/gobalUtility";
 import { setUpTaskElementListeners, setUpTaskMenuListeners, setUpTaskSelectListeners, taskSelectHandler } from "../event-handlers";
@@ -136,6 +136,11 @@ export const resetTaskSection = () => {
  */
 export const updateTaskIcon = () => {
   const taskCountIcon = document.querySelector('.task-count-icon');
+
+  if (!taskCountIcon) {
+    return;
+  }
+
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
   taskCountIcon.textContent = numberOfTasks;
   taskCountIcon.style.display = numberOfTasks > 0 ? 'block' : 'none';
@@ -146,6 +151,10 @@ export const updateTaskIcon = () => {
  */
 export const updateTaskBar = () => {
   const { plantInfoBar,  } = plantLogElements.getPlantLogElements();
+
+  if (!plantInfoBar) {
+    return;
+  }
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
   plantInfoBar.textContent = `${numberOfTasks} tasks`;
 }

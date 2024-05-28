@@ -11,6 +11,7 @@ TODO
 - task edit on plant page needs to update 
 - edit/delete requirements
 - more text for the add new plant modal/slider progress
+- clicking on tag to edit while plant is archived causes problem
 
 - tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks, full JDOCS documentation
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)

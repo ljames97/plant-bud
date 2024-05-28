@@ -5,10 +5,10 @@
  */
 
 import { appendChildren, findItemInArray, getDate } from "../utils/gobalUtility";
-import { createDynamicPlantElements } from "./dom-utils/plantPageHelpers";
 import { plantLog } from "../plant-log/plantLogMain";
 import { plantDirectory } from "../utils/data";
 import { setUpPlantPageListeners } from "./event-handlers";
+import { createDynamicPlantElements, createSectionElements } from "./dom-utils";
 
 /**
  * Render plant details on screen.

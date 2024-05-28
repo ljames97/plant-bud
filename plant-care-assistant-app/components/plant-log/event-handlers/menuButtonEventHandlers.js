@@ -4,14 +4,14 @@
  * Event handler functions for menu buttons in the Plant Log section.
 */
 
-import { deletePlantBtnHandler } from "../../plant-page/event-handlers/plantPageEventHandlers";
+import { deletePlantBtnHandler } from "../../plant-page/event-handlers";
 import { permanentDeletePlant } from "../../plant-page/plantPageMain";
 import { buttonHighlight, clearSection } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { hideElements, showElements } from "../../utils/gobalUtility";
 import { renderDeletedPlants, resetPlantGrid } from "../dom-utils";
 import { plantLogElements, resetEditButton, updatePlantInfoBar } from "../dom-utils";
-import { renderMaxTagsError } from "../dom-utils";
+import { renderMaximumTagsError } from "../dom-utils";
 import { renderTaskSelect, renderTasksList, updateTaskBar } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 import { pinPlantHandler } from "./plantLogEventHandlers";
@@ -102,7 +102,7 @@ export const setUpPlantMenuListeners = (newTask, plant, addTag, pinPlant, delete
 
   localEventManager.addEventListener(addTag, 'click', () => {
     if (plant.tags.length > 1) {
-      renderMaxTagsError();
+      renderMaximumTagsError();
       return;
     }
 

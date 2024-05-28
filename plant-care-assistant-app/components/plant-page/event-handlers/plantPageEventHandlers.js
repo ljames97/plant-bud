@@ -3,12 +3,13 @@
  * Event handler logic the plant page section.
  */
 
+import { removeModal } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
-import { hideSectionButtons, removeModal } from "../dom-utils";
+import { hideSectionButtons } from "../dom-utils";
 import { toggleEditMode } from "../edit-mode";
 import { backToDashboardHandler } from "./backBtnEventHandlers";
-import { permanentDeleteBtnHandler, unarchiveBtnHandler } from "./helperEventHandlers";
+import { addToPlantsHandler, permanentDeleteBtnHandler, unarchiveBtnHandler } from "./helperEventHandlers";
 
 /**
  * Sets up event listeners for the new task/requirement modal. Handles submitting data, removing the modal and preventing event propagation for modal click.
@@ -25,8 +26,7 @@ export const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionEle
   const modalOverlay = document.querySelector('.modal-overlay');
 
   localEventManager.addEventListener(submitBtn, 'click', () => {
-    removeModal(modal);
-    submitHandler(plant, sectionElement, userInput.value, sectionClass);
+    submitHandler(plant, sectionElement, userInput.value, modal);
   }, `PLANT_PAGE_${sectionClass}`);
 
   localEventManager.addEventListener(cancelBtn, 'click', () => {

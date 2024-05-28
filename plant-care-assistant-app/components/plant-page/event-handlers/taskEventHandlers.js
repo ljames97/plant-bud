@@ -1,10 +1,10 @@
-import { setUpModalEventListeners } from "./plantPageEventHandlers";
+import { setUpModalEventListeners } from "./";
 import { renderQuickMenu } from "../../plant-log/dom-utils";
 import { deleteTaskHandler, editTaskHandler } from "../../plant-log/event-handlers";
-import { createElement, setUpModal } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
+import { createElement, createMenuDots, removeModal, setUpModal } from "../../utils/globalDomUtils";
+import { handleDocumentClick, localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
-import { setSelectButton } from "../dom-utils";
+import { createTaskMenu, setSelectButton } from "../dom-utils";
 
 /**
  * Handles adding a new task to the plant's tasks list.
@@ -34,7 +34,12 @@ export const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) =>
  * @param {String} newTaskInput - input element value for the new task.
  * @param {String} sectionClass - class name for the section.
  */
-export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass) => {
+export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, modal) => {
+  if (newTaskInput === '') {
+    return;
+  }
+
+  removeModal(modal, 'PLANT_PAGE');
 
   const newTaskElement = createElement({tagName: 'div', classEl: ['new-task']});
   const taskSelectBtn = createElement({tagName: 'button', classEl: ['select-btn']});

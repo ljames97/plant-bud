@@ -9,7 +9,7 @@ import { setupUserPlantGridEventListener } from "../event-handlers";
 import { setUpNewPlantListeners } from "../event-handlers";
 import { plantLog, populatePlantGrid, renderMyPlants } from "../plantLogMain";
 import { movePlantToTop, plantLogElements } from "./plantLogDomUtils";
-import { createTags } from "./tagDomUtils";
+import { createPlantLogTags } from "./tagDomUtils";
 
 /**
  * Render the deleted plants in the plant grid. Change the My Plants section into an Archive Plants section. 
@@ -55,7 +55,7 @@ export const addPlantToGrid = (newPlant) => {
   const editButtons = createElement({tagName: 'div', classEl: ['edit-plant-buttons']});
   const selectButton = createElement({tagName: 'button', classEl: ['plant-select-button']});
   const menuDots = createMenuDots();
-  const tagContainer = createTags(newPlant);
+  const tagContainer = createPlantLogTags(newPlant);
   const taskCounter = createElement({tagName: 'p', classEl: ['task-counter']});
   const plantTitle = createElement({tagName: 'p', textContent: newPlant.name});
   const pinIconContainer = createElement({tagName: 'div', classEl: ['pin-icon-container']});

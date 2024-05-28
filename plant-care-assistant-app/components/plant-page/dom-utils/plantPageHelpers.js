@@ -5,7 +5,6 @@
 
 import { createIcon } from "../../utils/globalDomUtils";
 import { hideElements, removeChildren, showElements } from "../../utils/gobalUtility";
-import { renderPlantSection } from "../plantPageMain";
 
 /**
  * Remove image input where users can upload image from their device.
@@ -20,7 +19,7 @@ export const removeImageInput = () => {
 }
 
 /**
- * Replace the 'Add to plants' button with 'Added to My Plants' message for plants that are already added to the users plant log.
+ * Replace the 'Add to plants' button with an icon to show that plant has been added to the users plant log.
  * @param {HTMLElement} button 
  * @param {Object} plant 
  */

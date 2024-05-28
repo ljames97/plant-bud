@@ -4,9 +4,8 @@
  * Functions in this file are shared across several modules. 
  */
 
-import { renderMyPlants } from "../plant-log/plantLogMain";
-import { localEventManager } from "./globalEventHandlers";
-import { appendChildren, hideElements, showElements } from "./gobalUtility";
+import { localEventManager, setUpModalListeners } from "./globalEventHandlers";
+import { appendChildren, removeChildren } from "./gobalUtility";
 
 /**
  * A manager for retreiving DOM elements.
@@ -249,6 +248,7 @@ export const setUpModal = (modal, menuContainer, eventRegistry) => {
 export const removeModal = (modal, eventRegistry) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   clearSection(modal, eventRegistry);
+  clearSection(modalOverlay, eventRegistry);
   removeChildren(modalOverlay, modal);
   modalOverlay.style.display = 'none';
 }

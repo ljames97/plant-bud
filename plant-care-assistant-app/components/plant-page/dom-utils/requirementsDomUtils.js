@@ -1,6 +1,7 @@
 import { createElement } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
-import { addNewRequirementHandler, submitRequirementHandler } from "../event-handlers/requirementEventHandlers";
+import { appendChildren } from "../../utils/gobalUtility";
+import { addNewRequirementHandler, submitRequirementHandler } from "../event-handlers";
 
 /**
  * Creates and returns the requirements section for a plant, allowing users to upload their own requirements.
@@ -42,7 +43,7 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
 
   if (plant.requirements) {
     plant.requirements.forEach(item => {
-      submitRequirementHandler(plant, requirements, item);
+      submitRequirementHandler(plant, requirements, item, plantPageModal);
     });
   }
 

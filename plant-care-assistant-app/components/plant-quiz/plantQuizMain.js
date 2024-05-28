@@ -24,7 +24,6 @@ export const renderPlantQuiz = () => {
   appendChildren(quizContainer, restartQuizBtn, quizTitle, questionContainer);
   appendChildren(plantQuiz, quizContainer);
 
-  // plantQuiz.classList.add('active');
   restartQuizBtn.style.display = 'none';
 
   localEventManager.addEventListener(startQuizBtn, 'click', () => {
