@@ -6,7 +6,7 @@
 
 import { clearSection, createElement } from "../utils/globalDomUtils";
 import { appendChildren } from "../utils/gobalUtility";
-import { setUpModal } from "../plant-page/plantPageDomUtils";
+import { setUpModal } from "../plant-page/dom-utils";
 import { createModalElements } from "./addPlantDomUtils";
 
 /**

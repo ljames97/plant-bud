@@ -5,11 +5,11 @@
 
 import { clearSection, createElement, createMenuDots, domElements } from "../../utils/globalDomUtils";
 import { appendChildren } from "../../utils/gobalUtility";
-import { setupUserPlantGridEventListener } from "../event-handlers/plantGridEventHandlers";
-import { setUpNewPlantListeners } from "../event-handlers/plantLogEventHandlers";
+import { setupUserPlantGridEventListener } from "../event-handlers";
+import { setUpNewPlantListeners } from "../event-handlers";
 import { plantLog, populatePlantGrid, renderMyPlants } from "../plantLogMain";
 import { movePlantToTop, plantLogElements } from "./plantLogDomUtils";
-import { createTags } from "./tagDomutils";
+import { createTags } from "./tagDomUtils";
 
 /**
  * Render the deleted plants in the plant grid. Change the My Plants section into an Archive Plants section. 
@@ -83,4 +83,18 @@ export const addPlantToGrid = (newPlant) => {
   }
 
   setUpNewPlantListeners(menuDots, newPlant);
+}
+
+/**
+ * Refresh plant grid by removing existing inner html and updating the userPlantLog.
+ */
+export const refreshPlantGrid = () => {
+  const { userPlantsContainer } = plantLogElements.getPlantLogElements();
+
+  clearSection(userPlantsContainer, 'PLANT_LOG')
+
+  const userPlantLog = plantLog.getUserPlantLog();
+  userPlantLog.forEach(plant => {
+    addPlantToGrid(plant);
+  })
 }

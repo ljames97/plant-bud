@@ -3,10 +3,10 @@
  * For managing tasks within the Plant Log section
 */
 
-import { setSelectButton } from "../../plant-page/plantPageDomUtils";
+import { setSelectButton } from "../../plant-page/dom-utils/plantPageHelpers";
 import { clearSection, createElement, createMenuDots, domElements } from "../../utils/globalDomUtils";
 import { appendChildren } from "../../utils/gobalUtility";
-import { setUpTaskElementListeners, setUpTaskMenuListeners, setUpTaskSelectListeners, taskSelectHandler } from "../event-handlers/taskEventHandlers";
+import { setUpTaskElementListeners, setUpTaskMenuListeners, setUpTaskSelectListeners, taskSelectHandler } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 import { plantLogElements } from "./plantLogDomUtils";
 

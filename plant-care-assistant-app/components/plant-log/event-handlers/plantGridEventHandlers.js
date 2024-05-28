@@ -8,7 +8,7 @@ import { renderPlantDetails } from "../../plant-page/plantPageMain";
 import { clearSection, createElement } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
-import { plantLogElements } from "../dom-utils/plantLogDomUtils";
+import { plantLogElements } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 
 /**

@@ -3,11 +3,11 @@
  * For managing tags within the Plant Log section.
  */
 
-import { setUpModal } from "../../plant-page/plantPageDomUtils";
+import { setUpModal } from "../../plant-page/dom-utils/plantPageHelpers";
 import { createElement } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
-import { editTagHandler } from "../event-handlers/tagEventHandlers";
+import { editTagHandler } from "../event-handlers";
 
 /**
  * Creates and returns a container of tags for a given plant, setting up click event listeners for editing each tag.

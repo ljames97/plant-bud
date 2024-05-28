@@ -7,8 +7,8 @@
 import { domElements } from "../utils/globalDomUtils";
 import { appendChildren, findItemInArray, removeItemFromArray } from "../utils/gobalUtility";
 import { localEventManager } from "../utils/globalEventHandlers";
-import { plantLogElements, updatePlantInfoBar } from "./dom-utils/plantLogDomUtils";
-import { addPlantToGrid, renderPlantGrid } from "./dom-utils/gridManagement";
+import { plantLogElements, updatePlantInfoBar } from "./dom-utils";
+import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.

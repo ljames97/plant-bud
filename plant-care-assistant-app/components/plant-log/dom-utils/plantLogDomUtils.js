@@ -5,7 +5,7 @@
 
 import { createElement, createMenuDots } from "../../utils/globalDomUtils";
 import { appendChildren, hideElements } from "../../utils/gobalUtility";
-import { setUpPlantLogListeners } from "../event-handlers/plantLogEventHandlers";
+import { setUpPlantLogListeners } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 import { createMenuButtons } from "./menuDomUtils";
 import { createTaskSelect } from "./taskDomUtils";

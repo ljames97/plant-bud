@@ -1,12 +1,8 @@
-// plantPageEventHandling.js
-/**
- * Event handler logic the plant page section.
- */
+import { plantLog } from "../../plant-log/plantLogMain";
+import { clearSection, resetSection } from "../../utils/globalDomUtils";
+import { imageChangeHandler, localEventManager } from "../../utils/globalEventHandlers";
+import { renderPlantDetails } from "../plantPageMain";
 
-import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
-import { clearSection, resetSection } from "../utils/globalDomUtils";
-import { imageChangeHandler, localEventManager } from "../utils/globalEventHandlers";
-import { renderPlantDetails } from "./plantPageMain";
 
 /**
  * Delete the plant from userPlantLog and reset the My Plants section.
@@ -37,7 +33,7 @@ export const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, secti
 }
 
 /**
- * Set up the delete plant and reset plant details buttons. 
+ * Sets up the delete plant and reset plant details buttons. 
  * @param {Object} plant 
  * @param {Object} elements 
  * @param {String} sectionClass 

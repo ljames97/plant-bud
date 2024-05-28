@@ -22,8 +22,6 @@ and have home button for overview of the daily tasks list, blog/journal, gardeni
 
 
 TODO plant-quiz:
-- clean up appendChildren elements, need additional containers
-- modal for plant quiz
 - quiz css and extra features (sliders, progress bar etc...) also progress bar for when adding new plant
 
 TODO plant-page:
@@ -35,7 +33,7 @@ CSS/aesthetics:
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about etc
 - more sophisticated design ideas, colour pallete, buttons, animations etc.
-- accessibility (buttons, image alt etc.), turn all forms into <form> wiht label, aria etc.
+- accessibility (buttons, image alt etc.), turn all forms into <form> with label, aria etc.
 - desktop css (responsive design)
 - review/document all functions
 

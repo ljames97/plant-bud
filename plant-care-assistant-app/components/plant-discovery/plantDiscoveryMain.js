@@ -5,7 +5,7 @@
  */
 
 import { domElements, createElement, clearSection } from "../utils/globalDomUtils"
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
+import { localEventManager } from "../utils/globalEventHandlers";
 import { appendChildren } from "../utils/gobalUtility";
 import { createPlantResultElement, createSearchInput } from "./plantDiscoveryDomUtils";
 import { plantDirectory } from "../utils/data";

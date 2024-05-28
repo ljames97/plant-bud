@@ -7,8 +7,8 @@ import { toggleMenu } from "../../plant-discovery/plantDiscoveryDomUtils";
 import { createElement, domElements } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren } from "../../utils/gobalUtility";
-import { setUpArchivePlantListeners, setUpMenuButtonListeners, setUpPlantMenuListeners } from "../event-handlers/menuButtonEventHandlers";
-import { deleteSelectedHandler } from "../event-handlers/plantLogEventHandlers";
+import { setUpArchivePlantListeners, setUpMenuButtonListeners, setUpPlantMenuListeners } from "../event-handlers";
+import { deleteSelectedHandler } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 
 /**
