@@ -6,9 +6,9 @@
 import { resetSection } from "../../utils/globalDomUtils";
 import { handleDocumentClick, localEventManager } from "../../utils/globalEventHandlers";
 import { hideElements, showElements } from "../../utils/gobalUtility";
-import { resetPlantGrid } from "../dom-utils/gridManagement";
-import { createArchivePlantMenu, createPlantMenu, createSelectMenu, renderQuickMenu } from "../dom-utils/menuDomUtils";
-import { movePlantToTop, togglePlantSelect, toggleSelectButton } from "../dom-utils/plantLogDomUtils";
+import { resetPlantGrid } from "../dom-utils";
+import { createArchivePlantMenu, createPlantMenu, createSelectMenu, renderQuickMenu } from "../dom-utils";
+import { movePlantToTop, togglePlantSelect, toggleSelectButton } from "../dom-utils";
 import { plantLog, renderMyPlants } from "../plantLogMain";
 
 /**

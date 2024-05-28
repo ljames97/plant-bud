@@ -4,11 +4,11 @@
  * Event handler logic for managing tags within the plant log section of the application.
 */
 
-import { removeModal, setUpModal } from "../../plant-page/plantPageDomUtils";
+import { removeModal, setUpModal } from "../../plant-page/dom-utils/plantPageHelpers";
 import { createElement } from "../../utils/globalDomUtils";
 import { localEventManager } from "../../utils/globalEventHandlers";
 import { appendChildren, removeItemFromArray } from "../../utils/gobalUtility";
-import { resetPlantGrid } from "../dom-utils/gridManagement";
+import { resetPlantGrid } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 
 /**
