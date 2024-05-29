@@ -31,6 +31,7 @@ TODO plant-page:
 - delete/reset plant details - Are you sure? also prompt to save  
 
 CSS/aesthetics:
+- sort out mobile nav modal etc if no longer using
 - error handling/error messages UI, error handling for DOMManipulation functions
 - clean up css and public image folder
 - add hyperlinks to menu, contact page, about etc

@@ -3,11 +3,7 @@
  * Global event handler logic and initialisation.
  */
 
-import { renderAddPlantModal } from "../add-plant/addPlantMain";
-import { renderNewPlantSearch } from "../plant-discovery/plantDiscoveryMain";
-import { renderMyPlants } from "../plant-log/plantLogMain";
-import { renderPlantQuiz } from "../plant-quiz/plantQuizMain";
-import { dashboardNavButtonHighlight, domElements, globalDomElements, prepareDashboard, removeModal, resetSection } from "./globalDomUtils";
+
 
 /**
  * Global initalisation for shared event handling.
@@ -18,39 +14,6 @@ export const globalInit = () => {
 
 export const homeInit = () => {
   // home-page event listener set up
-}
-
-/**
- * Initialises the dashboard.
- */
-export const dashboardInit = () => {
-  sectionInit('MY_PLANTS');
-  setUpDashboardEventListeners();
-  dashboardNavButtonHighlight();
-}
-
-const sectionInit = (sectionName) => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
-
-  const sectionMap = {
-    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants },
-    'PLANT_QUIZ': { button: quizBtn, renderFunc: renderPlantQuiz },
-    'ADD_PLANT': { button: addNewPlantBtn, renderFunc: renderAddPlantModal },
-    'PLANT_LIBRARY': { button: libraryBtn, renderFunc: renderNewPlantSearch }
-  }
-
-  const section = sectionMap[sectionName];
-  const otherButtons = Object.values(sectionMap).map(sec => sec.button).filter(btn => btn !== section.button);
-
-  if (!section || section.button.classList.contains('active')) {
-    return;
-  } if (section.button.classList.contains('dormant')) {
-    prepareDashboard(section.button, section.renderFunc, ...otherButtons);
-    return;
-  }
-
-  prepareDashboard(section.button, section.renderFunc, ...otherButtons);
-  section.button.classList.add('dormant');
 }
 
 /**
@@ -139,27 +102,6 @@ const eventManager = () => {
 export const localEventManager = eventManager();
 
 /**
- * Sets up event listeners for the dashboard. 
- * This includes listeners for searching plants, adding new plants, etc.
- */
-export const setUpDashboardEventListeners = () => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
-
-  localEventManager.addEventListener(myPlantsBtn, 'click', () => {
-    sectionInit('MY_PLANTS');
-  }, 'DASHBOARD');
-  localEventManager.addEventListener(addNewPlantBtn, 'click', () => {
-    sectionInit('ADD_PLANT');
-  }, 'DASHBOARD');
-  localEventManager.addEventListener(quizBtn, 'click', () => {
-    sectionInit('PLANT_QUIZ');
-  }, 'DASHBOARD');
-  localEventManager.addEventListener(libraryBtn, 'click', () => {
-    sectionInit('PLANT_LIBRARY');
-  }, 'DASHBOARD');
-}
-
-/**
  * Manages global elements and their event handlers.
  */
 const setUpGlobalEventListeners = () => {
@@ -171,62 +113,4 @@ const setUpGlobalEventListeners = () => {
   localEventManager.addEventListener(mobileNavCloseBtn, 'click', () => {
     toggleMobileNav(false);
   }, 'MOBILE_NAV');
-}
-
-/**
- * Handle change event of user uploaded file.
- * Reads the selected image file asynchronously and executes a callback with the
- * image's data URL when the read operation is complete.
- * @param {*} event 
- * @param {*} imageDataUrl 
- */
-export const imageChangeHandler = (event, callback) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      callback(e.target.result);
-    }
-    reader.readAsDataURL(file);
-  };
-}
-
-/**
- * Open/close the mobile navigation.
- * @param {boolean} isOpen 
- */
-const toggleMobileNav = (isOpen) => {
-  const mobileNavModal = document.querySelector('.mobile-nav-modal');
-  if (isOpen) {
-    mobileNavModal.classList.add('show');
-  } else {
-    mobileNavModal.classList.remove('show');
-  }
-}
-
-/**
- * Handles document click events to remove the drop menu container if the click is outside the container.
- * @param {Event} event 
- */
-export const handleDocumentClick = (event) => {
-  const dropMenuContainer = document.querySelector('.drop-menu-container');
-  if (dropMenuContainer && !dropMenuContainer.contains(event.target)) {
-    dropMenuContainer.remove();
-  }
-}
-
-/**
- * Sets up event listeners for the modal. Handles removal and preventing event propagation for modal click.
- * @param {HTMLElement} modalOverlay - modal overlay element.
- * @param {HTMLElement} modal - modal element to be set up.
- * @param {String} eventRegistry - event registry identifier eg. 'PLANT_LOG', 'PLANT_SEARCH'
- */
-export const setUpModalListeners = (modalOverlay, modal, eventRegistry) => {
-  localEventManager.addEventListener(modalOverlay, 'click', () => {
-    removeModal(modal, eventRegistry);
-  }, eventRegistry);
-
-  localEventManager.addEventListener(modal, 'click', (event) => {
-    event.stopPropagation();
-  }, eventRegistry);
 }
