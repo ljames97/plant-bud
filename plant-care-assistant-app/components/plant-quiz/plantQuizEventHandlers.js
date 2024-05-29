@@ -3,14 +3,17 @@
  * Event handler logic.
  */
 
+import { renderPlantDetails } from "../plant-page/plantPageMain";
 import { questions } from "../utils/data";
-import { clearSection, createElement, domElements } from "../utils/globalDomUtils";
+import { clearSection, domElements } from "../utils/globalDomUtils";
 import { localEventManager } from "../utils/globalEventHandlers";
-import { appendChildren, hideElements, removeChildren } from "../utils/gobalUtility";
-import { getQuizResults, renderPlantQuiz, renderQuestion, userAnswerlog } from "./plantQuizMain";
+import { hideElements, removeChildren, showElements } from "../utils/gobalUtility";
+import { renderQuestion } from "./plantQuizDomUtils";
+import { getQuizResults } from "./plantQuizHelpers";
+import { renderPlantQuiz, userAnswerlog } from "./plantQuizMain";
 
 /**
- * Handle user choice for a given question and add choices to the userAnswerLog.
+ * Handles user choice for a given question and add choices to the userAnswerLog.
  * @param {String} category 
  * @param {String} choice 
  * @param {Number} questionId 
@@ -34,7 +37,7 @@ export const choiceBtnClickHandler = (category, choice, questionId, questionCont
 }
 
 /**
- * Restart quiz by refreshing the answer log, clearing the plant quiz section and re-rendering the section. 
+ * Restarts quiz by refreshing the answer log, clearing the plant quiz section and re-rendering the section. 
  */
 export const restartQuizHandler = () => {
   const { plantQuiz } = domElements;
@@ -45,18 +48,31 @@ export const restartQuizHandler = () => {
 }
 
 /**
- * Start quiz - begin first question.
+ * Starts quiz - begin first question.
  * @param {HTMLElement} quizSubheader 
  * @param {HTMLElement} startQuizBtn 
  * @param {HTMLElement} quizContainer 
  */
-export const startQuizBtnHandler = (cardContainer, quizSubtitle, quizDescription, startQuizBtn, quizContainer) => {
+export const startQuizBtnHandler = (cardContainer, quizSubtitle, quizDescription, startQuizBtn, quizContainer, quizTitle, restartQuizBtn) => {
   hideElements(cardContainer, quizSubtitle, quizDescription, startQuizBtn)
+  restartQuizBtn.style.display = 'block';
+  quizTitle.style.display = 'none';
 
-  const restartQuizBtn = document.querySelector('.back-button');
   localEventManager.addEventListener(restartQuizBtn, 'click', () => {
     restartQuizHandler(quizContainer);
   }, 'PLANT_QUIZ');
 
   renderQuestion(questions[0].question, questions[0].answers, questions[0].category, 1);
+}
+
+/**
+ * Handles result container click. Hides quiz container, displays plant information page and renders plant details.
+ * @param {HTMLElement} quizContainer 
+ * @param {HTMLElement} plantInfoContainer 
+ * @param {Object} result 
+ */
+export const resultContainerHandler = (quizContainer, plantInfoContainer, result) => {
+  hideElements(quizContainer);
+  showElements('block', plantInfoContainer);
+  renderPlantDetails(result, plantInfoContainer, '← back to results', '.plant-quiz', renderPlantQuiz);
 }

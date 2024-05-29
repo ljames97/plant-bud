@@ -1,4 +1,4 @@
-import { renderQuizResults } from "../../plant-quiz/plantQuizMain";
+import { renderQuizResults } from "../../plant-quiz/plantQuizDomUtils";
 import { resetSection } from "../../utils/globalDomUtils";
 import { showElements } from "../../utils/gobalUtility";
 

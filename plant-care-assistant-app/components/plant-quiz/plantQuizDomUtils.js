@@ -3,11 +3,13 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { createElement } from "../utils/globalDomUtils";
-import { appendChildren } from "../utils/gobalUtility";
+import { createElement, domElements } from "../utils/globalDomUtils";
+import { localEventManager } from "../utils/globalEventHandlers";
+import { appendChildren, randomiseArray, removeChildren } from "../utils/gobalUtility";
+import { choiceBtnClickHandler, resultContainerHandler } from "./plantQuizEventHandlers";
 
 /**
- * Create result title element.
+ * Creates and returns result title element.
  * @param {Object} result 
  * @returns {HTMLElement} Result title.
  */
@@ -25,7 +27,7 @@ export const createResultElements = (result) => {
 }
 
 /**
- * Creates plant quiz elements.
+ * Creates and returns plant quiz elements.
  * @returns {Object} Plant quiz elements.
  */
 export const createPlantQuizElements = () => {
@@ -52,6 +54,12 @@ export const createPlantQuizElements = () => {
   return { quizContainer, quizTitle, questionContainer, quizSubtitle, cardContainer, quizDescription, startQuizBtn, restartQuizBtn };
 }
 
+/**
+ * Creates and returns plant card.
+ * @param {String} title 
+ * @param {String} subtitle 
+ * @param {String} imageSrc 
+ */
 const createPlantCard = (title, subtitle, imageSrc) => {
   const plantCard = createElement({tagName: 'div', classEl: ['plant-card']});
   const cardTitle = createElement({tagName: 'p', textContent: title, classEl: ['card-title']});
@@ -65,4 +73,90 @@ const createPlantCard = (title, subtitle, imageSrc) => {
   appendChildren(plantCard, cardTitle, cardSubtitle, cardImageContainer);
 
   return plantCard;
+}
+
+/**
+ * Displays quiz resuls on screen.
+ * @param {Array} results 
+ * @param {HTMLElement} quizContainer 
+ * @param {HTMLElement} plantInfoContainer 
+ */
+export const displayQuizResults = (results, quizContainer, plantInfoContainer) => {
+  let displayedResults = results;
+  if (results.length > 2) {
+    displayedResults = randomiseArray(results, 2);
+  }
+  quizContainer.plantResults = displayedResults;
+  plantInfoContainer.quizResult = true;
+
+  displayedResults.forEach(result => {
+    const { resultContainer } = createResultElements(result);
+    appendChildren(quizContainer, resultContainer);
+
+    localEventManager.addEventListener(resultContainer, 'click', () => {
+      resultContainerHandler(quizContainer, plantInfoContainer, result);
+    }, 'PLANT_QUIZ');
+  });
+}
+
+/**
+ * Creates and returns quiz containers and appends them to the main plant quiz element.
+ * @param {HTMLElement} plantQuiz 
+ */
+export const initializeQuizContainers = (plantQuiz) => {
+  const quizContainer = document.querySelector('.quiz-container');
+  const questionContainer = document.querySelector('.question-container');
+  const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
+  plantInfoContainer.style.display = 'none';
+  appendChildren(plantQuiz, plantInfoContainer);
+  removeChildren(quizContainer, questionContainer);
+  return { quizContainer, plantInfoContainer };
+}
+
+/**
+ * Render quiz results on screen.
+ * @param {Array} results 
+ */
+export const renderQuizResults = (results) => {
+  const { plantQuiz } = domElements;
+  const { quizContainer, plantInfoContainer } = initializeQuizContainers(plantQuiz);
+
+  displayQuizResults(results, quizContainer, plantInfoContainer);
+}
+
+/**
+ * Create choice buttons and assign event listeners to each button.
+ * @param {Array} choices 
+ * @param {String} category 
+ * @param {Number} questionId 
+ * @param {HTMLElement} questionContainer 
+ * @param {String} questionTitle 
+ * @param {HTMLElement} choiceBtnContainer 
+ */
+const createChoiceButtons = (choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer) => {
+  choices.forEach(choice => {
+    const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: ['choice-btn']});
+    appendChildren(choiceBtnContainer, choiceBtn);
+
+    localEventManager.addEventListener(choiceBtn, 'click', () => {
+      choiceBtnClickHandler(category, choice, questionId, questionContainer, questionTitle, choiceBtnContainer)
+    }, 'PLANT_QUIZ')
+  });
+}
+
+/**
+ * Render question on screen based on specific question ID.
+ * @param {string} questionText 
+ * @param {string} choices 
+ * @param {string} category 
+ * @param {number} questionId 
+ */
+export const renderQuestion = (questionText, choices, category, questionId) => {
+  const questionContainer = document.querySelector('.question-container');
+
+  const questionTitle = createElement({tagName: 'h1', textContent: questionText, classEl: ['question-title']});
+  const choiceBtnContainer = createElement({tagName: 'div', classEl: ['choice-btn-container']});
+
+  appendChildren(questionContainer, questionTitle, choiceBtnContainer);
+  createChoiceButtons(choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer);
 }
