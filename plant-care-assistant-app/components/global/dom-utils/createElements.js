@@ -1,3 +1,5 @@
+import { appendChildren } from "../utils";
+
 /**
  * Utility function to create a new HTML element.
  * @param {HTMLElement} tagName - Type of element to create (eg. 'div', 'button').

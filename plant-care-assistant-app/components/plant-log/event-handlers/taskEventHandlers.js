@@ -4,10 +4,10 @@
  * Event handler logic for managing tasks within the plant log section of the application.
 */
 
-import { selectButtonHandler } from "../../plant-page/event-handlers";
-import { clearSection, createElement, removeModal, setUpModal } from "../../utils/globalDomUtils";
-import { handleDocumentClick, localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { selectButtonHandler } from "../../plant-page";
+import { clearSection, createElement, removeModal, setUpModal } from "../../global";
+import { handleDocumentClick, localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { createTaskMenu, resetPlantGrid } from "../dom-utils";
 import { renderQuickMenu } from "../dom-utils";
 import { updatePlantInfoBar } from "../dom-utils";

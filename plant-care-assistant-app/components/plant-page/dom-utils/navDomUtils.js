@@ -1,6 +1,6 @@
-import { buttonHighlight, createElement } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { buttonHighlight, createElement } from "../../global";
+import { localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { renderPlantSection } from "./plantPageHelpers";
 
 /**

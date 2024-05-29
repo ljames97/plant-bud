@@ -10,7 +10,8 @@
  * 
  */
 
-import { dashboardInit, globalInit, homeInit } from "./components/utils/globalEventHandlers";
+import { dashboardInit, globalInit, homeInit } from "./components/global";
+
 
 document.addEventListener('DOMContentLoaded', () => {
   globalInit();

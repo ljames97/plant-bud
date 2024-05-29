@@ -3,10 +3,10 @@
  * For creating and managing menus within the Plant Log section.
 */
 
-import { toggleMenu } from "../../plant-discovery/plantDiscoveryDomUtils";
-import { createElement, domElements } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { toggleMenu } from "../../plant-discovery";
+import { createElement, domElements } from "../../global";
+import { localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { setUpArchivePlantListeners, setUpMenuButtonListeners, setUpPlantMenuListeners } from "../event-handlers";
 import { deleteSelectedHandler } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";

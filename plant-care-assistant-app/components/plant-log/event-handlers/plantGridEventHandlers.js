@@ -4,10 +4,10 @@
  * Event handler functions for managing events within the plant grid in the Plant Log section.
 */
 
-import { renderPlantDetails } from "../../plant-page/plantPageMain";
-import { clearSection, createElement } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { renderPlantDetails } from "../../plant-page";
+import { clearSection, createElement } from "../../global";
+import { localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { plantLogElements } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 

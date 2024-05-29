@@ -4,9 +4,9 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { appendChildren, findItemInArray, getDate } from "../utils/gobalUtility";
-import { plantLog } from "../plant-log/plantLogMain";
-import { plantDirectory } from "../utils/data";
+import { appendChildren, findItemInArray, getDate } from "../global";
+import { plantLog } from "../plant-log";
+import { plantDirectory } from "../global";
 import { setUpPlantPageListeners } from "./event-handlers";
 import { createDynamicPlantElements, createSectionElements } from "./dom-utils";
 

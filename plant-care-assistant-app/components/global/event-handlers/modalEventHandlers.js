@@ -1,3 +1,6 @@
+import { removeModal } from "../dom-utils";
+import { localEventManager } from "./globalEventHandlers";
+
 /**
  * Sets up event listeners for the modal. Handles removal and preventing event propagation for modal click.
  * @param {HTMLElement} modalOverlay - modal overlay element.

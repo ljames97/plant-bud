@@ -1,5 +1,5 @@
-import { createElement, createIcon } from "../../utils/globalDomUtils";
-import { appendChildren } from "../../utils/gobalUtility";
+import { createElement, createIcon } from "../../global";
+import { appendChildren } from "../../global";
 import { createNavButtons } from "./navDomUtils";
 import { createRequirements } from "./requirementsDomUtils";
 import { createTags } from "./tagDomUtils";

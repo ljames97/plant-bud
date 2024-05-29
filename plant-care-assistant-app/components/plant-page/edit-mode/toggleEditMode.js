@@ -1,4 +1,4 @@
-import { clearSection, createElement } from "../../utils/globalDomUtils";
+import { clearSection, createElement } from "../../global";
 import { editMode, saveMode } from "./editSaveMode";
 
 /**

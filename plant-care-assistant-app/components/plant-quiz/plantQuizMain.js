@@ -4,9 +4,9 @@
  * For rendering the plant quiz, questions and resuls and for storing data in the userAnswerLog.
  */
 
-import { domElements } from "../utils/globalDomUtils"
-import { localEventManager } from "../utils/globalEventHandlers";
-import { appendChildren } from "../utils/gobalUtility";
+import { domElements } from "../global"
+import { localEventManager } from "../global";
+import { appendChildren } from "../global";
 import { createPlantQuizElements } from "./plantQuizDomUtils";
 import { startQuizBtnHandler } from "./plantQuizEventHandlers";
 

@@ -1,6 +1,6 @@
-import { createElement } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { createElement } from "../../global";
+import { localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { addNewRequirementHandler, submitRequirementHandler } from "../event-handlers";
 
 /**

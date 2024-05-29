@@ -1,5 +1,5 @@
-import { createElement } from "../../utils/globalDomUtils";
-import { appendChildren, removeChildren } from "../../utils/gobalUtility";
+import { createElement } from "../../global";
+import { appendChildren, removeChildren } from "../../global";
 import { removeImageInput } from "../dom-utils";
 import { setUpDeleteResetBtns, setUpImageInput } from "../event-handlers";
 import { toggleEditFields } from "./toggleEditMode";

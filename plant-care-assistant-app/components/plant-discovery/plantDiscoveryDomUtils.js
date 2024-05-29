@@ -3,10 +3,10 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { renderQuickMenu } from "../plant-log/dom-utils/menuDomUtils";
-import { createElement, createMenuDots, domElements } from "../utils/globalDomUtils";
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
-import { appendChildren } from "../utils/gobalUtility";
+import { renderQuickMenu } from "../plant-log";
+import { createElement, createMenuDots, domElements } from "../global";
+import { handleDocumentClick, localEventManager } from "../global";
+import { appendChildren } from "../global";
 import { quickAddHandler, setUpTagButtonListeners } from "./plantDiscoveryEventHandlers";
 
 /**

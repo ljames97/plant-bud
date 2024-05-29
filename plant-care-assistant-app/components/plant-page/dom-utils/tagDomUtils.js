@@ -1,5 +1,5 @@
-import { createElement } from "../../utils/globalDomUtils";
-import { appendChildren } from "../../utils/gobalUtility";
+import { createElement } from "../../global";
+import { appendChildren } from "../../global";
 
 /**
  * Creates and returns a tag button element.

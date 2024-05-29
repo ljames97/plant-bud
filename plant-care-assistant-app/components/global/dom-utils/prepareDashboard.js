@@ -1,3 +1,7 @@
+import { domElements } from "./elementsManager";
+import { dashboardNavButtonHighlight } from "./navigation";
+import { clearSection } from "./sectionManipulation";
+
 /**
  * Prepare the dashboard by rendering the active section and removing the inactive section.
  * @param {HTMLElement} activeBtn - button clicked.

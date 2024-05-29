@@ -3,9 +3,9 @@
  * Event handler logic the plant page section.
  */
 
-import { removeModal } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { removeModal } from "../../global";
+import { localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { hideSectionButtons } from "../dom-utils";
 import { toggleEditMode } from "../edit-mode";
 import { backToDashboardHandler } from "./backBtnEventHandlers";

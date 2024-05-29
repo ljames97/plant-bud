@@ -1,9 +1,9 @@
 import { setUpModalEventListeners } from "./";
-import { renderQuickMenu } from "../../plant-log/dom-utils";
-import { deleteTaskHandler, editTaskHandler } from "../../plant-log/event-handlers";
-import { createElement, createMenuDots, removeModal, setUpModal } from "../../utils/globalDomUtils";
-import { handleDocumentClick, localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { renderQuickMenu } from "../../plant-log";
+import { deleteTaskHandler, editTaskHandler } from "../../plant-log";
+import { createElement, createMenuDots, removeModal, setUpModal } from "../../global";
+import { handleDocumentClick, localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { createTaskMenu, setSelectButton } from "../dom-utils";
 
 /**

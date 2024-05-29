@@ -3,9 +3,9 @@
  * Event handler logic for the plant log section.
  */
 
-import { resetSection } from "../../utils/globalDomUtils";
-import { handleDocumentClick, localEventManager } from "../../utils/globalEventHandlers";
-import { hideElements, showElements } from "../../utils/gobalUtility";
+import { resetSection } from "../../global";
+import { handleDocumentClick, localEventManager } from "../../global";
+import { hideElements, showElements } from "../../global";
 import { resetPlantGrid } from "../dom-utils";
 import { createArchivePlantMenu, createPlantMenu, createSelectMenu, renderQuickMenu } from "../dom-utils";
 import { movePlantToTop, togglePlantSelect, toggleSelectButton } from "../dom-utils";

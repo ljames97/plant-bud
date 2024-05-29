@@ -1,6 +1,6 @@
-import { plantLog, renderMyPlants } from "../../plant-log/plantLogMain";
-import { clearSection, resetSection } from "../../utils/globalDomUtils";
-import { imageChangeHandler, localEventManager } from "../../utils/globalEventHandlers";
+import { plantLog, renderMyPlants } from "../../plant-log";
+import { clearSection, resetSection } from "../../global";
+import { imageChangeHandler, localEventManager } from "../../global";
 import { renderPlantDetails } from "../plantPageMain";
 
 

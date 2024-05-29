@@ -3,10 +3,10 @@
  * Event handler logic for plant search section
  */
 
-import { copyToMyPlants, renderPlantDetails } from "../plant-page/plantPageMain";
-import { buttonHighlight, clearSection } from "../utils/globalDomUtils";
-import { handleDocumentClick, localEventManager } from "../utils/globalEventHandlers";
-import { appendChildren } from "../utils/gobalUtility";
+import { copyToMyPlants, renderPlantDetails } from "../plant-page";
+import { buttonHighlight, clearSection } from "../global";
+import { handleDocumentClick, localEventManager } from "../global";
+import { appendChildren } from "../global";
 import { replaceElement } from "./plantDiscoveryDomUtils";
 import { renderNewPlantSearch, updateSearchResults } from "./plantDiscoveryMain";
 

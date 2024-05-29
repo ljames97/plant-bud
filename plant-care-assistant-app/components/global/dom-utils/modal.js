@@ -1,6 +1,6 @@
-import { setUpModalListeners } from "../event-handlers/globalEventHandlers";
+import { setUpModalListeners } from "../event-handlers";
 import { removeChildren } from "../utils";
-import { clearSection } from "./globalDomUtils";
+import { clearSection } from "./sectionManipulation";
 
 /**
  * Sets up a modal for closing and interacting with the modal.

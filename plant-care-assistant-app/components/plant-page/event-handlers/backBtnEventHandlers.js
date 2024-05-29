@@ -1,6 +1,6 @@
-import { renderQuizResults } from "../../plant-quiz/plantQuizDomUtils";
-import { resetSection } from "../../utils/globalDomUtils";
-import { showElements } from "../../utils/gobalUtility";
+import { renderQuizResults } from "../../plant-quiz";
+import { resetSection } from "../../global";
+import { showElements } from "../../global";
 
 /**
  * Handles back to dashboard action by checking if the plant info container exists and if it has a quiz result, directing to the appropriate handler.

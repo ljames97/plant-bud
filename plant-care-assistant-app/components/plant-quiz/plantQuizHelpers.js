@@ -1,4 +1,4 @@
-import { plantDirectory } from "../utils/data";
+import { plantDirectory } from "../global";
 import { renderQuizResults } from "./plantQuizDomUtils";
 
 /**

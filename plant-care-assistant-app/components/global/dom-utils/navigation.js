@@ -1,3 +1,5 @@
+import { domElements } from "./elementsManager";
+
 /**
  * Highlight the active dashboard button. Eg. My Plants, Plant Quiz or Discover.
  */

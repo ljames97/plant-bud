@@ -3,9 +3,9 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { createElement, domElements } from "../utils/globalDomUtils";
-import { localEventManager } from "../utils/globalEventHandlers";
-import { appendChildren, randomiseArray, removeChildren } from "../utils/gobalUtility";
+import { createElement, domElements } from "../global";
+import { localEventManager } from "../global";
+import { appendChildren, randomiseArray, removeChildren } from "../global";
 import { choiceBtnClickHandler, resultContainerHandler } from "./plantQuizEventHandlers";
 
 /**

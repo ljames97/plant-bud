@@ -3,11 +3,11 @@
  * Event handler logic.
  */
 
-import { renderPlantDetails } from "../plant-page/plantPageMain";
-import { questions } from "../utils/data";
-import { clearSection, domElements } from "../utils/globalDomUtils";
-import { localEventManager } from "../utils/globalEventHandlers";
-import { hideElements, removeChildren, showElements } from "../utils/gobalUtility";
+import { renderPlantDetails } from "../plant-page";
+import { questions } from "../global";
+import { clearSection, domElements } from "../global";
+import { localEventManager } from "../global";
+import { hideElements, removeChildren, showElements } from "../global";
 import { renderQuestion } from "./plantQuizDomUtils";
 import { getQuizResults } from "./plantQuizHelpers";
 import { renderPlantQuiz, userAnswerlog } from "./plantQuizMain";

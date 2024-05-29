@@ -1,7 +1,7 @@
-import { setUpTaskMenuListeners } from "../../plant-log/event-handlers";
-import { createElement } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { appendChildren } from "../../utils/gobalUtility";
+import { setUpTaskMenuListeners } from "../../plant-log";
+import { createElement } from "../../global";
+import { localEventManager } from "../../global";
+import { appendChildren } from "../../global";
 import { addNewTaskHandler, submitTaskHandler } from "../event-handlers";
 
 /**

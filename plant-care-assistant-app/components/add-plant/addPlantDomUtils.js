@@ -3,8 +3,8 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { createElement } from "../utils/globalDomUtils";
-import { appendChildren } from "../utils/gobalUtility";
+import { createElement } from "../global";
+import { appendChildren } from "../global";
 import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantEventHandlers";
 
 /**

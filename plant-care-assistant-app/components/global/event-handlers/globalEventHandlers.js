@@ -3,6 +3,8 @@
  * Global event handler logic and initialisation.
  */
 
+import { globalDomElements } from "../dom-utils";
+
 
 
 /**

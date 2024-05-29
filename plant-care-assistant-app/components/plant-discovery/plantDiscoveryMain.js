@@ -4,11 +4,11 @@
  * To search for plants in the plant directory and render results on screen.
  */
 
-import { domElements, createElement, clearSection } from "../utils/globalDomUtils"
-import { localEventManager } from "../utils/globalEventHandlers";
-import { appendChildren } from "../utils/gobalUtility";
+import { domElements, createElement, clearSection } from "../global"
+import { localEventManager } from "../global";
+import { appendChildren } from "../global";
 import { createPlantResultElement, createSearchInput } from "./plantDiscoveryDomUtils";
-import { plantDirectory } from "../utils/data";
+import { plantDirectory } from "../global";
 import { plantElementClickHandler, setUpPlantSearchListeners } from "./plantDiscoveryEventHandlers";
 
 /**

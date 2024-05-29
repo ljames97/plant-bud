@@ -3,8 +3,8 @@
  * For rendering, resetting, and managing the plant grid in the Plant Log section.
 */
 
-import { clearSection, createElement, createMenuDots, domElements } from "../../utils/globalDomUtils";
-import { appendChildren } from "../../utils/gobalUtility";
+import { clearSection, createElement, createMenuDots, domElements } from "../../global";
+import { appendChildren } from "../../global";
 import { setupUserPlantGridEventListener } from "../event-handlers";
 import { setUpNewPlantListeners } from "../event-handlers";
 import { plantLog, populatePlantGrid, renderMyPlants } from "../plantLogMain";

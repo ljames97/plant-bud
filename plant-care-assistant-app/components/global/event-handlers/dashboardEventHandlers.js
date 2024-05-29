@@ -1,3 +1,10 @@
+import { renderAddPlantModal } from "../../add-plant";
+import { renderNewPlantSearch } from "../../plant-discovery";
+import { renderMyPlants } from "../../plant-log";
+import { renderPlantQuiz } from "../../plant-quiz";
+import { dashboardNavButtonHighlight, domElements, prepareDashboard } from "../dom-utils";
+import { localEventManager } from "./globalEventHandlers";
+
 /**
  * Initialises the given section and prepares dashboard.
  * @param {String} sectionName 

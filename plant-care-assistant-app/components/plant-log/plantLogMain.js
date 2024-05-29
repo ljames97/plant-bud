@@ -4,9 +4,9 @@
  * For displaying user plants on the dashboard.
  */
 
-import { domElements } from "../utils/globalDomUtils";
-import { appendChildren, findItemInArray, removeItemFromArray } from "../utils/gobalUtility";
-import { localEventManager } from "../utils/globalEventHandlers";
+import { domElements } from "../global";
+import { appendChildren, findItemInArray, removeItemFromArray } from "../global";
+import { localEventManager } from "../global";
 import { plantLogElements, updatePlantInfoBar } from "./dom-utils";
 import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
 

@@ -1,6 +1,6 @@
 import { setUpModalEventListeners } from "./plantPageEventHandlers";
-import { createElement, removeModal, setUpModal } from "../../utils/globalDomUtils";
-import { appendChildren } from "../../utils/gobalUtility";
+import { createElement, removeModal, setUpModal } from "../../global";
+import { appendChildren } from "../../global";
 
 /**
  * Handles adding a new requirement to the plant's requirements list.

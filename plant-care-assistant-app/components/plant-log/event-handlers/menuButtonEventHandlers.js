@@ -4,11 +4,11 @@
  * Event handler functions for menu buttons in the Plant Log section.
 */
 
-import { deletePlantBtnHandler } from "../../plant-page/event-handlers";
-import { permanentDeletePlant } from "../../plant-page/plantPageMain";
-import { buttonHighlight, clearSection } from "../../utils/globalDomUtils";
-import { localEventManager } from "../../utils/globalEventHandlers";
-import { hideElements, showElements } from "../../utils/gobalUtility";
+import { deletePlantBtnHandler } from "../../plant-page";
+import { permanentDeletePlant } from "../../plant-page";
+import { buttonHighlight, clearSection } from "../../global";
+import { localEventManager } from "../../global";
+import { hideElements, showElements } from "../../global";
 import { renderDeletedPlants, resetPlantGrid } from "../dom-utils";
 import { plantLogElements, resetEditButton, updatePlantInfoBar } from "../dom-utils";
 import { renderMaximumTagsError } from "../dom-utils";

@@ -3,9 +3,9 @@
  * Event handler logic for adding a new plant to 'My Plants'.
  */
 
-import { plantLog, renderMyPlants } from "../plant-log/plantLogMain";
-import { domElements, removeModal, resetSection } from "../utils/globalDomUtils";
-import { imageChangeHandler, localEventManager } from "../utils/globalEventHandlers";
+import { plantLog, renderMyPlants } from "../plant-log";
+import { domElements, removeModal, resetSection } from "../global";
+import { imageChangeHandler, localEventManager } from "../global";
 import { updateModalContent } from "./addPlantMain";
 
 /**

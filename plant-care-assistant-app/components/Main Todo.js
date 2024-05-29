@@ -21,6 +21,7 @@ TODO
 - profile / home button functionality -
 have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
 and have home button for overview of the daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
+- probablyu remove homInit and include this in the dashboardInit (dashboardEventHandlers section);
 
 
 TODO plant-quiz:
