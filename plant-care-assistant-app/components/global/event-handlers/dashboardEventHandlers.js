@@ -1,4 +1,5 @@
 import { renderAddPlantModal } from "../../add-plant";
+import { renderHomePage } from "../../home-page/home";
 import { renderNewPlantSearch } from "../../plant-discovery";
 import { renderMyPlants } from "../../plant-log";
 import { renderPlantQuiz } from "../../plant-quiz";
@@ -10,13 +11,14 @@ import { localEventManager } from "./globalEventHandlers";
  * @param {String} sectionName 
  */
 const sectionInit = (sectionName) => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn } = domElements;
 
   const sectionMap = {
     'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants },
     'PLANT_QUIZ': { button: quizBtn, renderFunc: renderPlantQuiz },
     'ADD_PLANT': { button: addNewPlantBtn, renderFunc: renderAddPlantModal },
-    'PLANT_LIBRARY': { button: libraryBtn, renderFunc: renderNewPlantSearch }
+    'PLANT_LIBRARY': { button: libraryBtn, renderFunc: renderNewPlantSearch },
+    'HOME_PAGE': { button: homeBtn, renderFunc: renderHomePage }
   }
 
   const section = sectionMap[sectionName];
@@ -38,7 +40,7 @@ const sectionInit = (sectionName) => {
  * This includes listeners for searching plants, adding new plants, etc.
  */
 export const setUpDashboardEventListeners = () => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn } = domElements;
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn } = domElements;
 
   localEventManager.addEventListener(myPlantsBtn, 'click', () => {
     sectionInit('MY_PLANTS');
@@ -51,6 +53,9 @@ export const setUpDashboardEventListeners = () => {
   }, 'DASHBOARD');
   localEventManager.addEventListener(libraryBtn, 'click', () => {
     sectionInit('PLANT_LIBRARY');
+  }, 'DASHBOARD');
+  localEventManager.addEventListener(homeBtn, 'click', () => {
+    sectionInit('HOME_PAGE');
   }, 'DASHBOARD');
 }
 

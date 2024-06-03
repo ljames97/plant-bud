@@ -8,7 +8,7 @@ import { clearSection } from "./sectionManipulation";
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
 export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
-  const { plantLogEl, plantQuiz, plantLibrary } = domElements;
+  const { plantLogEl, plantQuiz, plantLibrary, homePage } = domElements;
   
   if (activeBtn === domElements.addNewPlantBtn) {
     // Handle the case where addNewPlantBtn is clicked
@@ -27,13 +27,14 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
     myPlantsBtn: { section: plantLogEl, button: domElements.myPlantsBtn },
     addNewPlantBtn: { button: domElements.addNewPlantBtn },
     quizBtn: { section: plantQuiz, button: domElements.quizBtn },
-    libraryBtn: { section: plantLibrary, button: domElements.libraryBtn }
+    libraryBtn: { section: plantLibrary, button: domElements.libraryBtn },
+    homeBtn: { section: homePage, button: domElements.homeBtn }
   };
 
   // Find the active section based on the active button
   const activeSection = Object.values(buttonMap).find(entry => entry.button === activeBtn)?.section;
 
-  [plantLogEl, plantQuiz, plantLibrary].forEach(section => {
+  [plantLogEl, plantQuiz, plantLibrary, homePage].forEach(section => {
     clearSection(section)
     section.style.height = '0'
   });

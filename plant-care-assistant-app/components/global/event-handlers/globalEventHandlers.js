@@ -5,17 +5,11 @@
 
 import { globalDomElements } from "../dom-utils";
 
-
-
 /**
  * Global initalisation for shared event handling.
  */
 export const globalInit = () => {
   setUpGlobalEventListeners();
-}
-
-export const homeInit = () => {
-  // home-page event listener set up
 }
 
 /**

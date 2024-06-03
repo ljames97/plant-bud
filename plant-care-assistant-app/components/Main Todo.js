@@ -13,16 +13,14 @@ TODO
 - more text for the add new plant modal/slider progress
 - clicking on tag to edit while plant is archived causes problem
 
-- tidy up functions eg handlers in handler file, create handlers for large eventlistener callbacks, full JDOCS documentation
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
+
 - clean up / seperate css
 - file heading documentation
 
 - profile / home button functionality -
 have profile button in top left alongside menu bars for about, contact etc. profile has personal details, photo etc
 and have home button for overview of the daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
-- probablyu remove homInit and include this in the dashboardInit (dashboardEventHandlers section);
-
 
 TODO plant-quiz:
 - quiz css and extra features (sliders, progress bar etc...) also progress bar for when adding new plant
@@ -44,7 +42,7 @@ CSS/aesthetics:
 
 - server to store/fetch user data
 - unit testing / js tests
-- production ideas/hosting
+- production ideas/hosting, webpack, eslint, scss/sass
 - login authentication + default login page
 - extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?)
 - README file

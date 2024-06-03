@@ -10,7 +10,7 @@
  * 
  */
 
-import { dashboardInit, globalInit, homeInit } from "./components/global";
+import { dashboardInit, globalInit } from "./components/global";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.body.classList.contains('dashboard-page')) {
     dashboardInit();
-  } else if (document.body.classList.contains('home-page')) {
-    homeInit();
   }
 });

@@ -64,13 +64,8 @@ footer {
   background-size: cover;
 }
 
-.profile-icon-container {
-  background-image: url('../../public/footer-nav-icons/profile.png');
-}
-
-/* temporary button styling */
-.profile-btn {
-  background-color: rgba(172, 172, 172, 0.3);
+.home-icon-container {
+  background-image: url('../../public/home-icon-light.png');
 }
 
 .plant-log {
