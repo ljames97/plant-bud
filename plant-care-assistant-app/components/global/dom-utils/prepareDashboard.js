@@ -8,7 +8,7 @@ import { clearSection } from "./sectionManipulation";
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
 export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
-  const { plantLogEl, plantQuiz, plantLibrary, homePage } = domElements;
+  const { plantLogEl, plantQuiz, plantLibrary, homePage, header } = domElements;
   
   if (activeBtn === domElements.addNewPlantBtn) {
     // Handle the case where addNewPlantBtn is clicked
@@ -40,8 +40,12 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
   });
 
   if (activeSection) {
-    activeSection.style.height = '100vh';
+    activeSection.style.height = '100%';
     renderFunc();
+  }
+
+  if (activeSection !== homePage) {
+    header.style.display = 'none';
   }
 
   dashboardNavButtonHighlight();

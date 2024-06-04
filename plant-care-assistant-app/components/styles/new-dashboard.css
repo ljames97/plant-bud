@@ -5,22 +5,25 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #6B723F 0%, #334521 40%);
+  max-height: 100vh;
+  /* background: linear-gradient(to bottom, #6B723F 0%, #334521 40%);
   background-attachment: fixed;
-  background-size: cover;
+  background-size: cover; */
   color: #fcfaf7;
   font-family: 'Montserrat';
   letter-spacing: 0.8px;
   font-size: 0.9rem;
+  background-image: url('../../public/background-image.png');
 }
 
 h1, p {
   margin: 0;
 }
 
-/* hide header for now */
-header {
-  display: none;
+main {
+  display: flex;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .content {
@@ -28,18 +31,23 @@ header {
 }
 
 footer {
+  flex-shrink: 0;
   align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(81, 89, 78, 0.8);
-  border-radius: 40px;
-  margin: 1rem;
+  background-color: rgb(40 45 39 / 80%);
   margin-bottom: 0;
   color: white;
-  position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 1;
+}
+
+.dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-nav-items {
@@ -103,24 +111,6 @@ input::placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  /* z-index: 1; */
-}
-
-.plant-quiz::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../../public/orange-wallpaper copy.jpg');
-  background-size: cover;
-  background-position: -130px;
-  filter: brightness(0.7);
-  z-index: -1;
 }
 
 .quiz-container h1 {
@@ -337,7 +327,7 @@ color: black;
   position: absolute;
   right: 1rem;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
-  background-color: #222e16;
+  background-color: rgb(40 45 39 / 80%);
   border-radius: 10px;
   margin-top: 0.5rem;
 }
@@ -464,12 +454,12 @@ color: black;
 }
 
 .plant-page-container {
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   background-color: #f2ece5;
   color: black;
-  z-index: 1;
+  z-index: 2;
   padding: 1rem;
   box-sizing: border-box;
   overflow: auto;
@@ -590,7 +580,7 @@ color: black;
   width: 5rem;
   height: 5rem;
   border-radius: 100%;
-  bottom: 3.2rem;
+  bottom: 10rem;
 }
 
 .add-btn-image-container {
@@ -624,7 +614,7 @@ color: black;
   border-radius: 100%;
   width: 5rem;
   height: 5rem;
-  bottom: 3.2rem;
+  bottom: 10rem;
 }
 
 .new-task-image-container {
@@ -695,7 +685,7 @@ color: black;
   position: fixed;
   height: 100vh;
   width: 100vw;
-  z-index: 2;
+  z-index: 3;
   background-color: rgba(0,0,0,0.4);
   backdrop-filter: blur(5px);
 }
@@ -1193,4 +1183,92 @@ textarea {
 
 .added-to-plants-icon {
   margin-left: auto;
+}
+
+/** home-page css */
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page-header {
+  padding: 0 2rem;
+}
+
+.logo-container {
+  width: 60%;
+  margin-bottom: 7rem;
+  position: absolute;
+}
+
+.logo-img {
+  width: 100%;
+}
+
+.home-page-grid {
+  width: 100%;
+}
+
+.home-page-element {
+  background-color: #dcd5cd;
+  color: black;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 10px;
+}
+
+.card-header {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.daily-tasks-count {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.journal-entry {
+  /* border: 0.5px solid black;
+  border-radius: 10px; */
+  padding: 0.5rem 0;
+  font-style: italic;
+}
+
+.menu-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+}
+
+.menu-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #fcfaf7;
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-nav-modal {
+  display: none;
+}
+
+header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.7rem;
+}
+
+.profile-icon-container {
+  width: 10%;
+}
+
+.profile-icon-container img {
+  width: 100%;
 }

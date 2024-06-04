@@ -36,6 +36,7 @@ const domElementsManager = () => {
       const quizBtn = document.querySelector('.quiz-btn');
       const libraryBtn = document.querySelector('.library-btn');
       const homeBtn = document.querySelector('.home-btn');
+      const header = document.querySelector('header');
       
       // plant button dark/light icons
       myPlantsBtn.lightIcon = '../../public/plant-icon-light.png';
@@ -50,7 +51,7 @@ const domElementsManager = () => {
       libraryBtn.darkIcon = '../../public/footer-nav-icons-dark/search.png';
       homeBtn.darkIcon = '../../public/home-icon-dark.png';
 
-      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantLibrary, homePage, myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn };
+      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantLibrary, homePage, myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, header };
       return _dashboardDomElementsCache;
     }
   }

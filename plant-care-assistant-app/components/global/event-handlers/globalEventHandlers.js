@@ -4,6 +4,7 @@
  */
 
 import { globalDomElements } from "../dom-utils";
+import { toggleMobileNav } from "./mobileNavEventHandlers";
 
 /**
  * Global initalisation for shared event handling.
