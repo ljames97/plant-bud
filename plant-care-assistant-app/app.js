@@ -2,7 +2,7 @@
  * Project: Plant Care Assistant App - Draft Portfolio Project (PlantBud)
  *
  * Description:
- * A plant care assistant for discovering suitable plants for the user's home as well as learning about and keeping track of their plants. 
+ * A plant care assistant application for discovering suitable plants for the user's home as well as learning about and keeping track of their plants. 
  *
  * Version: 1.0.0
  * Author: Luke James
@@ -11,7 +11,6 @@
  */
 
 import { dashboardInit, globalInit } from "./components/global";
-
 
 document.addEventListener('DOMContentLoaded', () => {
   globalInit();

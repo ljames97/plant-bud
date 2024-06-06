@@ -63,7 +63,7 @@ export const setUpDashboardEventListeners = () => {
  * Initialises the dashboard.
  */
 export const dashboardInit = () => {
-  sectionInit('MY_PLANTS');
+  sectionInit('HOME_PAGE');
   setUpDashboardEventListeners();
   dashboardNavButtonHighlight();
 }
