@@ -10,12 +10,8 @@
  * 
  */
 
-import { dashboardInit, globalInit } from "./components/global";
+import { dashboardInit } from "./components/global";
 
 document.addEventListener('DOMContentLoaded', () => {
-  globalInit();
-
-  if (document.body.classList.contains('dashboard-page')) {
-    dashboardInit();
-  }
+  dashboardInit();
 });

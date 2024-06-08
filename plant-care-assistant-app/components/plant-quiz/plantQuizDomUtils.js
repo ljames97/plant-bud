@@ -6,7 +6,7 @@
 import { createElement, domElements } from "../global";
 import { localEventManager } from "../global";
 import { appendChildren, randomiseArray, removeChildren } from "../global";
-import { choiceBtnClickHandler, resultContainerHandler } from "./plantQuizEventHandlers";
+import { choiceBtnClickHandler, resultContainerHandler, startQuizBtnHandler } from "./plantQuizEventHandlers";
 
 /**
  * Creates and returns result title element.
@@ -31,10 +31,9 @@ export const createResultElements = (result) => {
  * @returns {Object} Plant quiz elements.
  */
 export const createPlantQuizElements = () => {
+  const { plantQuiz } = domElements;
   const quizContainer = createElement({tagName: 'div', classEl: ['quiz-container']});
   const quizTitle = createElement({tagName: 'h1', classEl: ['section-title'], textContent: 'Plant Quiz'});
-  // const quizBanner = createElement({tagName: 'img', classEl: ['quiz-banner']});
-  // const quizBannerContainer = createElement({tagName: 'div', classEl: ['quiz-banner-container']});
   const questionContainer = createElement({tagName: 'div', classEl: ['question-container']});
   const quizSubtitle = createElement({tagName: 'p', textContent: 'Find suitable plants', classEl: ['quiz-subheader']});
   const quizDescription = createElement({tagName: 'p', classEl: ['quiz-description'], textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
@@ -42,7 +41,7 @@ export const createPlantQuizElements = () => {
   const restartQuizBtn = createElement({tagName: 'div', classEl: ['back-button']});
   const backButtonImg = createElement({tagName: 'img'});
   backButtonImg.src = '../../public/back-button-light.png';
-  // quizBanner.src = '../../public/plant-quiz-banner.png';
+  restartQuizBtn.style.display = 'none';
 
   const snakePlantCard = createPlantCard('Snake Plant', 'For beginners', '../../public/snake-plant.png');
   const peaceLilyCard = createPlantCard('Peace Lily', 'Flowering plant', '../../public/peace-lily.png');
@@ -50,6 +49,13 @@ export const createPlantQuizElements = () => {
 
   appendChildren(cardContainer, snakePlantCard, peaceLilyCard);
   appendChildren(restartQuizBtn, backButtonImg);
+  appendChildren(questionContainer, quizSubtitle, quizDescription, cardContainer, startQuizBtn);
+  appendChildren(quizContainer, restartQuizBtn, quizTitle, questionContainer);
+  appendChildren(plantQuiz, quizContainer);
+
+  localEventManager.addEventListener(startQuizBtn, 'click', () => {
+    startQuizBtnHandler(cardContainer, quizSubtitle, quizDescription, startQuizBtn, quizContainer, quizTitle, restartQuizBtn);
+  }, 'PLANT_QUIZ');
 
   return { quizContainer, quizTitle, questionContainer, quizSubtitle, cardContainer, quizDescription, startQuizBtn, restartQuizBtn };
 }

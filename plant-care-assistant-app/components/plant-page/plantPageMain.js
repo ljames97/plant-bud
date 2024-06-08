@@ -4,11 +4,10 @@
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).
  */
 
-import { appendChildren, findItemInArray, getDate } from "../global";
+import { findItemInArray, getDate } from "../global";
 import { plantLog } from "../plant-log";
 import { plantDirectory } from "../global";
-import { setUpPlantPageListeners } from "./event-handlers";
-import { createDynamicPlantElements, createSectionElements } from "./dom-utils";
+import { createPlantPageElements } from "./dom-utils";
 
 /**
  * Render plant details on screen.
@@ -19,20 +18,7 @@ import { createDynamicPlantElements, createSectionElements } from "./dom-utils";
  * @param {Function} sectionRender
  */
 export const renderPlantDetails = (plant, sectionContainer, backButtonText, sectionClass, sectionRender) => {
-  const { subHeader, permanentDeleteBtn, backToDashboard, backButtonImg, tagContainer, sectionBtn } = createSectionElements(plant, backButtonText);
-  const { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDescriptionContainer, plantDescription } = createDynamicPlantElements(plant, sectionClass);
-  plantTitle.textContent = plant.name;
-  plantDescription.textContent = plant.description;
-  plantImage.src = plant.image;
-
-  appendChildren(backToDashboard, backButtonImg);
-  appendChildren(headerContainer, backToDashboard, plantTitle, sectionBtn);
-  appendChildren(plantImageContainer, plantImage);
-  appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
-  appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
-
-  setUpPlantPageListeners(sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, permanentDeleteBtn, backToDashboard);
-  
+  createPlantPageElements(plant, sectionClass, sectionContainer, backButtonText, sectionRender);
   window.scrollTo(0, 0);
 }
 

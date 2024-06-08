@@ -22,18 +22,20 @@ export const createSearchInput = () => {
   const { plantLibrary } = domElements;
   const sectionHeader = createElement({tagName: 'div', classEl: ['section-header']});
   const plantDiscoveryTitle = createElement({tagName: 'h1', textContent: 'Plant Library', classEl: ['plant-discovery-title']});
-  const plantDiscoveryDescription = createElement({tagName: 'p', textContent: 'Search our directory for plant information or find new plants to add to your dashboard', classEl: ['plant-discovery-description']});
   const searchContainer = createElement({tagName: 'div', classEl: ['discovery-search-container']});
   const { searchTags, tagButtons } = createSearchTags();
   const searchInput = createElement({tagName: 'input', placeholder: 'Search', classEl: ['plant-search']});
   const plantsFoundCounter = createElement({tagName: 'p', classEl: ['plants-found-counter'], textContent: ''});
   const searchResultsContainer = createElement({tagName: 'div', classEl: ['search-results']});
 
+  appendChildren(searchContainer, searchTags);
+  appendChildren(sectionHeader, plantDiscoveryTitle );
+  appendChildren(searchContainer, searchInput, plantsFoundCounter, searchResultsContainer);
+  appendChildren(plantLibrary, sectionHeader, searchContainer);
+
   setUpTagButtonListeners(tagButtons, plantLibrary, searchInput, searchResultsContainer);
 
-  appendChildren(searchContainer, searchTags);
-
-  return { sectionHeader, plantDiscoveryTitle, plantDiscoveryDescription, searchContainer, searchTags, searchInput, plantsFoundCounter, searchResultsContainer };
+  return { searchInput, searchResultsContainer };
 }
 
 /**
@@ -108,7 +110,7 @@ export const toggleMenu = () => {
  * @param {HTMLElement} menuDots - menu dots container element.
  * @param {Object} plant - plant object for which the menu items are being created.
  */
-const createMenuItems = (menuDots, plant) => {
+export const createMenuItems = (menuDots, plant) => {
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
   const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
 

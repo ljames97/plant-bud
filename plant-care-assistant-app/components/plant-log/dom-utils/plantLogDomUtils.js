@@ -3,7 +3,7 @@
  * For creating and managing dynamic elements within the Plant Log section.
  */
 
-import { createElement, createMenuDots } from "../../global";
+import { createElement, createMenuDots, domElements } from "../../global";
 import { appendChildren, hideElements } from "../../global";
 import { setUpPlantLogListeners } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
@@ -24,6 +24,7 @@ const dynamicPlantLogElementsManager = () => {
 
   return {
     createPlantLogElements: () => {
+      const { plantLogEl } = domElements;
       const sectionHeader = createElement({tagName: 'div', classEl: ['section-header']});
       const plantLogTitle = createElement({tagName: 'h1', textContent: 'My Plants', classEl: ['section-title']});
       const infoBarContainer = createElement({tagName: 'div', classEl: ['info-bar-container']});
@@ -38,11 +39,11 @@ const dynamicPlantLogElementsManager = () => {
 
       appendChildren(editButtonContainer, editButton, editDots);
       appendChildren(infoBarContainer, plantInfoBar, editButtonContainer);
+      appendChildren(sectionHeader, plantLogTitle)
+      appendChildren(plantLogEl, sectionHeader, menuButtons, infoBarContainer, taskSelectContainer, userPlantsContainer);
       hideElements(editDots);
 
       setUpPlantLogListeners(editButton, editDots);
-
-      return { sectionHeader, menuButtons, plantInfoBar, infoBarContainer, taskSelectContainer, plantLogTitle, userPlantsContainer };
     },
 
     getPlantLogElements: () => {

@@ -3,16 +3,6 @@
  * Global event handler logic and initialisation.
  */
 
-import { globalDomElements } from "../dom-utils";
-import { toggleMobileNav } from "./mobileNavEventHandlers";
-
-/**
- * Global initalisation for shared event handling.
- */
-export const globalInit = () => {
-  setUpGlobalEventListeners();
-}
-
 /**
  * Creates an event manager for adding, removing, and managing DOM event listeners.
  * The manager supports categorization of event listeners into registries for organized management,
@@ -97,17 +87,3 @@ const eventManager = () => {
 };
 
 export const localEventManager = eventManager();
-
-/**
- * Manages global elements and their event handlers.
- */
-const setUpGlobalEventListeners = () => {
-  const { mobileMenuBars, mobileNavCloseBtn } = globalDomElements;
-
-  localEventManager.addEventListener(mobileMenuBars, 'click', () => {
-    toggleMobileNav(true);
-  }, 'MOBILE_NAV');
-  localEventManager.addEventListener(mobileNavCloseBtn, 'click', () => {
-    toggleMobileNav(false);
-  }, 'MOBILE_NAV');
-}

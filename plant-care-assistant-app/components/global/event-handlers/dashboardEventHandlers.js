@@ -1,5 +1,5 @@
 import { renderAddPlantModal } from "../../add-plant";
-import { renderHomePage } from "../../home-page/home";
+import { renderHomePage } from "../../home-page/homeMain";
 import { renderNewPlantSearch } from "../../plant-discovery";
 import { renderMyPlants } from "../../plant-log";
 import { renderPlantQuiz } from "../../plant-quiz";

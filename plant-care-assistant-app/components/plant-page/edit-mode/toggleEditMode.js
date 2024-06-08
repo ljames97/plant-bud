@@ -1,4 +1,4 @@
-import { clearSection, createElement } from "../../global";
+import { appendChildren, clearSection, createElement } from "../../global";
 import { editMode, saveMode } from "./editSaveMode";
 
 /**

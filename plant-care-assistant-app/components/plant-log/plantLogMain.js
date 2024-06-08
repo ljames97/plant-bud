@@ -14,12 +14,7 @@ import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.
  */
 export const renderMyPlants = () => {
-  const { plantLogEl } = domElements;
-  const { sectionHeader, menuButtons, infoBarContainer, taskSelectContainer, plantLogTitle, userPlantsContainer } = plantLogElements.createPlantLogElements();
-
-  appendChildren(sectionHeader, plantLogTitle)
-  appendChildren(plantLogEl, sectionHeader, menuButtons, infoBarContainer, taskSelectContainer, userPlantsContainer);
-
+  plantLogElements.createPlantLogElements();
   renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
   updatePlantInfoBar();
 

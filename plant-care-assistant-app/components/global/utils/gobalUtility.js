@@ -107,3 +107,34 @@ export const getDate = () => {
 
   return formattedDate;
 }
+
+/**
+ * Retrieves the user's current geographical location using the Geolocation API.
+ * @returns {Promise} Rescolves with an object containing user latitude and longitude.
+ */
+export const getUserLocation = async () => {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          resolve({ latitude, longitude })
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    } else {
+      reject(new Error('Geolocation is not supported by this browser.'));
+    }
+  })
+}
+
+/**
+ * Rounds a given number to the nearest whole number.
+ * @param {Number} number 
+ * @returns {Number} Rounded whole number
+ */
+export const roundToNearestWhole = (number) => {
+  return Math.round(number);
+};

@@ -1,5 +1,6 @@
 import { createElement, createIcon } from "../../global";
 import { appendChildren } from "../../global";
+import { setUpPlantPageListeners } from "../event-handlers";
 import { createNavButtons } from "./navDomUtils";
 import { createRequirements } from "./requirementsDomUtils";
 import { createTags } from "./tagDomUtils";
@@ -9,17 +10,33 @@ import { createUserTasks } from "./tasksDomUtils";
  * Create dynamic elements for the plant page.
  * @returns dynamic plant elements.
  */
-export const createDynamicPlantElements = (plant, sectionClass) => {
+export const createPlantPageElements = (plant, sectionClass, sectionContainer, backButtonText, sectionRender) => {
   const { mainSection, aboutSection, requirementsSection, tasksSection } = createMainSection(plant, sectionClass);
   const headerContainer = createElement({tagName: 'div', classEl: ['header-container']});
-  const plantTitle = createElement({tagName: 'h1', classEl: ['plant-title']});
+  const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: ['plant-title']});
   const navContainer = createNavButtons(aboutSection, requirementsSection, tasksSection, sectionClass);
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-page-image-container']});
   const plantImage = createElement({tagName: 'img', classEl: ['plant-page-image']});
-  const plantDate = createElement({tagName: 'p', classEl: ['plant-date']});
-  const { plantDescriptionContainer, plantDescription } = createDescriptionElement();
+  const { plantDescriptionContainer, plantDescription } = createDescriptionElement(plant);
+  const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
+  const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: ['permanent-delete-btn']});
+  const backToDashboard = createElement({tagName: 'div', classEl: ['back-button']});
+  const backButtonImg = createElement({tagName: 'img'});
+  const tagContainer = createTags(plant);
+  backButtonImg.src = '../../public/back-button.png';
+  plantImage.src = plant.image;
 
-  return { headerContainer, plantTitle, navContainer, mainSection, aboutSection, plantImageContainer, plantImage, plantDate, plantDescriptionContainer, plantDescription };
+  let sectionBtn = '';
+  sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
+  sectionBtn.classList.add('section-button');
+
+  appendChildren(backToDashboard, backButtonImg);
+  appendChildren(headerContainer, backToDashboard, plantTitle, sectionBtn);
+  appendChildren(plantImageContainer, plantImage);
+  appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
+  appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
+
+  setUpPlantPageListeners(sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, permanentDeleteBtn, backToDashboard);
 }
 
 /**
@@ -39,27 +56,12 @@ const createMainSection = (plant, sectionClass) => {
   return { mainSection, aboutSection, requirementsSection, tasksSection };
 }
 
-export const createSectionElements = (plant, backButtonText) => {
-  const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
-  const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: ['permanent-delete-btn']});
-  const backToDashboard = createElement({tagName: 'div', classEl: ['back-button']});
-  const backButtonImg = createElement({tagName: 'img'});
-  const tagContainer = createTags(plant);
-  backButtonImg.src = '../../public/back-button.png';
-
-  let sectionBtn = '';
-  sectionBtn = createSectionBtn(backButtonText, sectionBtn, plant);
-  sectionBtn.classList.add('section-button');
-
-  return { subHeader, permanentDeleteBtn, backToDashboard, backButtonImg, tagContainer, sectionBtn };
-}
-
 /**
  * Creates and returns the plant description element.
  * @returns {Object} Object containing references to the plant description container and plant description element.
  */
-const createDescriptionElement = () => {
-  const plantDescription = createElement({tagName: 'p', classEl: ['plant-description']});
+const createDescriptionElement = (plant) => {
+  const plantDescription = createElement({tagName: 'p', textContent: plant.description, classEl: ['plant-description']});
   const plantDescriptionHeader = createElement({tagName: 'p', textContent: 'Overview', classEl: ['plant-description-header']});
   const plantDescriptionContainer = createElement({tagName: 'div', classEl: ['plant-description-container']});
   appendChildren(plantDescriptionContainer, plantDescriptionHeader, plantDescription);

@@ -12,18 +12,13 @@ import { plantDirectory } from "../global";
 import { plantElementClickHandler, setUpPlantSearchListeners } from "./plantDiscoveryEventHandlers";
 
 /**
- * Render plant search input on screen. Get search elements from createSearchInput and append to the DOM.
+ * Render plant search input on screen. Get search elements from createSearchInput.
  */
 export const renderNewPlantSearch = () => {
-  const { sectionHeader, plantDiscoveryTitle, searchContainer, searchInput, plantsFoundCounter, searchResultsContainer } = createSearchInput();
+  const { searchInput, searchResultsContainer } = createSearchInput();
   const { plantLibrary } = domElements;
 
-  appendChildren(sectionHeader, plantDiscoveryTitle );
-  appendChildren(searchContainer, searchInput, plantsFoundCounter, searchResultsContainer);
-  appendChildren(plantLibrary, sectionHeader, searchContainer);
-
   updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-discovery', renderNewPlantSearch);
-
   setUpPlantSearchListeners(searchInput, plantLibrary, searchResultsContainer);
 }
 
