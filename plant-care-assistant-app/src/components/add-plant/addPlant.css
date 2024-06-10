@@ -1,0 +1,41 @@
+.description-input {
+  height: 5rem;
+  color: #FCFAF7;
+}
+
+.description-input::placeholder {
+  color: #FCFAF7;
+}
+
+.photo-input {
+  display: none;
+}
+
+.file-upload {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.next-button {
+  width: 6rem;
+  align-self: center;
+}
+
+.modal-error-message {
+  align-self: center;
+}
+
+.large-image {
+  width: 70%;
+}
+
+.upload-image-heading {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.plant-form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
