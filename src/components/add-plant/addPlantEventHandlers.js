@@ -22,7 +22,7 @@ export const setUpInputChangeListener = (input, imageInputImg, heading) => {
       imageUrl = dataUrl;
       imageInputImg.src = dataUrl;
       imageInputImg.classList.add('large-image');
-      heading.style.display = 'none';
+      heading.classList.add('hidden');
     })
   }, 'ADD_PLANT');
 

@@ -187,3 +187,7 @@ button {
 .dashboard-nav-item-container p {
   margin-top: 0.7rem;
 }
+
+.hidden {
+  display: none;
+}

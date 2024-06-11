@@ -11,8 +11,25 @@
  */
 
 import './components/global/global.css';
-import { initApp } from "./app";
+import { initApp } from "./app.js";
+import { auth } from './config';
+import { onAuthStateChanged } from 'firebase/auth';
 
-document.addEventListener('DOMContentLoaded', () => {
-  initApp();
+onAuthStateChanged(auth, (user) => {
+  const dashboard = document.querySelector('.dashboard-page')
+  if (user) {
+    // User is signed in, show the app
+   if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        dashboard.classList.remove('hidden');
+        initApp(user.uid);
+      });
+    } else {
+      initApp(user.uid);
+    }
+  } else {
+    // User is not signed in, redirect to login page
+    dashboard.classList.add('hidden');
+    window.location.href = '/login.html';
+  }
 });

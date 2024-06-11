@@ -9,6 +9,7 @@ import { findItemInArray, removeItemFromArray } from "../global";
 import { localEventManager } from "../global";
 import { plantLogElements, updatePlantInfoBar } from "./dom-utils";
 import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
+import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } from '../../config';
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.
@@ -37,34 +38,44 @@ export const setPlantInfoBar = (userPlants) => {
   return {numberOfPlants, numberOfTasks}
 }
 
+
 /**
  * Store userPlantLog and return methods related to the plant log.
  * Also stores the original plant data for users to reset any edits made to the original plant.
  * @returns {Object} Methods to add, remove, update and retrieve plants from the userPlantLog.
  */
-const plantLogManager = () => {
+export const plantLogManager = () => {
   let userPlantLog = [];
   let originalPlantLog = [];
   let deletedPlantLog = [];
+  let userId = null;
 
   return {
-    addToUserPlantLog: (plant) => {
+    setUserId: (id) => {
+      userId = id;
+    },
+    initialisePlantLog: (userPlants) => {
+      userPlantLog = userPlants;
+    },
+    addToUserPlantLog: async (plant) => {
       userPlantLog.push(plant);
       const foundPlant = findItemInArray(originalPlantLog, plant.id);
       if (!foundPlant) {
         const clonePlant = JSON.parse(JSON.stringify(plant));
         originalPlantLog.push(clonePlant);
       }
+      await addPlantToFirebase(userId, plant);
     },
-    deletePlantFromLog: (plant) => {
+    deletePlantFromLog: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
         userPlantLog = removeItemFromArray(userPlantLog, plant.id);
         deletedPlantLog.push(plant);
         plant.archived = true;
       } 
+      await deletePlantFromFirebase(plant.id);
     },
-    updatePlantInfo: (plant) => {
+    updatePlantInfo: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
         foundPlant.name = plant.name;
@@ -72,6 +83,7 @@ const plantLogManager = () => {
         foundPlant.notes = plant.notes;
         foundPlant.image = plant.image;
       }
+      await updatePlantInFirebase(plant.id, foundPlant);
     },
     removeFromDeletedPlants: (plant) => {
       const foundPlant = findItemInArray(deletedPlantLog, plant.id);
@@ -81,9 +93,10 @@ const plantLogManager = () => {
         plant.archived = false;
       }
     },
-    permanentDelete: (plant) => {
+    permanentDelete: async (plant) => {
       deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
       originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
+      await deletePlantFromFirebase(plant.id);
     },
     getPlant: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);

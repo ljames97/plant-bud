@@ -29,6 +29,10 @@ export const renderDeletedPlants = () => {
  * @param {String} backButtonText - text for the back button eg. 'back to My Plants'.
  */
 export const renderPlantGrid = (plantLogType, sectionRender, backButtonText) => {
+  console.log(plantLogType);
+  if (plantLogType.length < 0) {
+    return;
+  }
   const { plantLogEl } = domElements;
   populatePlantGrid(plantLogType);
   setupUserPlantGridEventListener(plantLogEl, plantLogType, sectionRender, backButtonText);

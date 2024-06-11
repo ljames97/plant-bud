@@ -5,8 +5,13 @@ Home page
 - moon icon for evening weather
 
 FINAL
+- fix when plant is added to database, 'add to my plants' option is still showing.
+- fix delete/update plant errors, updating tasks to database etc.
+- default login page + profile page
 - server to store/fetch user data
-- login authentication + default login page + profile page
+- security for login and storing data
+- document new config/login functions
+
 - unit testing / js tests
 - README file
 - domain hosting, eslint, scss/sass
@@ -15,7 +20,7 @@ FINAL
 - desktop css (responsive design)
 - file heading documentation
 
-- react refactor
+- react refactor, node.js database/server
 - new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
 
 PLANT PAGE
