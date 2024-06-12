@@ -31,12 +31,13 @@ export const plantElementClickHandler = (mainSection, plantInfoContainer, plant,
  * @param {Object} plant - plant object to be added to "My Plants".
  * @returns 
  */
-export const quickAddHandler = (quickAdd, plant) => {
-  if (plant.isAdded === true) {
+export const quickAddHandler = (quickAdd, plant, isAdded) => {
+  if (isAdded) {
+    console.log(isAdded);
     return;
   }
+  console.log('adding');
   copyToMyPlants(plant);
-  plant.isAdded = true;
   replaceElement(quickAdd);
 }
 

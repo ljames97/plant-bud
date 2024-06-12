@@ -5,10 +5,9 @@ Home page
 - moon icon for evening weather
 
 FINAL
-- fix when plant is added to database, 'add to my plants' option is still showing.
-- fix delete/update plant errors, updating tasks to database etc.
-- default login page + profile page
-- server to store/fetch user data
+- adding plant to databse, image size too large issue (store in Firebase Storage)
+- tags, plant edits updated to database
+- default login page + profile page, login/sign up error messages
 - security for login and storing data
 - document new config/login functions
 

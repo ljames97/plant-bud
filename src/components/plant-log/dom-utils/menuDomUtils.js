@@ -68,10 +68,10 @@ export const createMenuButtons = () => {
  * @param {Object} plantOrTask - plant or task object associated with the menu.
  * @param {HTMLElement} element - element to attach the menu to.
  */
-export const renderQuickMenu = (event, createMenuFunc, menuDots, plantOrTask, element) => {
+export const renderQuickMenu = (event, createMenuFunc, menuDots, plantOrTask, element, plant) => {
   event.stopPropagation();
   toggleMenu();
-  createMenuFunc(menuDots, plantOrTask, element);
+  createMenuFunc(menuDots, plantOrTask, element, plant);
 }
 
 /**

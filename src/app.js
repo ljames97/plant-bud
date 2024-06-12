@@ -11,8 +11,7 @@ export const initApp = async (userId) => {
     return;
   }
   plantLog.initialisePlantLog(userPlants);
+  console.log(userPlants);
 
   console.log(plantLog.getUserPlantLog());
-
-
 }

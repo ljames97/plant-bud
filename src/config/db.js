@@ -51,6 +51,7 @@ export const updatePlantInFirebase = async (plantId, plantData) => {
 export const deletePlantFromFirebase = async (plantId) => {
   try {
     await deleteDoc(doc(db, "plants", plantId));
+    console.log('deleted plant from firebase');
   } catch (error) {
     console.error("Error deleting plant:", error);
     throw error;

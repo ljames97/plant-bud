@@ -13,6 +13,7 @@ import { renderQuickMenu } from "../dom-utils";
 import { updatePlantInfoBar } from "../dom-utils";
 import { renderTasksList, resetTaskSection, updateTaskBar, updateTaskIcon } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
+import { updatePlantInFirebase } from "../../../config";
 
 /**
  * Sets up event listeners for selecting tasks and handles task completion state accordingly. 
@@ -53,7 +54,7 @@ export const taskSelectHandler = (activeBtn, inactiveBtn, completedTaskState, se
  * @param {HTMLElement} menuDotContainer 
  * @param {HTMLElement} taskElement 
  */
-export const setUpTaskElementListeners = (taskSelector, task, menuDotContainer, taskElement) => {
+export const setUpTaskElementListeners = (taskSelector, task, menuDotContainer, taskElement, plant) => {
   localEventManager.addEventListener(taskSelector, 'click', () => {
     selectButtonHandler(task, taskSelector, 'rgba(255, 255, 255, 0.95)', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
     updateTaskBar();
@@ -61,7 +62,7 @@ export const setUpTaskElementListeners = (taskSelector, task, menuDotContainer, 
   }, 'PLANT_LOG');
 
   localEventManager.addEventListener(menuDotContainer, 'click', (event) => {
-    renderQuickMenu(event, createTaskMenu, menuDotContainer, task, taskElement);
+    renderQuickMenu(event, createTaskMenu, menuDotContainer, task, taskElement, plant);
     localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_LOG');
   }, 'PLANT_LOG');
 }
@@ -73,13 +74,13 @@ export const setUpTaskElementListeners = (taskSelector, task, menuDotContainer, 
  * @param {HTMLElement} deleteTask 
  * @param {HTMLElement} taskElement 
  */
-export const setUpTaskMenuListeners = (editTask, task, deleteTask, taskElement) => {
+export const setUpTaskMenuListeners = (editTask, task, deleteTask, taskElement, plant) => {
   localEventManager.addEventListener(editTask, 'click', () => {
-    editTaskHandler(task);
+    editTaskHandler(task, plant);
   }, 'PLANT_LOG');
 
   localEventManager.addEventListener(deleteTask, 'click', () => {
-    deleteTaskHandler(task, taskElement);
+    deleteTaskHandler(task, taskElement, plant);
     updateTaskIcon();
     updateTaskBar();
   }, 'PLANT_LOG');
@@ -89,7 +90,7 @@ export const setUpTaskMenuListeners = (editTask, task, deleteTask, taskElement) 
  * Handles the task edit action and displays the edit task modal.
  * @param {Object} task 
  */
-export const editTaskHandler = (task) => {
+export const editTaskHandler = (task, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const editTaskModal = createElement({tagName: 'div', classEl: ['new-modal']});
   const editTaskInput = createElement({tagName: 'input', placeholder: task.description, classEl: ['new-input']});
@@ -101,7 +102,7 @@ export const editTaskHandler = (task) => {
   appendChildren(modalOverlay, editTaskModal);
 
   localEventManager.addEventListener(updateBtn, 'click', () => {
-    updateTaskHandler(task, editTaskInput, editTaskModal);
+    updateTaskHandler(task, editTaskInput, editTaskModal, plant);
   })
 }
 
@@ -111,7 +112,7 @@ export const editTaskHandler = (task) => {
  * @param {HTMLElement} editTaskInput 
  * @param {HTMLElement} editTaskModal 
  */
-const updateTaskHandler = (task, editTaskInput, editTaskModal) => {
+const updateTaskHandler = async (task, editTaskInput, editTaskModal, plant) => {
   if (editTaskInput.value === '') {
     return;
   }
@@ -120,6 +121,7 @@ const updateTaskHandler = (task, editTaskInput, editTaskModal) => {
 
   removeModal(editTaskModal, 'PLANT_LOG');
   resetTaskSection();
+  await updatePlantInFirebase(plant.firestoreId, plant);
 }
 
 /**
@@ -127,12 +129,14 @@ const updateTaskHandler = (task, editTaskInput, editTaskModal) => {
  * @param {Object} task 
  * @param {HTMLElement} taskElement 
  */
-export const deleteTaskHandler = (task, taskElement) => {
+export const deleteTaskHandler = async (task, taskElement, plant) => {
   plantLog.deletePlantTask(task.id);
 
   if (taskElement && taskElement.parentNode) {
     taskElement.parentNode.removeChild(taskElement);
   }
+
+  await updatePlantInFirebase(plant.firestoreId, plant);
 }
 
 /**
@@ -164,7 +168,7 @@ export const addNewTaskHandler = (plant) => {
  * @param {HTMLElement} newTaskInput 
  * @param {HTMLElement} newTaskModal 
  */
-const submitTaskHandler = (plant, newTaskInput, newTaskModal) => {
+const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
   if (newTaskInput === '') {
     return;
   }
@@ -183,4 +187,5 @@ const submitTaskHandler = (plant, newTaskInput, newTaskModal) => {
   resetPlantGrid(plantLog.getUserPlantLog());
   updatePlantInfoBar();
   updateTaskIcon();
+  await updatePlantInFirebase(plant.firestoreId, plant);
 }

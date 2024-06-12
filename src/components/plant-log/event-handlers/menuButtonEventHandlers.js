@@ -105,7 +105,6 @@ export const setUpPlantMenuListeners = (newTask, plant, addTag, pinPlant, delete
       renderMaximumTagsError();
       return;
     }
-
     addNewTagHandler(plant);
   });
 

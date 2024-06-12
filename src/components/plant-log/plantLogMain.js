@@ -56,6 +56,12 @@ export const plantLogManager = () => {
     },
     initialisePlantLog: (userPlants) => {
       userPlantLog = userPlants;
+      userPlantLog.forEach(plant => {
+        if (plant.archived === true) {
+          userPlantLog = removeItemFromArray(userPlantLog, plant.id);
+          deletedPlantLog.push(plant);
+        }
+      });
     },
     addToUserPlantLog: async (plant) => {
       userPlantLog.push(plant);
@@ -64,7 +70,9 @@ export const plantLogManager = () => {
         const clonePlant = JSON.parse(JSON.stringify(plant));
         originalPlantLog.push(clonePlant);
       }
-      await addPlantToFirebase(userId, plant);
+      const docId = await addPlantToFirebase(userId, plant);
+      plant.firestoreId = docId;
+      await updatePlantInFirebase(plant.firestoreId, plant);
     },
     deletePlantFromLog: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -73,7 +81,7 @@ export const plantLogManager = () => {
         deletedPlantLog.push(plant);
         plant.archived = true;
       } 
-      await deletePlantFromFirebase(plant.id);
+      await updatePlantInFirebase(plant.firestoreId, plant);
     },
     updatePlantInfo: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -83,27 +91,28 @@ export const plantLogManager = () => {
         foundPlant.notes = plant.notes;
         foundPlant.image = plant.image;
       }
-      await updatePlantInFirebase(plant.id, foundPlant);
+      await updatePlantInFirebase(plant.firestoreId, plant);
     },
-    removeFromDeletedPlants: (plant) => {
+    removeFromDeletedPlants: async (plant) => {
       const foundPlant = findItemInArray(deletedPlantLog, plant.id);
       if (foundPlant) {
         deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
-        plantLog.addToUserPlantLog(plant);
+        userPlantLog.push(plant);
         plant.archived = false;
       }
+      await updatePlantInFirebase(plant.firestoreId, plant);
     },
     permanentDelete: async (plant) => {
       deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
       originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
-      await deletePlantFromFirebase(plant.id);
+      await deletePlantFromFirebase(plant.firestoreId);
     },
     getPlant: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
         return foundPlant;
       } else {
-        alert('Cannot find plant!');
+        return false;
       }
     },
     getOriginalPlant: (plant) => {

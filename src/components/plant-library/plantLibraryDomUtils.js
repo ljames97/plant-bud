@@ -3,7 +3,7 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { renderQuickMenu } from "../plant-log";
+import { plantLog, renderQuickMenu } from "../plant-log";
 import { createElement, createMenuDots, domElements } from "../global";
 import { handleDocumentClick, localEventManager } from "../global";
 import { appendChildren } from "../global";
@@ -111,15 +111,26 @@ export const toggleMenu = () => {
  * @param {Object} plant - plant object for which the menu items are being created.
  */
 export const createMenuItems = (menuDots, plant) => {
+  const isAdded = isPlantAdded(plant);
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
-  const quickAdd = createElement({tagName: 'p', textContent: !plant.isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
+  const quickAdd = createElement({tagName: 'p', textContent: !isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
 
   appendChildren(dropMenuContainer, quickAdd);
   appendChildren(menuDots, dropMenuContainer);
 
   localEventManager.addEventListener(quickAdd, 'click', () => {
-    quickAddHandler(quickAdd, plant);
+    quickAddHandler(quickAdd, plant, isAdded);
   }, 'PLANT_SEARCH');
+}
+
+/**
+ * Finds plant in the userPlantLog, returns found plant or false.
+ * @param {Object} plant - plant details
+ * @returns {Boolean} Is plant already in the userPlantLog
+ */
+const isPlantAdded = (plant) => {
+  const isAdded = plantLog.getPlant(plant);
+  return isAdded;
 }
 
 /**
