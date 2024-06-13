@@ -18,17 +18,16 @@ import { onAuthStateChanged } from 'firebase/auth';
 onAuthStateChanged(auth, (user) => {
   const dashboard = document.querySelector('.dashboard-page')
   if (user) {
-    // User is signed in, show the app
-   if (document.readyState === 'loading') {
+    if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         dashboard.classList.remove('hidden');
         initApp(user.uid);
       });
     } else {
+      dashboard.classList.remove('hidden');
       initApp(user.uid);
     }
   } else {
-    // User is not signed in, redirect to login page
     dashboard.classList.add('hidden');
     window.location.href = '/login.html';
   }

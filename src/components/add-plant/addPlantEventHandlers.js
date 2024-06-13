@@ -4,9 +4,10 @@
  */
 
 import { plantLog, renderMyPlants } from "../plant-log";
-import { domElements, removeModal, resetSection } from "../global";
+import { domElements, isFile, removeModal, resetSection } from "../global";
 import { imageChangeHandler, localEventManager } from "../global";
 import { updateModalContent } from "./addPlantMain";
+import { uploadImageToFirebase } from "../../config";
 
 /**
  * Sets up event listener for uploading user image.
@@ -15,18 +16,23 @@ import { updateModalContent } from "./addPlantMain";
  * @param {HTMLElement} heading 
  */
 export const setUpInputChangeListener = (input, imageInputImg, heading) => {
-  let imageUrl;
+  let imageFile;
 
   localEventManager.addEventListener(input, 'change', (event) => {
-    imageChangeHandler(event, (dataUrl) => {
-      imageUrl = dataUrl;
-      imageInputImg.src = dataUrl;
-      imageInputImg.classList.add('large-image');
-      heading.classList.add('hidden');
-    })
+    const file = event.target.files[0];
+    if (file) {
+      imageFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imageInputImg.src = e.target.result;
+        imageInputImg.classList.add('large-image');
+        heading.classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
   }, 'ADD_PLANT');
 
-  return () => imageUrl;
+  return () => imageFile;
 }
 
 /**
@@ -36,29 +42,47 @@ export const setUpInputChangeListener = (input, imageInputImg, heading) => {
  * @param {HTMLElement} plantName - user input field for plant name (date, description etc.)
  * @param {HTMLElement} dateAdded 
  * @param {HTMLElement} description 
- * @param {String} imageDataUrl - image url
+ * @param {File} imageFile - image file
  */
-export const submitNewPlantHandler = (event, plantName, dateAdded, description, imageDataUrl) => {
+export const submitNewPlantHandler = async (event, plantName, dateAdded, description, imageFile) => {
   const { myPlantsBtn } = domElements;
   event.preventDefault();
+
+  console.log('Plant Name:', plantName);
+  console.log('Date Added:', dateAdded);
+  console.log('Description:', description);
+  console.log('Image File:', imageFile);
+
+  let imageUrl = imageFile;
+
+  if (isFile(imageFile)) {
+    try {
+      imageUrl = await uploadImageToFirebase(imageFile, 'original');
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return;
+    }
+  }
 
   const newPlant = {
     name: plantName,
     dateAdded: dateAdded,
     description: description,
-    image: imageDataUrl,
+    image: imageUrl,
     id: Date.now(),
     requirements: [],
     tasks: [],
     tags: []
   };
 
-  plantLog.addToUserPlantLog(newPlant);
+  console.log(newPlant);
+
+  await plantLog.addToUserPlantLog(newPlant);
 
   if (myPlantsBtn.classList.contains('active')) {
     resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
   }
-}
+};
 
 /**
  * Sets up event listeners for the "Next" and "Back" button elements in the add new plant form.
@@ -68,10 +92,10 @@ export const submitNewPlantHandler = (event, plantName, dateAdded, description, 
  * @param {HTMLElement} errorMessage - element that displays an error message if the input is invalid.
  * @param {Boolean} isFileInput - indicating whether the input is a file input.
  * @param {Object} state - current state of the form, including the current step and accumulated input from user.
- * @param {Function} getImageUrl - retrieves the URL of the selected image file, if applicable.
+ * @param {Function} getImageFile - retrieves the image file.
  * @param {HTMLElement} backButton - element that moves the form to previous step.
  */
-export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFileInput, state, getImageUrl, backButton) => {
+export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFileInput, state, getImageFile, backButton) => {
   localEventManager.addEventListener(nextButton, 'click', (event) => {
     if (input.value === '') {
       errorMessage.style.display = 'block';
@@ -79,7 +103,8 @@ export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFil
     }
     const userInput = isFileInput ? input.files[0] : input.value;
     const modal = document.querySelector('.new-modal');
-    const newState = nextButtonHandler(userInput, state, event, getImageUrl(), modal, backButton);
+    const imageFile = getImageFile();
+    const newState = nextButtonHandler(userInput, state, event, imageFile, modal, backButton);
     if (modal) {
       updateModalContent(modal, newState);
     }
@@ -100,11 +125,11 @@ export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFil
  * @param {String} userInput - value of the input element for the current step.
  * @param {Object} state - current state of the modal, including the current step and new plant data.
  * @param {Event} event - click event object.
- * @param {String} imageDataUrl - URL of the selected image file, if applicable.
+ * @param {File} imageFile - image file.
  * @param {HTMLElement} modal - modal element.
  * @returns updated state after handling the "Next" button click.
  */
-export const nextButtonHandler = (userInput, state, event, imageDataUrl, modal) => {
+export const nextButtonHandler = (userInput, state, event, imageFile, modal) => {
   let newPlant = { ...state.newPlant };
   if (state.currentStep === 0) {
     newPlant.name = userInput;
@@ -113,7 +138,7 @@ export const nextButtonHandler = (userInput, state, event, imageDataUrl, modal) 
   } else if (state.currentStep === 2) {
     newPlant.description = userInput;
   } else if (state.currentStep === 3) {
-    submitNewPlantHandler(event, newPlant.name, newPlant.dateAdded, newPlant.description, imageDataUrl);
+    submitNewPlantHandler(event, newPlant.name, newPlant.dateAdded, newPlant.description, imageFile);
     removeModal(modal, 'ADD_PLANT');
     return { currentStep: 0, newPlant: {} };
   }

@@ -138,3 +138,12 @@ export const getUserLocation = async () => {
 export const roundToNearestWhole = (number) => {
   return Math.round(number);
 };
+
+/**
+ * Checks if image is a file (as opposed to url)
+ * @param {any} image 
+ * @returns {boolean} - Returns true if the image is a File object, otherwise false.
+ */
+export const isFile = (image) => {
+  return image instanceof File;
+};

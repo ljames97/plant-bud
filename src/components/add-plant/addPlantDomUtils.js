@@ -23,16 +23,16 @@ import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantE
 export const createModalElements = (tagName, inputText, buttonText, inputType, state, isFileInput, classList, id) => {
   const input = createElement({ tagName: tagName, placeholder: inputText, classEl: classList, type: isFileInput ? 'file' : inputType, id: id });
   const errorMessage = createElement({tagName: 'p', textContent: 'Please complete field', classEl: ['modal-error-message']});
-  let getImageUrl = () => null;
+  let getImageFile = () => null;
   let label;
 
   if (isFileInput) {
     const fileInputElements = createFileInputElements(input);
     label = fileInputElements.labelElement;
-    getImageUrl = fileInputElements.getImageUrl;
+    getImageFile = fileInputElements.getImageFile;
   }
 
-  const { buttons, nextButton, backButton } = createButtons(state, input, errorMessage, buttonText, isFileInput, getImageUrl);
+  const { buttons, nextButton, backButton } = createButtons(state, input, errorMessage, buttonText, isFileInput, getImageFile);
   return { input, buttons, nextButton, backButton, errorMessage, label };
 };
 
@@ -50,9 +50,9 @@ const createFileInputElements = (input) => {
 
   appendChildren(labelElement, heading, imageInputImg, input);
 
-  const getImageUrl = setUpInputChangeListener(input, imageInputImg, heading);
+  const getImageFile = setUpInputChangeListener(input, imageInputImg, heading);
 
-  return { labelElement, getImageUrl };
+  return { labelElement, getImageFile };
 }
 
 /**
@@ -65,7 +65,7 @@ const createFileInputElements = (input) => {
  * @param {Function} getImageUrl - function to get the URL of the selected image file, if applicable.
  * @returns an object containing the buttons element, nextButton, and backButton.
  */
-const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageUrl) => {
+const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageFile) => {
   const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'] });
   const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'] });
   const buttons = createElement({tagName: 'div', classEl: ['plant-form-buttons']});
@@ -75,7 +75,7 @@ const createButtons = (state, input, errorMessage, buttonText, isFileInput, getI
   }
   appendChildren(buttons, nextButton);
 
-  setUpButtonEventListeners(nextButton, input, errorMessage, isFileInput, state, getImageUrl, backButton);
+  setUpButtonEventListeners(nextButton, input, errorMessage, isFileInput, state, getImageFile, backButton);
 
   return { buttons, nextButton, backButton };
 }

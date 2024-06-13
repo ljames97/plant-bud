@@ -3,6 +3,7 @@
  * Event handler logic for the plant log section.
  */
 
+import { updatePlantInFirebase } from "../../../config";
 import { resetSection } from "../../global";
 import { handleDocumentClick, localEventManager } from "../../global";
 import { hideElements, showElements } from "../../global";
@@ -122,7 +123,7 @@ export const setUpNewPlantListeners = (menuDots, newPlant) => {
  * @param {Event} event 
  * @param {Object} plant 
  */
-export const pinPlantHandler = (event, plant) => {
+export const pinPlantHandler = async (event, plant) => {
   const target = event.target;
   const userPlantContainer = target.closest('.user-plant');
 
@@ -134,4 +135,5 @@ export const pinPlantHandler = (event, plant) => {
   }
 
   resetPlantGrid(plantLog.getUserPlantLog());
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }

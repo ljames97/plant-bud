@@ -5,11 +5,11 @@ Home page
 - moon icon for evening weather
 
 FINAL
-- adding plant to databse, image size too large issue (store in Firebase Storage)
-- tags, plant edits updated to database
 - default login page + profile page, login/sign up error messages
-- security for login and storing data
+- security for login and storing data, test mode vs production
 - document new config/login functions
+- optomistic loading to prevent UI delay with fetching data
+- plant page adding task/requirement update to firebase
 
 - unit testing / js tests
 - README file

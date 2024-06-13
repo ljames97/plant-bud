@@ -4,6 +4,7 @@
  * Event handler logic for managing tags within the plant log section of the application.
 */
 
+import { updatePlantInFirebase } from "../../../config";
 import { createElement, removeModal, setUpModal } from "../../global";
 import { localEventManager } from "../../global";
 import { appendChildren, removeItemFromArray } from "../../global";
@@ -36,11 +37,13 @@ export const setUpTagButtonListeners = (deleteBtn, updateBtn, newTag, plant, edi
  * @param {Object} plant 
  * @param {HTMLElement} editTaskModal 
  */
-const deleteTagHandler = (newTag, plant, editTaskModal) => {
+const deleteTagHandler = async (newTag, plant, editTaskModal) => {
   const foundTag = plant.tags.find(tag => tag.description === newTag.textContent);
   plant.tags = removeItemFromArray(plant.tags, foundTag.id);
   removeModal(editTaskModal, 'PLANT_LOG');
   resetPlantGrid(plantLog.getUserPlantLog());
+
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -75,7 +78,7 @@ export const editTagHandler = (newTag, plant) => {
  * @param {HTMLElement} errorMessage 
  * @returns 
  */
-const updateTagHandler = (newTag, plant, editTagModal, editTagInput, errorMessage) => {
+const updateTagHandler = async (newTag, plant, editTagModal, editTagInput, errorMessage) => {
   if (editTagInput.value === '') {
     return;
   }
@@ -89,6 +92,8 @@ const updateTagHandler = (newTag, plant, editTagModal, editTagInput, errorMessag
   foundTag.description = editTagInput.value;
   removeModal(editTagModal, 'PLANT_LOG');
   resetPlantGrid(plantLog.getUserPlantLog());
+
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -121,7 +126,7 @@ export const addNewTagHandler = (plant) => {
  * @param {HTMLElement} newTagModal 
  * @param {HTMLElement} errorMessage 
  */
-const submitTagHandler = (plant, newTagInput, newTagModal, errorMessage) => {
+const submitTagHandler = async (plant, newTagInput, newTagModal, errorMessage) => {
   if (newTagInput === '') {
     return;
   }
@@ -142,5 +147,6 @@ const submitTagHandler = (plant, newTagInput, newTagModal, errorMessage) => {
   }
 
   resetPlantGrid(plantLog.getUserPlantLog());
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 

@@ -1,7 +1,9 @@
 import { plantLog, renderMyPlants } from "../../plant-log";
-import { clearSection, resetSection } from "../../global";
+import { clearSection, isFile, resetSection } from "../../global";
 import { imageChangeHandler, localEventManager } from "../../global";
 import { renderPlantDetails } from "../plantPageMain";
+import { setUpInputChangeListener } from "../../add-plant";
+import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase } from "../../../config";
 
 
 /**
@@ -20,13 +22,15 @@ export const deletePlantBtnHandler = (plant) => {
  * @param {String} sectionClass 
  * @param {Function} sectionRender 
  */
-export const resetPlantDetailsBtnHandler = (plant, elements, sectionClass, sectionRender) => {
+export const resetPlantDetailsBtnHandler = async (plant, elements, sectionClass, sectionRender) => {
   const originalPlant = plantLog.getOriginalPlant(plant);
 
   plant.name = originalPlant.name;
   plant.dateAdded = originalPlant.dateAdded;
   plant.description = originalPlant.description;
+  await deleteImageFromFirebase(plant.image, 'plants');
   plant.image = originalPlant.image;
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 
   clearSection(elements.sectionContainer, 'PLANT_PAGE');
   renderPlantDetails(plant, elements.sectionContainer, '← back to My Plants', sectionClass, sectionRender);
@@ -63,10 +67,23 @@ export const setUpImageInput = (imageInput, elements, sectionClass, plant) => {
   imageInput.accept = 'image/*';
   elements.plantImageContainer.insertBefore(imageInput, elements.plantImageContainer.firstChild);
 
-  localEventManager.addEventListener(imageInput, 'change', (event) => {
-    imageChangeHandler(event, (dataUrl) => {
-      plant.image = dataUrl;
-      elements.plantImage.src = dataUrl;
+  localEventManager.addEventListener(imageInput, 'change', async (event) => {
+    imageChangeHandler(event, async (file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        elements.plantImage.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+
+      try {
+        await deleteImageFromFirebase(plant.image);
+        const imageUrl = await uploadImageToFirebase(file, 'plants');
+        plant.image = imageUrl;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+
+      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     });
   }, `PLANT_PAGE_${sectionClass}`);
 }

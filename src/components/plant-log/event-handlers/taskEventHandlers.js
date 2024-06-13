@@ -121,7 +121,7 @@ const updateTaskHandler = async (task, editTaskInput, editTaskModal, plant) => {
 
   removeModal(editTaskModal, 'PLANT_LOG');
   resetTaskSection();
-  await updatePlantInFirebase(plant.firestoreId, plant);
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -136,7 +136,7 @@ export const deleteTaskHandler = async (task, taskElement, plant) => {
     taskElement.parentNode.removeChild(taskElement);
   }
 
-  await updatePlantInFirebase(plant.firestoreId, plant);
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -187,5 +187,5 @@ const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
   resetPlantGrid(plantLog.getUserPlantLog());
   updatePlantInfoBar();
   updateTaskIcon();
-  await updatePlantInFirebase(plant.firestoreId, plant);
+  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }

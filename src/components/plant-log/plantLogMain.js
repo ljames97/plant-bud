@@ -5,11 +5,11 @@
  */
 
 import './plantLog.css';
-import { findItemInArray, removeItemFromArray } from "../global";
+import { findItemInArray, isFile, removeItemFromArray } from "../global";
 import { localEventManager } from "../global";
 import { plantLogElements, updatePlantInfoBar } from "./dom-utils";
 import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
-import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } from '../../config';
+import { addPlantToFirebase, deleteImageFromFirebase, deletePlantFromFirebase, updatePlantInFirebase } from '../../config';
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.
@@ -54,14 +54,16 @@ export const plantLogManager = () => {
     setUserId: (id) => {
       userId = id;
     },
-    initialisePlantLog: (userPlants) => {
+    initialisePlantLog: (userPlants, originalPlants) => {
       userPlantLog = userPlants;
+      originalPlantLog = originalPlants;
       userPlantLog.forEach(plant => {
         if (plant.archived === true) {
           userPlantLog = removeItemFromArray(userPlantLog, plant.id);
           deletedPlantLog.push(plant);
         }
       });
+      console.log(originalPlantLog);
     },
     addToUserPlantLog: async (plant) => {
       userPlantLog.push(plant);
@@ -69,10 +71,14 @@ export const plantLogManager = () => {
       if (!foundPlant) {
         const clonePlant = JSON.parse(JSON.stringify(plant));
         originalPlantLog.push(clonePlant);
+        const originalDocId = await addPlantToFirebase(userId, clonePlant, 'original');
+        clonePlant.firestoreId = originalDocId;
+        await updatePlantInFirebase(originalDocId, clonePlant, 'original'); // put inside addplantfirebase fnc
+        plant.originalFirestoreId = originalDocId;
       }
-      const docId = await addPlantToFirebase(userId, plant);
+      const docId = await addPlantToFirebase(userId, plant, 'plants');
       plant.firestoreId = docId;
-      await updatePlantInFirebase(plant.firestoreId, plant);
+      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     deletePlantFromLog: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -81,17 +87,16 @@ export const plantLogManager = () => {
         deletedPlantLog.push(plant);
         plant.archived = true;
       } 
-      await updatePlantInFirebase(plant.firestoreId, plant);
+      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     updatePlantInfo: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
       if (foundPlant) {
         foundPlant.name = plant.name;
         foundPlant.dateAdded = plant.dateAdded;
-        foundPlant.notes = plant.notes;
         foundPlant.image = plant.image;
       }
-      await updatePlantInFirebase(plant.firestoreId, plant);
+      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     removeFromDeletedPlants: async (plant) => {
       const foundPlant = findItemInArray(deletedPlantLog, plant.id);
@@ -100,12 +105,13 @@ export const plantLogManager = () => {
         userPlantLog.push(plant);
         plant.archived = false;
       }
-      await updatePlantInFirebase(plant.firestoreId, plant);
+      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     permanentDelete: async (plant) => {
       deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
       originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
-      await deletePlantFromFirebase(plant.firestoreId);
+      await deletePlantFromFirebase(plant.firestoreId, 'plants', plant);
+      await deletePlantFromFirebase(plant.originalFirestoreId, 'original', plant);
     },
     getPlant: (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);

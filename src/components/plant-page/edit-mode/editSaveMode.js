@@ -44,7 +44,7 @@ export const editMode = (plant, editBtn, elements, sectionClass, sectionRender) 
 * @param {HTMLElement} editBtn 
 * @param {Object} elements 
 */
-export const saveMode = (plant, editBtn, elements) => {
+export const saveMode = async (plant, editBtn, elements) => {
  editBtn.textContent = 'Edit';
 
  let updatedName = document.querySelector('.edit-plant-title').value;
@@ -66,7 +66,7 @@ export const saveMode = (plant, editBtn, elements) => {
  const aboutSection = document.querySelector('.about-section')
  removeChildren(aboutSection, buttonContainer);
 
- plantLog.updatePlantInfo(plant);
+ await plantLog.updatePlantInfo(plant);
 
  elements.plantTitle.textContent = updatedName;
  elements.plantDescription.textContent = updatedDescription;
