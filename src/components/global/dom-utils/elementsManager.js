@@ -1,4 +1,6 @@
+import { onAuthStateChanged } from "firebase/auth";
 import { addIconDark, addIconLight, homeIconDark, homeIconLight, plantIconDark, plantIconLight, quizIconDark, quizIconLight, searchIconDark, searchIconLight } from "../../../images";
+import { auth } from "../../../config";
 
 /**
  * A manager for retreiving DOM elements.
@@ -41,17 +43,21 @@ const domElementsManager = () => {
       const header = document.querySelector('header');
       
       // plant button dark/light icons
-      myPlantsBtn.lightIcon = plantIconLight;
-      addNewPlantBtn.lightIcon = addIconLight;
-      quizBtn.lightIcon = quizIconLight;
-      libraryBtn.lightIcon = searchIconLight;
-      homeBtn.lightIcon = homeIconLight;
-
-      myPlantsBtn.darkIcon = plantIconDark;
-      addNewPlantBtn.darkIcon = addIconDark;
-      quizBtn.darkIcon = quizIconDark;
-      libraryBtn.darkIcon = searchIconDark;
-      homeBtn.darkIcon = homeIconDark;
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          myPlantsBtn.lightIcon = plantIconLight;
+          addNewPlantBtn.lightIcon = addIconLight;
+          quizBtn.lightIcon = quizIconLight;
+          libraryBtn.lightIcon = searchIconLight;
+          homeBtn.lightIcon = homeIconLight;
+    
+          myPlantsBtn.darkIcon = plantIconDark;
+          addNewPlantBtn.darkIcon = addIconDark;
+          quizBtn.darkIcon = quizIconDark;
+          libraryBtn.darkIcon = searchIconDark;
+          homeBtn.darkIcon = homeIconDark;
+        }
+      });
 
       _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantLibrary, homePage, myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, header };
       return _dashboardDomElementsCache;

@@ -5,7 +5,7 @@
 
 import { plantLog, renderMyPlants } from "../plant-log";
 import { domElements, isFile, removeModal, resetSection } from "../global";
-import { imageChangeHandler, localEventManager } from "../global";
+import { localEventManager } from "../global";
 import { updateModalContent } from "./addPlantMain";
 import { uploadImageToFirebase } from "../../config";
 

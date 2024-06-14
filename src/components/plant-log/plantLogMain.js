@@ -5,11 +5,11 @@
  */
 
 import './plantLog.css';
-import { findItemInArray, isFile, removeItemFromArray } from "../global";
+import { findItemInArray, removeItemFromArray } from "../global";
 import { localEventManager } from "../global";
 import { plantLogElements, updatePlantInfoBar } from "./dom-utils";
 import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
-import { addPlantToFirebase, deleteImageFromFirebase, deletePlantFromFirebase, updatePlantInFirebase } from '../../config';
+import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } from '../../config';
 
 /**
  * Renders plant log elements on screen and calls functions to populate grid and set up event listeners.

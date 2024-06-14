@@ -5,11 +5,11 @@ Home page
 - moon icon for evening weather
 
 FINAL
-- default login page + profile page, login/sign up error messages
 - security for login and storing data, test mode vs production
 - document new config/login functions
-- optomistic loading to prevent UI delay with fetching data
+- optomistic loading to prevent UI delay with fetching data and/or loading page
 - plant page adding task/requirement update to firebase
+- classes vs ids
 
 - unit testing / js tests
 - README file
@@ -23,6 +23,7 @@ FINAL
 - new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
 
 PLANT PAGE
+- profile page
 - delete/reset plant details - Are you sure? also prompt to save.
 - clicking on tag to edit while plant is archived causes problem
 - task tick icon
