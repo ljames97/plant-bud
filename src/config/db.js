@@ -3,6 +3,12 @@ import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } 
 import { db, storage } from "./firebaseConfig";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
+/**
+ * Uploads an image file to Firebase Storage and returns the download URL.
+ * @param {File} imageFile - image file to be uploaded.
+ * @param {String} folder -  folder in Firebase Storage where the image will be stored.
+ * @returns Download URL of the uploaded image.
+ */
 export const uploadImageToFirebase = async (imageFile, folder) => {
   const storage = getStorage();
   try {
@@ -46,6 +52,13 @@ export const deleteImageFromFirebase = async (imageUrl, permanentDelete = false)
   }
 };
 
+/**
+ * Adds a new plant document to the specified Firestore collection.
+ * @param {String} userId - user's ID.
+ * @param {Object} plant - plant data to be added;
+ * @param {String} dbName - name of the Firestore collection.
+ * @returns ID of the newly added document.
+ */
 export const addPlantToFirebase = async (userId, plant, dbName) => {
   try {
     // Log the plant object to see its contents before adding to Firestore
@@ -64,6 +77,12 @@ export const addPlantToFirebase = async (userId, plant, dbName) => {
   }
 };
 
+/**
+ * Fetches plants for a given user from the specified Firestore collection.
+ * @param {String} userId - user's ID.
+ * @param {String} dbName - name of the Firestore collection.
+ * @returns An array of plant objects.
+ */
 export const getUserPlantsFromFirebase = async (userId, dbName) => {
   if (!userId) {
     console.error("Error: userId is undefined");
@@ -86,6 +105,12 @@ export const getUserPlantsFromFirebase = async (userId, dbName) => {
   }
 };
 
+/**
+ * Updates a plant document in the specified Firestore collection.
+ * @param {String} plantId - firestore ID of the plant to be updated.
+ * @param {Object} plantData - plant object
+ * @param {String} dbName - name of the Firestore collection.
+ */
 export const updatePlantInFirebase = async (plantId, plantData, dbName) => {
   try {
     const plantRef = doc(db, dbName, plantId);
@@ -96,6 +121,13 @@ export const updatePlantInFirebase = async (plantId, plantData, dbName) => {
   }
 };
 
+/**
+ * Deletes a plant document from the specified Firestore collection.
+ * Optionally deletes the associated image from Firebase Storage.
+ * @param {String} plantId - ID of the plant document to be updated.
+ * @param {String} dbName - name of the Firestore collection.
+ * @param {Object} plant - used to check if the image should be deleted.
+ */
 export const deletePlantFromFirebase = async (plantId, dbName, plant) => {
   try {
     await deleteDoc(doc(db, dbName, plantId));
@@ -109,7 +141,12 @@ export const deletePlantFromFirebase = async (plantId, dbName, plant) => {
   }
 };
 
+/**
+ * Checks if a URL belongs to Firebase Storage.
+ * @param {Stirng} url - URL to be checked.
+ * @returns {Boolean} - true or false.
+ */
 const isFirebaseStorageUrl = (url) => {
   const firebaseStorageDomain = 'firebasestorage.googleapis.com';
   return url.includes(firebaseStorageDomain);
-};
+}

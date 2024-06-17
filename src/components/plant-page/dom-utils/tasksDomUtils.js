@@ -43,7 +43,7 @@ export const createUserTasks = (plant, plantPageModal, sectionClass) => {
  * @param {Object} task - task object.
  * @param {HTMLElement} taskElement - task element in the DOM.
  */
-export const createTaskMenu = (menuDots, task, taskElement) => {
+export const createTaskMenu = (menuDots, task, taskElement, plant) => {
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
   const editTask = createElement({tagName: 'p', textContent: 'Edit', classEl: ['drop-menu-item']});
   const deleteTask = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item']});
@@ -51,7 +51,7 @@ export const createTaskMenu = (menuDots, task, taskElement) => {
   appendChildren(dropMenuContainer, editTask, deleteTask);
   appendChildren(menuDots, dropMenuContainer);
 
-  setUpTaskMenuListeners(editTask, task, deleteTask, taskElement);
+  setUpTaskMenuListeners(editTask, task, deleteTask, taskElement, plant);
 }
 
 /**

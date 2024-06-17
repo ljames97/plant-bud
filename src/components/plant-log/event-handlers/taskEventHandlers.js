@@ -127,7 +127,8 @@ const updateTaskHandler = async (task, editTaskInput, editTaskModal, plant) => {
 /**
  * Handles task deletion and removes task element from the DOM.
  * @param {Object} task 
- * @param {HTMLElement} taskElement 
+ * @param {HTMLElement} taskElement
+ * @param {Object} plant
  */
 export const deleteTaskHandler = async (task, taskElement, plant) => {
   plantLog.deletePlantTask(task.id);

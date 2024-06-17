@@ -1,9 +1,29 @@
 // public/login.js
 import { auth } from '../../config';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { appendChildren, createElement } from '../global';
+import { appendChildren, createElement, localEventManager } from '../global';
 
-document.getElementById('login-button').addEventListener('click', () => {
+/**
+ * Initializes login.
+ */
+export const initLogin = () => {
+  setUpLoginEventListeners();
+}
+
+/**
+ * Sets up event listeners for login and sign-up buttons.
+ */
+const setUpLoginEventListeners = () => {
+  const loginButton = document.getElementById('login-button');
+  const signupButton = document.getElementById('signup-button');
+  localEventManager.addEventListener(loginButton, 'click', loginButtonHandler);
+  localEventManager.addEventListener(signupButton, 'click', signupButtonHandler);
+}
+
+/**
+ * Handles the login button click event.
+ */
+const loginButtonHandler = () => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
@@ -15,9 +35,12 @@ document.getElementById('login-button').addEventListener('click', () => {
       console.error('Error logging in: ', error);
       renderErrorMessage(error);
     });
-});
+}
 
-document.getElementById('signup-button').addEventListener('click', () => {
+/**
+ * Handles the sign-up button click event.
+ */
+const signupButtonHandler = () => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
@@ -29,8 +52,12 @@ document.getElementById('signup-button').addEventListener('click', () => {
       console.error('Error signing up: ', error);
       renderErrorMessage(error);
     });
-});
+}
 
+/**
+ * Renders an error message below the logo in the login form.
+ * @param {Object} loginError - The error object received from Firebase authentication.
+ */
 const renderErrorMessage = (loginError) => {
   clearErrorMessage();
 
@@ -40,6 +67,9 @@ const renderErrorMessage = (loginError) => {
   appendChildren(logo, errorMessage);
 }
 
+/**
+ * Clears any existing error messages from the login form.
+ */
 const clearErrorMessage = () => {
   const existingError = document.querySelector('.login-error-message');
   if (existingError) {
@@ -47,6 +77,11 @@ const clearErrorMessage = () => {
   }
 };
 
+/**
+ * Creates a user-friendly error message based on the provided Firebase authentication error code.
+ * @param {string} errorCode - error code received from Firebase authentication.
+ * @returns {string} - A user-friendly error message.
+ */
 const createErrorMessage = (errorCode) => {
   const errorMessages = {
     'auth/invalid-email': 'Invalid email address',

@@ -2,6 +2,7 @@ import { setUpModalEventListeners } from "./plantPageEventHandlers";
 import { createElement, removeModal, setUpModal } from "../../global";
 import { appendChildren } from "../../global";
 import { plantRequirement } from "../../../images";
+import { updatePlantInFirebase } from "../../../config";
 
 /**
  * Handles adding a new requirement to the plant's requirements list.
@@ -48,5 +49,6 @@ export const submitRequirementHandler = (plant, requirements, addRequirementInpu
 
   if (!plant.requirements.includes(addRequirementInput)) {
     plant.requirements.push(addRequirementInput);
+    updatePlantInFirebase(plant.firestoreId, plant, 'plants');
   }
 }

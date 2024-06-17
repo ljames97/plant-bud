@@ -5,6 +5,7 @@ import { createElement, createMenuDots, removeModal, setUpModal } from "../../gl
 import { handleDocumentClick, localEventManager } from "../../global";
 import { appendChildren } from "../../global";
 import { createTaskMenu, setSelectButton } from "../dom-utils";
+import { updatePlantInFirebase } from "../../../config";
 
 /**
  * Handles adding a new task to the plant's tasks list.
@@ -57,12 +58,13 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
       selected: false
     }
     plant.tasks.push(newTask);
+    updatePlantInFirebase(plant.firestoreId, plant, 'plants');
   }
 
   const foundTask = plant.tasks.find(task => task.description === newTaskInput);
   setSelectButton(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
 
-  setUpTaskListeners(taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement);
+  setUpTaskListeners(taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant);
 }
  /**
   * Sets up event listeners for newly added task. Handles task "Select" button and menu click.
@@ -72,13 +74,13 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
   * @param {HTMLElement} menuDots - menu dot element that toggles quick menu.
   * @param {HTMLElement} newTaskElement - element for the new task.
   */
-const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement) => {
+const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant) => {
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
     selectButtonHandler(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
   }, `PLANT_PAGE_${sectionClass}`);
 
   localEventManager.addEventListener(menuDots, 'click', (event) => {
-    renderQuickMenu(event, createTaskMenu, menuDots, foundTask, newTaskElement);
+    renderQuickMenu(event, createTaskMenu, menuDots, foundTask, newTaskElement, plant);
     localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_PAGE');
   });
 }
@@ -90,14 +92,13 @@ const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, ne
  * @param {HTMLElement} deleteTask - delete task menu button.
  * @param {HTMLElement} taskElement - task element in the DOM.
  */
-export const setUpTaskMenuListeners = (editTask, task, deleteTask, taskElement) => {
+export const setUpTaskMenuListeners = (editTask, task, deleteTask, taskElement, plant) => {
   localEventManager.addEventListener(editTask, 'click', () => {
-    editTaskHandler(task);
-
+    editTaskHandler(task, plant);
   }, 'PLANT_PAGE');
 
   localEventManager.addEventListener(deleteTask, 'click', () => {
-    deleteTaskHandler(task, taskElement);
+    deleteTaskHandler(task, taskElement, plant);
   }, 'PLANT_PAGE');
 }
 
