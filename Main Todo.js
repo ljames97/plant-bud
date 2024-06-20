@@ -5,7 +5,7 @@ Home page
 - moon icon for evening weather
 
 FINAL
-- unit testing / js tests
+- testing
 - README file
 - domain hosting, HTTPS, eslint, scss/sass
 
@@ -16,12 +16,12 @@ FINAL
 - style.display = 'none' vs using classList.add
 - use ids for unique elements
 - move firestore/base to production mode, firebase security rules
+- absolute paths or using alias in imports for test.js files.
 
 - react refactor, node.js database/server
 - new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
 
 PLANT PAGE
-- profile page
 - delete/reset plant details - Are you sure? also prompt to save.
 - clicking on tag to edit while plant is archived causes problem
 - task tick icon

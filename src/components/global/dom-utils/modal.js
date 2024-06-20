@@ -10,8 +10,8 @@ import { clearSection } from "./sectionManipulation";
  */
 export const setUpModal = (modal, menuContainer, eventRegistry) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  modalOverlay.style.display = 'flex';
-  modal.style.display = 'flex';
+  modalOverlay.classList.add('flex');
+  modal.classList.add('flex');
 
   setUpModalListeners(modalOverlay, modal, eventRegistry);
 }
@@ -26,5 +26,5 @@ export const removeModal = (modal, eventRegistry) => {
   clearSection(modal, eventRegistry);
   clearSection(modalOverlay, eventRegistry);
   removeChildren(modalOverlay, modal);
-  modalOverlay.style.display = 'none';
+  modalOverlay.classList.add('hidden');
 }

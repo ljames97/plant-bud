@@ -7,7 +7,7 @@ import { auth } from "../../../config";
  * Elements are cached after initial query to improve performance. 
  * @returns {Object} 
  */
-const domElementsManager = () => {
+export const domElementsManager = () => {
   // Cache objects for storing already queried DOM elements
   let _globalDomElementsCache = null;
   let _dashboardDomElementsCache = null;
