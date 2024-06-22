@@ -57,10 +57,10 @@ describe('modal tests', () => {
       expect(removeChildren).toHaveBeenCalledWith(modalOverlay, modal);
     });
 
-    test('should add flex class to modalOverlay', () => {
+    test('should remove flex class to modalOverlay', () => {
       removeModal(modal, 'PLANT_LOG')
 
-      expect(modalOverlay.classList.contains('hidden')).toBe(true);
+      expect(modalOverlay.classList.contains('flex')).toBe(false);
     });
   });
 });

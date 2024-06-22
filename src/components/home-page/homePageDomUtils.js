@@ -13,7 +13,8 @@ export const createHomePageElements = async () => {
   const logo = createElement({tagName: 'img', classEl: ['logo-img']});
 
   logo.src = homePageLogo;
-  header.style.display = 'flex';
+  header.classList.remove('hidden');
+  header.classList.add('flex');
 
   appendChildren(logoContainer, logo);
   appendChildren(homePage, logoContainer);

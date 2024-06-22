@@ -1,11 +1,10 @@
 /* 
 
 TODO
-Home page
-- moon icon for evening weather
-
 FINAL
-- testing
+- testing (globals, config, login, main/inits)
+- integration tests: firebase, User Authentication flow, Data Flow, Application Initialization (end2end)
+- main test documentation
 - README file
 - domain hosting, HTTPS, eslint, scss/sass
 
@@ -13,13 +12,11 @@ FINAL
 - desktop css (responsive design)
 - file heading documentation
 - optomistic loading to prevent UI delay with fetching data and/or loading page
-- style.display = 'none' vs using classList.add
+- style.display/color etc use classList.add instead
 - use ids for unique elements
 - move firestore/base to production mode, firebase security rules
 - absolute paths or using alias in imports for test.js files.
-
-- react refactor, node.js database/server
-- new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
+- moon icon for evening weather
 
 PLANT PAGE
 - delete/reset plant details - Are you sure? also prompt to save.
@@ -28,6 +25,10 @@ PLANT PAGE
 - delete/edit requirement
 - better plant page aesthetics/design
 - improve add new plant button
+
+NEXT
+- react refactor, node.js database/server
+- new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
 
 ------------
 

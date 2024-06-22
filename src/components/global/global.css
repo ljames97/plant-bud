@@ -188,3 +188,11 @@ button {
 .flex {
   display: flex;
 }
+
+.button-active {
+  background-color: #fcfaf7;
+}
+
+.button-inactive {
+  background-color: rgba(172, 172, 172, 0.3);
+}

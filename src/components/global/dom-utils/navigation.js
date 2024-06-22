@@ -9,11 +9,13 @@ export const dashboardNavButtonHighlight = () => {
 
   dashboardButtons.forEach(button => {
     if (button.classList.contains('active')) {
-      button.style.backgroundColor = '#fcfaf7';
+      button.classList.add('button-active');
+      button.classList.remove('button-inactive');
       const iconContainer = button.querySelector('.icon-container');
       iconContainer.style.backgroundImage = `url(${button.darkIcon})`;
     } else {
-      button.style.backgroundColor = 'rgba(172, 172, 172, 0.3)'
+      button.classList.add('button-inactive');
+      button.classList.remove('button-active');
       const iconContainer = button.querySelector('.icon-container');
       iconContainer.style.backgroundImage = `url(${button.lightIcon})`;
     }
@@ -23,12 +25,12 @@ export const dashboardNavButtonHighlight = () => {
 /**
  * Highlights the active button and adds/removes 'active' class from the button class list.
  * Best used for highlighting navigation buttons.
- * @param {*} activeBtn 
- * @param {*} activeBtnColor 
- * @param {*} inactiveBtnColor 
- * @param {*} activeTextColor 
- * @param {*} inactiveTextColor 
- * @param  {...any} inactiveBtns 
+ * @param {HTMLElement} activeBtn 
+ * @param {String} activeBtnColor 
+ * @param {String} inactiveBtnColor 
+ * @param {String} activeTextColor 
+ * @param {String} inactiveTextColor 
+ * @param  {...HTMLElement} inactiveBtns 
  */
 export const buttonHighlight = (activeBtn, activeBtnColor, inactiveBtnColor, activeTextColor, inactiveTextColor, ...inactiveBtns) => {
   activeBtn.classList.add('active');

@@ -45,7 +45,8 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
   }
 
   if (activeSection !== homePage) {
-    header.style.display = 'none';
+    header.classList.remove('flex');
+    header.classList.add('hidden');
   }
 
   dashboardNavButtonHighlight();

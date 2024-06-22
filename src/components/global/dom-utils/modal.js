@@ -26,5 +26,5 @@ export const removeModal = (modal, eventRegistry) => {
   clearSection(modal, eventRegistry);
   clearSection(modalOverlay, eventRegistry);
   removeChildren(modalOverlay, modal);
-  modalOverlay.classList.add('hidden');
+  modalOverlay.classList.remove('flex');
 }
