@@ -4,7 +4,7 @@
  */
 
 import { dashboardNavButtonHighlight } from "../../../../components/global/dom-utils/navigation.js";
-import { domElements } from "../../../../components/global/dom-utils/elementsManager";
+import { domElements } from "../../../../components/global/dom-utils/elementsManager.js";
 import { clearSection, prepareDashboard } from "../../../../components/global/index.js";
 
 jest.mock('../../../../components/global/dom-utils/navigation.js');

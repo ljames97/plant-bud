@@ -1,17 +1,17 @@
-// jest.config.cjs
 const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-  displayName: "Regular Test",
-  testMatch: ["<rootDir>/src/__tests__/**/!(*.rewire).test.js"],
+  displayName: "Rewire Test",
   testEnvironment: 'jest-environment-jsdom',
+  testMatch: ["<rootDir>/src/__tests__/**/*.rewire.test.js"],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^@components/(.*)$': '<rootDir>/src/components/$1'
   },
   transform: {
-    '^.+\\.js$': ['babel-jest', { configFile: './babel.config.cjs' }]
+    '^.+\\.js$': ['babel-jest', { configFile: './babel.rewire.config.cjs' }]
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
 };

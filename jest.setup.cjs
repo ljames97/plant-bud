@@ -10,3 +10,10 @@
 //     })
 //   };
 // });
+
+// const dotenv = require('dotenv');
+// dotenv.config();
+
+// jest.setup.cjs
+const dotenv = require('dotenv');
+dotenv.config();
