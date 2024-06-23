@@ -67,4 +67,3 @@ export const domElementsManager = () => {
 
 const getDomElements = domElementsManager();
 export const domElements = getDomElements.dashboardDomElements();
-export const globalDomElements = getDomElements.globalDomElements();

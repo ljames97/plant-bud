@@ -5,6 +5,7 @@ FINAL
 - testing (globals, config, login, main/inits)
 - integration tests: firebase, User Authentication flow, Data Flow, Application Initialization (end2end)
 - main test documentation - include doc about babel rewire vs regular tests (rewire used to test and mock functions from same module)
+and how to use the babel rewire API
 - README file
 - domain hosting, HTTPS, eslint, scss/sass
 

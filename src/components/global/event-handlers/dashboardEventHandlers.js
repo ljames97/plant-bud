@@ -8,9 +8,9 @@ import { localEventManager } from "./globalEventHandlers";
 
 /**
  * Initialises the given section and prepares dashboard.
- * @param {String} sectionName 
+ * @param {String} sectionName - eg. 'MY_PLANTS', 'PLANT_QUIZ', 'ADD_PLANT', 'PLANT_LIBRARY', 'HOME_PAGE'.
  */
-const sectionInit = (sectionName) => {
+export const sectionInit = (sectionName) => {
   const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn } = domElements;
 
   const sectionMap = {

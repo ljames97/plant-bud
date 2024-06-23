@@ -1,3 +1,8 @@
+// sectionManipulation.rewire.test.js
+/**
+ * Unit test for sectionManipulation functions.
+*/
+
 import { localEventManager } from '../../../../components/global/event-handlers/globalEventHandlers';
 import { resetSection, clearSection, __RewireAPI__ as sectionRewireAPI } from '../../../../components/global/dom-utils/sectionManipulation.js';
 
@@ -51,6 +56,7 @@ describe('sectionManipulation', () => {
     afterEach(() => {
       sectionRewireAPI.__ResetDependency__('clearSection');
       document.body.innerHTML = '';
+      jest.clearAllMocks();
     });
   
     test('should call clear section with correct arguments and renderSection', () => {

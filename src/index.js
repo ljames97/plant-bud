@@ -14,7 +14,6 @@ import './components/global/global.css';
 import { initApp } from "./app.js";
 import { auth } from './config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { initLogin } from './components/login/login';
 
 onAuthStateChanged(auth, (user) => {
   const dashboard = document.querySelector('.dashboard-page')
