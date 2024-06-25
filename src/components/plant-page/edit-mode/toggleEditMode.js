@@ -1,4 +1,5 @@
-import { appendChildren, clearSection, createElement } from "../../global";
+import { clearSection, createElement } from "../../global/dom-utils";
+import { appendChildren } from "../../global/utils";
 import { editMode, saveMode } from "./editSaveMode";
 
 /**

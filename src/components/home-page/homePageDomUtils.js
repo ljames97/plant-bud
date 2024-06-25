@@ -1,5 +1,6 @@
 import { clear, clouds, drizzle, homePageLogo, rain, snow, thunderstorm } from "../../images";
-import { appendChildren, createElement, domElements } from "../global";
+import { createElement, domElements } from "../global/dom-utils";
+import { appendChildren } from "../global/utils";
 import { plantLog, setPlantInfoBar } from "../plant-log";
 import { loadWeatherData } from "./weatherHelpers";
 
@@ -25,7 +26,7 @@ export const createHomePageElements = async () => {
  * Handles any errors that occur during the creation of the weather container and appends container to home page.
  * @param {HTMLElement} homePage 
  */
-const appendWeatherContainer = async (homePage) => {
+export const appendWeatherContainer = async (homePage) => {
   try {
     const weatherConatiner = await createWeatherContainer();
     appendChildren(homePage, weatherConatiner);
@@ -39,7 +40,7 @@ const appendWeatherContainer = async (homePage) => {
  * @param {String} weatherDescription 
  * @param {HTMLElement} weatherIcon 
  */
-const setWeatherIcon = (weatherDescription, weatherIcon) => {
+export const setWeatherIcon = (weatherDescription, weatherIcon) => {
   const weatherIcons = {
     clear: clear,
     clouds: clouds,
@@ -58,7 +59,7 @@ const setWeatherIcon = (weatherDescription, weatherIcon) => {
  * Creates and returns the weather container.
  * Displays the number of tasks for the day.
  */
-const createWeatherContainer = async () => {
+export const createWeatherContainer = async () => {
   const weatherData = await loadWeatherData();
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
 

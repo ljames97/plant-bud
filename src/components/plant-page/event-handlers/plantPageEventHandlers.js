@@ -3,9 +3,9 @@
  * Event handler logic the plant page section.
  */
 
-import { removeModal } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { removeModal } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { hideSectionButtons } from "../dom-utils";
 import { toggleEditMode } from "../edit-mode";
 import { backToDashboardHandler } from "./backBtnEventHandlers";
@@ -91,7 +91,7 @@ export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDesc
  * @param {Function} sectionRender 
  * @param {HTMLElement} permanentDeleteBtn 
  */
-const setUpUnarchiveListeners = (sectionBtn, plant, sectionClass, sectionRender, permanentDeleteBtn) => {
+export const setUpUnarchiveListeners = (sectionBtn, plant, sectionClass, sectionRender, permanentDeleteBtn) => {
   localEventManager.addEventListener(sectionBtn, 'click', () => {
     unarchiveBtnHandler(plant, sectionClass, sectionRender);
   }, 'PLANT_PAGE');

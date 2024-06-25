@@ -1,5 +1,5 @@
 import { plantLog } from "../../plant-log";
-import { resetSection } from "../../global";
+import { resetSection } from "../../global/dom-utils";
 import { replaceButton } from "../dom-utils";
 import { copyToMyPlants, permanentDeletePlant } from "../plantPageMain";
 

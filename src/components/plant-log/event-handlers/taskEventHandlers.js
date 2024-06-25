@@ -4,16 +4,16 @@
  * Event handler logic for managing tasks within the plant log section of the application.
 */
 
-import { selectButtonHandler } from "../../plant-page";
-import { clearSection, createElement, removeModal, setUpModal } from "../../global";
-import { handleDocumentClick, localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { clearSection, createElement, removeModal, setUpModal } from "../../global/dom-utils";
+import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { createTaskMenu, resetPlantGrid } from "../dom-utils";
 import { renderQuickMenu } from "../dom-utils";
 import { updatePlantInfoBar } from "../dom-utils";
 import { renderTasksList, resetTaskSection, updateTaskBar, updateTaskIcon } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 import { updatePlantInFirebase } from "../../../config";
+import { selectButtonHandler } from "../../plant-page/event-handlers";
 
 /**
  * Sets up event listeners for selecting tasks and handles task completion state accordingly. 
@@ -112,7 +112,7 @@ export const editTaskHandler = (task, plant) => {
  * @param {HTMLElement} editTaskInput 
  * @param {HTMLElement} editTaskModal 
  */
-const updateTaskHandler = async (task, editTaskInput, editTaskModal, plant) => {
+export const updateTaskHandler = async (task, editTaskInput, editTaskModal, plant) => {
   if (editTaskInput.value === '') {
     return;
   }
@@ -169,7 +169,7 @@ export const addNewTaskHandler = (plant) => {
  * @param {HTMLElement} newTaskInput 
  * @param {HTMLElement} newTaskModal 
  */
-const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
+export const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
   if (newTaskInput === '') {
     return;
   }

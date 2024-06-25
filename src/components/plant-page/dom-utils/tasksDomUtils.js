@@ -1,8 +1,7 @@
-import { setUpTaskMenuListeners } from "../../plant-log";
-import { createElement } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren } from "../../global";
-import { addNewTaskHandler, submitTaskHandler } from "../event-handlers";
+import { createElement } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
+import { addNewTaskHandler, setUpTaskMenuListeners, submitTaskHandler } from "../event-handlers";
 import { addIcon } from "../../../images";
 
 /**

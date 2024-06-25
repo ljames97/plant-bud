@@ -1,6 +1,6 @@
-import { buttonHighlight, createElement } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { buttonHighlight, createElement } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { renderPlantSection } from "./plantPageHelpers";
 
 /**
@@ -46,7 +46,7 @@ export const createNavButtons = (aboutSection, requirementsSection, tasksSection
  * @param {HTMLElement} aboutSection 
  * @param {HTMLElement} tasksSection 
  */
-const setUpNavButtonData = (aboutBtn, requirementsBtn, userTasksBtn, requirementsSection, aboutSection, tasksSection) => {
+export const setUpNavButtonData = (aboutBtn, requirementsBtn, userTasksBtn, requirementsSection, aboutSection, tasksSection) => {
   aboutBtn.inactiveBtns = [requirementsBtn, userTasksBtn];
   requirementsBtn.inactiveBtns = [aboutBtn, userTasksBtn];
   userTasksBtn.inactiveBtns = [aboutBtn, requirementsBtn];

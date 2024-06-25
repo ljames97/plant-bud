@@ -1,3 +1,5 @@
-export * from './dom-utils';
-export * from './event-handlers';
-export * from './plantLogMain';
+import { renderMyPlants, setPlantInfoBar, plantLogManager, plantLog, populatePlantGrid } from './plantLogMain';
+
+export {
+  renderMyPlants, setPlantInfoBar, plantLogManager, plantLog, populatePlantGrid
+}

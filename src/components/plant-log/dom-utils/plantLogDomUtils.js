@@ -3,8 +3,8 @@
  * For creating and managing dynamic elements within the Plant Log section.
  */
 
-import { createElement, createMenuDots, domElements } from "../../global";
-import { appendChildren, hideElements } from "../../global";
+import { createElement, createMenuDots, domElements } from "../../global/dom-utils";
+import { appendChildren, hideElements } from "../../global/utils";
 import { setUpPlantLogListeners } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 import { createMenuButtons } from "./menuDomUtils";

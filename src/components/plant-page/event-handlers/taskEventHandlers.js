@@ -1,11 +1,11 @@
-import { setUpModalEventListeners } from ".";
-import { renderQuickMenu } from "../../plant-log";
-import { deleteTaskHandler, editTaskHandler } from "../../plant-log";
-import { createElement, createMenuDots, removeModal, setUpModal } from "../../global";
-import { handleDocumentClick, localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { createElement, createMenuDots, removeModal, setUpModal } from "../../global/dom-utils";
+import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { createTaskMenu, setSelectButton } from "../dom-utils";
 import { updatePlantInFirebase } from "../../../config";
+import { deleteTaskHandler, editTaskHandler } from "../../plant-log/event-handlers";
+import { renderQuickMenu } from "../../plant-log/dom-utils";
+import { setUpModalEventListeners } from "./plantPageEventHandlers";
 
 /**
  * Handles adding a new task to the plant's tasks list.
@@ -74,7 +74,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
   * @param {HTMLElement} menuDots - menu dot element that toggles quick menu.
   * @param {HTMLElement} newTaskElement - element for the new task.
   */
-const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant) => {
+export const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant) => {
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
     selectButtonHandler(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
   }, `PLANT_PAGE_${sectionClass}`);

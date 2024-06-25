@@ -3,8 +3,8 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { createIcon } from "../../global";
-import { hideElements, removeChildren, showElements } from "../../global";
+import { hideElements, removeChildren, showElements } from "../../global/utils";
+import { createIcon } from "../../global/dom-utils";
 
 /**
  * Remove image input where users can upload image from their device.

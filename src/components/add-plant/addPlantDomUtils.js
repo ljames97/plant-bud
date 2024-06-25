@@ -4,8 +4,8 @@
  */
 
 import { addIconLight } from "../../images";
-import { createElement } from "../global";
-import { appendChildren } from "../global";
+import { createElement } from "../global/dom-utils";
+import { appendChildren } from "../global/utils";
 import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantEventHandlers";
 
 /**
@@ -41,7 +41,7 @@ export const createModalElements = (tagName, inputText, buttonText, inputType, s
  * @param {HTMLElement} input - input element to be configured as a file input.
  * @returns an object containing the labelElement and getImageUrl function.
  */
-const createFileInputElements = (input) => {
+export const createFileInputElements = (input) => {
   input.setAttribute('accept', 'image/*');
   const labelElement = createElement({tagName: 'label', classEl: ['file-upload'], fr: 'file-upload'});
   const heading = createElement({tagName: 'p', textContent: 'Upload a photo', classEl: ['upload-image-heading']});
@@ -65,7 +65,7 @@ const createFileInputElements = (input) => {
  * @param {Function} getImageUrl - function to get the URL of the selected image file, if applicable.
  * @returns an object containing the buttons element, nextButton, and backButton.
  */
-const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageFile) => {
+export const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageFile) => {
   const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'] });
   const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'] });
   const buttons = createElement({tagName: 'div', classEl: ['plant-form-buttons']});

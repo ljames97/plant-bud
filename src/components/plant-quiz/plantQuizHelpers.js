@@ -1,4 +1,4 @@
-import { plantDirectory } from "../global";
+import { plantDirectory } from "../global/data";
 import { renderQuizResults } from "./plantQuizDomUtils";
 
 /**
@@ -23,7 +23,7 @@ export const getQuizResults = (userAnswers) => {
  * @param {*} plantData 
  * @returns 
  */
-const findSuitablePlants = (userAnswers, plantData) => {
+export const findSuitablePlants = (userAnswers, plantData) => {
   const suitablePlants = plantData.filter(plant => {
     return plant.skill.includes(userAnswers.skill)
     && plant.location.includes(userAnswers.location)

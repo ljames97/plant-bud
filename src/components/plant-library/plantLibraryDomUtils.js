@@ -3,10 +3,11 @@
  * For static elements, dynamic elements, or utility functions for DOM manipulation. 
  */
 
-import { plantLog, renderQuickMenu } from "../plant-log";
-import { createElement, createMenuDots, domElements } from "../global";
-import { handleDocumentClick, localEventManager } from "../global";
-import { appendChildren } from "../global";
+import { createElement, createMenuDots, domElements } from "../global/dom-utils";
+import { handleDocumentClick, localEventManager } from "../global/event-handlers";
+import { appendChildren } from "../global/utils";
+import { plantLog } from "../plant-log";
+import { renderQuickMenu } from "../plant-log/dom-utils";
 import { quickAddHandler, setUpTagButtonListeners } from "./plantLibraryEventHandlers";
 
 /**
@@ -42,7 +43,7 @@ export const createSearchInput = () => {
  * Creates and returns search tags for plant library.
  * @returns {Object} An object containing references to the created elements.
  */
-const createSearchTags = () => {
+export const createSearchTags = () => {
   const searchTags = createElement({tagName: 'div', classEl: ['search-tags']});
   const allTag = createElement({tagName: 'button', textContent: 'All', classEl: ['search-tag'], id: 'all-tag'});
   const beginnerTag = createElement({tagName: 'button', textContent: 'Beginner', classEl: ['search-tag'], id: 'beginner-tag'});
@@ -128,7 +129,7 @@ export const createMenuItems = (menuDots, plant) => {
  * @param {Object} plant - plant details
  * @returns {Boolean} Is plant already in the userPlantLog
  */
-const isPlantAdded = (plant) => {
+export const isPlantAdded = (plant) => {
   const isAdded = plantLog.getPlant(plant);
   return isAdded;
 }

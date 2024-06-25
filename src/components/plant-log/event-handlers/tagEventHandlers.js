@@ -5,9 +5,9 @@
 */
 
 import { updatePlantInFirebase } from "../../../config";
-import { createElement, removeModal, setUpModal } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren, removeItemFromArray } from "../../global";
+import { createElement, removeModal, setUpModal } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren, removeItemFromArray } from "../../global/utils";
 import { resetPlantGrid } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 
@@ -37,7 +37,7 @@ export const setUpTagButtonListeners = (deleteBtn, updateBtn, newTag, plant, edi
  * @param {Object} plant 
  * @param {HTMLElement} editTaskModal 
  */
-const deleteTagHandler = async (newTag, plant, editTaskModal) => {
+export const deleteTagHandler = async (newTag, plant, editTaskModal) => {
   const foundTag = plant.tags.find(tag => tag.description === newTag.textContent);
   plant.tags = removeItemFromArray(plant.tags, foundTag.id);
   removeModal(editTaskModal, 'PLANT_LOG');
@@ -78,7 +78,7 @@ export const editTagHandler = (newTag, plant) => {
  * @param {HTMLElement} errorMessage 
  * @returns 
  */
-const updateTagHandler = async (newTag, plant, editTagModal, editTagInput, errorMessage) => {
+export const updateTagHandler = async (newTag, plant, editTagModal, editTagInput, errorMessage) => {
   if (editTagInput.value === '') {
     return;
   }
@@ -126,7 +126,7 @@ export const addNewTagHandler = (plant) => {
  * @param {HTMLElement} newTagModal 
  * @param {HTMLElement} errorMessage 
  */
-const submitTagHandler = async (plant, newTagInput, newTagModal, errorMessage) => {
+export const submitTagHandler = async (plant, newTagInput, newTagModal, errorMessage) => {
   if (newTagInput === '') {
     return;
   }

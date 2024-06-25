@@ -1,6 +1,6 @@
 import { setUpModalEventListeners } from "./plantPageEventHandlers";
-import { createElement, removeModal, setUpModal } from "../../global";
-import { appendChildren } from "../../global";
+import { createElement, removeModal, setUpModal } from "../../global/dom-utils";
+import { appendChildren } from "../../global/utils";
 import { plantRequirement } from "../../../images";
 import { updatePlantInFirebase } from "../../../config";
 

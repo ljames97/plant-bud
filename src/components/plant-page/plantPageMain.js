@@ -5,9 +5,9 @@
  */
 
 import './plantPage.css';
-import { findItemInArray, getDate } from "../global";
+import { findItemInArray, getDate } from "../global/utils";
 import { plantLog } from "../plant-log";
-import { plantDirectory } from "../global";
+import { plantDirectory } from "../global/data";
 import { createPlantPageElements } from "./dom-utils";
 
 /**

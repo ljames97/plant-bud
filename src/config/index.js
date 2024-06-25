@@ -1,3 +1,9 @@
-export * from './auth.js';
-export * from './db.js';
-export * from './firebaseConfig.js';
+import { register, login, logout } from './auth.js';
+import { uploadImageToFirebase, deleteImageFromFirebase, addPlantToFirebase, getUserPlantsFromFirebase, updatePlantInFirebase, deletePlantFromFirebase, isFirebaseStorageUrl } from './db.js';
+import { firebaseConfig, auth, db, storage } from './firebaseConfig.js';
+
+export { 
+  register, login, logout,
+  uploadImageToFirebase, deleteImageFromFirebase, addPlantToFirebase, getUserPlantsFromFirebase, updatePlantInFirebase, deletePlantFromFirebase, isFirebaseStorageUrl,
+  firebaseConfig, auth, db, storage
+}

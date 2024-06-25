@@ -107,11 +107,12 @@ describe('dashboardEventHandlers', () => {
         'HOME_PAGE'
       ];
 
-      sectionNames.forEach(name => {
+      sectionNames.forEach((name) => {
         expect(localEventManager.addEventListener).toHaveBeenCalledWith(
           domElements.myPlantsBtn,
           'click',
-          name
+          expect.any(Function),
+          'DASHBOARD'
         );
       });
     });

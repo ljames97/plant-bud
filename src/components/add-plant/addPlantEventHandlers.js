@@ -4,9 +4,11 @@
  */
 
 import { plantLog, renderMyPlants } from "../plant-log";
-import { domElements, isFile, removeModal, resetSection } from "../global";
-import { localEventManager } from "../global";
+import { localEventManager } from "../global/event-handlers";
 import { uploadImageToFirebase } from "../../config";
+import { clearSection, domElements, removeModal, resetSection } from "../global/dom-utils";
+import { appendChildren, isFile } from "../global/utils";
+import { createModalElements } from "./addPlantDomUtils";
 
 /**
  * Sets up event listener for uploading user image.

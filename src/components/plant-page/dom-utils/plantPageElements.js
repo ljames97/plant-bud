@@ -1,6 +1,6 @@
 import { backButtonDark } from "../../../images";
-import { createElement, createIcon } from "../../global";
-import { appendChildren } from "../../global";
+import { createElement, createIcon } from "../../global/dom-utils";
+import { appendChildren } from "../../global/utils";
 import { setUpPlantPageListeners } from "../event-handlers";
 import { createNavButtons } from "./navDomUtils";
 import { createRequirements } from "./requirementsDomUtils";
@@ -45,7 +45,7 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
  * @param {Object} plant - plant object.
  * @param {String} sectionClass - class name for the section.
  */
-const createMainSection = (plant, sectionClass) => {
+export const createMainSection = (plant, sectionClass) => {
   const plantPageModal = createElement({tagName: 'div', classEl: ['requirement-modal']});
   const aboutSection = createElement({tagName: 'div', classEl: ['about-section']});
   const requirementsSection = createRequirements(plantPageModal, plant, sectionClass);
@@ -61,7 +61,7 @@ const createMainSection = (plant, sectionClass) => {
  * Creates and returns the plant description element.
  * @returns {Object} Object containing references to the plant description container and plant description element.
  */
-const createDescriptionElement = (plant) => {
+export const createDescriptionElement = (plant) => {
   const plantDescription = createElement({tagName: 'p', textContent: plant.description, classEl: ['plant-description']});
   const plantDescriptionHeader = createElement({tagName: 'p', textContent: 'Overview', classEl: ['plant-description-header']});
   const plantDescriptionContainer = createElement({tagName: 'div', classEl: ['plant-description-container']});

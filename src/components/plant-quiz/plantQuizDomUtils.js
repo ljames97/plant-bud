@@ -4,9 +4,9 @@
  */
 
 import { backButtonLight, peaceLily, snakePlant } from "../../images";
-import { createElement, domElements } from "../global";
-import { localEventManager } from "../global";
-import { appendChildren, randomiseArray, removeChildren } from "../global";
+import { createElement, domElements } from "../global/dom-utils";
+import { localEventManager } from "../global/event-handlers";
+import { appendChildren, randomiseArray, removeChildren } from "../global/utils";
 import { choiceBtnClickHandler, resultContainerHandler, startQuizBtnHandler } from "./plantQuizEventHandlers";
 
 /**
@@ -67,7 +67,7 @@ export const createPlantQuizElements = () => {
  * @param {String} subtitle 
  * @param {String} imageSrc 
  */
-const createPlantCard = (title, subtitle, imageSrc) => {
+export const createPlantCard = (title, subtitle, imageSrc) => {
   const plantCard = createElement({tagName: 'div', classEl: ['plant-card']});
   const cardTitle = createElement({tagName: 'p', textContent: title, classEl: ['card-title']});
   const cardSubtitle = createElement({tagName: 'p', textContent: subtitle, classEl: ['card-subtitle']});
@@ -140,7 +140,7 @@ export const renderQuizResults = (results) => {
  * @param {String} questionTitle 
  * @param {HTMLElement} choiceBtnContainer 
  */
-const createChoiceButtons = (choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer) => {
+export const createChoiceButtons = (choices, category, questionId, questionContainer, questionTitle, choiceBtnContainer) => {
   choices.forEach(choice => {
     const choiceBtn = createElement({tagName: 'button', textContent: choice, classEl: ['choice-btn']});
     appendChildren(choiceBtnContainer, choiceBtn);

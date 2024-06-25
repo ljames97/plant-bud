@@ -5,12 +5,12 @@
  */
 
 import "./plantLibrary.css";
-import { domElements, createElement, clearSection } from "../global";
-import { localEventManager } from "../global";
-import { appendChildren } from "../global";
+import { localEventManager } from "../global/event-handlers";
+import { appendChildren } from "../global/utils";
 import { createPlantResultElement, createSearchInput } from "./plantLibraryDomUtils";
-import { plantDirectory } from "../global";
+import { plantDirectory } from "../global/data";
 import { plantElementClickHandler, setUpPlantSearchListeners } from "./plantLibraryEventHandlers";
+import { clearSection, createElement, domElements } from "../global/dom-utils";
 
 /**
  * Render plant search input on screen. Get search elements from createSearchInput.
@@ -65,7 +65,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
  * Updates the plant counter display based on the number of filtered plants
  * @param {Array} filteredPlants - array of filtered plant objects.
  */
-const updatePlantCounter = (filteredPlants) => {
+export const updatePlantCounter = (filteredPlants) => {
   const plantsFoundCounter = document.querySelector('.plants-found-counter');
   
   if (!plantsFoundCounter) {
@@ -81,7 +81,7 @@ const updatePlantCounter = (filteredPlants) => {
  * Filters the plant directory based on the active skill tag button.
  * @returns Array of filtered plant objects based on the selected skill tag.
  */
-const getFilteredPlantsArray = () => {
+export const getFilteredPlantsArray = () => {
   const allTag = document.getElementById('all-tag');
   const beginnerTag = document.getElementById('beginner-tag');
   const mediumTag = document.getElementById('medium-tag');

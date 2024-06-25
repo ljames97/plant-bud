@@ -2,6 +2,19 @@
 
 TODO
 FINAL
+
+BABEL and indiex files problem when testing
+may not need seperate rewire configs
+
+in index files i need to explicitly import each and every function from files
+and then export them. This avoids using namesake as imports. 
+
+remove top level index files that do not export functions explicitly.
+
+once tests running as they should without issues:
+BABEL and indiex files problem when testing
+may not need seperate rewire configs
+
 - testing (globals, config, login, main/inits)
 - integration tests: firebase, User Authentication flow, Data Flow, Application Initialization (end2end)
 - main test documentation - include doc about babel rewire vs regular tests (rewire used to test and mock functions from same module)

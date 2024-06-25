@@ -4,12 +4,12 @@
 */
 
 import { toggleMenu } from "../../plant-library";
-import { createElement, domElements } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { setUpArchivePlantListeners, setUpMenuButtonListeners, setUpPlantMenuListeners } from "../event-handlers";
 import { deleteSelectedHandler } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
+import { createElement, domElements } from "../../global/dom-utils";
 
 /**
  * Creates the select menu with options based on user plant selections.

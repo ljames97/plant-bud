@@ -1,7 +1,9 @@
 // public/login.js
 import { auth } from '../../config';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { appendChildren, createElement, localEventManager } from '../global';
+import { appendChildren } from '../global/utils';
+import { createElement } from '../global/dom-utils';
+import { localEventManager } from '../global/event-handlers';
 
 /**
  * Initializes login.

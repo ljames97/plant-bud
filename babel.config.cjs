@@ -11,6 +11,8 @@ module.exports = {
     '@babel/preset-typescript',
   ],
   plugins: [
-    'transform-vite-meta-env'
+    'transform-vite-meta-env',
+    'babel-plugin-rewire',
+    '@babel/plugin-transform-runtime'
   ],
 };

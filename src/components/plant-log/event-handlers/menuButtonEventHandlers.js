@@ -4,11 +4,11 @@
  * Event handler functions for menu buttons in the Plant Log section.
 */
 
-import { deletePlantBtnHandler } from "../../plant-page";
+import { deletePlantBtnHandler } from "../../plant-page/event-handlers";
 import { permanentDeletePlant } from "../../plant-page";
-import { buttonHighlight, clearSection } from "../../global";
-import { localEventManager } from "../../global";
-import { hideElements, showElements } from "../../global";
+import { buttonHighlight, clearSection } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { hideElements, showElements } from "../../global/utils";
 import { renderDeletedPlants, resetPlantGrid } from "../dom-utils";
 import { plantLogElements, resetEditButton, updatePlantInfoBar } from "../dom-utils";
 import { renderMaximumTagsError } from "../dom-utils";
@@ -49,7 +49,7 @@ export const setUpMenuButtonListeners = (menuButtonsArray, archive, tasks, all) 
 /**
  * Handles the "All" button click event and resets the plant grid.
  */
-const allBtnClickHandler = () => {
+export const allBtnClickHandler = () => {
   const { editButtonContainer} = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   const taskSelectContainer = document.querySelector('.task-select-container');
@@ -64,7 +64,7 @@ const allBtnClickHandler = () => {
 /**
  * Handles the "Tasks" button click event and renders the tasks list.
  */
-const taskBtnHandler = () => {
+export const taskBtnHandler = () => {
   const { editButtonContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   clearSection(searchTaskContainer, 'PLANT_LOG');
@@ -77,7 +77,7 @@ const taskBtnHandler = () => {
 /**
  * Handles the "Archive" button click event and renders the archived plants.
  */
-const archiveBtnClickHandler = () => {
+export const archiveBtnClickHandler = () => {
   const { editButtonContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   const taskSelectContainer = document.querySelector('.task-select-container');

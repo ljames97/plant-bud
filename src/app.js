@@ -1,4 +1,4 @@
-import { dashboardInit } from "./components/global";
+import { dashboardInit } from "./components/global/event-handlers";
 import { plantLog } from "./components/plant-log";
 import { getUserPlantsFromFirebase } from "./config";
 

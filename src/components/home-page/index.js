@@ -1,4 +1,11 @@
-export * from './homeMain.js';
-export * from './homePageDomUtils.js';
-export * from './homePageEventHandlers.js';
-export * from './weatherHelpers.js';
+import { renderHomePage } from './homeMain.js';
+import { createHomePageElements, appendWeatherContainer, setWeatherIcon, createWeatherContainer } from './homePageDomUtils.js';
+import { logoutBtnHandler } from './homePageEventHandlers.js';
+import { getWeatherData, createAndStoreWeatherData, loadWeatherData  } from './weatherHelpers.js';
+
+export {
+  renderHomePage,
+  createHomePageElements, appendWeatherContainer, setWeatherIcon, createWeatherContainer,
+  logoutBtnHandler,
+  getWeatherData, createAndStoreWeatherData, loadWeatherData
+}

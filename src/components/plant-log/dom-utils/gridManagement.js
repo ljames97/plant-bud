@@ -4,7 +4,8 @@
 */
 
 import { pinPlantIcon } from "../../../images";
-import { appendChildren, clearSection, createElement, createMenuDots, domElements } from "../../global";
+import { clearSection, createElement, createMenuDots, domElements } from "../../global/dom-utils";
+import { appendChildren } from "../../global/utils";
 import { setupUserPlantGridEventListener } from "../event-handlers";
 import { setUpNewPlantListeners } from "../event-handlers";
 import { plantLog, populatePlantGrid, renderMyPlants } from "../plantLogMain";

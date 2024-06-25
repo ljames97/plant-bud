@@ -3,8 +3,8 @@
  * Unit test for sectionManipulation functions.
 */
 
-import { localEventManager } from '../../../../components/global/event-handlers/globalEventHandlers';
 import { resetSection, clearSection, __RewireAPI__ as sectionRewireAPI } from '../../../../components/global/dom-utils/sectionManipulation.js';
+import { localEventManager } from '../../../../components/global/event-handlers/globalEventHandlers.js';
 
 jest.mock('../../../../components/global/event-handlers/globalEventHandlers');
 
@@ -12,7 +12,7 @@ describe('sectionManipulation', () => {
   describe('clearSection', () => {
     beforeEach(() => {
       document.body.innerHTML = `
-      <div class="elements">
+        <div class="elements">
         <div class="child"></div>
         <div class="child"></div>
         <div class="child"></div>

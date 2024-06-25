@@ -5,9 +5,9 @@
 */
 
 import { renderPlantDetails } from "../../plant-page";
-import { clearSection, createElement } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { clearSection, createElement } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { plantLogElements } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 

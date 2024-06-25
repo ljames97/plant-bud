@@ -1,2 +1,7 @@
-export * from './editSaveMode';
-export * from './toggleEditMode';
+import { editMode, saveMode } from './editSaveMode';
+import { toggleEditMode, toggleEditFields } from './toggleEditMode';
+
+export {
+  editMode, saveMode,
+  toggleEditMode, toggleEditFields
+}

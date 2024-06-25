@@ -5,7 +5,7 @@
 
 // elementsManager.test.js
 import { onAuthStateChanged } from "firebase/auth";
-import { domElementsManager } from "../../../../components/global";
+import { domElementsManager } from "../../../../components/global/dom-utils";
 import { addIconDark, addIconLight, homeIconDark, homeIconLight, plantIconDark, plantIconLight, quizIconDark, quizIconLight, searchIconDark, searchIconLight } from "../../../../images";
 
 jest.mock('firebase/auth');

@@ -5,8 +5,8 @@
  */
 
 import './plantLog.css';
-import { findItemInArray, removeItemFromArray } from "../global";
-import { localEventManager } from "../global";
+import { findItemInArray, removeItemFromArray } from "../global/utils";
+import { localEventManager } from "../global/event-handlers";
 import { plantLogElements, updatePlantInfoBar } from "./dom-utils";
 import { addPlantToGrid, renderPlantGrid } from "./dom-utils";
 import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } from '../../config';

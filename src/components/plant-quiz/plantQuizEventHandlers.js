@@ -4,10 +4,10 @@
  */
 
 import { renderPlantDetails } from "../plant-page";
-import { questions } from "../global";
-import { clearSection, domElements } from "../global";
-import { localEventManager } from "../global";
-import { hideElements, removeChildren, showElements } from "../global";
+import { questions } from "../global/data";
+import { clearSection, domElements } from "../global/dom-utils";
+import { localEventManager } from "../global/event-handlers";
+import { hideElements, removeChildren, showElements } from "../global/utils";
 import { renderQuestion } from "./plantQuizDomUtils";
 import { getQuizResults } from "./plantQuizHelpers";
 import { renderPlantQuiz, userAnswerlog } from "./plantQuizMain";

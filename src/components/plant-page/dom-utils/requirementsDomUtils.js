@@ -1,7 +1,7 @@
 import { addIcon, clear, waterPlantsIcon } from "../../../images";
-import { createElement } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren } from "../../global";
+import { createElement } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { addNewRequirementHandler, submitRequirementHandler } from "../event-handlers";
 
 /**
@@ -22,6 +22,7 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
   const waterSchedule = createElement({tagName: 'p', textContent: plant.waterSchedule, classEl: ['requirement']});
   const tempLight = createElement({tagName: 'p', textContent: plant.tempLight, classEl: ['requirement']});
   plantPageModal.classList.add('plant-page-modal');
+  plantPageModal.classList.add('hidden');
   requirementsSection.style.display = 'none';
   waterScheduleIcon.src = waterPlantsIcon;
   tempLightIcon.src = clear;

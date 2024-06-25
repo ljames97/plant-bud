@@ -1,1 +1,6 @@
-export * from './data.js';
+import { plantDirectory, questions } from './data.js';
+
+export { 
+  plantDirectory,
+  questions
+ } 

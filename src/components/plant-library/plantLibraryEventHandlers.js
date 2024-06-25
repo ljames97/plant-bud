@@ -4,11 +4,11 @@
  */
 
 import { copyToMyPlants, renderPlantDetails } from "../plant-page";
-import { buttonHighlight, clearSection } from "../global";
-import { handleDocumentClick, localEventManager } from "../global";
-import { appendChildren } from "../global";
+import { appendChildren } from "../global/utils";
 import { replaceElement } from "./plantLibraryDomUtils";
 import { renderNewPlantSearch, updateSearchResults } from "./plantLibraryMain";
+import { buttonHighlight, clearSection } from "../global/dom-utils";
+import { handleDocumentClick, localEventManager } from "../global/event-handlers";
 
 /**
  * Handles the click event on a plant element, clearing the main section and rendering the plant details.

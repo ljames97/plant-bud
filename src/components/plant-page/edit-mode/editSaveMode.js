@@ -1,6 +1,6 @@
 import { addIconLight } from "../../../images";
-import { createElement } from "../../global";
-import { appendChildren, removeChildren } from "../../global";
+import { createElement } from "../../global/dom-utils";
+import { appendChildren, removeChildren } from "../../global/utils";
 import { plantLog } from "../../plant-log";
 import { removeImageInput } from "../dom-utils";
 import { setUpDeleteResetBtns, setUpImageInput } from "../event-handlers";

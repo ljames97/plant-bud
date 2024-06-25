@@ -4,7 +4,7 @@ dotenv.config();
 
 module.exports = {
   displayName: "Regular Test",
-  testMatch: ["<rootDir>/src/__tests__/**/!(*.rewire).test.js"],
+  testMatch: ["<rootDir>/src/__tests__/**/*.test.js"],
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',

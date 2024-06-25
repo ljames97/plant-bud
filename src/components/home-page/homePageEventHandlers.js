@@ -1,5 +1,5 @@
 import { logout } from "../../config";
-import { localEventManager } from "../global";
+import { localEventManager } from "../global/event-handlers";
 
 export const logoutBtnHandler = () => {
   const logoutBtn = document.querySelector('.profile-icon-container');

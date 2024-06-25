@@ -1,4 +1,5 @@
-export * from './dom-utils';
-export * from './edit-mode';
-export * from './event-handlers';
-export * from './plantPageMain';
+import { renderPlantDetails, permanentDeletePlant, copyToMyPlants } from './plantPageMain';
+
+export { 
+  renderPlantDetails, permanentDeletePlant, copyToMyPlants
+};

@@ -5,8 +5,9 @@
  */
 
 import './addPlant.css';
-import { createElement, setUpModal } from "../global";
-import { appendChildren } from "../global";
+import { appendChildren } from "../global/utils";
+import { createElement, setUpModal } from '../global/dom-utils';
+import { updateModalContent } from './addPlantEventHandlers';
 
 /**
  * Render plant form for the user to manually upload a plant to 'My Plants'.

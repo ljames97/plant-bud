@@ -12,6 +12,7 @@ module.exports = {
   ],
   plugins: [
     'transform-vite-meta-env',
-    'babel-plugin-rewire'
+    'babel-plugin-rewire',
+    '@babel/plugin-transform-runtime'
   ],
 };

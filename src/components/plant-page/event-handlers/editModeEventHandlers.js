@@ -1,6 +1,6 @@
 import { plantLog, renderMyPlants } from "../../plant-log";
-import { clearSection, resetSection } from "../../global";
-import { imageChangeHandler, localEventManager } from "../../global";
+import { clearSection, resetSection } from "../../global/dom-utils";
+import { imageChangeHandler, localEventManager } from "../../global/event-handlers";
 import { renderPlantDetails } from "../plantPageMain";
 import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase } from "../../../config";
 

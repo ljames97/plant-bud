@@ -1,4 +1,4 @@
-import { getUserLocation, roundToNearestWhole } from "../global";
+import { getUserLocation, roundToNearestWhole } from "../global/utils";
 
 /**
  * Fetches the current weather data from the OpenWeatherMap API using user location.
@@ -27,7 +27,7 @@ export const getWeatherData = async () => {
  * @param {Object} data 
  * @returns {Object} weather data including description and temperature.
  */
-const createAndStoreWeatherData = (data) => {
+export const createAndStoreWeatherData = (data) => {
   const weatherData = {
     description: data.weather[0].main,
     temperature: roundToNearestWhole(data.main.temp),

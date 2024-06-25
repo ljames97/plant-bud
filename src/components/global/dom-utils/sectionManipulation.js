@@ -1,4 +1,4 @@
-import { localEventManager } from "../event-handlers/globalEventHandlers";
+import { localEventManager } from "../event-handlers";
 
 /**
  * Clear the section by removing any child nodes. An alternative to innerHTML = ''.

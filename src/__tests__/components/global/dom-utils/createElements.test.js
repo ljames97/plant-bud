@@ -3,7 +3,7 @@
  * unit test for the createElement and createIcon functions.
 */
 
-import { createElement, createIcon, createMenuDots } from "../../../../components/global";
+import { createElement, createIcon, createMenuDots } from "../../../../components/global/dom-utils";
 import { addedPlantIcon } from "../../../../images";
 
 describe('create element', () => {

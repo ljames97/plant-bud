@@ -3,9 +3,9 @@
  * For managing tags within the Plant Log section.
  */
 
-import { createElement } from "../../global";
-import { localEventManager } from "../../global";
-import { appendChildren, setUpModal } from "../../global";
+import { createElement, setUpModal } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
+import { appendChildren } from "../../global/utils";
 import { editTagHandler } from "../event-handlers";
 
 

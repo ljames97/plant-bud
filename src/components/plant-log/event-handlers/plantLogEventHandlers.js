@@ -4,12 +4,12 @@
  */
 
 import { updatePlantInFirebase } from "../../../config";
-import { resetSection } from "../../global";
-import { handleDocumentClick, localEventManager } from "../../global";
-import { hideElements, showElements } from "../../global";
-import { resetPlantGrid } from "../dom-utils";
+import { resetSection } from "../../global/dom-utils";
+import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
+import { hideElements, showElements } from "../../global/utils";
+import { resetPlantGrid, toggleSelectButton } from "../dom-utils";
 import { createArchivePlantMenu, createPlantMenu, createSelectMenu, renderQuickMenu } from "../dom-utils";
-import { movePlantToTop, togglePlantSelect, toggleSelectButton } from "../dom-utils";
+import { movePlantToTop, togglePlantSelect } from "../dom-utils";
 import { plantLog, renderMyPlants } from "../plantLogMain";
 
 /**
@@ -78,7 +78,7 @@ export const editButtonHandler = (editDots, editButton) => {
 /**
  * Sets up event listeners for selecting a plant within the user plants container during "edit" mode.
  */
-const setUpPlantEventListener = () => {
+export const setUpPlantEventListener = () => {
   const userPlantsContainer = document.querySelector('.user-plants');
 
   localEventManager.removeAllEventListeners('PLANT_CONTAINER');

@@ -3,9 +3,9 @@
  * For managing tasks within the Plant Log section
 */
 
-import { setSelectButton } from "../../plant-page";
-import { clearSection, createElement, createMenuDots, domElements } from "../../global";
-import { appendChildren } from "../../global";
+import { clearSection, createElement, createMenuDots, domElements } from "../../global/dom-utils";
+import { appendChildren } from "../../global/utils";
+import { setSelectButton } from "../../plant-page/dom-utils";
 import { setUpTaskElementListeners, setUpTaskMenuListeners, setUpTaskSelectListeners, taskSelectHandler } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 import { plantLogElements } from "./plantLogDomUtils";
@@ -64,7 +64,7 @@ export const renderTasksList = (completedState) => {
  * @param {Object} plant 
  * @param {Object} task 
  */
-const createTaskElement = (plant, task) => {
+export const createTaskElement = (plant, task) => {
   const taskElement = createElement({tagName: 'div', classEl: ['task-element']});
   const taskContainer = createElement({tagName: 'div', classEl: ['task-result-container']})
   const taskSelector = createElement({tagName: 'button', classEl: ['task-selector']});
