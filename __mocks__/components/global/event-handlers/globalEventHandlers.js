@@ -1,6 +1,6 @@
-export const localEventManager = () => {
-  return {
-    removeAllEventListeners: jest.fn(),
-    addEventListener: jest.fn()
-  }
-}
+export const localEventManager = {
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+  removeAllEventListeners: jest.fn(),
+  getHandlers: jest.fn()
+};

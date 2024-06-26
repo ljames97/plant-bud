@@ -36,7 +36,8 @@ const eventManager = () => {
     },
 
     getHandlers: () => {
-      console.log(handlers);
+      // console.log(handlers);
+      return handlers;
     },
 
     /**
@@ -73,7 +74,7 @@ const eventManager = () => {
      *
      * @param {String} [registryName='global'] - (Optional) The name of the registry to clear listeners from. Defaults to 'GLOBAL'.
      */
-    removeAllEventListeners: (registryName = 'GLOBAL') => {
+    removeAllEventListeners: (registryName) => {
       if (handlers[registryName]) {
         Object.keys(handlers[registryName]).forEach(eventType => {
           handlers[registryName][eventType].forEach(({ element, handler }) => {
@@ -81,6 +82,15 @@ const eventManager = () => {
           });
         });
         delete handlers[registryName]; // Clears the registry
+      } else {
+        Object.keys(handlers).forEach(registry => {
+          Object.keys(handlers[registry]).forEach(eventType => {
+            handlers[registry][eventType].forEach(({ element, handler }) => {
+              element.removeEventListener(eventType, handler);
+            });
+          });
+        });
+        handlers = {}; // Clear all registries
       }
     }
   };

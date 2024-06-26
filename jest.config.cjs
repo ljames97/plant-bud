@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-  displayName: "Regular Test",
   testMatch: ["<rootDir>/src/__tests__/**/*.test.js"],
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
