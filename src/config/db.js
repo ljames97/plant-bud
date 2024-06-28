@@ -2,6 +2,7 @@
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
 import { db, storage } from "./firebaseConfig";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { isFirebaseStorageUrl } from "./utils";
 
 /**
  * Uploads an image file to Firebase Storage and returns the download URL.
@@ -92,7 +93,7 @@ export const getUserPlantsFromFirebase = async (userId, dbName) => {
   try {
     console.log("Fetching plants for user ID:", userId);
     const q = query(collection(db, dbName), where("userId", "==", userId));
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs();
     const plants = [];
     querySnapshot.forEach((doc) => {
       plants.push({ id: doc.id, ...doc.data() });
@@ -140,13 +141,3 @@ export const deletePlantFromFirebase = async (plantId, dbName, plant) => {
     throw error;
   }
 };
-
-/**
- * Checks if a URL belongs to Firebase Storage.
- * @param {Stirng} url - URL to be checked.
- * @returns {Boolean} - true or false.
- */
-export const isFirebaseStorageUrl = (url) => {
-  const firebaseStorageDomain = 'firebasestorage.googleapis.com';
-  return url.includes(firebaseStorageDomain);
-}
