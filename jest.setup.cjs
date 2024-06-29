@@ -1,3 +1,5 @@
+// jest.setup.cjs
+
 jest.mock('firebase/auth', () => {
   const originalModule = jest.requireActual('firebase/auth');
   document.body.innerHTML = `
@@ -23,6 +25,7 @@ jest.mock('firebase/auth', () => {
   };
 });
 
-// jest.setup.cjs
 const dotenv = require('dotenv');
 dotenv.config();
+
+jest.spyOn(global.console, 'error').mockImplementation(() => {});

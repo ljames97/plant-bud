@@ -91,7 +91,6 @@ export const getUserPlantsFromFirebase = async (userId, dbName) => {
   }
   
   try {
-    console.log("Fetching plants for user ID:", userId);
     const q = query(collection(db, dbName), where("userId", "==", userId));
     const querySnapshot = await getDocs();
     const plants = [];
