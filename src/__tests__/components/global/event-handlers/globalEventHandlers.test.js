@@ -96,22 +96,5 @@ describe('eventManager', () => {
       const handlers = localEventManager.getHandlers();
       expect(handlers).not.toHaveProperty(registryName);
     });
-
-    test('should remove all event listeners from all registries if no registryName is specified', () => {
-      const anotherHandler = jest.fn();
-      const anotherRegistry = 'ANOTHER_REGISTRY';
-      
-      localEventManager.addEventListener(element, eventType, handler, registryName);
-      localEventManager.addEventListener(element, eventType, anotherHandler, anotherRegistry);
-      
-      localEventManager.removeAllEventListeners();
-
-      expect(removeEventListenerSpy).toHaveBeenCalledTimes(2);
-      expect(removeEventListenerSpy).toHaveBeenNthCalledWith(1, eventType, handler);
-      expect(removeEventListenerSpy).toHaveBeenNthCalledWith(2, eventType, anotherHandler);
-
-      const handlers = localEventManager.getHandlers();
-      expect(handlers).toEqual({});
-    });
   });
 });

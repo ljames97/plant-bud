@@ -92,7 +92,7 @@ export const getUserPlantsFromFirebase = async (userId, dbName) => {
   
   try {
     const q = query(collection(db, dbName), where("userId", "==", userId));
-    const querySnapshot = await getDocs();
+    const querySnapshot = await getDocs(q);
     const plants = [];
     querySnapshot.forEach((doc) => {
       plants.push({ id: doc.id, ...doc.data() });

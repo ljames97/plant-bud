@@ -51,9 +51,8 @@ export const createMenuButtons = () => {
   all.inactiveBtns = [tasks, archive]
   tasks.inactiveBtns = [all, archive]
   archive.inactiveBtns = [all, tasks]
-  const menuButtonsArray = [all, tasks, archive];
 
-  setUpMenuButtonListeners(menuButtonsArray, archive, tasks, all);
+  setUpMenuButtonListeners(archive, tasks, all);
 
   appendChildren(menuButtons, all, tasks, archive);
 

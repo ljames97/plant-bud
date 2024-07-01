@@ -11,7 +11,7 @@ export const clearSection = (element, eventRegistryName) => {
       element.removeChild(element.firstChild);
     }
   
-    localEventManager.removeAllEventListeners(eventRegistryName);
+    localEventManager.removeAllEventListeners(eventRegistryName = 'GLOBAL');
   } else {
     return
   }

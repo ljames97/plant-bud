@@ -25,24 +25,20 @@ import { addNewTaskHandler } from "./taskEventHandlers";
  * @param {HTMLElement} tasks - tasks button element.
  * @param {HTMLElement} all - all button element.
  */
-export const setUpMenuButtonListeners = (menuButtonsArray, archive, tasks, all) => {
-  menuButtonsArray.forEach(button => {
-    localEventManager.addEventListener(button, 'click', () => {
-      buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
-      }
-    )
-  }, 'PLANT_NAV');
-
+export const setUpMenuButtonListeners = (archive, tasks, all) => {
   localEventManager.addEventListener(archive, 'click', () => {
     archiveBtnClickHandler();
+    buttonHighlight(archive, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...archive.inactiveBtns);
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(tasks, 'click', () => {
     taskBtnHandler();
+    buttonHighlight(tasks, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...tasks.inactiveBtns);
   }, 'PLANT_NAV');
 
   localEventManager.addEventListener(all, 'click', () => {
     allBtnClickHandler();
+    buttonHighlight(all, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...all.inactiveBtns);
   }, 'PLANT_NAV')
 }
 

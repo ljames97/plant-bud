@@ -1,4 +1,4 @@
-// public/login.js
+// login.js
 import { auth } from '../../config';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { appendChildren } from '../global/utils';
@@ -20,12 +20,14 @@ const setUpLoginEventListeners = () => {
   const signupButton = document.getElementById('signup-button');
   localEventManager.addEventListener(loginButton, 'click', loginButtonHandler);
   localEventManager.addEventListener(signupButton, 'click', signupButtonHandler);
+  console.log(loginButton);
 }
 
 /**
  * Handles the login button click event.
  */
-const loginButtonHandler = () => {
+export const loginButtonHandler = () => {
+  console.log('click');
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 

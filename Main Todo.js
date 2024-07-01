@@ -3,9 +3,7 @@
 TODO
 
 FINAL
-
-- testing (globals, config, login, main/inits)
-- integration tests: firebase, User Authentication flow, Data Flow, Application Initialization (end2end)
+- integration tests: data submission (adding new plant), Application Initialization (end2end)
 - main test documentation - include doc about babel rewire vs regular tests (rewire used to test and mock functions from same module)
 and the babel rewire API
 - README file
@@ -14,6 +12,7 @@ and the babel rewire API
 - accessibility (buttons, image alt etc.), turn all forms into <form> with label, aria etc.
 - desktop css (responsive design)
 - file heading documentation
+- error handling
 - optomistic loading to prevent UI delay with fetching data and/or loading page
 - style.display/color etc use classList.add instead
 - use ids for unique elements
@@ -30,8 +29,8 @@ PLANT PAGE
 - improve add new plant button
 
 NEXT
-- react refactor, node.js database/server
-- new project ideas to demo node.js, react.js (e-commerce site, workspace collab etc)
+- (react refactor), (node.js database/server)
+- new project ideas to demo (node.js), react.js (e-commerce site, workspace collab etc)
 
 ------------
 
