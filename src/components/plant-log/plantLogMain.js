@@ -16,6 +16,7 @@ import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } fr
  */
 export const renderMyPlants = () => {
   plantLogElements.createPlantLogElements();
+  console.log('RENDERING');
   renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
   updatePlantInfoBar();
 

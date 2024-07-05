@@ -3,9 +3,10 @@
 TODO
 
 FINAL
-- integration tests: data submission (adding new plant), Application Initialization (end2end)
+- integration tests: plant log rendering, Application Initialization (end2end)
 - main test documentation - include doc about babel rewire vs regular tests (rewire used to test and mock functions from same module)
-and the babel rewire API
+and the babel rewire API.
+Include notes about intention to write more exhaustive unit/integration tests
 - README file
 - domain hosting, HTTPS, eslint, scss/sass
 
@@ -15,9 +16,8 @@ and the babel rewire API
 - error handling
 - optomistic loading to prevent UI delay with fetching data and/or loading page
 - style.display/color etc use classList.add instead
-- use ids for unique elements
+- use ids for unique elements (buttons etc)
 - move firestore/base to production mode, firebase security rules
-- absolute paths or using alias in imports for test.js files.
 - moon icon for evening weather
 
 PLANT PAGE

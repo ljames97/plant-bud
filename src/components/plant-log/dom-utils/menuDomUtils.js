@@ -99,7 +99,7 @@ export const createPlantMenu = (menuDots, plant) => {
   const newTask = createElement({tagName: 'p', textContent: 'New task', classEl: ['drop-menu-item']});
   const addTag = createElement({tagName: 'p', textContent: 'New tag', classEl: ['drop-menu-item']});
   const pinPlant = createElement({tagName: 'p', textContent: !plant.pinned ? 'Pin' : 'Unpin', classEl: ['drop-menu-item']});
-  const deletePlant = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item']});
+  const deletePlant = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item', 'delete-plant-btn'], id: 'delete-plant-btn'});
 
   appendChildren(dropMenuContainer, newTask, addTag, pinPlant, deletePlant);
   appendChildren(menuDots, dropMenuContainer);

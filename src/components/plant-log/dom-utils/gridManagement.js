@@ -101,5 +101,5 @@ export const refreshPlantGrid = () => {
   const userPlantLog = plantLog.getUserPlantLog();
   userPlantLog.forEach(plant => {
     addPlantToGrid(plant);
-  })
+  });
 }
