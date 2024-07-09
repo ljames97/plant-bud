@@ -50,7 +50,6 @@ describe('Delete Plant Integration Test', () => {
   test('should delete plant and move it to archive', () => {
     renderMyPlants();
 
-      // Simulate clicking the menu dots
       const menuDots = document.querySelector('.plant-menu');
       if (menuDots) {
         menuDots.click();
@@ -68,7 +67,6 @@ describe('Delete Plant Integration Test', () => {
   
       deleteButton.click();
   
-      // Verify the plant was deleted
       expect(mockPlants.length).toBe(0);
   });
 });

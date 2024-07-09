@@ -5,7 +5,7 @@ import { appendChildren, findItemInArray, getDate, getUserLocation, hideElements
 describe('globalUtility', () => {
 
   describe('removeItemFromArray', () => {
-    it('should remove item from array by id', () => {
+    test('should remove item from array by id', () => {
       const array = [{ id: 1 }, { id: 2 }, { id: 3 }];
       const itemId = 2;
       const updatedArray = removeItemFromArray(array, itemId);
@@ -14,7 +14,7 @@ describe('globalUtility', () => {
   });
 
   describe('findItemInArray', () => {
-    it('should find item in array by id', () => {
+    test('should find item in array by id', () => {
       const array = [{ id: 1 }, { id: 2 }, { id: 3 }];
       const itemId = 2;
       const foundItem = findItemInArray(array, itemId);
@@ -23,7 +23,7 @@ describe('globalUtility', () => {
   });
 
   describe('removeChildren', () => {
-    it('should remove child elements from parent', () => {
+    test('should remove child elements from parent', () => {
       document.body.innerHTML = `
         <div id="parent">
           <div id="child1"></div>
@@ -39,7 +39,7 @@ describe('globalUtility', () => {
   });
 
   describe('appendChildren', () => {
-    it('should append child elements to parent', () => {
+    test('should append child elements to parent', () => {
       document.body.innerHTML = `<div id="parent"></div>`;
       const parent = document.getElementById('parent');
       const child1 = document.createElement('div');
@@ -50,7 +50,7 @@ describe('globalUtility', () => {
   });
 
   describe('hideElements', () => {
-    it('should hide elements from the DOM', () => {
+    test('should hide elements from the DOM', () => {
       document.body.innerHTML = `
         <div id="element1"></div>
         <div id="element2"></div>
@@ -64,7 +64,7 @@ describe('globalUtility', () => {
   });
 
   describe('showElements', () => {
-    it('should show hidden elements with specified display type', () => {
+    test('should show hidden elements with specified display type', () => {
       document.body.innerHTML = `
         <div id="element1" style="display: none;"></div>
         <div id="element2" style="display: none;"></div>
@@ -78,7 +78,7 @@ describe('globalUtility', () => {
   });
 
   describe('randomiseArray', () => {
-    it('should return a new array with specified number of random items', () => {
+    test('should return a new array with specified number of random items', () => {
       const array = [1, 2, 3, 4, 5];
       const size = 2;
       const randomArray = randomiseArray(array, size);
@@ -88,7 +88,7 @@ describe('globalUtility', () => {
   });
 
   describe('getDate', () => {
-    it('should return formatted date in dd/mm/yyyy format', () => {
+    test('should return formatted date in dd/mm/yyyy format', () => {
       const formattedDate = getDate();
       const now = new Date();
       const day = String(now.getDate()).padStart(2, '0');
@@ -100,7 +100,7 @@ describe('globalUtility', () => {
   });
 
   describe('getUserLocation', () => {
-    it('should return user latitude and longitude', async () => {
+    test('should return user latitude and longitude', async () => {
       global.navigator.geolocation = {
         getCurrentPosition: jest.fn((success) => success({
           coords: {
@@ -123,19 +123,19 @@ describe('globalUtility', () => {
   });
 
   describe('roundToNearestWhole', () => {
-    it('should round a number to the nearest whole number', () => {
+    test('should round a number to the nearest whole number', () => {
       expect(roundToNearestWhole(4.6)).toBe(5);
       expect(roundToNearestWhole(4.4)).toBe(4);
     });
   });
 
   describe('isFile', () => {
-    it('should return true if the image is a File object', () => {
+    test('should return true if the image is a File object', () => {
       const file = new File([''], 'filename.png', { type: 'image/png' });
       expect(isFile(file)).toBe(true);
     });
 
-    it('should return false if the image is not a File object', () => {
+    test('should return false if the image is not a File object', () => {
       const imageUrl = 'http://example.com/image.png';
       expect(isFile(imageUrl)).toBe(false);
     });

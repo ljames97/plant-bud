@@ -3,9 +3,7 @@
 TODO
 
 FINAL
-- integration tests: plant log rendering, Application Initialization (end2end)
-- main test documentation - include doc about babel rewire vs regular tests (rewire used to test and mock functions from same module)
-and the babel rewire API.
+- Application Initialization (end2end) using jest puppeteer
 Include notes about intention to write more exhaustive unit/integration tests
 - README file
 - domain hosting, HTTPS, eslint, scss/sass
