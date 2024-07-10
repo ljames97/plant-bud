@@ -18,7 +18,7 @@ export const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) =>
   const modalOverlay = document.querySelector('.modal-overlay');
   const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: ['plant-page-input']});
   const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-requirement-btn']});
-  const cancelTaskBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn']});
+  const cancelTaskBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel'});
 
   setUpModal(plantPageModal);
 
@@ -40,7 +40,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
     return;
   }
 
-  removeModal(modal, 'PLANT_PAGE');
+  removeModal(modal, `PLANT_PAGE_${sectionClass}`);
 
   const newTaskElement = createElement({tagName: 'div', classEl: ['new-task']});
   const taskSelectBtn = createElement({tagName: 'button', classEl: ['select-btn']});
@@ -82,7 +82,7 @@ export const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuD
   localEventManager.addEventListener(menuDots, 'click', (event) => {
     renderQuickMenu(event, createTaskMenu, menuDots, foundTask, newTaskElement, plant);
     localEventManager.addEventListener(document, 'click', handleDocumentClick, 'PLANT_PAGE');
-  });
+  }, 'PLANT_PAGE');
 }
 
 /**

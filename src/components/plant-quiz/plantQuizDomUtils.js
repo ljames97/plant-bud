@@ -18,7 +18,7 @@ export const createResultElements = (result) => {
   const resultContainer = createElement({tagName: 'div', classEl: ['result-container']});
   const resultTitle = createElement({tagName: 'p', textContent: result.name, classEl: ['result-title']});
   const resultImageContainer = createElement({tagName: 'div', classEl: ['result-image-container']});
-  const resultImage = createElement({tagName: 'img'});
+  const resultImage = createElement({tagName: 'img', alt: 'Plant quiz result'});
   resultImage.src = result.image;
 
   appendChildren(resultImageContainer, resultImage);
@@ -39,14 +39,14 @@ export const createPlantQuizElements = () => {
   const quizSubtitle = createElement({tagName: 'p', textContent: 'Find suitable plants', classEl: ['quiz-subheader']});
   const quizDescription = createElement({tagName: 'p', classEl: ['quiz-description'], textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
   const startQuizBtn = createElement({tagName: 'button', textContent: 'Start Quiz', classEl: ['start-quiz-btn']});
-  const restartQuizBtn = createElement({tagName: 'div', classEl: ['back-button']});
-  const backButtonImg = createElement({tagName: 'img'});
+  const restartQuizBtn = createElement({tagName: 'div', classEl: ['back-button'], ariaLabel: 'Restart quiz'});
+  const backButtonImg = createElement({tagName: 'img', alt: 'Back button'});
   backButtonImg.src = backButtonLight;
-  restartQuizBtn.style.display = 'none';
+  restartQuizBtn.classList.add('hidden');
 
   const snakePlantCard = createPlantCard('Snake Plant', 'For beginners', snakePlant);
   const peaceLilyCard = createPlantCard('Peace Lily', 'Flowering plant', peaceLily);
-  const cardContainer = createElement({tagName: 'div', classEl: ['card-container']});
+  const cardContainer = createElement({tagName: 'div', classEl: ['card-container', 'flex']});
 
   appendChildren(cardContainer, snakePlantCard, peaceLilyCard);
   appendChildren(restartQuizBtn, backButtonImg);
@@ -72,7 +72,7 @@ export const createPlantCard = (title, subtitle, imageSrc) => {
   const cardTitle = createElement({tagName: 'p', textContent: title, classEl: ['card-title']});
   const cardSubtitle = createElement({tagName: 'p', textContent: subtitle, classEl: ['card-subtitle']});
   const cardImageContainer = createElement({tagName: 'div', classEl: ['card-image-container']});
-  const cardImage = createElement({tagName: 'img', classEl: ['card-image']});
+  const cardImage = createElement({tagName: 'img', classEl: ['card-image'], alt: 'Image of plant'});
 
   cardImage.src = imageSrc;
 
@@ -114,7 +114,7 @@ export const initializeQuizContainers = (plantQuiz) => {
   const quizContainer = document.querySelector('.quiz-container');
   const questionContainer = document.querySelector('.question-container');
   const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
-  plantInfoContainer.style.display = 'none';
+  plantInfoContainer.classList.add('hidden');
   appendChildren(plantQuiz, plantInfoContainer);
   removeChildren(quizContainer, questionContainer);
   return { quizContainer, plantInfoContainer };

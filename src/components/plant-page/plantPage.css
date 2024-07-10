@@ -139,10 +139,10 @@
 }
 
 .requirements-section {
-  display: flex;
   flex-direction: column;
   height: 90vh;
   margin-top: 1rem;
+  padding: 0 1rem;
 }
 
 .requirement {
@@ -150,7 +150,6 @@
 }
 
 .add-requirement-btn {
-  display: flex;
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -171,16 +170,11 @@
 }
 
 .about-section {
-  display: flex;
   flex-direction: column;
 }
 
 .add-task-btn {
   width: auto;
-}
-
-.tasks-section {
-  min-height: 75vh;
 }
 
 .add-task-btn  {
@@ -202,10 +196,6 @@
 
 .new-task-image {
   width: 100%;
-}
-
-.requirements-section {
-  padding: 0 1rem;
 }
 
 .add-requirement-container {
@@ -250,7 +240,7 @@
 }
 
 .tasks-section {
-  display: flex;
+  min-height: 75vh;
   flex-direction: column;
   width: 100%;
 }

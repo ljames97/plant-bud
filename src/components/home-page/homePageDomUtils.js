@@ -11,11 +11,10 @@ export const createHomePageElements = async () => {
   const { homePage } = domElements;
   const header = document.querySelector('header');
   const logoContainer = createElement({tagName: 'div', classEl: ['logo-container']});
-  const logo = createElement({tagName: 'img', classEl: ['logo-img']});
+  const logo = createElement({tagName: 'img', classEl: ['logo-img'], alt: 'Logo'});
 
   logo.src = homePageLogo;
-  header.classList.remove('hidden');
-  header.classList.add('flex');
+  header.classList.toggle('hidden');
 
   appendChildren(logoContainer, logo);
   appendChildren(homePage, logoContainer);

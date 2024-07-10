@@ -4,17 +4,19 @@ TODO
 
 FINAL
 - Application Initialization (end2end) using jest puppeteer
-Include notes about intention to write more exhaustive unit/integration tests
-- README file
 - domain hosting, HTTPS, eslint, scss/sass
 
-- accessibility (buttons, image alt etc.), turn all forms into <form> with label, aria etc.
+- turn all forms into <form> with label, aria etc.
+
 - desktop css (responsive design)
+
 - file heading documentation
-- error handling
+
 - optomistic loading to prevent UI delay with fetching data and/or loading page
+
 - style.display/color etc use classList.add instead
 - use ids for unique elements (buttons etc)
+
 - move firestore/base to production mode, firebase security rules
 - moon icon for evening weather
 

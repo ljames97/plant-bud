@@ -45,7 +45,7 @@ export const createFileInputElements = (input) => {
   input.setAttribute('accept', 'image/*');
   const labelElement = createElement({tagName: 'label', classEl: ['file-upload'], fr: 'file-upload'});
   const heading = createElement({tagName: 'p', textContent: 'Upload a photo', classEl: ['upload-image-heading']});
-  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img']});
+  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img'], alt: 'Add icon'});
   imageInputImg.src = addIconLight;
 
   appendChildren(labelElement, heading, imageInputImg, input);
@@ -66,8 +66,8 @@ export const createFileInputElements = (input) => {
  * @returns an object containing the buttons element, nextButton, and backButton.
  */
 export const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageFile) => {
-  const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'] });
-  const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'] });
+  const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'], ariaLabel: 'Next Button' });
+  const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'], ariaLabel: 'Back Button' });
   const buttons = createElement({tagName: 'div', classEl: ['plant-form-buttons']});
 
   if (state.currentStep > 0) {

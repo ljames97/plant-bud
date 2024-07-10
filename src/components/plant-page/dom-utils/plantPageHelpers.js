@@ -46,12 +46,18 @@ export const hideSectionButtons = () => {
  */
 export const renderPlantSection = (activeSection, editBtnState, ...inactiveSections) => {
   const editBtn = document.querySelector('.edit-btn');
-  hideElements(...inactiveSections);
-  showElements('flex', activeSection);
+  inactiveSections.forEach(section => {
+    section.classList.remove('flex');
+    section.classList.add('hidden');
+  });
+  activeSection.classList.remove('hidden');
+  activeSection.classList.add('flex');
+  // hideElements(...inactiveSections);
+  // showElements('flex', activeSection);
 
-  if (editBtnState === false) {
-    hideElements(editBtn);
-  } else {
-    showElements('block', editBtn);
+  if (editBtn && editBtnState === false) {
+    editBtn.classList.add('hidden');
+  } else if (editBtn) {
+    editBtn.classList.remove('hidden');
   }
 }

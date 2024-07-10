@@ -18,7 +18,7 @@ import { createElement, domElements } from "../../global/dom-utils";
 export const createSelectMenu = (menuDots) => {
   const userPlants = plantLog.getUserPlantLog();
   const selectedPlants = userPlants.filter(plant => plant.selected === true);
-
+console.log(selectedPlants)
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'select-menu']});
   const deleteSelected = createElement({tagName: 'p', textContent: 'Delete selected', classEl: ['drop-menu-item']});
 
@@ -46,7 +46,9 @@ export const createMenuButtons = () => {
 
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
   taskCountIcon.textContent = numberOfTasks;
-  taskCountIcon.style.display = numberOfTasks > 0 ? 'block' : 'none';
+  const cssClass = numberOfTasks > 0 ? 'show' : 'hidden';
+  taskCountIcon.classList.remove('show', 'hidden');
+  taskCountIcon.classList.add(cssClass);
 
   all.inactiveBtns = [tasks, archive]
   tasks.inactiveBtns = [all, archive]
@@ -99,7 +101,7 @@ export const createPlantMenu = (menuDots, plant) => {
   const newTask = createElement({tagName: 'p', textContent: 'New task', classEl: ['drop-menu-item']});
   const addTag = createElement({tagName: 'p', textContent: 'New tag', classEl: ['drop-menu-item']});
   const pinPlant = createElement({tagName: 'p', textContent: !plant.pinned ? 'Pin' : 'Unpin', classEl: ['drop-menu-item']});
-  const deletePlant = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item', 'delete-plant-btn'], id: 'delete-plant-btn'});
+  const deletePlant = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item'], id: 'delete-plant-btn'});
 
   appendChildren(dropMenuContainer, newTask, addTag, pinPlant, deletePlant);
   appendChildren(menuDots, dropMenuContainer);

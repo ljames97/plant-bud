@@ -26,7 +26,7 @@ export const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionEle
   const modalOverlay = document.querySelector('.modal-overlay');
 
   localEventManager.addEventListener(submitBtn, 'click', () => {
-    submitHandler(plant, sectionElement, userInput.value, modal);
+    submitHandler(plant, sectionElement, userInput.value, sectionClass, modal);
   }, `PLANT_PAGE_${sectionClass}`);
 
   localEventManager.addEventListener(cancelBtn, 'click', () => {

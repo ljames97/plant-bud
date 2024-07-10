@@ -56,15 +56,15 @@ export const addPlantToGrid = (newPlant) => {
   const userPlantsContainer = document.querySelector('.user-plants');
   const userPlantContainer = createElement({tagName: 'div', classEl: ['user-plant']});
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-image-container']});
-  const plantImage = createElement({tagName: 'img', classEl: ['plant-image'], dataAttributes: { 'id': newPlant.id.toString() }});
-  const editButtons = createElement({tagName: 'div', classEl: ['edit-plant-buttons']});
-  const selectButton = createElement({tagName: 'button', classEl: ['plant-select-button']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-image'], dataAttributes: { 'id': newPlant.id.toString() }, alt: 'Plant image'});
+  const editButtons = createElement({tagName: 'div', classEl: ['edit-plant-buttons'], ariaLabel: 'Edit plant'});
+  const selectButton = createElement({tagName: 'button', classEl: ['plant-select-button'], ariaLabel: 'Select plant'});
   const menuDots = createMenuDots();
   const tagContainer = createPlantLogTags(newPlant);
   const taskCounter = createElement({tagName: 'p', classEl: ['task-counter']});
   const plantTitle = createElement({tagName: 'p',  classEl: ['plant-grid-title'], textContent: newPlant.name});
   const pinIconContainer = createElement({tagName: 'div', classEl: ['pin-icon-container']});
-  const pinIcon = createElement({tagName: 'img', classEl: ['pin-icon-img']});
+  const pinIcon = createElement({tagName: 'img', classEl: ['pin-icon-img'], alt: 'pin-icon'});
   pinIcon.src = pinPlantIcon;
 
   plantImage.src = newPlant.image;
@@ -83,7 +83,7 @@ export const addPlantToGrid = (newPlant) => {
   appendChildren(userPlantsContainer, userPlantContainer);
 
   if (newPlant.pinned === true) {
-    pinIconContainer.style.display = 'block';
+    pinIconContainer.classList.add('show')
     movePlantToTop(userPlantContainer);
   }
 

@@ -20,7 +20,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        dashboard.classList.remove('hidden');
+        dashboard.classList.add('hidden');
         initApp(user.uid);
       });
     } else {
@@ -28,7 +28,7 @@ onAuthStateChanged(auth, (user) => {
       initApp(user.uid);
     }
   } else {
-    dashboard.classList.add('hidden');
+    dashboard.classList.toggle('hidden');
     window.location.href = '/login.html';
   }
 });

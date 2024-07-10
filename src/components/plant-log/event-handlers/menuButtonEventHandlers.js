@@ -52,7 +52,8 @@ export const allBtnClickHandler = () => {
   clearSection(searchTaskContainer, 'PLANT_LOG');
   hideElements(taskSelectContainer);
   resetEditButton();
-  showElements('flex', editButtonContainer);
+  editButtonContainer.classList.add('flex');
+  editButtonContainer.classList.remove('hidden');
   resetPlantGrid(plantLog.getUserPlantLog());
   updatePlantInfoBar();
 }
@@ -117,6 +118,7 @@ export const setUpArchivePlantListeners = (unarchive, plant, permanentDelete) =>
   localEventManager.addEventListener(unarchive, 'click', () => {
     plantLog.removeFromDeletedPlants(plant);
     renderDeletedPlants();
+    plant.selected = false;
   }, 'PLANT_LOG');
 
   localEventManager.addEventListener(permanentDelete, 'click', () => {

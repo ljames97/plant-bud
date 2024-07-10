@@ -27,7 +27,7 @@ export const setUpInputChangeListener = (input, imageInputImg, heading) => {
       reader.onload = (e) => {
         imageInputImg.src = e.target.result;
         imageInputImg.classList.add('large-image');
-        heading.classList.add('hidden');
+        heading.classList.toggle('hidden');
       };
       reader.readAsDataURL(file);
     }
@@ -99,7 +99,7 @@ export const submitNewPlantHandler = async (event, plantName, dateAdded, descrip
 export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFileInput, state, getImageFile, backButton) => {
   localEventManager.addEventListener(nextButton, 'click', (event) => {
     if (input.value === '') {
-      errorMessage.style.display = 'block';
+      errorMessage.classList.toggle('hidden');
       return;
     }
     const userInput = isFileInput ? input.files[0] : input.value;

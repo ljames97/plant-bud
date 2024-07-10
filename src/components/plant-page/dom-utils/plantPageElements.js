@@ -17,12 +17,12 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: ['plant-title']});
   const navContainer = createNavButtons(aboutSection, requirementsSection, tasksSection, sectionClass);
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-page-image-container']});
-  const plantImage = createElement({tagName: 'img', classEl: ['plant-page-image']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-page-image'], alt: 'Plant image'});
   const { plantDescriptionContainer, plantDescription } = createDescriptionElement(plant);
   const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
   const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: ['permanent-delete-btn']});
-  const backToDashboard = createElement({tagName: 'div', classEl: ['back-button']});
-  const backButtonImg = createElement({tagName: 'img'});
+  const backToDashboard = createElement({tagName: 'div', classEl: ['back-button'], ariaLabel: 'Back to dahsboard'});
+  const backButtonImg = createElement({tagName: 'img', alt: 'Back button image'});
   const tagContainer = createTags(plant);
   backButtonImg.src = backButtonDark;
   plantImage.src = plant.image;
@@ -46,7 +46,7 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
  * @param {String} sectionClass - class name for the section.
  */
 export const createMainSection = (plant, sectionClass) => {
-  const plantPageModal = createElement({tagName: 'div', classEl: ['requirement-modal']});
+  const plantPageModal = createElement({tagName: 'div', classEl: ['requirement-modal', 'hidden']});
   const aboutSection = createElement({tagName: 'div', classEl: ['about-section']});
   const requirementsSection = createRequirements(plantPageModal, plant, sectionClass);
   const tasksSection = createUserTasks(plant, plantPageModal, sectionClass);

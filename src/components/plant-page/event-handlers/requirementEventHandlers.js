@@ -15,7 +15,8 @@ export const addNewRequirementHandler = (plantPageModal, requirements, sectionCl
   const modalOverlay = document.querySelector('.modal-overlay');
   const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: ['plant-page-input']});
   const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: ['submit-requirement-btn']});
-  const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn']});
+  const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel'});
+  
   setUpModal(plantPageModal);
 
   appendChildren(plantPageModal, cancelBtn, addRequirementInput, submitBtn);
@@ -30,16 +31,16 @@ export const addNewRequirementHandler = (plantPageModal, requirements, sectionCl
  * @param {HTMLElement} requirements - container element for requirements.
  * @param {HTMLElement} addRequirementInput - input element for the new requirement.
  */
-export const submitRequirementHandler = (plant, requirements, addRequirementInput, modal) => {
+export const submitRequirementHandler = (plant, requirements, addRequirementInput, sectionClass, modal) => {
   if (addRequirementInput === '') {
     return;
   }
 
-  removeModal(modal);
+  removeModal(modal, 'PLANT_PAGE');
 
   const newUserRequirmentContainer = createElement({tagName: 'div', classEl: ['requirement-container']});
   const newUserRequirementIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']})
-  const newUserRequirementIcon = createElement({tagName: 'img', classEl: ['requirement-icon']});
+  const newUserRequirementIcon = createElement({tagName: 'img', classEl: ['requirement-icon'], alt: 'A seedling'});
   const newUserRequirement = createElement({tagName: 'p', textContent: addRequirementInput, classEl: ['requirement']})
   newUserRequirementIcon.src = plantRequirement;
 

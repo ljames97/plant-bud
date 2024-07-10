@@ -55,8 +55,8 @@ export const restartQuizHandler = () => {
  */
 export const startQuizBtnHandler = (cardContainer, quizSubtitle, quizDescription, startQuizBtn, quizContainer, quizTitle, restartQuizBtn) => {
   hideElements(cardContainer, quizSubtitle, quizDescription, startQuizBtn)
-  restartQuizBtn.style.display = 'block';
-  quizTitle.style.display = 'none';
+  restartQuizBtn.classList.add('show');
+  quizTitle.classList.add('hidden');
 
   localEventManager.addEventListener(restartQuizBtn, 'click', () => {
     restartQuizHandler(quizContainer);

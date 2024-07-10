@@ -20,7 +20,7 @@ export const editMode = (plant, editBtn, elements, sectionClass, sectionRender) 
 
   const imageInput = createElement({tagName: 'input', classEl: ['file-input'], id: 'file-upload', type: 'file'});
   const label = createElement({tagName: 'label', classEl: ['file-upload-label'], fr: 'file-upload'});
-  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img']});
+  const imageInputImg = createElement({tagName: 'img', classEl: ['image-input-img'], alt: 'Add icon'});
   const imageContainer = document.querySelector('.plant-page-image-container');
   imageInputImg.src = addIconLight;
 

@@ -13,10 +13,10 @@ import { addIcon } from "../../../images";
 export const createUserTasks = (plant, plantPageModal, sectionClass) => {
   const userTaskSection = createElement({tagName: 'div', classEl: ['tasks-section']});
   const tasks = createElement({tagName: 'div', classEl: ['tasks']});
-  const newTaskBtn = createElement({tagName: 'button', classEl: ['add-task-btn']});
+  const newTaskBtn = createElement({tagName: 'button', classEl: ['add-task-btn'], ariaLabel: 'Add new task'});
   const newTaskImgContainer = createElement({tagName: 'div', classEl: ['new-task-image-container']});
-  const newTaskImg = createElement({tagName: 'img', classEl: ['new-task-image']});
-  userTaskSection.style.display = 'none';
+  const newTaskImg = createElement({tagName: 'img', classEl: ['new-task-image'], alt: 'Plant image for this task'});
+  userTaskSection.classList.add('hidden');
   newTaskImg.src = addIcon;
 
   appendChildren(newTaskImgContainer, newTaskImg);
@@ -25,13 +25,13 @@ export const createUserTasks = (plant, plantPageModal, sectionClass) => {
 
   if (plant.tasks) {
     plant.tasks.forEach(task => {
-      submitTaskHandler(plant, tasks, task.description, sectionClass)
+      submitTaskHandler(plant, tasks, task.description, sectionClass, plantPageModal)
     })
   }
 
   localEventManager.addEventListener(newTaskBtn, 'click', () => {
     addNewTaskHandler(plantPageModal, tasks, sectionClass, plant);
-  }, `PLANT_PAGE_${sectionClass}`)
+  }, `PLANT_PAGE_${sectionClass}`);
 
   return userTaskSection;
 }

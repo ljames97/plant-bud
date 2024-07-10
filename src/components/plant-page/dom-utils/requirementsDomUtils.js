@@ -15,22 +15,22 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
   const requirements = createElement({tagName: 'div', classEl: ['requirements']})
   const waterScheduleMain = createElement({tagName: 'div', classEl: ['requirement-container']});
   const waterScheduleIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']});
-  const waterScheduleIcon = createElement({tagName: 'img', classEl: ['water-scheduele-icon']});
+  const waterScheduleIcon = createElement({tagName: 'img', classEl: ['water-scheduele-icon'], alt: 'Watering can icon'});
   const tempLightMain = createElement({tagName: 'div', classEl: ['requirement-container']});
   const tempLightIconContainer = createElement({tagName: 'div', classEl: ['requirement-icon-container']});
-  const tempLightIcon = createElement({tagName: 'img', classEl: ['temp-light-icon']});
+  const tempLightIcon = createElement({tagName: 'img', classEl: ['temp-light-icon'], alt: 'Temperature icon'});
   const waterSchedule = createElement({tagName: 'p', textContent: plant.waterSchedule, classEl: ['requirement']});
   const tempLight = createElement({tagName: 'p', textContent: plant.tempLight, classEl: ['requirement']});
   plantPageModal.classList.add('plant-page-modal');
-  plantPageModal.classList.add('hidden');
-  requirementsSection.style.display = 'none';
+  // plantPageModal.classList.add('hidden');
+  requirementsSection.classList.add('hidden');
   waterScheduleIcon.src = waterPlantsIcon;
   tempLightIcon.src = clear;
 
   // allow user to upload their own requirements
-  const addRequirementBtn = createElement({tagName: 'button', classEl: ['add-requirement-btn']});
+  const addRequirementBtn = createElement({tagName: 'button', classEl: ['add-requirement-btn'], ariaLabel: 'Add new requirement'});
   const addBtnImageContainer = createElement({tagName: 'div', classEl: ['add-btn-image-container']});
-  const addBtnImage = createElement({tagName: 'img', classEl: ['add-btn-image']});
+  const addBtnImage = createElement({tagName: 'img', classEl: ['add-btn-image'], alt: 'Add icon'});
   addBtnImage.src = addIcon;
 
   appendChildren(addBtnImageContainer, addBtnImage)

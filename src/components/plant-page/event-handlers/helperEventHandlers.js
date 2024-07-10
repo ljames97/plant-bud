@@ -9,7 +9,9 @@ import { copyToMyPlants, permanentDeletePlant } from "../plantPageMain";
  */
 export const unarchiveBtnHandler = (plant, sectionClass, sectionRender) => {
   plantLog.removeFromDeletedPlants(plant);
+  console.log('clicked!')
   resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);
+  plant.selected = false;
 }
 
 /**

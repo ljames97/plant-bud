@@ -74,7 +74,7 @@ export const createPlantResultElement = (plant) => {
   const plantTitle = createElement({tagName: 'p', textContent: plant.name, classEl: ['plant-result-title']});
   const plantDescription = createElement({tagName: 'p', textContent: plant.shortDescription, classEl: ['plant-result-description']});
   const plantTag = createElement({tagName: 'p', textContent: plant.skill[0], classEl: ['plant-result-tag']});
-  const plantImage = createElement({tagName: 'img', classEl: ['plant-result-image']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-result-image'], alt: 'Plant image'});
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-result-image-container']});
   const lineSeparator = createElement({tagName: 'div', classEl: ['line-separator']});
   plantImage.src = plant.image;

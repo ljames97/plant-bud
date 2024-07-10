@@ -56,7 +56,7 @@ export const editTagHandler = (newTag, plant) => {
   const editTagModal = createElement({tagName: 'div', classEl: ['new-modal']});
   const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message']});
   const editTagInput = createElement({tagName: 'input', placeholder: newTag.textContent, classEl: ['new-input']});
-  const editTagButtons = createElement({tagName: 'div', classEl: ['edit-tag-buttons']});
+  const editTagButtons = createElement({tagName: 'div', classEl: ['edit-tag-buttons'], ariaLabel: 'Edit tag'});
   const deleteBtn = createElement({tagName: 'button', textContent: 'Delete', classEl: ['delete-tag-btn']});
   const updateBtn = createElement({tagName: 'button', textContent: 'Update', classEl: ['update-tag-btn', 'submit-btn']});
 
@@ -84,7 +84,7 @@ export const updateTagHandler = async (newTag, plant, editTagModal, editTagInput
   }
 
   if (editTagInput.value.length > 10) {
-    errorMessage.style.display = 'block';
+    errorMessage.classList.add('show');
     return;
   }
 
@@ -132,7 +132,7 @@ export const submitTagHandler = async (plant, newTagInput, newTagModal, errorMes
   }
 
   if (newTagInput.length > 10) {
-    errorMessage.style.display = 'block';
+    errorMessage.classList.add('show');
     return;
   }
 

@@ -1,4 +1,4 @@
-import { setUpModalListeners } from "../event-handlers";
+import { localEventManager, setUpModalListeners } from "../event-handlers";
 import { removeChildren } from "../utils";
 import { clearSection } from "./sectionManipulation";
 

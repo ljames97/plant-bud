@@ -15,7 +15,7 @@ import { plantLogElements } from "./plantLogDomUtils";
  */
 export const renderTaskSelect = () => {
   const taskSelectContainer = document.querySelector('.task-select-container');
-  taskSelectContainer.style.display = 'flex';
+  taskSelectContainer.classList.add('flex');
 }
 
 /**
@@ -27,6 +27,7 @@ export const createTaskSelect = () => {
   const separator = createElement({tagName: 'p', textContent: '|', classEl: ['task-select']});
   const todo = createElement({tagName: 'p', textContent: 'Task list', classEl: ['task-select', 'to-do-select']});
   const completed = createElement({tagName: 'p', textContent: 'Completed', classEl: ['task-select', 'completed-select']});
+  taskSelectContainer.classList.add('hidden');
 
   appendChildren(taskSelectContainer, todo, separator, completed);
 
@@ -67,9 +68,9 @@ export const renderTasksList = (completedState) => {
 export const createTaskElement = (plant, task) => {
   const taskElement = createElement({tagName: 'div', classEl: ['task-element']});
   const taskContainer = createElement({tagName: 'div', classEl: ['task-result-container']})
-  const taskSelector = createElement({tagName: 'button', classEl: ['task-selector']});
+  const taskSelector = createElement({tagName: 'button', classEl: ['task-selector'], ariaLabel: 'Select task'});
   const plantImageContainer = createElement({tagName: 'div', classEl: ['plant-task-image-container']});
-  const plantImage = createElement({tagName: 'img', classEl: ['plant-task-image']});
+  const plantImage = createElement({tagName: 'img', classEl: ['plant-task-image'], alt: 'Plant image'});
   const plantTaskTextContainer = createElement({tagName: 'p', classEl: ['plant-task-text']});
   const plantTitle = createElement({tagName: 'p', classEl: ['plant-task-title', 'plant-result-title'], textContent: plant.name});
   let taskDescription = createElement({tagName: 'p', classEl: ['task-description', 'plant-result-description'], textContent: task.description});
@@ -143,7 +144,9 @@ export const updateTaskIcon = () => {
 
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
   taskCountIcon.textContent = numberOfTasks;
-  taskCountIcon.style.display = numberOfTasks > 0 ? 'block' : 'none';
+  const cssClass = numberOfTasks > 0 ? 'show' : 'hidden';
+  taskCountIcon.classList.remove('show', 'hidden');
+  taskCountIcon.classList.add(cssClass)
 }
 
 /**

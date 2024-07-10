@@ -37,7 +37,7 @@ export const renderMaximumTagsError = () => {
   const menuContainer = document.querySelector('.drop-menu-container');
   const errorModal = createElement({tagName: 'div', classEl: ['new-modal']});
   const errorMessage = createElement({tagName: 'p', textContent: 'Maximum tags added for this plant!', classEl: ['modal-error-message']});
-  errorMessage.style.display = 'block';
+  errorMessage.classList.add('show');
 
   setUpModal(errorModal, menuContainer, 'PLANT_LOG');
 

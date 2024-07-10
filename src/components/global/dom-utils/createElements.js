@@ -11,7 +11,7 @@ import { appendChildren } from "../utils";
  * @param {string} value - Value attribute for input elements.
  * @returns {HTMLElement} Newly created HTML element.
  */
-export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = [], id = '', value = '', type = '', fr = '', dataAttributes = {} }) => {
+export const createElement = ( { tagName = '', placeholder = '', textContent = '', classEl = [], id = '', value = '', type = '', fr = '', dataAttributes = {}, ariaLabel = '', alt = '' }) => {
   const element = document.createElement(tagName);
   if (placeholder) element.placeholder = placeholder;
   if (textContent) element.textContent = textContent;
@@ -20,6 +20,8 @@ export const createElement = ( { tagName = '', placeholder = '', textContent = '
   if (value) element.value = value;
   if (type) element.type = type;
   if (fr) element.htmlFor = fr;
+  if (ariaLabel) element.setAttribute('aria-label', ariaLabel);
+  if (tagName === 'img' && alt) element.alt = alt;
 
   Object.keys(dataAttributes).forEach(key => {
     element.setAttribute(`data-${key}`, dataAttributes[key]);

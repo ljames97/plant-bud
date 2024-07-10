@@ -189,6 +189,10 @@ button {
   display: flex;
 }
 
+.show {
+  display: block;
+}
+
 .button-active {
   background-color: #fcfaf7;
 }

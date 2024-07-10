@@ -58,27 +58,32 @@ export const editButtonHandler = (editDots, editButton) => {
     editButton.textContent = 'Select';
     editButton.editMode = false;
 
-    selectButton.forEach(btn => btn.style.display = 'none');
-    menu.forEach(menu => menu.style.display = 'flex');
+    selectButton.forEach(btn => btn.classList.toggle('hidden'));
+    menu.forEach(menu => menu.classList.add('flex'));
 
     resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+
+    const userPlants = plantLog.getUserPlantLog();
+    userPlants.forEach(plant => {
+      plant.selected = false;
+    });
 
   } else {
     showElements('flex', editDots);
     editButton.textContent = 'Cancel';
 
-    selectButton.forEach(btn => btn.style.display = 'block');
-    menu.forEach(menu => menu.style.display = 'none');
+    selectButton.forEach(btn => btn.classList.add('show'));
+    menu.forEach(menu => menu.classList.toggle('hidden'));
 
     editButton.editMode = true;
-    setUpPlantEventListener();
+    setUpPlantEventListener(editButton);
   }
 }
 
 /**
  * Sets up event listeners for selecting a plant within the user plants container during "edit" mode.
  */
-export const setUpPlantEventListener = () => {
+export const setUpPlantEventListener = (editButton) => {
   const userPlantsContainer = document.querySelector('.user-plants');
 
   localEventManager.removeAllEventListeners('PLANT_CONTAINER');
@@ -91,7 +96,7 @@ export const setUpPlantEventListener = () => {
         const plant = plantLog.getPlantById(plantId, plantLog.getUserPlantLog());
         const userPlantContainer = target.closest('.user-plant');
         const selectButton = userPlantContainer.querySelector('.plant-select-button');
-        if (plant) {
+        if (plant && editButton.textContent === 'Cancel') {
           toggleSelectButton(selectButton, plant);
           togglePlantSelect(plant);
         }

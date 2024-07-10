@@ -29,8 +29,8 @@ const dynamicPlantLogElementsManager = () => {
       const plantLogTitle = createElement({tagName: 'h1', textContent: 'My Plants', classEl: ['section-title']});
       const infoBarContainer = createElement({tagName: 'div', classEl: ['info-bar-container']});
       const plantInfoBar = createElement({tagName: 'div', classEl: ['plant-info-bar']});
-      const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container']});
-      const editButton = createElement({tagName: 'button', classEl: ['edit-plant-log-button'], textContent: 'Select'});
+      const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container', 'flex']});
+      const editButton = createElement({tagName: 'button', classEl: ['edit-plant-log-button'], id: 'select-plant-btn', textContent: 'Select'});
       editButton.editMode = false;
       const editDots = createMenuDots();
       const userPlantsContainer = createElement({tagName: 'div', classEl: ['user-plants']});
