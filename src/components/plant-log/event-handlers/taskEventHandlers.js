@@ -151,7 +151,7 @@ export const addNewTaskHandler = (plant) => {
   const newTaskInput = createElement({tagName: 'input', placeholder: 'New task', classEl: ['new-input']});
   // priority input, notes, date, alert etc.
   const submitBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-btn']});
-  const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn']});
+  const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel task'});
   
   setUpModal(newTaskModal, menuContainer, 'PLANT_LOG');
 
@@ -174,7 +174,7 @@ export const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
     return;
   }
 
-  removeModal(newTaskModal, 'PLANT_LOG');
+  removeModal(newTaskModal, 'PLANT_PAGE');
 
   if (!plant.tasks.some(task => task.description === newTaskInput)) {
     const newTask = {

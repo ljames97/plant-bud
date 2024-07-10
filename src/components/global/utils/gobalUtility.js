@@ -58,7 +58,8 @@ export const appendChildren = (parent, ...children) => {
 export const hideElements = (...elements) => {
   elements.forEach(element => {
     if (element) {
-      element.style.display = 'none';
+      element.classList.add('hidden');
+      element.classList.remove('flex');
     }
   });
 }
