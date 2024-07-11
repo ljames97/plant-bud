@@ -37,7 +37,7 @@ export const setupUserPlantGridEventListener = (plantLogElement, plantLogType, s
           localEventManager.removeAllEventListeners('PLANT_SEARCH');
           clearSection(plantLogElement, 'PLANT_LOG');
           appendChildren(plantLogElement, plantPageContainer);
-          renderPlantDetails(plant, plantPageContainer, backButtonText, '.plant-log', sectionRender);
+          renderPlantDetails(plant, plantPageContainer, backButtonText, 'plant-log', sectionRender);
         }
         return;
       }

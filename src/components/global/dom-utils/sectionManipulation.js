@@ -1,3 +1,5 @@
+// sectionManipulation.js
+
 import { localEventManager } from "../event-handlers";
 
 /**
@@ -24,7 +26,7 @@ export const clearSection = (element, eventRegistryName) => {
  * @param {String} eventRegistryName - event listener register connected to this section eg. 'MY_PLANTS'.
  */
 export const resetSection = (sectionClass, renderSection, eventRegistryName) => {
-  const section = document.querySelector(sectionClass);
+  const section = document.getElementById(sectionClass);
   clearSection(section, eventRegistryName);
   renderSection();
 }

@@ -1,4 +1,5 @@
 // plantPageEventHandling.js
+
 /**
  * Event handler logic the plant page section.
  */

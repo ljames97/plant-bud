@@ -39,3 +39,8 @@
   justify-content: center;
   gap: 1rem;
 }
+
+#new-plant-form {
+  display: flex;
+  flex-direction: column;
+}

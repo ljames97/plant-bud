@@ -1,3 +1,5 @@
+// homeMain.js
+
 import './homePage.css';
 import { createHomePageElements } from "./homePageDomUtils";
 import { logoutBtnHandler } from './homePageEventHandlers';

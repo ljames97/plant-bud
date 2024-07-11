@@ -1,3 +1,5 @@
+// homePageDomUtils.js
+
 import { clear, clouds, drizzle, homePageLogo, rain, snow, thunderstorm } from "../../images";
 import { createElement, domElements } from "../global/dom-utils";
 import { appendChildren } from "../global/utils";
@@ -14,7 +16,7 @@ export const createHomePageElements = async () => {
   const logo = createElement({tagName: 'img', classEl: ['logo-img'], alt: 'Logo'});
 
   logo.src = homePageLogo;
-  header.classList.toggle('hidden');
+  header.classList.add('hidden');
 
   appendChildren(logoContainer, logo);
   appendChildren(homePage, logoContainer);
@@ -62,7 +64,7 @@ export const createWeatherContainer = async () => {
   const weatherData = await loadWeatherData();
   const { numberOfTasks } = setPlantInfoBar(plantLog.getUserPlantLog());
 
-  const weatherContainer = createElement({tagName: 'div', classEl: ['weather-container']});
+  const weatherContainer = createElement({tagName: 'div', id: 'weather-container'});
   const weatherIconContainer = createElement({tagName: 'div', classEl: ['weather-icon-container']});
   const weatherIcon = createElement({tagName: 'img', classEl: ['weather-icon']});
   const temperature = createElement({tagName: 'p', classEl: ['temperature']});

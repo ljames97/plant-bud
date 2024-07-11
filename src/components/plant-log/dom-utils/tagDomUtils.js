@@ -1,4 +1,5 @@
 // tagDomUtils.js
+
 /**
  * For managing tags within the Plant Log section.
  */

@@ -1,3 +1,5 @@
+// dashboardEventHandlers.js
+
 import { renderAddPlantModal } from "../../add-plant";
 import { renderHomePage } from "../../home-page/homeMain";
 import { renderNewPlantSearch } from "../../plant-library";

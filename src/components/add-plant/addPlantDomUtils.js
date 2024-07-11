@@ -21,19 +21,24 @@ import { setUpButtonEventListeners, setUpInputChangeListener } from "./addPlantE
  * @returns an object containing the created elements: input, buttons, nextButton, backButton, errorMessage, and optionally label.
  */
 export const createModalElements = (tagName, inputText, buttonText, inputType, state, isFileInput, classList, id) => {
+  const form = createElement({ tagName: 'form', classEl: ['new-plant-form'], id: 'new-plant-form' });
+  const label = createElement({ tagName: 'label', textContent: inputText, fr: id, classEl: ['visually-hidden'] });
   const input = createElement({ tagName: tagName, placeholder: inputText, classEl: classList, type: isFileInput ? 'file' : inputType, id: id });
   const errorMessage = createElement({tagName: 'p', textContent: 'Please complete field', classEl: ['modal-error-message']});
   let getImageFile = () => null;
-  let label;
+  let fileInputLabel;
 
   if (isFileInput) {
     const fileInputElements = createFileInputElements(input);
-    label = fileInputElements.labelElement;
+    fileInputLabel = fileInputElements.labelElement;
     getImageFile = fileInputElements.getImageFile;
+    appendChildren(form, fileInputLabel);
   }
 
-  const { buttons, nextButton, backButton } = createButtons(state, input, errorMessage, buttonText, isFileInput, getImageFile);
-  return { input, buttons, nextButton, backButton, errorMessage, label };
+  const { buttons } = createButtons(state, input, errorMessage, buttonText, isFileInput, getImageFile);
+  appendChildren(form, label, input, errorMessage, buttons);
+
+  return form;
 };
 
 /**
@@ -66,8 +71,8 @@ export const createFileInputElements = (input) => {
  * @returns an object containing the buttons element, nextButton, and backButton.
  */
 export const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageFile) => {
-  const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'], ariaLabel: 'Next Button' });
-  const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'], ariaLabel: 'Back Button' });
+  const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'], ariaLabel: 'Next Button', type: 'button' });
+  const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'], ariaLabel: 'Back Button', type: 'button' });
   const buttons = createElement({tagName: 'div', classEl: ['plant-form-buttons']});
 
   if (state.currentStep > 0) {

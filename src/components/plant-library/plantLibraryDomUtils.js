@@ -25,13 +25,14 @@ export const createSearchInput = () => {
   const plantDiscoveryTitle = createElement({tagName: 'h1', textContent: 'Plant Library', classEl: ['plant-library-title']});
   const searchContainer = createElement({tagName: 'div', classEl: ['library-search-container']});
   const { searchTags, tagButtons } = createSearchTags();
-  const searchInput = createElement({tagName: 'input', placeholder: 'Search', classEl: ['plant-search']});
+  const searchLabel = createElement({ tagName: 'label', textContent: 'Search Plants:', classEl: ['visually-hidden'], fr: 'plant-search-input' });
+  const searchInput = createElement({tagName: 'input', placeholder: 'Search', id: 'plant-search-input'});
   const plantsFoundCounter = createElement({tagName: 'p', classEl: ['plants-found-counter'], textContent: ''});
-  const searchResultsContainer = createElement({tagName: 'div', classEl: ['search-results']});
+  const searchResultsContainer = createElement({tagName: 'div', classEl: ['search-results'], id: 'search-results-container'});
 
   appendChildren(searchContainer, searchTags);
   appendChildren(sectionHeader, plantDiscoveryTitle );
-  appendChildren(searchContainer, searchInput, plantsFoundCounter, searchResultsContainer);
+  appendChildren(searchContainer, searchLabel, searchInput, plantsFoundCounter, searchResultsContainer);
   appendChildren(plantLibrary, sectionHeader, searchContainer);
 
   setUpTagButtonListeners(tagButtons, plantLibrary, searchInput, searchResultsContainer);

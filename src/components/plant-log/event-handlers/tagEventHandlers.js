@@ -54,8 +54,10 @@ export const deleteTagHandler = async (newTag, plant, editTaskModal) => {
 export const editTagHandler = (newTag, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const editTagModal = createElement({tagName: 'div', classEl: ['new-modal']});
+  const form = createElement({tagName: 'form', classEl: ['modal-form'], id: 'edit-tag-form'});
+  const label = createElement({tagName: 'label', classEl: ['visualy-hidden'], fr: 'edit-tag-input'});
   const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message']});
-  const editTagInput = createElement({tagName: 'input', placeholder: newTag.textContent, classEl: ['new-input']});
+  const editTagInput = createElement({tagName: 'input', placeholder: newTag.textContent, classEl: ['new-input'], id: 'edit=tag=input'});
   const editTagButtons = createElement({tagName: 'div', classEl: ['edit-tag-buttons'], ariaLabel: 'Edit tag'});
   const deleteBtn = createElement({tagName: 'button', textContent: 'Delete', classEl: ['delete-tag-btn']});
   const updateBtn = createElement({tagName: 'button', textContent: 'Update', classEl: ['update-tag-btn', 'submit-btn']});
@@ -63,7 +65,8 @@ export const editTagHandler = (newTag, plant) => {
   setUpModal(editTagModal, null, 'PLANT_LOG');
 
   appendChildren(editTagButtons, deleteBtn, updateBtn);
-  appendChildren(editTagModal, errorMessage, editTagInput, editTagButtons);
+  appendChildren(form, label, editTagInput, editTagButtons);
+  appendChildren(editTagModal, errorMessage, form);
   appendChildren(modalOverlay, editTagModal);
 
   setUpTagButtonListeners(deleteBtn, updateBtn, newTag, plant, editTagModal, editTagInput, errorMessage);
@@ -104,17 +107,21 @@ export const addNewTagHandler = (plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const menuContainer = document.querySelector('.drop-menu-container');
   const newTagModal = createElement({tagName: 'div', classEl: ['new-modal']});
-  const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message']});
-  const newTagInput = createElement({tagName: 'input', placeholder: 'e.g. New, Flowering', classEl: ['new-input']});
-  const submitBtn = createElement({tagName: 'button', textContent: 'Add tag', classEl: ['submit-btn']});
+  const form = createElement({tagName: 'form', classEl: ['modal-form'], id: 'new-tag-form'});
+  const label = createElement({tagName: 'label', textContent: 'Tag name:', fr: 'new-tag-input', classEl: ['visually-hidden']});
+  const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message', 'hidden']});
+  const newTagInput = createElement({tagName: 'input', placeholder: 'e.g. New, Flowering', classEl: ['new-input'], id: 'new-tag-input'});
+  const submitBtn = createElement({tagName: 'button', textContent: 'Add tag', classEl: ['submit-btn'], type: 'submit'});
   const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn']});
 
   setUpModal(newTagModal, menuContainer, 'PLANT_LOG');
 
-  appendChildren(newTagModal, errorMessage, cancelBtn, newTagInput, submitBtn);
+  appendChildren(form, label, newTagInput, errorMessage, submitBtn);
+  appendChildren(newTagModal, cancelBtn, form);
   appendChildren(modalOverlay, newTagModal);
 
-  localEventManager.addEventListener(submitBtn, 'click', () => {
+  localEventManager.addEventListener(form, 'submit', (event) => {
+    event.preventDefault();  // Prevent form submission
     submitTagHandler(plant, newTagInput.value, newTagModal, errorMessage);
   }, 'PLANT_LOG');
 }

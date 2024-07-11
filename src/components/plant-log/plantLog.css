@@ -127,7 +127,8 @@
   border: none;
 }
 
-.new-modal {
+.new-modal,
+.modal-form {
   display: flex;
   flex-direction: column;
 }

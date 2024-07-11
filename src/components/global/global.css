@@ -165,7 +165,7 @@ button {
   padding-bottom: 1rem;
 }
 
-.add-new-plant-btn {
+#add-new-plant-btn {
   padding: 0;
   align-self: center;
 }
@@ -199,4 +199,15 @@ button {
 
 .button-inactive {
   background-color: rgba(172, 172, 172, 0.3);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

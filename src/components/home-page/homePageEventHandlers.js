@@ -1,3 +1,5 @@
+// homepgaeEventHandlers.js
+
 import { logout } from "../../config";
 import { localEventManager } from "../global/event-handlers";
 

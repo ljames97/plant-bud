@@ -93,12 +93,15 @@ export const setUpTaskMenuListeners = (editTask, task, deleteTask, taskElement, 
 export const editTaskHandler = (task, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const editTaskModal = createElement({tagName: 'div', classEl: ['new-modal']});
-  const editTaskInput = createElement({tagName: 'input', placeholder: task.description, classEl: ['new-input']});
+  const form = createElement({tagName: 'form', classEl: ['modal-form'], id: 'edit-task-form'});
+  const label = createElement({tagName: 'label', textContent: 'Task name:', fr: 'edit-task-input', classEl: ['visually-hidden']});
+  const editTaskInput = createElement({tagName: 'input', placeholder: task.description, classEl: ['new-input'], id: 'edit-task-input'});
   const updateBtn = createElement({tagName: 'button', textContent: 'Update', classEl: ['update-tag-btn', 'submit-btn']});
 
   setUpModal(editTaskModal, null, 'PLANT_TASK');
 
-  appendChildren(editTaskModal, editTaskInput, updateBtn);
+  appendChildren(form, label, editTaskInput, updateBtn);
+  appendChildren(editTaskModal, form);
   appendChildren(modalOverlay, editTaskModal);
 
   localEventManager.addEventListener(updateBtn, 'click', () => {
@@ -148,14 +151,16 @@ export const addNewTaskHandler = (plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const menuContainer = document.querySelector('.drop-menu-container');
   const newTaskModal = createElement({tagName: 'div', classEl: ['new-modal']});
-  const newTaskInput = createElement({tagName: 'input', placeholder: 'New task', classEl: ['new-input']});
-  // priority input, notes, date, alert etc.
+  const form = createElement({tagName: 'form', classEl: ['modal-form'], id: 'new-task-form'});
+  const label = createElement({tagName: 'label', textContent: 'Task name:', fr: 'new-task-input', classEl: ['visually-hidden']});
+  const newTaskInput = createElement({tagName: 'input', placeholder: 'New task', classEl: ['new-input'], id: 'new-task-input'});
   const submitBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-btn']});
   const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel task'});
   
   setUpModal(newTaskModal, menuContainer, 'PLANT_LOG');
 
-  appendChildren(newTaskModal, cancelBtn, newTaskInput, submitBtn);
+  appendChildren(form, label, newTaskInput, submitBtn);
+  appendChildren(newTaskModal, cancelBtn, form);
   appendChildren(modalOverlay, newTaskModal);
 
   localEventManager.addEventListener(submitBtn, 'click', () => {

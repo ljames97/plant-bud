@@ -1,4 +1,5 @@
 //menuDomUtils.js
+
 /**
  * For creating and managing menus within the Plant Log section.
 */

@@ -1,3 +1,5 @@
+// utils.js
+
 /**
  * Checks if a URL belongs to Firebase Storage.
  * @param {Stirng} url - URL to be checked.

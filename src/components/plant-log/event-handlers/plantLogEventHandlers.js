@@ -1,4 +1,5 @@
 // plantLogEventHandling.js
+
 /**
  * Event handler logic for the plant log section.
  */
@@ -42,7 +43,7 @@ export const editSelectHandler = (event, menuDots) => {
  */
 export const deleteSelectedHandler = (selectedPlants) => {
   selectedPlants.forEach(plant => plantLog.deletePlantFromLog(plant));
-  resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+  resetSection('plant-log', renderMyPlants, 'PLANT_LOG');
 }
 
 /**
@@ -61,7 +62,7 @@ export const editButtonHandler = (editDots, editButton) => {
     selectButton.forEach(btn => btn.classList.toggle('hidden'));
     menu.forEach(menu => menu.classList.add('flex'));
 
-    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+    resetSection('plant-log', renderMyPlants, 'PLANT_LOG');
 
     const userPlants = plantLog.getUserPlantLog();
     userPlants.forEach(plant => {

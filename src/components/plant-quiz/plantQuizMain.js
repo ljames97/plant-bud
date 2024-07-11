@@ -1,4 +1,5 @@
 //plantQuizMain.js
+
 /**
  * Main file for the Plant Quiz module, centralising the module's functionality.
  * For rendering the plant quiz, questions and resuls and for storing data in the userAnswerLog.

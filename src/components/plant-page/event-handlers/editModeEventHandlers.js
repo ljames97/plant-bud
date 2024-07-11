@@ -1,3 +1,5 @@
+// editModeEventHandlers.js
+
 import { plantLog, renderMyPlants } from "../../plant-log";
 import { clearSection, resetSection } from "../../global/dom-utils";
 import { imageChangeHandler, localEventManager } from "../../global/event-handlers";
@@ -11,7 +13,7 @@ import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase }
  */
 export const deletePlantBtnHandler = (plant) => {
   plantLog.deletePlantFromLog(plant);
-  resetSection('.plant-log', renderMyPlants, 'ADD_PLANT');
+  resetSection('plant-log', renderMyPlants, 'ADD_PLANT');
 }
 
 /**

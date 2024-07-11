@@ -1,25 +1,16 @@
 /* 
 
 TODO
-
-FINAL
-- Application Initialization (end2end) using jest puppeteer
-- domain hosting, HTTPS, eslint, scss/sass
-
-- turn all forms into <form> with label, aria etc.
-
+FRDIAY/SATURDAY:
 - desktop css (responsive design)
-
-- file heading documentation
-
-- optomistic loading to prevent UI delay with fetching data and/or loading page
-
-- style.display/color etc use classList.add instead
-- use ids for unique elements (buttons etc)
-
-- move firestore/base to production mode, firebase security rules
 - moon icon for evening weather
 
+SUNDAY/MONDAY
+- firebase error notifation (when not abke to fetch plants etc. error message in top right hand corner)
+- move firestore/base to production mode, firebase security rules
+- optomistic loading to prevent UI delay with fetching data and/or loading page
+
+BY END OF WEEK:
 PLANT PAGE
 - delete/reset plant details - Are you sure? also prompt to save.
 - clicking on tag to edit while plant is archived causes problem
@@ -27,6 +18,9 @@ PLANT PAGE
 - delete/edit requirement
 - better plant page aesthetics/design
 - improve add new plant button
+
+- domain hosting, HTTPS, eslint, scss/sass
+- final review, anything missed/skipped, final production, gitHub
 
 NEXT
 - (react refactor), (node.js database/server)

@@ -6,18 +6,23 @@
   <title>Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/components/login/login.css">
+  <link rel="stylesheet" href="/src/components/global/global.css">
 </head>
 <body>
   <div class="login-container">
     <div class="plantbud-logo">
       <img src="/src/images/main/home-page-logo.png" alt="Profile Icon">
     </div>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <div class="login-buttons">
-      <button id="signup-button">Sign Up</button>
-      <button id="login-button">Login</button>
-    </div>
+    <form id="login-form">
+      <label for="email" class="visually-hidden">Email</label>
+      <input type="email" id="email" placeholder="Email">
+      <label for="password" class="visually-hidden">Password</label>
+      <input type="password" id="password" placeholder="Password">
+      <div class="login-buttons">
+        <button id="signup-button">Sign Up</button>
+        <button id="login-button">Login</button>
+      </div>
+    </form>
   </div>
   <p class="copyright">PlantBud | © 2024 All Rights Reserved.</p>
   <script type="module">

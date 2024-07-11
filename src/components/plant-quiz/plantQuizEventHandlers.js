@@ -1,4 +1,5 @@
 // plantQuizEventHandling.js
+
 /**
  * Event handler logic.
  */

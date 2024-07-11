@@ -1,3 +1,5 @@
+// requirementsDomUtils.js
+
 import { addIcon, clear, waterPlantsIcon } from "../../../images";
 import { createElement } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";

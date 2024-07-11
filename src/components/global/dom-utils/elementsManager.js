@@ -1,3 +1,5 @@
+// elementsManager.js
+
 import { onAuthStateChanged } from "firebase/auth";
 import { addIconDark, addIconLight, homeIconDark, homeIconLight, plantIconDark, plantIconLight, quizIconDark, quizIconLight, searchIconDark, searchIconLight } from "../../../images";
 import { auth } from "../../../config";
@@ -31,15 +33,15 @@ export const domElementsManager = () => {
       }
 
       const dashboard = document.querySelector('.dashboard');
-      const plantLogEl = document.querySelector('.plant-log');
-      const plantQuiz = document.querySelector('.plant-quiz');
-      const plantLibrary = document.querySelector('.plant-library')
-      const homePage = document.querySelector('.home-page');
-      const myPlantsBtn = document.querySelector('.my-plants-btn');
-      const addNewPlantBtn = document.querySelector('.add-new-plant-btn');
-      const quizBtn = document.querySelector('.quiz-btn');
-      const libraryBtn = document.querySelector('.library-btn');
-      const homeBtn = document.querySelector('.home-btn');
+      const plantLogEl = document.getElementById('plant-log');
+      const plantQuiz = document.getElementById('plant-quiz');
+      const plantLibrary = document.getElementById('plant-library')
+      const homePage = document.getElementById('home-page');
+      const myPlantsBtn = document.getElementById('my-plants-btn');
+      const addNewPlantBtn = document.getElementById('add-new-plant-btn');
+      const quizBtn = document.getElementById('quiz-btn');
+      const libraryBtn = document.getElementById('library-btn');
+      const homeBtn = document.getElementById('home-btn');
       const header = document.querySelector('header');
       
       // plant button dark/light icons

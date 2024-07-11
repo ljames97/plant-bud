@@ -1,4 +1,6 @@
-import { localEventManager, setUpModalListeners } from "../event-handlers";
+// modal.js
+
+import { setUpModalListeners } from "../event-handlers";
 import { removeChildren } from "../utils";
 import { clearSection } from "./sectionManipulation";
 

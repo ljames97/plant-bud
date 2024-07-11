@@ -1,3 +1,5 @@
+// helperEventHandlers.js
+
 import { plantLog } from "../../plant-log";
 import { resetSection } from "../../global/dom-utils";
 import { replaceButton } from "../dom-utils";

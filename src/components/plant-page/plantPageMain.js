@@ -1,4 +1,5 @@
 // plantPageMain.js
+
 /**
  * Main file for the Plant Page module, centralising the module's functionality.
  * For viewing and editing plant details and plant requirements (watering scheduele, light etc).

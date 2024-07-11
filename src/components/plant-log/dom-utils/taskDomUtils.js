@@ -1,4 +1,5 @@
 // taskDomUtils.js
+
 /**
  * For managing tasks within the Plant Log section
 */

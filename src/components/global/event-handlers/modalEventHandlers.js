@@ -1,3 +1,5 @@
+// modalEventHandlers.js
+
 import { removeModal } from "../dom-utils";
 import { localEventManager } from "./globalEventHandlers";
 

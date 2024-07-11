@@ -1,3 +1,5 @@
+// backBtnEventHandlers.js
+
 import { renderQuizResults } from "../../plant-quiz";
 import { showElements } from "../../global/utils";
 import { resetSection } from "../../global/dom-utils";
@@ -11,6 +13,7 @@ export const backToDashboardHandler = (sectionClass, sectionRender) => {
     backToQuizResultHandler(plantInfoContainer);
     return;
   } else if (plantInfoContainer && !plantInfoContainer.quizResult) {
+    console.log(plantInfoContainer);
     plantInfoContainer.remove();
   }
   resetSection(sectionClass, sectionRender, `PLANT_PAGE_${sectionClass}`);

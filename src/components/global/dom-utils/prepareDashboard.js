@@ -1,3 +1,5 @@
+// prepareDashboard.js
+
 import { domElements } from "./elementsManager";
 import { dashboardNavButtonHighlight } from "./navigation";
 import { clearSection } from "./sectionManipulation";

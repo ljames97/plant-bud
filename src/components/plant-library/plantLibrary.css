@@ -1,10 +1,15 @@
-.plant-search {
+#plant-search-input {
   border: 2px rgba(252, 250, 247, 0.671) solid;
   background-color: transparent;
   padding: 0.5rem;
   border-radius: 1rem;
   width: 60vw;
   margin: 1rem 1rem 0 1rem;
+  background-image: url(../../images/footer-nav-icons/search.png);
+  background-position: 0.8rem 50%; 
+  background-repeat: no-repeat;
+  padding-left: 2.2rem;
+  background-size: 16px 16px; 
 }
 
 .plant-element {
@@ -90,14 +95,6 @@
 #log-all {
   background-color: #FCFAF7;
   color: black;
-}
-
-.plant-search {
-  background-image: url(../../images/footer-nav-icons/search.png);
-  background-position: 0.8rem 50%; 
-  background-repeat: no-repeat;
-  padding-left: 2.2rem;
-  background-size: 16px 16px; 
 }
 
 .plants-found-counter {

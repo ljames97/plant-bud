@@ -1,3 +1,5 @@
+// mobileNavEventHandlers.js
+
 /**
  * Open/close the mobile navigation.
  * @param {boolean} isOpen 

@@ -1,4 +1,5 @@
 // login.js
+
 import { auth } from '../../config';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { appendChildren } from '../global/utils';
@@ -18,16 +19,19 @@ export const initLogin = () => {
 const setUpLoginEventListeners = () => {
   const loginButton = document.getElementById('login-button');
   const signupButton = document.getElementById('signup-button');
-  localEventManager.addEventListener(loginButton, 'click', loginButtonHandler);
-  localEventManager.addEventListener(signupButton, 'click', signupButtonHandler);
-  console.log(loginButton);
+  localEventManager.addEventListener(loginButton, 'click', (event) => {
+    loginButtonHandler(event);
+  });
+  localEventManager.addEventListener(signupButton, 'click', (event) => {
+    signupButtonHandler(event);
+  });
 }
 
 /**
  * Handles the login button click event.
  */
-export const loginButtonHandler = () => {
-  console.log('click');
+export const loginButtonHandler = (event) => {
+  event.preventDefault();
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
@@ -44,7 +48,8 @@ export const loginButtonHandler = () => {
 /**
  * Handles the sign-up button click event.
  */
-const signupButtonHandler = () => {
+const signupButtonHandler = (event) => {
+  event.preventDefault();
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 

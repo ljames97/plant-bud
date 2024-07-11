@@ -1,4 +1,5 @@
 // gridManagement.js
+
 /**
  * For rendering, resetting, and managing the plant grid in the Plant Log section.
 */

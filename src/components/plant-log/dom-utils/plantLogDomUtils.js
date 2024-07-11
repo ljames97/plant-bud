@@ -1,4 +1,5 @@
 // plantLogDomManipulation.js
+
 /**
  * For creating and managing dynamic elements within the Plant Log section.
  */

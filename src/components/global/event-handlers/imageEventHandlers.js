@@ -1,3 +1,5 @@
+// imageEventHandlers.js
+
 /**
  * Handle change event of user uploaded file.
  * Reads the selected image file asynchronously and executes a callback with the

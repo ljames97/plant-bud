@@ -81,7 +81,7 @@ export const submitNewPlantHandler = async (event, plantName, dateAdded, descrip
   await plantLog.addToUserPlantLog(newPlant);
 
   if (myPlantsBtn.classList.contains('active')) {
-    resetSection('.plant-log', renderMyPlants, 'PLANT_LOG');
+    resetSection('plant-log', renderMyPlants, 'PLANT_LOG');
   }
 };
 
@@ -99,7 +99,7 @@ export const submitNewPlantHandler = async (event, plantName, dateAdded, descrip
 export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFileInput, state, getImageFile, backButton) => {
   localEventManager.addEventListener(nextButton, 'click', (event) => {
     if (input.value === '') {
-      errorMessage.classList.toggle('hidden');
+      errorMessage.classList.add('show');
       return;
     }
     const userInput = isFileInput ? input.files[0] : input.value;
@@ -194,10 +194,6 @@ export const updateModalContent = (modal, state) => {
     buttonText = 'Create plant';
   }
 
-  const { input, buttons, errorMessage, label} = createModalElements(tagName, inputText, buttonText, inputType, state, isFileInput, classList, id);
-  if (isFileInput) {
-    appendChildren(modal, errorMessage, label, buttons);
-  } else {
-    appendChildren(modal, errorMessage, input, buttons);
-  }
+  const form = createModalElements(tagName, inputText, buttonText, inputType, state, isFileInput, classList, id);
+  appendChildren(modal, form);
 };
