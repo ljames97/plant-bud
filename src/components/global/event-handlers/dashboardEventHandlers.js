@@ -13,28 +13,30 @@ import { localEventManager } from "./globalEventHandlers";
  * @param {String} sectionName - eg. 'MY_PLANTS', 'PLANT_QUIZ', 'ADD_PLANT', 'PLANT_LIBRARY', 'HOME_PAGE'.
  */
 export const sectionInit = (sectionName) => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn } = domElements;
-
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, 
+          desktopMyPlantsBtn, desktopQuizBtn, desktopLibraryBtn, desktopHomeBtn } = domElements;
+          
   const sectionMap = {
-    'MY_PLANTS': { button: myPlantsBtn, renderFunc: renderMyPlants },
-    'PLANT_QUIZ': { button: quizBtn, renderFunc: renderPlantQuiz },
-    'ADD_PLANT': { button: addNewPlantBtn, renderFunc: renderAddPlantModal },
-    'PLANT_LIBRARY': { button: libraryBtn, renderFunc: renderNewPlantSearch },
-    'HOME_PAGE': { button: homeBtn, renderFunc: renderHomePage }
+    'MY_PLANTS': { buttons: [myPlantsBtn, desktopMyPlantsBtn], renderFunc: renderMyPlants },
+    'PLANT_QUIZ': { buttons: [quizBtn, desktopQuizBtn], renderFunc: renderPlantQuiz },
+    'ADD_PLANT': { buttons: [addNewPlantBtn], renderFunc: renderAddPlantModal },
+    'PLANT_LIBRARY': { buttons: [libraryBtn, desktopLibraryBtn], renderFunc: renderNewPlantSearch },
+    'HOME_PAGE': { buttons: [homeBtn, desktopHomeBtn], renderFunc: renderHomePage }
   }
 
   const section = sectionMap[sectionName];
-  const otherButtons = Object.values(sectionMap).map(sec => sec.button).filter(btn => btn !== section.button);
+  const otherButtons = Object.values(sectionMap).flatMap(sec => sec.buttons).filter(btn => !section.buttons.includes(btn));
 
-  if (!section || section.button.classList.contains('active')) {
+  if (!section || section.buttons.some(button => button.classList.contains('active'))) {
     return;
-  } if (section.button.classList.contains('dormant')) {
-    prepareDashboard(section.button, section.renderFunc, ...otherButtons);
+  }
+  if (section.buttons.some(button => button.classList.contains('dormant'))) {
+    prepareDashboard(section.buttons, section.renderFunc, ...otherButtons);
     return;
   }
 
-  prepareDashboard(section.button, section.renderFunc, ...otherButtons);
-  section.button.classList.add('dormant');
+  prepareDashboard(section.buttons, section.renderFunc, ...otherButtons);
+  section.buttons.forEach(button => button.classList.add('dormant'));
 }
 
 /**
@@ -42,22 +44,35 @@ export const sectionInit = (sectionName) => {
  * This includes listeners for searching plants, adding new plants, etc.
  */
 export const setUpDashboardEventListeners = () => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn } = domElements;
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, 
+    desktopMyPlantsBtn, desktopQuizBtn, desktopLibraryBtn, desktopHomeBtn } = domElements;
 
-  localEventManager.addEventListener(myPlantsBtn, 'click', () => {
-    sectionInit('MY_PLANTS');
-  }, 'DASHBOARD');
+  [myPlantsBtn, desktopMyPlantsBtn].forEach(btn => {
+    localEventManager.addEventListener(btn, 'click', () => {
+      sectionInit('MY_PLANTS');
+    }, 'DASHBOARD');
+  });
+
+  [quizBtn, desktopQuizBtn].forEach(btn => {
+    localEventManager.addEventListener(btn, 'click', () => {
+      sectionInit('PLANT_QUIZ');
+    }, 'DASHBOARD');
+  });
+
+  [libraryBtn, desktopLibraryBtn].forEach(btn => {
+    localEventManager.addEventListener(btn, 'click', () => {
+      sectionInit('PLANT_LIBRARY');
+    }, 'DASHBOARD');
+  });
+
+  [homeBtn, desktopHomeBtn].forEach(btn => {
+    localEventManager.addEventListener(btn, 'click', () => {
+      sectionInit('HOME_PAGE');
+    }, 'DASHBOARD');
+  });
+
   localEventManager.addEventListener(addNewPlantBtn, 'click', () => {
     sectionInit('ADD_PLANT');
-  }, 'DASHBOARD');
-  localEventManager.addEventListener(quizBtn, 'click', () => {
-    sectionInit('PLANT_QUIZ');
-  }, 'DASHBOARD');
-  localEventManager.addEventListener(libraryBtn, 'click', () => {
-    sectionInit('PLANT_LIBRARY');
-  }, 'DASHBOARD');
-  localEventManager.addEventListener(homeBtn, 'click', () => {
-    sectionInit('HOME_PAGE');
   }, 'DASHBOARD');
 }
 

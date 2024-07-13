@@ -9,36 +9,40 @@ import { clearSection } from "./sectionManipulation";
  * @param {HTMLElement} activeBtn - button clicked.
  * @param  {...HTMLElement} inactiveBtn - buttons not clicked.
  */
-export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
+export const prepareDashboard = (activeBtns, renderFunc, ...inactiveBtns) => {
   const { plantLogEl, plantQuiz, plantLibrary, homePage, header } = domElements;
   
-  if (activeBtn === domElements.addNewPlantBtn) {
+  if (activeBtns.includes(domElements.addNewPlantBtn)) {
     // Handle the case where addNewPlantBtn is clicked
     renderFunc();
     return;
   }
 
-  activeBtn.classList.add('active');
+  activeBtns.forEach(btn => {
+    btn.classList.add('active');
+  });
 
-  inactiveBtn.forEach(button => {
+  inactiveBtns.forEach(button => {
     button.classList.remove('active');
   });
 
-  // Mapping from buttons to their corresponding sections
-  const buttonMap = {
-    myPlantsBtn: { section: plantLogEl, button: domElements.myPlantsBtn },
-    addNewPlantBtn: { button: domElements.addNewPlantBtn },
-    quizBtn: { section: plantQuiz, button: domElements.quizBtn },
-    libraryBtn: { section: plantLibrary, button: domElements.libraryBtn },
-    homeBtn: { section: homePage, button: domElements.homeBtn }
+   // Mapping from buttons to their corresponding sections
+   const buttonMap = {
+    myPlantsBtn: { section: plantLogEl, buttons: [domElements.myPlantsBtn, domElements.desktopMyPlantsBtn] },
+    addNewPlantBtn: { buttons: [domElements.addNewPlantBtn, domElements.desktopAddNewPlantBtn] },
+    quizBtn: { section: plantQuiz, buttons: [domElements.quizBtn, domElements.desktopQuizBtn] },
+    libraryBtn: { section: plantLibrary, buttons: [domElements.libraryBtn, domElements.desktopLibraryBtn] },
+    homeBtn: { section: homePage, buttons: [domElements.homeBtn, domElements.desktopHomeBtn] }
   };
 
-  // Find the active section based on the active button
-  const activeSection = Object.values(buttonMap).find(entry => entry.button === activeBtn)?.section;
+  // Find the active section based on the active buttons
+  const activeSection = Object.values(buttonMap).find(entry => 
+    entry.buttons.some(button => activeBtns.includes(button))
+  )?.section;
 
   [plantLogEl, plantQuiz, plantLibrary, homePage].forEach(section => {
-    clearSection(section)
-    section.style.height = '0'
+    clearSection(section);
+    section.style.height = '0';
   });
 
   if (activeSection) {
@@ -47,9 +51,9 @@ export const prepareDashboard = (activeBtn, renderFunc, ...inactiveBtn) => {
   }
 
   if (activeSection !== homePage) {
-    header.classList.add('hidden');
+    header.classList.add('hidden-nav');
   } else {
-    header.classList.remove('hidden');
+    header.classList.remove('hidden-nav');
   }
 
   dashboardNavButtonHighlight();

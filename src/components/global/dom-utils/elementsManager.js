@@ -42,6 +42,10 @@ export const domElementsManager = () => {
       const quizBtn = document.getElementById('quiz-btn');
       const libraryBtn = document.getElementById('library-btn');
       const homeBtn = document.getElementById('home-btn');
+      const desktopMyPlantsBtn = document.getElementById('desktop-my-plants-btn');
+      const desktopQuizBtn = document.getElementById('desktop-quiz-btn');
+      const desktopLibraryBtn = document.getElementById('desktop-library-btn');
+      const desktopHomeBtn = document.getElementById('desktop-home-btn');
       const header = document.querySelector('header');
       
       // plant button dark/light icons
@@ -61,7 +65,8 @@ export const domElementsManager = () => {
         }
       });
 
-      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantLibrary, homePage, myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, header };
+      _dashboardDomElementsCache = { dashboard, plantLogEl, plantQuiz, plantLibrary, homePage, myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, header,
+        desktopMyPlantsBtn, desktopQuizBtn, desktopLibraryBtn, desktopHomeBtn };
       return _dashboardDomElementsCache;
     }
   }

@@ -7,7 +7,7 @@ FRDIAY/SATURDAY:
 
 SUNDAY/MONDAY
 - firebase error notifation (when not abke to fetch plants etc. error message in top right hand corner)
-- move firestore/base to production mode, firebase security rules
+- sort out firebase, move firestore/base to production mode, firebase security rules
 - optomistic loading to prevent UI delay with fetching data and/or loading page
 
 BY END OF WEEK:
@@ -20,7 +20,7 @@ PLANT PAGE
 - improve add new plant button
 
 - domain hosting, HTTPS, eslint, scss/sass
-- final review, anything missed/skipped, final production, gitHub
+- final review, anything missed/skipped, final production, gitHub. check tests
 
 NEXT
 - (react refactor), (node.js database/server)
@@ -29,6 +29,7 @@ NEXT
 ------------
 
 EXTRAS
+- click on weather icon for more detials in a weather modal
 - option to add new tagButtons
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
 - + icon on overview, add user comments

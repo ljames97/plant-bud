@@ -75,22 +75,6 @@
   align-self: center;
 }
 
-.search-tags {
-  padding-left: 1rem;
-  padding-top: 0.5rem;
-} 
-
-.search-tag {
-  background-color: rgba(255, 255, 255, 0.224);
-  padding: 0.4rem 0.4rem;
-  margin-right: 0.5rem;
-  width: 20%;
-  text-align: center;
-  border-radius: 10px;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-}
-
 #all-tag,
 #log-all {
   background-color: #FCFAF7;

@@ -16,7 +16,7 @@ export const createHomePageElements = async () => {
   const logo = createElement({tagName: 'img', classEl: ['logo-img'], alt: 'Logo'});
 
   logo.src = homePageLogo;
-  header.classList.add('hidden');
+  header.classList.add('hidden-nav');
 
   appendChildren(logoContainer, logo);
   appendChildren(homePage, logoContainer);
@@ -25,12 +25,18 @@ export const createHomePageElements = async () => {
 
 /**
  * Handles any errors that occur during the creation of the weather container and appends container to home page.
- * @param {HTMLElement} homePage 
  */
-export const appendWeatherContainer = async (homePage) => {
+export const appendWeatherContainer = async () => {
   try {
-    const weatherConatiner = await createWeatherContainer();
-    appendChildren(homePage, weatherConatiner);
+    const container = document.getElementById('weather-container');
+    if (container) {
+      return;
+    }
+
+    const weatherContainer = await createWeatherContainer();
+    const header = document.querySelector('header');
+
+    appendChildren(header, weatherContainer);
   } catch (error) {
     console.error('Error creating weather container:', error);
   }
@@ -75,9 +81,8 @@ export const createWeatherContainer = async () => {
   temperature.textContent = `${weatherData.temperature}°C`;
 
   setWeatherIcon(weatherData.description, weatherIcon);
-  appendChildren(dailyTasks, taskText, taskCount);
   appendChildren(weatherIconContainer, weatherIcon);
-  appendChildren(weatherContainer, dailyTasks, weatherIconContainer, temperature);
+  appendChildren(weatherContainer, weatherIconContainer, temperature);
 
   return weatherContainer;
 }

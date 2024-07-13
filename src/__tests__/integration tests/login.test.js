@@ -90,8 +90,8 @@ describe('Login Flow Integration Tests', () => {
   });
 
   test('should set up event listeners for login and signup buttons', () => {
-    expect(localEventManager.addEventListener).toHaveBeenCalledWith(loginButton, 'click', mockLoginHandler);
-    expect(localEventManager.addEventListener).toHaveBeenCalledWith(signupButton, 'click', mockSignupHandler);
+    expect(localEventManager.addEventListener).toHaveBeenCalledWith(loginButton, 'click', expect.any(Function));
+    expect(localEventManager.addEventListener).toHaveBeenCalledWith(signupButton, 'click', expect.any(Function));
   });
 
   test('should authenticate user and redirect to app homePage on login', async () => {

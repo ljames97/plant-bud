@@ -58,8 +58,8 @@ describe('globalUtility', () => {
       const element1 = document.getElementById('element1');
       const element2 = document.getElementById('element2');
       hideElements(element1, element2);
-      expect(element1.style.display).toBe('none');
-      expect(element2.style.display).toBe('none');
+      expect(element1.classList.contains('hidden')).toBe(true);
+      expect(element2.classList.contains('hidden')).toBe(true);
     });
   });
 

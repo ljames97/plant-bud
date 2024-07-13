@@ -11,6 +11,8 @@
 
 .logo-container {
   width: 60%;
+  max-width: 270px;
+  min-width: 180px;
   margin-bottom: 7rem;
   position: absolute;
 }
@@ -69,14 +71,12 @@
   display: none;
 }
 
-header {
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.7rem;
-}
-
 .profile-icon-container {
+  margin-right: auto;
   width: 10%;
+  max-width: 40px;
+  min-width: 30px;
+  cursor: pointer;
 }
 
 .profile-icon-container img {
@@ -88,8 +88,9 @@ header {
   justify-content: flex-end;
   align-items: center;
   margin-top: auto;
-  margin-right: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  width: 90%;
+  min-height: 63px;
 }
 
 .temperature-icon-container,
@@ -103,18 +104,24 @@ header {
 }
 
 .weather-icon-container {
+  max-width: 36px;
+  margin-left: auto;
+}
+
+.weather-icon-container {
   margin-right: 0.5rem;
 }
 
 .temperature {
   font-size: 1rem;
   font-weight: 200;
+  cursor: default;
 }
 
 .daily-tasks {
   display: flex;
   margin-right: auto;
-  margin-left: 1.5rem;
+  /* margin-left: 1.5rem; */
 }
 
 
@@ -134,4 +141,30 @@ header {
 .daily-task-text {
   font-weight: 500;
   letter-spacing: 0.1rem;
+}
+
+@media screen and (min-width: 1024px) {
+  #home-page {
+    justify-content: flex-start;
+  }
+
+  .logo-container {
+    display: none;
+  }
+
+  .profile-icon-container {
+    order: 3;
+  }
+
+  #weather-container {
+    display: none;
+    align-self: flex-end;
+    margin-bottom: 0;
+  }
+
+  .underline {
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+  }
+
 }

@@ -13,6 +13,13 @@ body {
   background-image: url('../../images/main/background-image.png');
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.7rem;
+}
+
 h1, p {
   margin: 0;
 }
@@ -39,6 +46,12 @@ footer {
   bottom: 0;
   width: 100%;
   z-index: 1;
+  min-width: 400px;
+}
+
+.plantBud-desktop-logo,
+.desktop-nav {
+  display: none;
 }
 
 .dashboard {
@@ -181,7 +194,8 @@ button {
   margin-top: 0.7rem;
 }
 
-.hidden {
+.hidden,
+.hidden-nav {
   display: none;
 }
 
@@ -210,4 +224,88 @@ button {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.search-tags {
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+} 
+
+.search-tag {
+  background-color: rgba(255, 255, 255, 0.224);
+  padding: 0.4rem 0.4rem;
+  margin-right: 0.5rem;
+  width: 20%;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    background-size: cover;
+  }
+
+  .hidden-nav {
+    display: flex;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  .desktop-nav-items {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 3rem;
+    padding-left: 3rem;
+    margin: 0;
+    font-size: 0.8rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .desktop-nav-item {
+    list-style: none;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 5px;
+  }
+
+  .desktop-nav-item:hover {
+    border-bottom-color: white;
+    transition: 0.3s ease;
+  }
+
+  .plantBud-desktop-logo {
+    display: block;
+    width: 15%;
+  }
+
+  .plantBud-desktop-logo img {
+    width: 100%;
+    height: auto;
+  }
+
+  .dashboard-nav {
+    display: none;
+  }
+
+  .section-header,
+  .search-tags {
+    padding: 0;
+    text-align: center;
+  }
+
+  .search-tag {
+    width: 10%;
+  }
+  
+  .search-tag:hover {
+    cursor: pointer;
+  }
 }
