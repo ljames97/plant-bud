@@ -3,6 +3,7 @@
 TODO
 FRDIAY/SATURDAY:
 - desktop css (responsive design)
+- toggle mobile view in desktop (mobile as frame)
 - moon icon for evening weather
 
 SUNDAY/MONDAY

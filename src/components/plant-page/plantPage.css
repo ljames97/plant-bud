@@ -207,7 +207,6 @@
   flex-direction: column;
   align-items: center;
   border-radius: 15px;
-  background-color: #dcd5cd;
   padding: 2rem 1rem;
   width: 14rem;
   align-self: center;
@@ -228,17 +227,6 @@
   align-self: flex-end;
 }
 
-.plant-page-input {
-  margin-bottom: 1rem;
-  width: 10rem;
-  color: black;
-}
-
-.submit-requirement-btn {
-  width: auto;
-  padding: 1rem;
-}
-
 .tasks-section {
   min-height: 75vh;
   flex-direction: column;
@@ -257,7 +245,7 @@
   min-height: 1.2rem;
   min-width: 1.2rem;
   background-color: transparent;
-  border: 0.5px black solid;
+  border: 0.5px white solid;
   border-radius: 100%;
   padding: 0;
   margin-right: 1rem;
@@ -371,10 +359,6 @@ textarea {
   background-color: #6B723F;
 }
 
-.plant-page-task-menu .menu-dot {
-  background-color: black;
-}
-
 .plant-page-task-menu {
   margin-right: 2rem;
 }
@@ -393,4 +377,95 @@ textarea {
 
 .added-to-plants-icon {
   margin-left: auto;
+}
+
+@media screen and (min-width: 1024px) {
+  .plant-page-container{
+    max-width: 25%;
+    min-width: 22rem;
+    border-radius: 20px;
+    height: 80%;
+    background-color: rgb(28 35 27 / 60%);
+  }
+
+  .plant-title {
+    color: white;
+    font-weight: 100;
+  }
+
+  .back-button,
+  .edit-btn,
+  .plant-page-nav-button,
+  .add-requirement-btn,
+  .add-task-btn,
+  .submit-btn {
+    cursor: pointer;
+  }
+  
+  .back-button {
+    min-width: 8%;
+  }
+
+  .plant-page-image-container {
+    width: 60%;
+  }
+
+  .plant-page-nav-button,
+  .edit-btn,
+  .plant-description-header,
+  .plant-description,
+  .tag-button,
+  .requirements,
+  .new-user-task {
+    font-size: 0.7rem;
+  }
+
+  .edit-btn {
+    /* background-color: rgba(255, 255, 255, 0.224); */
+    background-color: transparent;
+  }
+
+  .requirements {
+    color: white;
+  }
+
+  .plant-description-container {
+    background-color: transparent;
+    margin: 0;
+    padding-top: 0.5rem;
+    color: white;
+  }
+
+  .add-task-btn,
+  .add-requirement-btn {
+    background-color: orange;
+  }
+
+  .main-plant-section {
+    padding-top: 0.5rem;
+  }
+
+  .plant-page-nav-container {
+    gap: 5px;
+  }
+
+  .tasks {
+   color: white;
+  }
+  
+  .select-btn {
+    border-color: white;
+  }
+
+  .edit-plant-title {
+    color: white;
+    font-weight: 100;
+  }
+
+  .edit-plant-title::placeholder,
+  .edit-plant-notes {
+    color: white;
+  }
+
+
 }

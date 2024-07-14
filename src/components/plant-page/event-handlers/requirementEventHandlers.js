@@ -15,8 +15,8 @@ import { updatePlantInFirebase } from "../../../config";
  */
 export const addNewRequirementHandler = (plantPageModal, requirements, sectionClass, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: ['plant-page-input']});
-  const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: ['submit-requirement-btn']});
+  const addRequirementInput = createElement({tagName: 'input', placeHolder: 'New requirement', classEl: ['plant-page-input', 'new-input']});
+  const submitBtn = createElement({tagName: 'button', textContent: 'Add requirement', classEl: ['submit-requirement-btn', 'submit-btn']});
   const cancelBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel'});
   
   setUpModal(plantPageModal);

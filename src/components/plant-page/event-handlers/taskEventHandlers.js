@@ -18,8 +18,8 @@ import { setUpModalEventListeners } from "./plantPageEventHandlers";
  */
 export const addNewTaskHandler = (plantPageModal, tasks, sectionClass, plant) => {
   const modalOverlay = document.querySelector('.modal-overlay');
-  const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: ['plant-page-input']});
-  const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-requirement-btn']});
+  const newTaskInput = createElement({tagName: 'input', placeHolder: 'New task', classEl: ['plant-page-input', 'new-input']});
+  const newTaskAddBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-requirement-btn', 'submit-btn']});
   const cancelTaskBtn = createElement({tagName: 'button', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel'});
 
   setUpModal(plantPageModal);
@@ -64,7 +64,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
   }
 
   const foundTask = plant.tasks.find(task => task.description === newTaskInput);
-  setSelectButton(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
+  setSelectButton(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px white solid');
 
   setUpTaskListeners(taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant);
 }

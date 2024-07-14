@@ -1,6 +1,6 @@
 // plantPageElements.js
 
-import { backButtonDark } from "../../../images";
+import { backButtonDark, backButtonLight } from "../../../images";
 import { createElement, createIcon } from "../../global/dom-utils";
 import { appendChildren } from "../../global/utils";
 import { setUpPlantPageListeners } from "../event-handlers";
@@ -26,7 +26,7 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   const backToDashboard = createElement({tagName: 'div', classEl: ['back-button'], ariaLabel: 'Back to dahsboard'});
   const backButtonImg = createElement({tagName: 'img', alt: 'Back button image'});
   const tagContainer = createTags(plant);
-  backButtonImg.src = backButtonDark;
+  backButtonImg.src = backButtonLight;
   plantImage.src = plant.image;
 
   let sectionBtn = '';

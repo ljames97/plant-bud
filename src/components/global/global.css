@@ -245,6 +245,7 @@ button {
 @media screen and (min-width: 1024px) {
   body {
     background-size: cover;
+    cursor: default;
   }
 
   .hidden-nav {
@@ -298,11 +299,19 @@ button {
   .section-header,
   .search-tags {
     padding: 0;
-    text-align: center;
   }
 
   .search-tag {
-    width: 10%;
+    min-width: 8%;
+    max-width: 15%;
+  }
+
+  .section-title {
+    font-weight: 100;
+  }
+
+  .search-tags {
+    padding-top: 0.5rem;
   }
   
   .search-tag:hover {

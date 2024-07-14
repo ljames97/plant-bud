@@ -22,12 +22,12 @@ export const createNavButtons = (aboutSection, requirementsSection, tasksSection
 
   setUpNavButtonData(aboutBtn, requirementsBtn, userTasksBtn, requirementsSection, aboutSection, tasksSection);
 
-  buttonHighlight(aboutBtn, '#334521', '#dcd5cd', 'white', 'black', ...aboutBtn.inactiveBtns);
+  buttonHighlight(aboutBtn, '#FCFAF7', 'rgba(255, 255, 255, 0.224)', 'black', '#FCFAF7', ...aboutBtn.inactiveBtns);
 
   const navButtons = [aboutBtn, requirementsBtn, userTasksBtn];
   navButtons.forEach(btn => {
     localEventManager.addEventListener(btn, 'click', () => {
-      buttonHighlight(btn, '#334521', '#dcd5cd', 'white', 'black', ...btn.inactiveBtns);
+      buttonHighlight(btn, '#FCFAF7', 'rgba(255, 255, 255, 0.224)', 'black', '#FCFAF7', ...btn.inactiveBtns);
       if (btn.classList.contains('active')) {
         renderPlantSection(btn.activeSection, btn.editBtn, ...btn.inactiveSections);
       }

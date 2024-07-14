@@ -222,5 +222,53 @@
 }
 
 @media screen and (min-width: 1024px) {
+  #plant-log {
+    padding: 0 1.7rem 0 1.7rem;
+    width: 70%;
+  }
 
+  .user-plants {
+    padding: 0;
+  }
+
+  .info-bar-container {
+    padding-left: 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .task-select-container {
+    padding-left: 0;
+  }
+  
+  .edit-plant-log-container {
+    margin-top: 1rem;
+  }
+
+  .edit-plant-log-button {
+    cursor: pointer;
+  }
+
+  .task-element {
+    padding-left: 0;
+  }
+
+  .user-plants {
+    grid-template-columns: repeat(3, 1fr);
+    width: 60%;
+  }
+
+  .user-plant,
+  .menu-dots-container {
+    cursor: pointer;
+  }
+
+  .task-counter,
+  .plant-grid-title {
+    cursor: default;
+  }
+
+  .drop-menu-container {
+    right: 100;
+  }
 }
