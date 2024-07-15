@@ -19,7 +19,7 @@ export const createPlantLogTags = (plant) => {
   const tags = plant.tags
   if (tags) {
     tags.forEach(tag => {
-      const newTag = createElement({tagName: 'button', textContent: tag.description, classEl: ['search-tag', 'plant-log-tag']});
+      const newTag = createElement({tagName: 'button', textContent: tag.description, classEl: ['plant-log-tag']});
       appendChildren(tagContainer, newTag);
       localEventManager.addEventListener(newTag, 'click', () => {
         editTagHandler(newTag, plant);

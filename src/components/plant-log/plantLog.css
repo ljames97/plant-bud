@@ -18,10 +18,6 @@
   padding: 0.5rem 0 0.2rem 0;
 }
 
-.task-results {
-  margin-top: 0.5rem;
-}
-
 .user-plant {
   font-size: 0.8rem;
   font-weight: 500;
@@ -147,6 +143,7 @@
 }
 
 .plant-log-tag {
+  background-color: rgba(255, 255, 255, 0.224);
   width: auto !important;
   padding: 0.4rem 0.6rem;
   margin: 0.5rem 0;
@@ -225,16 +222,29 @@
   #plant-log {
     padding: 0 1.7rem 0 1.7rem;
     width: 70%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    overflow: hidden;
   }
 
   .user-plants {
     padding: 0;
+    overflow-y: auto;
+    height: 100vh
   }
+
+  .zero-height {
+    height: 0vh;
+  }  
 
   .info-bar-container {
     padding-left: 0;
     align-items: flex-start;
     flex-direction: column;
+    width: 58%;
+    align-self: center;
   }
 
   .task-select-container {
@@ -256,10 +266,17 @@
   .user-plants {
     grid-template-columns: repeat(3, 1fr);
     width: 60%;
+    align-self: center;
+    text-align: left;
   }
 
   .user-plant,
-  .menu-dots-container {
+  .menu-dots-container,
+  .plant-log-tag,
+  .delete-tag-btn,
+  .completed-select,
+  .to-do-select,
+  .task-selector {
     cursor: pointer;
   }
 
@@ -268,7 +285,44 @@
     cursor: default;
   }
 
-  .drop-menu-container {
-    right: 100;
+  .select-menu {
+    right: auto;
   }
+
+  .plant-page-container {
+    align-self: center;
+    text-align: left;
+  }
+
+  .task-select-container {
+    justify-content: center;
+  }
+
+  .plant-task-text {
+    width: auto;
+  }
+
+  .task-result-container {
+    padding: 0 1rem 0 1rem;
+    text-align: left;
+  }
+
+  .search-drop-menu {
+    margin-left: auto;
+  }
+
+  .task-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .task-element {
+    min-width: 550px;
+  }
+
+  .plant-menu {
+    top: 0rem;
+    right: 0rem;
+  } 
 }

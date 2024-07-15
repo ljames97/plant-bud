@@ -46,7 +46,7 @@ export const setUpMenuButtonListeners = (archive, tasks, all) => {
  * Handles the "All" button click event and resets the plant grid.
  */
 export const allBtnClickHandler = () => {
-  const { editButtonContainer} = plantLogElements.getPlantLogElements();
+  const { editButtonContainer, userPlantsContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   const taskSelectContainer = document.querySelector('.task-select-container');
   clearSection(searchTaskContainer, 'PLANT_LOG');
@@ -54,6 +54,7 @@ export const allBtnClickHandler = () => {
   resetEditButton();
   editButtonContainer.classList.add('flex');
   editButtonContainer.classList.remove('hidden');
+  userPlantsContainer.classList.remove('zero-height');
   resetPlantGrid(plantLog.getUserPlantLog());
   updatePlantInfoBar();
 }
@@ -62,10 +63,11 @@ export const allBtnClickHandler = () => {
  * Handles the "Tasks" button click event and renders the tasks list.
  */
 export const taskBtnHandler = () => {
-  const { editButtonContainer } = plantLogElements.getPlantLogElements();
+  const { editButtonContainer, userPlantsContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   clearSection(searchTaskContainer, 'PLANT_LOG');
   hideElements(editButtonContainer);
+  userPlantsContainer.classList.add('zero-height');
   renderTasksList(false);
   renderTaskSelect();
   updateTaskBar();
@@ -75,12 +77,13 @@ export const taskBtnHandler = () => {
  * Handles the "Archive" button click event and renders the archived plants.
  */
 export const archiveBtnClickHandler = () => {
-  const { editButtonContainer } = plantLogElements.getPlantLogElements();
+  const { editButtonContainer, userPlantsContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   const taskSelectContainer = document.querySelector('.task-select-container');
   clearSection(searchTaskContainer, 'PLANT_LOG');
   resetEditButton();
   hideElements(editButtonContainer, taskSelectContainer);
+  userPlantsContainer.classList.remove('zero-height');
   renderDeletedPlants();
 }
 

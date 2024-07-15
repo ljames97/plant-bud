@@ -87,3 +87,40 @@
   font-weight: 500;
   font-size: 0.8rem;
 }
+
+@media screen and (min-width: 1024px) {
+  #plant-library {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  #plant-search-input {
+    margin-left: 0;
+    width: 50%;
+  }
+
+  .plant-library-title {
+    font-weight: 100;
+  }
+
+  .search-results {
+    overflow-y: auto;
+    max-height: 50vh;
+  }
+
+  .plant-result-container {
+    text-align: left;
+  }
+  
+  .plant-result-container {
+    cursor: pointer;
+  }
+
+  .plant-page-container {
+    align-self: center;
+  }
+}

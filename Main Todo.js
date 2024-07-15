@@ -2,23 +2,29 @@
 
 TODO
 FRDIAY/SATURDAY:
-- desktop css (responsive design)
+desktop css (responsive design):
+- styles for hover: buttons, plants
+- simple home page welcome/weather stats etc
+- clean up repeated css classes
+
 - toggle mobile view in desktop (mobile as frame)
 - moon icon for evening weather
 
-SUNDAY/MONDAY
-- firebase error notifation (when not abke to fetch plants etc. error message in top right hand corner)
+- firebase error notification (when not able to fetch plants etc. error message in top right hand corner)
 - sort out firebase, move firestore/base to production mode, firebase security rules
 - optomistic loading to prevent UI delay with fetching data and/or loading page
 
 BY END OF WEEK:
 PLANT PAGE
+- problem where requirements are being added to the original plants in plant library
 - delete/reset plant details - Are you sure? also prompt to save.
 - clicking on tag to edit while plant is archived causes problem
 - task tick icon
 - delete/edit requirement
 - better plant page aesthetics/design
 - improve add new plant button
+- sort out showElements so it changes classList and not inline styles
+- replace textContent === with ID indentifiers
 
 - domain hosting, HTTPS, eslint, scss/sass
 - final review, anything missed/skipped, final production, gitHub. check tests

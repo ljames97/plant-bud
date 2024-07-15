@@ -82,7 +82,7 @@ export const renderQuickMenu = (event, createMenuFunc, menuDots, plantOrTask, el
  * @param {Object} plant 
  */
 export const createArchivePlantMenu = (menuDots, plant) => {
-  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'plant-menu']});
   const unarchive = createElement({tagName: 'p', textContent: 'Unarchive', classEl: ['drop-menu-item']});
   const permanentDelete = createElement({tagName: 'p', textContent: 'Permanent delete', classEl: ['drop-menu-item']});
 
@@ -98,7 +98,7 @@ export const createArchivePlantMenu = (menuDots, plant) => {
  * @param {Object} plant 
  */
 export const createPlantMenu = (menuDots, plant) => {
-  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'plant-menu']});
   const newTask = createElement({tagName: 'p', textContent: 'New task', classEl: ['drop-menu-item']});
   const addTag = createElement({tagName: 'p', textContent: 'New tag', classEl: ['drop-menu-item']});
   const pinPlant = createElement({tagName: 'p', textContent: !plant.pinned ? 'Pin' : 'Unpin', classEl: ['drop-menu-item']});

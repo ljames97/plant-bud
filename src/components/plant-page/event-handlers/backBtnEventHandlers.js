@@ -8,9 +8,10 @@ import { resetSection } from "../../global/dom-utils";
  * Handles back to dashboard action by checking if the plant info container exists and if it has a quiz result, directing to the appropriate handler.
  */
 export const backToDashboardHandler = (sectionClass, sectionRender) => {
-  const plantInfoContainer = document.querySelector('.plant-info');
+  const plantInfoContainer = document.getElementById('secondary-plant-page');
   if (plantInfoContainer && plantInfoContainer.quizResult) {
     backToQuizResultHandler(plantInfoContainer);
+
     return;
   } else if (plantInfoContainer && !plantInfoContainer.quizResult) {
     console.log(plantInfoContainer);
@@ -28,6 +29,9 @@ export const backToQuizResultHandler = (plantInfoContainer) => {
   const resultContainers = document.querySelectorAll('.result-container');
   plantInfoContainer.remove();
   resultContainers.forEach(result => result.remove());
-  showElements('flex', quizContainer);
+
+  quizContainer.classList.add('flex');
+  quizContainer.classList.remove('hidden');
+
   renderQuizResults(quizContainer.plantResults);
 }

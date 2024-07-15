@@ -73,7 +73,8 @@ export const startQuizBtnHandler = (cardContainer, quizSubtitle, quizDescription
  * @param {Object} result 
  */
 export const resultContainerHandler = (quizContainer, plantInfoContainer, result) => {
-  hideElements(quizContainer);
+  quizContainer.classList.add('hidden');
+  quizContainer.classList.remove('flex');
   showElements('block', plantInfoContainer);
   renderPlantDetails(result, plantInfoContainer, '← back to results', '.plant-quiz', renderPlantQuiz);
 }

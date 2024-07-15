@@ -102,7 +102,7 @@ export const createTaskElement = (plant, task) => {
  * @param {HTMLElement} taskElement - task element in the DOM.
  */
 export const createTaskMenu = (menuDots, task, taskElement, plant) => {
-  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
+  const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'select-menu']});
   const editTask = createElement({tagName: 'p', textContent: 'Edit', classEl: ['drop-menu-item']});
   const deleteTask = createElement({tagName: 'p', textContent: 'Delete', classEl: ['drop-menu-item']});
 

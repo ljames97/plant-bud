@@ -22,7 +22,6 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   const plantImage = createElement({tagName: 'img', classEl: ['plant-page-image'], alt: 'Plant image'});
   const { plantDescriptionContainer, plantDescription } = createDescriptionElement(plant);
   const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
-  const permanentDeleteBtn = createElement({tagName: 'button', textContent: 'Permanently Delete', classEl: ['permanent-delete-btn']});
   const backToDashboard = createElement({tagName: 'div', classEl: ['back-button'], ariaLabel: 'Back to dahsboard'});
   const backButtonImg = createElement({tagName: 'img', alt: 'Back button image'});
   const tagContainer = createTags(plant);
@@ -39,7 +38,7 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
   appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
 
-  setUpPlantPageListeners(sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, permanentDeleteBtn, backToDashboard);
+  setUpPlantPageListeners(sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, backToDashboard);
 }
 
 /**
@@ -80,12 +79,11 @@ export const createDescriptionElement = (plant) => {
  * @returns {HTMLElement} sectionBtn. 
  */
 export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
+  console.log(plant)
   if (backButtonText === '← back to My Plants') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: ['edit-btn']});
   } if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Add plant', classEl: ['add-to-plants-btn']});
-  } if (backButtonText === '← back to Plant Archive') {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Unarchive', classEl: ['add-to-plants-btn']});
   } else {
     return sectionBtn = createIcon();
   }

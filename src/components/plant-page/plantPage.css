@@ -1,12 +1,3 @@
-.plant-info {
-  position: absolute;
-  background-color: white;
-  color: black;
-  top: 0;
-  padding: 1rem 1rem;
-  z-index: 2;
-}
-
 .plant-title {
   font-size: 1.5rem;
   overflow: auto;

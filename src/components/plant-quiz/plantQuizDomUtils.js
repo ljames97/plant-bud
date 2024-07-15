@@ -34,13 +34,13 @@ export const createResultElements = (result) => {
  */
 export const createPlantQuizElements = () => {
   const { plantQuiz } = domElements;
-  const quizContainer = createElement({tagName: 'div', classEl: ['quiz-container']});
+  const quizContainer = createElement({tagName: 'div', classEl: ['quiz-container', 'flex']});
   const quizTitle = createElement({tagName: 'h1', classEl: ['section-title'], textContent: 'Plant Quiz'});
   const questionContainer = createElement({tagName: 'div', classEl: ['question-container']});
   const quizSubtitle = createElement({tagName: 'p', textContent: 'Find suitable plants', classEl: ['quiz-subheader']});
   const quizDescription = createElement({tagName: 'p', classEl: ['quiz-description'], textContent: 'Take the plant quiz to find out which plants are best suited for you!'});
   const startQuizBtn = createElement({tagName: 'button', textContent: 'Start Quiz', classEl: ['start-quiz-btn']});
-  const restartQuizBtn = createElement({tagName: 'div', classEl: ['back-button'], ariaLabel: 'Restart quiz'});
+  const restartQuizBtn = createElement({tagName: 'div', classEl: ['back-button', 'restart-quiz-button'], ariaLabel: 'Restart quiz'});
   const backButtonImg = createElement({tagName: 'img', alt: 'Back button'});
   backButtonImg.src = backButtonLight;
   restartQuizBtn.classList.add('hidden');
@@ -114,7 +114,7 @@ export const displayQuizResults = (results, quizContainer, plantInfoContainer) =
 export const initializeQuizContainers = (plantQuiz) => {
   const quizContainer = document.querySelector('.quiz-container');
   const questionContainer = document.querySelector('.question-container');
-  const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
+  const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-quiz-result-page', 'plant-page-container'], id: 'secondary-plant-page'});
   plantInfoContainer.classList.add('hidden');
   appendChildren(plantQuiz, plantInfoContainer);
   removeChildren(quizContainer, questionContainer);

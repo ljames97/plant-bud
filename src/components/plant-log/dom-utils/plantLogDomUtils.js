@@ -30,7 +30,7 @@ const dynamicPlantLogElementsManager = () => {
       const plantLogTitle = createElement({tagName: 'h1', textContent: 'My Plants', classEl: ['section-title']});
       const infoBarContainer = createElement({tagName: 'div', classEl: ['info-bar-container']});
       const plantInfoBar = createElement({tagName: 'div', classEl: ['plant-info-bar']});
-      const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container', 'flex']});
+      const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container']});
       const editButton = createElement({tagName: 'button', classEl: ['edit-plant-log-button'], id: 'select-plant-btn', textContent: 'Select'});
       editButton.editMode = false;
       const editDots = createMenuDots();
@@ -108,6 +108,19 @@ export const updatePlantInfoBar = () => {
   const { plantInfoBar } = plantLogElements.getPlantLogElements();
   const { numberOfPlants } = setPlantInfoBar(plantLog.getUserPlantLog());
   plantInfoBar.textContent = `${numberOfPlants} plants`;
+  showHideSelectButton(numberOfPlants);
+}
+
+export const showHideSelectButton = (numberOfPlants) => {
+  const { editButtonContainer } = plantLogElements.getPlantLogElements();
+
+  if (numberOfPlants === 0) {
+    editButtonContainer.classList.add('hidden');
+    editButtonContainer.classList.remove('flex');
+  } else {
+    editButtonContainer.classList.add('flex');
+    editButtonContainer.classList.remove('hidden');
+  }
 }
 
 /**

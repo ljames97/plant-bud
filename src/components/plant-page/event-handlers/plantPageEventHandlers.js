@@ -58,7 +58,7 @@ export const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionEle
  * @param {HTMLElement} permanentDeleteBtn 
  * @param {HTMLElement} backToDashboard 
  */
-export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, permanentDeleteBtn, backToDashboard) => {
+export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, backToDashboard) => {
   const isEditBtn = sectionBtn.classList.contains('edit-btn');
   const isAddBtn = sectionBtn.textContent === 'Add plant' || sectionBtn.textContent === '';
 
@@ -72,11 +72,6 @@ export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDesc
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       addToPlantsHandler(sectionBtn, plant);
     }, 'PLANT_PAGE');
-  } 
-  
-  if (sectionBtn.textContent === 'Unarchive') {
-    appendChildren(subHeader, permanentDeleteBtn);
-    setUpUnarchiveListeners(sectionBtn, plant, sectionClass, sectionRender, permanentDeleteBtn);
   }
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {

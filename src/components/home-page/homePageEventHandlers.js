@@ -12,5 +12,5 @@ export const logoutBtnHandler = () => {
     } catch (error) {
       console.error('Error logging out:', error);
     }
-  })
+  }, 'HOME_PAGE')
 }

@@ -46,7 +46,7 @@ export const updateSearchResults = (mainSection, searchInput, searchResultsConta
 
   // render matching plant results on screen.
   if (filteredPlants.length > 0) {
-    const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-info']});
+    const plantInfoContainer = createElement({tagName: 'div', classEl: ['plant-page-container'], id: 'secondary-plant-page'});
 
     filteredPlants.forEach(plant => {
       const plantElement = createPlantResultElement(plant, sectionClass);
