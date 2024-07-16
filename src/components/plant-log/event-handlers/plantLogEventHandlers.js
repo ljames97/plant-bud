@@ -5,6 +5,7 @@
  */
 
 import { updatePlantInFirebase } from "../../../config";
+import { renderAddPlantModal } from "../../add-plant";
 import { resetSection } from "../../global/dom-utils";
 import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
 import { hideElements, showElements } from "../../global/utils";
@@ -17,14 +18,19 @@ import { plantLog, renderMyPlants } from "../plantLogMain";
  * Sets up event listeners for the plant log (My Plants) page.
  * @param {HTMLElement} editButton 
  * @param {HTMLElement} editDots 
+ * @param {HTMLElement} addNewPlantDesktopButton 
  */
-export const setUpPlantLogListeners = (editButton, editDots) => {
+export const setUpPlantLogListeners = (editButton, editDots, addNewPlantDesktopButton ) => {
   localEventManager.addEventListener(editButton, 'click', () => {
     editButtonHandler(editDots, editButton);
   }, 'PLANT_EDIT');
 
   localEventManager.addEventListener(editDots, 'click', (event) => {
     editSelectHandler(event, editDots);
+  }, 'PLANT_EDIT');
+
+  localEventManager.addEventListener(addNewPlantDesktopButton, 'click', () => {
+    renderAddPlantModal();
   }, 'PLANT_EDIT');
 }
 

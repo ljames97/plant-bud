@@ -116,6 +116,7 @@ export const createMenuItems = (menuDots, plant) => {
   const isAdded = isPlantAdded(plant);
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container']});
   const quickAdd = createElement({tagName: 'p', textContent: !isAdded ? 'Add to My Plants' : 'Added', classEl: ['drop-menu-item']});
+  isAdded ? dropMenuContainer.style.cursor = 'default' : 'pointer';
 
   appendChildren(dropMenuContainer, quickAdd);
   appendChildren(menuDots, dropMenuContainer);

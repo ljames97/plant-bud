@@ -37,7 +37,7 @@ console.log(selectedPlants)
 export const createMenuButtons = () => {
   const { plantLogEl } = domElements;
   const menuButtons = createElement({tagName: 'div', classEl: ['search-tags']});
-  const all = createElement({tagName: 'button', classEl: ['search-tag', 'log-menu-btn'], id: 'log-all', textContent: 'All'});
+  const all = createElement({tagName: 'button', classEl: ['search-tag', 'log-menu-btn', 'active'], id: 'log-all', textContent: 'All'});
   const tasks = createElement({tagName: 'button', classEl: ['search-tag', 'log-menu-btn'], id: 'log-tasks', textContent: 'Tasks'});
   const taskCountIcon = createElement({tagName: 'div', classEl: ['task-count-icon']});
   const archive = createElement({tagName: 'button', classEl: ['search-tag', 'log-menu-btn'], id: 'log-archive', textContent: 'Archive'});

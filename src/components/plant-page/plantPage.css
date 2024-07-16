@@ -51,6 +51,8 @@
 .section-button {
   width: auto;
   margin-left: auto;
+  background-color: #9FD653;
+  color: black;
 }
 
 .main-plant-section {
@@ -95,7 +97,7 @@
   align-items: center;
   width: auto;
   margin: 0 0.3rem;
-  background-color: orange;
+  background-color: rgb(224, 153, 22);
   color: black;
 }
 
@@ -370,6 +372,14 @@ textarea {
   margin-left: auto;
 }
 
+.header-container {
+  align-items: center;
+}
+
+.added-to-plants-icon {
+  background-color: transparent;
+}
+
 @media screen and (min-width: 1024px) {
   .plant-page-container{
     max-width: 25%;
@@ -414,6 +424,7 @@ textarea {
   .edit-btn {
     /* background-color: rgba(255, 255, 255, 0.224); */
     background-color: transparent;
+    color: white;
   }
 
   .requirements {
@@ -429,7 +440,7 @@ textarea {
 
   .add-task-btn,
   .add-requirement-btn {
-    background-color: orange;
+    background-color: rgb(224, 153, 22);
   }
 
   .main-plant-section {
@@ -458,5 +469,25 @@ textarea {
     color: white;
   }
 
+  .plant-page-nav-button:hover {
+    background-color: #ffffff61 !important;
+  }
 
+  .plant-page-nav-button.active:hover {
+    background-color: white !important;
+  }
+
+  .add-requirement-btn:hover,
+  .add-task-btn:hover {
+    background-color: rgb(182, 127, 24);
+  }
+
+  .section-button:hover {
+    background-color: #b5f161;
+  }
+
+  .added-to-plants-icon:hover, 
+  .edit-btn:hover {
+    background-color: transparent;
+  }
 }

@@ -1,9 +1,7 @@
 /* 
 
 TODO
-FRDIAY/SATURDAY:
 desktop css (responsive design):
-- styles for hover: buttons, plants
 - simple home page welcome/weather stats etc
 - clean up repeated css classes
 
@@ -21,7 +19,7 @@ PLANT PAGE
 - clicking on tag to edit while plant is archived causes problem
 - task tick icon
 - delete/edit requirement
-- better plant page aesthetics/design
+- better plant page aesthetics/design (copy from desktop, move media queries to main css)
 - improve add new plant button
 - sort out showElements so it changes classList and not inline styles
 - replace textContent === with ID indentifiers

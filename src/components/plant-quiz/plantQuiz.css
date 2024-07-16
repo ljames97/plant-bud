@@ -29,7 +29,7 @@
 .more-info-btn {
   margin-top: 0.8rem;
   padding: 0.7rem 5rem;
-  background-color: orange;
+  background-color: rgb(224, 153, 22);
   color: black;
 }
 
@@ -39,8 +39,8 @@
 }
 
 .choice-btn {
-background-color: orange;
-color: black;
+  background-color: rgb(224, 153, 22);
+  color: black;
 }
 
 .quiz-banner-container {
@@ -180,6 +180,11 @@ color: black;
     width: 30%;
     padding: 1rem 0.5rem;
     align-self: center;
+  }
+
+  .start-quiz-btn:hover,
+  .choice-btn:hover {
+    background-color: rgb(249, 169, 21);
   }
 
   .choice-btn,

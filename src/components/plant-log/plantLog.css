@@ -241,10 +241,12 @@
 
   .info-bar-container {
     padding-left: 0;
+    padding-right: 0;
     align-items: flex-start;
     flex-direction: column;
     width: 58%;
     align-self: center;
+    margin-top: 0;
   }
 
   .task-select-container {
@@ -298,6 +300,10 @@
     justify-content: center;
   }
 
+  .task-selector:hover {
+    background-color: rgba(255, 255, 255, 0.416) !important;
+  }
+
   .plant-task-text {
     width: auto;
   }
@@ -324,5 +330,58 @@
   .plant-menu {
     top: 0rem;
     right: 0rem;
+    z-index: 3;
   } 
+
+  .search-tag:hover,
+  .edit-plant-log-button:hover {
+    background-color: rgba(255, 255, 255, 0.382) !important;
+  }
+
+  .search-tag.active:hover {
+    background-color: white !important;
+  }
+
+  .plant-image-container {
+    position: relative;
+  }
+
+  .plant-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    opacity: 0;
+    border-radius: 10px;
+  }
+
+  .plant-image-container:hover::after {
+    opacity: 1;
+  }
+
+  #add-new-plant-desktop {
+    width: 2rem;
+    height: 2rem;
+    align-self: center;
+    text-align: center;
+    background-color: #9FD653;
+    color: black;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  #add-new-plant-desktop:hover {
+    background-color: #b5f161;
+  }
+
+  .hide-desktop {
+    display: none;
+  }
 }

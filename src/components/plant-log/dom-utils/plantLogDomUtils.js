@@ -28,6 +28,7 @@ const dynamicPlantLogElementsManager = () => {
       const { plantLogEl } = domElements;
       const sectionHeader = createElement({tagName: 'div', classEl: ['section-header']});
       const plantLogTitle = createElement({tagName: 'h1', textContent: 'My Plants', classEl: ['section-title']});
+      const addNewPlantDesktopButton = createElement({tagName: 'button', textContent: '+', id: 'add-new-plant-desktop', classEl: ['hidden-desktop-button']});
       const infoBarContainer = createElement({tagName: 'div', classEl: ['info-bar-container']});
       const plantInfoBar = createElement({tagName: 'div', classEl: ['plant-info-bar']});
       const editButtonContainer = createElement({tagName: 'div', classEl: ['edit-plant-log-container']});
@@ -41,10 +42,10 @@ const dynamicPlantLogElementsManager = () => {
       appendChildren(editButtonContainer, editButton, editDots);
       appendChildren(infoBarContainer, plantInfoBar, editButtonContainer);
       appendChildren(sectionHeader, plantLogTitle)
-      appendChildren(plantLogEl, sectionHeader, menuButtons, infoBarContainer, taskSelectContainer, userPlantsContainer);
+      appendChildren(plantLogEl, sectionHeader, menuButtons, addNewPlantDesktopButton, infoBarContainer, taskSelectContainer, userPlantsContainer);
       hideElements(editDots);
 
-      setUpPlantLogListeners(editButton, editDots);
+      setUpPlantLogListeners(editButton, editDots, addNewPlantDesktopButton);
     },
 
     getPlantLogElements: () => {
@@ -55,8 +56,9 @@ const dynamicPlantLogElementsManager = () => {
       const editButtonContainer = document.querySelector('.edit-plant-log-container');
       const editButton = document.querySelector('.edit-plant-log-button');
       const editDots = document.querySelector('.menu-dots-container');
+      const addNewPlantDesktopButton = document.getElementById('add-new-plant-desktop');
 
-      return { plantLogTitle, addPlantBtn, userPlantsContainer, plantInfoBar, editButtonContainer, editButton, editDots };
+      return { plantLogTitle, addPlantBtn, userPlantsContainer, plantInfoBar, editButtonContainer, editButton, editDots, addNewPlantDesktopButton };
     }
   }
 }

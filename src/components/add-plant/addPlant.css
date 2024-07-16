@@ -44,3 +44,16 @@
   display: flex;
   flex-direction: column;
 }
+
+@media screen and (min-width: 1024px) {
+  .large-image {
+    width: 25%;
+    border-radius: 1rem;
+  }
+
+  .image-input-img {
+    cursor: pointer;
+  }
+
+
+}
