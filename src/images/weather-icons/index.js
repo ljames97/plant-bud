@@ -5,3 +5,5 @@ export { default as rain } from './rain.png';
 export { default as snow } from './snow.png';
 export { default as temp } from './temp.png';
 export { default as thunderstorm } from './thunderstorm.png';
+export { default as moon } from './moon.png';
+export { default as moonClouds } from './moon-clouds.png';

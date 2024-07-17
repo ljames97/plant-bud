@@ -1,7 +1,7 @@
 // homepgaeEventHandlers.js
 
 import { logout } from "../../config";
-import { localEventManager } from "../global/event-handlers";
+import { localEventManager, sectionInit } from "../global/event-handlers";
 
 export const logoutBtnHandler = () => {
   const logoutBtn = document.querySelector('.profile-icon-container');
@@ -13,4 +13,14 @@ export const logoutBtnHandler = () => {
       console.error('Error logging out:', error);
     }
   }, 'HOME_PAGE')
+}
+
+export const setUpHomePageEventListeners = (desktopLogo, actionButton) => {
+  localEventManager.addEventListener(desktopLogo, 'click', () => {
+    sectionInit('HOME_PAGE');
+  }, 'HOME_PAGE');
+
+  localEventManager.addEventListener(actionButton, 'click', () => {
+    sectionInit('MY_PLANTS');
+  }, 'HOME_PAGE');
 }

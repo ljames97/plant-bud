@@ -232,7 +232,11 @@
   .user-plants {
     padding: 0;
     overflow-y: auto;
-    height: 100vh
+    height: 100vh;
+    grid-template-columns: repeat(3, 1fr);
+    width: 60%;
+    align-self: center;
+    text-align: left;
   }
 
   .zero-height {
@@ -263,13 +267,6 @@
 
   .task-element {
     padding-left: 0;
-  }
-
-  .user-plants {
-    grid-template-columns: repeat(3, 1fr);
-    width: 60%;
-    align-self: center;
-    text-align: left;
   }
 
   .user-plant,

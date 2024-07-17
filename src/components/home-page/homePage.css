@@ -106,9 +106,6 @@
 .weather-icon-container {
   max-width: 36px;
   margin-left: auto;
-}
-
-.weather-icon-container {
   margin-right: 0.5rem;
 }
 
@@ -143,6 +140,11 @@
   letter-spacing: 0.1rem;
 }
 
+.welcome-message-container,
+#toggle-mobile-view {
+  display: none;
+}
+
 @media screen and (min-width: 1024px) {
   #home-page {
     justify-content: flex-start;
@@ -167,4 +169,44 @@
     padding-bottom: 5px;
   }
 
+  .welcome-message-container {
+    display: block;
+    font-size: 3rem;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 10rem;
+  }
+
+  #home-page-action-button {
+    background-color: #9FD653;
+    color: black;
+    cursor: pointer;
+    padding: 0.8rem 1.5rem;
+  }
+
+  #home-page-action-button:hover {
+    background-color: #b5f161;
+  }
+
+  #toggle-mobile-view {
+    display: block;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding-right: 1rem;
+  }
+
+  #mobile-view-window {
+    position: absolute !important;
+    background-color: white;
+    width: 375px;
+    height: 667px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    position: relative;
+    z-index: 4;
+    align-self: center;
+    margin-top: 4rem;
+  }
 }
