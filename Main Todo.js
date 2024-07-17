@@ -1,18 +1,10 @@
 /* 
-
-TODO
-desktop css (responsive design):
-- simple home page welcome/weather stats etc
-- clean up repeated css classes
-
-- toggle mobile view in desktop (mobile as frame)
-- moon icon for evening weather
-
+THURSDAY:
 - firebase error notification (when not able to fetch plants etc. error message in top right hand corner)
 - sort out firebase, move firestore/base to production mode, firebase security rules
 - optomistic loading to prevent UI delay with fetching data and/or loading page
 
-BY END OF WEEK:
+FRIDAY-SUNDAY:
 PLANT PAGE
 - problem where requirements are being added to the original plants in plant library
 - delete/reset plant details - Are you sure? also prompt to save.
@@ -20,7 +12,6 @@ PLANT PAGE
 - task tick icon
 - delete/edit requirement
 - better plant page aesthetics/design (copy from desktop, move media queries to main css)
-- improve add new plant button
 - sort out showElements so it changes classList and not inline styles
 - replace textContent === with ID indentifiers
 
@@ -34,6 +25,7 @@ NEXT
 ------------
 
 EXTRAS
+- css variants
 - click on weather icon for more detials in a weather modal
 - option to add new tagButtons
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop
