@@ -25,9 +25,9 @@ export const createHomePageElements = async () => {
   appendChildren(welcomeMessageContainer, welcomeMessage, actionButton);
   appendChildren(logoContainer, logo);
   appendChildren(homePage, logoContainer, welcomeMessageContainer);
-  await appendWeatherContainer(homePage);
 
   setUpHomePageEventListeners(desktopLogo, actionButton);
+  await appendWeatherContainer(homePage);
 }
 
 /**

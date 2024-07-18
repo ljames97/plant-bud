@@ -1,7 +1,7 @@
 // src/db.js
 
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
-import { db, storage } from "./firebaseConfig";
+import { auth, db, storage } from "./firebaseConfig";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { isFirebaseStorageUrl } from "./utils";
 
@@ -12,9 +12,16 @@ import { isFirebaseStorageUrl } from "./utils";
  * @returns Download URL of the uploaded image.
  */
 export const uploadImageToFirebase = async (imageFile, folder) => {
-  const storage = getStorage();
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+
+  const userId = user.uid;
+  const storagePath = `${folder}/${userId}/${imageFile.name}`;
+  
   try {
-    const storageRef = ref(storage, `${folder}/${imageFile.name}`);
+    const storageRef = ref(storage, storagePath);
     console.log(`Uploading image: ${imageFile.name}`);
     await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(storageRef);

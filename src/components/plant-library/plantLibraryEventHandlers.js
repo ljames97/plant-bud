@@ -33,12 +33,13 @@ export const plantElementClickHandler = (mainSection, plantInfoContainer, plant,
  */
 export const quickAddHandler = (quickAdd, plant, isAdded) => {
   if (isAdded) {
-    console.log(isAdded);
+    console.log('ADDED');
     return;
   }
   console.log('adding');
   copyToMyPlants(plant);
   replaceElement(quickAdd);
+  plant.isAdded = true;
 }
 
 /**

@@ -4,14 +4,15 @@ THURSDAY:
 - sort out firebase, move firestore/base to production mode, firebase security rules
 - optomistic loading to prevent UI delay with fetching data and/or loading page
 
-FRIDAY-SUNDAY:
 PLANT PAGE
 - problem where requirements are being added to the original plants in plant library
 - delete/reset plant details - Are you sure? also prompt to save.
 - clicking on tag to edit while plant is archived causes problem
+
 - task tick icon
 - delete/edit requirement
 - better plant page aesthetics/design (copy from desktop, move media queries to main css)
+
 - sort out showElements so it changes classList and not inline styles
 - replace textContent === with ID indentifiers
 

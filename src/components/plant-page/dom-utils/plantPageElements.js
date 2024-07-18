@@ -2,7 +2,9 @@
 
 import { backButtonDark, backButtonLight } from "../../../images";
 import { createElement, createIcon } from "../../global/dom-utils";
-import { appendChildren } from "../../global/utils";
+import { appendChildren, findItemInArray } from "../../global/utils";
+import { isPlantAdded } from "../../plant-library";
+import { plantLog } from "../../plant-log";
 import { setUpPlantPageListeners } from "../event-handlers";
 import { createNavButtons } from "./navDomUtils";
 import { createRequirements } from "./requirementsDomUtils";
@@ -15,6 +17,8 @@ import { createUserTasks } from "./tasksDomUtils";
  */
 export const createPlantPageElements = (plant, sectionClass, sectionContainer, backButtonText, sectionRender) => {
   const { mainSection, aboutSection, requirementsSection, tasksSection } = createMainSection(plant, sectionClass);
+  const archiveText = createElement({tagName: 'p', textContent: 'This plant has been archived', classEl: ['archived-plant-message']});
+  checkIfArchived(plant, archiveText);
   const headerContainer = createElement({tagName: 'div', classEl: ['header-container']});
   const plantTitle = createElement({tagName: 'h1', textContent: plant.name, classEl: ['plant-title']});
   const navContainer = createNavButtons(aboutSection, requirementsSection, tasksSection, sectionClass);
@@ -24,7 +28,7 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   const subHeader = createElement({tagName: 'div', classEl: ['sub-header']});
   const backToDashboard = createElement({tagName: 'div', classEl: ['back-button'], ariaLabel: 'Back to dahsboard'});
   const backButtonImg = createElement({tagName: 'img', alt: 'Back button image'});
-  const tagContainer = createTags(plant);
+  const tagContainer = createTags(plant); 
   backButtonImg.src = backButtonLight;
   plantImage.src = plant.image;
 
@@ -36,9 +40,15 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   appendChildren(headerContainer, backToDashboard, plantTitle, sectionBtn);
   appendChildren(plantImageContainer, plantImage);
   appendChildren(aboutSection, plantImageContainer, tagContainer, plantDescriptionContainer);
-  appendChildren(sectionContainer, subHeader, headerContainer, navContainer, mainSection);
+  appendChildren(sectionContainer, archiveText, subHeader, headerContainer, navContainer, mainSection);
 
   setUpPlantPageListeners(sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, backToDashboard);
+}
+
+const checkIfArchived = (plant, archivedText) => {
+  const deletedPlants = plantLog.getDeletedPlants();
+  const foundDeletedPlant = findItemInArray(deletedPlants, plant.id);
+  foundDeletedPlant ? '' : archivedText.classList.add('hidden');
 }
 
 /**
@@ -79,12 +89,16 @@ export const createDescriptionElement = (plant) => {
  * @returns {HTMLElement} sectionBtn. 
  */
 export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
+  const isAdded = isPlantAdded(plant);
+  const isArchived = findItemInArray(plantLog.getDeletedPlants(), plant.id);
   console.log(plant)
   if (backButtonText === '← back to My Plants') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: ['edit-btn']});
-  } if (backButtonText === '← back to results' && !plant.isAdded || backButtonText === '← back to search' && !plant.isAdded) {
+  } if (backButtonText === '← back to results' && !isAdded || backButtonText === '← back to search' && !isAdded) {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Add plant', classEl: ['add-to-plants-btn']});
+  } if (isArchived) {
+    return sectionBtn = createIcon('ARCHIVE')
   } else {
-    return sectionBtn = createIcon();
+    return sectionBtn = createIcon('ADDED');
   }
 }

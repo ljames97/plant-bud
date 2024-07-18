@@ -5,7 +5,7 @@
 
 import { createElement, createMenuDots, domElements } from "../global/dom-utils";
 import { handleDocumentClick, localEventManager } from "../global/event-handlers";
-import { appendChildren } from "../global/utils";
+import { appendChildren, findItemInArray } from "../global/utils";
 import { plantLog } from "../plant-log";
 import { renderQuickMenu } from "../plant-log/dom-utils";
 import { quickAddHandler, setUpTagButtonListeners } from "./plantLibraryEventHandlers";
@@ -132,8 +132,14 @@ export const createMenuItems = (menuDots, plant) => {
  * @returns {Boolean} Is plant already in the userPlantLog
  */
 export const isPlantAdded = (plant) => {
-  const isAdded = plantLog.getPlant(plant);
-  return isAdded;
+  const foundPlant = plantLog.getPlant(plant);
+  const deletedPlants = plantLog.getDeletedPlants();
+
+  const foundDeletedPlant = findItemInArray(deletedPlants, plant.id);
+
+  if (foundPlant || foundDeletedPlant) {
+    return true;
+  }
 }
 
 /**

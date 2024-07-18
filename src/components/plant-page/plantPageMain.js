@@ -56,7 +56,7 @@ export const copyToMyPlants = (plant) => {
     id: plant.id,
     requirements: plant.requirements,
     tasks: plant.tasks,
-    tags: plant.tags
+    tags: plant.tags,
   };
 
   plantLog.addToUserPlantLog(newPlant);

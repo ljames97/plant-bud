@@ -1,6 +1,6 @@
 // createElements.js
 
-import { addedPlantIcon } from "../../../images";
+import { addedPlantIcon, archiveIcon } from "../../../images";
 import { appendChildren } from "../utils";
 
 /**
@@ -53,10 +53,11 @@ export const createMenuDots = () => {
  * Creates and returns a new "Added" icon.
  * @returns {HTMLElement} New icon.
  */
-export const createIcon = () => {
+export const createIcon = (iconType) => {
   const newIcon = createElement({tagName: 'div', classEl: ['added-to-plants-icon', 'back-button']});
   const newIconImg = createElement({tagName: 'img'});
-  newIconImg.src = addedPlantIcon;
+  const icon = iconType === 'ADDED' ? addedPlantIcon : archiveIcon;
+  newIconImg.src = icon;
   appendChildren(newIcon, newIconImg);
 
   return newIcon;

@@ -6,3 +6,4 @@ export { default as pinPlantIcon } from './pin-icon.png';
 export { default as profileIcon } from './profile-icon.png';
 export { default as waterPlantsIcon } from './water-icon.png';
 export { default as plantRequirement } from './plant-requirement.png';
+export { default as archiveIcon } from './archive-icon.png';

@@ -6,7 +6,9 @@
 
 import { removeModal } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";
-import { appendChildren } from "../../global/utils";
+import { appendChildren, findItemInArray } from "../../global/utils";
+import { plantLog } from "../../plant-log";
+import { renderDeletedPlants } from "../../plant-log/dom-utils";
 import { hideSectionButtons } from "../dom-utils";
 import { toggleEditMode } from "../edit-mode";
 import { backToDashboardHandler } from "./backBtnEventHandlers";
@@ -60,7 +62,8 @@ export const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionEle
  */
 export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, backToDashboard) => {
   const isEditBtn = sectionBtn.classList.contains('edit-btn');
-  const isAddBtn = sectionBtn.textContent === 'Add plant' || sectionBtn.textContent === '';
+  const isAddBtn = sectionBtn.textContent === 'Add plant';
+  const isAddedBtn = document.querySelector('.added-to-plants-icon');
 
   if (isEditBtn) {
     localEventManager.addEventListener(sectionBtn, 'click', () => 
@@ -72,6 +75,10 @@ export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDesc
     localEventManager.addEventListener(sectionBtn, 'click', () => {
       addToPlantsHandler(sectionBtn, plant);
     }, 'PLANT_PAGE');
+  }
+
+  if (isAddedBtn) {
+    hideSectionButtons();
   }
 
   localEventManager.addEventListener(backToDashboard, 'click', () => {

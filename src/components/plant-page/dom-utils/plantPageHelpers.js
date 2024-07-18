@@ -25,7 +25,7 @@ export const removeImageInput = () => {
  * @param {Object} plant 
  */
 export const replaceButton = (button, plant) => {
-  const newIcon = createIcon();
+  const newIcon = createIcon('ADDED');
   button.parentNode.replaceChild(newIcon, button);
   plant.isAdded = true;
 }
@@ -34,9 +34,11 @@ export const replaceButton = (button, plant) => {
  * Hides specific section buttons, eg. tasks and requirements buttons.
  */
 export const hideSectionButtons = () => {
+  console.log('HIDE')
   const tasksBtn = document.getElementById('task-nav');
   const requirementBtn = document.querySelector('.add-requirement-btn');
-  hideElements(tasksBtn, requirementBtn);
+  tasksBtn.classList.add('hidden');
+  requirementBtn.classList.add('hidden');
 }
 
 /**
