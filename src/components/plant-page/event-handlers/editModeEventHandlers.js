@@ -1,10 +1,11 @@
 // editModeEventHandlers.js
 
 import { plantLog, renderMyPlants } from "../../plant-log";
-import { clearSection, resetSection } from "../../global/dom-utils";
+import { clearSection, createElement, resetSection } from "../../global/dom-utils";
 import { imageChangeHandler, localEventManager } from "../../global/event-handlers";
 import { renderPlantDetails } from "../plantPageMain";
 import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase } from "../../../config";
+import { appendChildren } from "../../global/utils";
 
 
 /**
@@ -12,8 +13,38 @@ import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase }
  * @param {Object} plant 
  */
 export const deletePlantBtnHandler = (plant) => {
+  const deletePlant = areYouSureModal();
+  if (!deletePlant) {
+    return;
+  }
   plantLog.deletePlantFromLog(plant);
   resetSection('plant-log', renderMyPlants, 'ADD_PLANT');
+}
+
+const areYouSureModal = () => {
+  // finish creating modal elements, and setUpModal function needs to be called
+  let deletePlant;
+  const areYouSureModal = createElement({tagName: 'div'});
+  const modalText = createElement({tagName: 'p', textContent: 'Are you sure?'});
+  const buttonContainer = createElement({tagName: 'div'});
+  const yesBtn = createElement()
+  const noBtn = createElement();
+
+  appendChildren(buttonContainer, yesBtn, noBtn);
+  appendChildren(areYouSureModal, modalText, buttonContainer);
+
+  localEventManager.addEventListener(yesBtn, 'click', () => {
+    deletePlant = true;
+    // close the modal
+  }, 'PLANT_PAGE');
+
+  localEventManager.addEventListener(noBtn, 'click', () => {
+    deletePlant = false;
+    //close the modal
+  }, 'PLANT_PAGE');
+
+
+  return deletePlant;
 }
 
 /**

@@ -168,6 +168,7 @@
 }
 
 .about-section {
+  display: flex;
   flex-direction: column;
 }
 
@@ -334,23 +335,15 @@ textarea {
 .edit-button-container {
   display: flex;
   align-self: center;
-  justify-content: space-around;
+  gap: 0.5rem;
   width: 80%;
+  margin-top: -0.5rem;
 }
 
 .delete-plant-btn, 
 .reset-plant-btn {
-  padding: 1rem;
-  margin: 1rem 0;
-  width: auto;
-}
-
-.delete-plant-btn {
-  background-color: rgb(151, 60, 60);
-}
-
-.reset-plant-btn {
-  background-color: #6B723F;
+  cursor: pointer;
+  font-size: 0.7rem;
 }
 
 .plant-page-task-menu {
@@ -398,11 +391,14 @@ textarea {
   }
 
   .back-button,
-  .edit-btn,
   .plant-page-nav-button,
   .add-requirement-btn,
   .add-task-btn,
   .submit-btn {
+    cursor: pointer;
+  }
+
+  #edit-btn {
     cursor: pointer;
   }
   
@@ -493,5 +489,14 @@ textarea {
   .edit-btn:hover {
     background-color: transparent;
     cursor: default;
+  }
+
+  .reset-plant-btn,
+  .reset-plant-btn:hover {
+    background-color: rgba(87, 186, 87, 0.198);
+  }
+
+  .delete-plant-btn {
+    background-color: rgba(206, 56, 56, 0.255);
   }
 }

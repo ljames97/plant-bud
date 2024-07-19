@@ -1,6 +1,6 @@
 // src/auth.js
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { EmailAuthProvider, createUserWithEmailAndPassword, deleteUser, reauthenticateWithCredential, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
 /**
@@ -44,5 +44,29 @@ export const logout = async () => {
   } catch (error) {
     console.error("Error logging out:", error);
     throw error;
+  }
+};
+
+/**
+ * Deletes user account after reauthentication.
+ */
+export const deleteAccount = async () => {
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      const credential = EmailAuthProvider.credential(user.email, prompt("Please enter your password:"));
+      await reauthenticateWithCredential(user, credential);
+
+      await deleteUser(user);
+      console.log('Account deleted successfully');
+      window.location.href = '/login.html'; // Redirect to login page
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      if (error.code === 'auth/requires-recent-login') {
+        alert('Please log in again to delete your account.');
+      }
+    }
+  } else {
+    console.log('No user is currently signed in.');
   }
 };

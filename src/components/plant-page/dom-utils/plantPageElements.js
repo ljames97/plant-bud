@@ -43,6 +43,7 @@ export const createPlantPageElements = (plant, sectionClass, sectionContainer, b
   appendChildren(sectionContainer, archiveText, subHeader, headerContainer, navContainer, mainSection);
 
   setUpPlantPageListeners(sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, backToDashboard);
+
 }
 
 const checkIfArchived = (plant, archivedText) => {
@@ -93,7 +94,7 @@ export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
   const isArchived = findItemInArray(plantLog.getDeletedPlants(), plant.id);
   console.log(plant)
   if (backButtonText === '← back to My Plants') {
-    return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', classEl: ['edit-btn']});
+    return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', id: 'edit-btn', classEl: ['edit-btn']});
   } if (backButtonText === '← back to results' && !isAdded || backButtonText === '← back to search' && !isAdded) {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Add plant', classEl: ['add-to-plants-btn']});
   } if (isArchived) {

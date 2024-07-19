@@ -149,6 +149,7 @@ button {
   font-size: 0.7rem;
   margin-bottom: 1rem;
   padding: 0 0.2rem;
+  cursor: pointer;
 }
 
 .menu-dot {
@@ -263,6 +264,10 @@ button {
     cursor: default;
   }
 
+  header {
+    position: absolute;
+  }
+
   input:hover {
     background-color: rgba(255, 255, 255, 0.293);
   }
@@ -350,6 +355,7 @@ button {
 
   .drop-menu-item:hover {
     font-weight: 500;
+    cursor: pointer;
   }
 
   .hidden-desktop-button {

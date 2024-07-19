@@ -6,6 +6,7 @@
 
 import { pinPlantIcon } from "../../../images";
 import { clearSection, createElement, createMenuDots, domElements } from "../../global/dom-utils";
+import { localEventManager } from "../../global/event-handlers";
 import { appendChildren } from "../../global/utils";
 import { setupUserPlantGridEventListener } from "../event-handlers";
 import { setUpNewPlantListeners } from "../event-handlers";
@@ -21,6 +22,12 @@ export const renderDeletedPlants = () => {
   clearSection(userPlantsContainer, 'PLANT_LOG')
   renderPlantGrid(plantLog.getDeletedPlants(), renderMyPlants, '← back to Plant Archive');
   plantInfoBar.textContent = `${plantLog.getDeletedPlants().length} archived plants`;
+  const plantTags = document.querySelectorAll('.plant-log-tag');
+  console.log(plantTags)
+  plantTags.forEach(tag => {
+    localEventManager.removeEventListener(tag, 'click', 'PLANT_LOG');
+    tag.style.cursor = 'default';
+  })
 }
 
 /**

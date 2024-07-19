@@ -72,7 +72,6 @@
 }
 
 .profile-icon-container {
-  margin-right: auto;
   width: 10%;
   max-width: 40px;
   min-width: 30px;
@@ -145,6 +144,8 @@
   display: none;
 }
 
+
+
 @media screen and (min-width: 1024px) {
   #home-page {
     justify-content: flex-start;
@@ -155,7 +156,12 @@
   }
 
   .profile-icon-container {
-    order: 3;
+    position: relative;
+    align-self: center;
+    margin-left: auto;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    z-index: 100;
   }
 
   #weather-container {

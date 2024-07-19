@@ -23,7 +23,7 @@ export const createPlantLogTags = (plant) => {
       appendChildren(tagContainer, newTag);
       localEventManager.addEventListener(newTag, 'click', () => {
         editTagHandler(newTag, plant);
-      })
+      }, 'PLANT_LOG');
     });
   }
 
