@@ -1,7 +1,7 @@
 // editModeEventHandlers.js
 
 import { plantLog, renderMyPlants } from "../../plant-log";
-import { clearSection, createElement, resetSection } from "../../global/dom-utils";
+import { clearSection, createElement, removeModal, resetSection, setUpModal } from "../../global/dom-utils";
 import { imageChangeHandler, localEventManager } from "../../global/event-handlers";
 import { renderPlantDetails } from "../plantPageMain";
 import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase } from "../../../config";
@@ -13,38 +13,67 @@ import { appendChildren } from "../../global/utils";
  * @param {Object} plant 
  */
 export const deletePlantBtnHandler = (plant) => {
-  const deletePlant = areYouSureModal();
-  if (!deletePlant) {
-    return;
-  }
   plantLog.deletePlantFromLog(plant);
   resetSection('plant-log', renderMyPlants, 'ADD_PLANT');
 }
 
-const areYouSureModal = () => {
-  // finish creating modal elements, and setUpModal function needs to be called
-  let deletePlant;
-  const areYouSureModal = createElement({tagName: 'div'});
-  const modalText = createElement({tagName: 'p', textContent: 'Are you sure?'});
-  const buttonContainer = createElement({tagName: 'div'});
-  const yesBtn = createElement()
-  const noBtn = createElement();
+/**
+ * Creates and appends the areYouSureModal to the DOM.
+ * @returns modal and the yes/no buttons.
+ */
+export const createAreYouSureModal = () => {
+  const modalOverlay = document.querySelector('.modal-overlay');
+  const areYouSureModal = createElement({tagName: 'div', classEl: ['are-you-sure-modal'], id: 'are-you-sure-modal'});
+  const modalText = createElement({tagName: 'p', textContent: 'Are you sure?', classEl: ['modal-text']});
+  const buttonContainer = createElement({tagName: 'div', classEl: ['are-you-sure-button-container']});
+  const yesBtn = createElement({tagName: 'button', textContent: 'Yes', classEl: ['are-you-sure-button'], id: 'yes-btn'});
+  const noBtn = createElement({tagName: 'button', textContent: 'No', classEl: ['are-you-sure-button'], id: 'no-btn'});
 
   appendChildren(buttonContainer, yesBtn, noBtn);
   appendChildren(areYouSureModal, modalText, buttonContainer);
+  appendChildren(modalOverlay, areYouSureModal);
+
+  setUpModal(areYouSureModal, 'PLANT_PAGE');
+
+  return { areYouSureModal, yesBtn, noBtn };
+}
+
+/**
+ * Renders areYouSureModal and handles yes/no click.
+ * @param {Object} plant 
+ */
+export const areYouSureDelete = (plant) => {
+  const { areYouSureModal, yesBtn, noBtn } = createAreYouSureModal();
 
   localEventManager.addEventListener(yesBtn, 'click', () => {
-    deletePlant = true;
-    // close the modal
+    removeModal(areYouSureModal, 'PLANT_PAGE');
+    plantLog.deletePlantFromLog(plant);
+    resetSection('plant-log', renderMyPlants, 'ADD_PLANT');
   }, 'PLANT_PAGE');
 
   localEventManager.addEventListener(noBtn, 'click', () => {
-    deletePlant = false;
-    //close the modal
+    removeModal(areYouSureModal, 'PLANT_PAGE');
+  }, 'PLANT_PAGE');
+}
+
+/**
+ * Renders areYouSureModal and handles yes/no click.
+ * @param {Object} plant 
+ * @param {Object} elements 
+ * @param {String} sectionClass 
+ * @param {Function} sectionRender 
+ */
+export const areYouSureReset = (plant, elements, sectionClass, sectionRender) => {
+  const { areYouSureModal, yesBtn, noBtn } = createAreYouSureModal();
+
+  localEventManager.addEventListener(yesBtn, 'click', () => {
+    removeModal(areYouSureModal, 'PLANT_PAGE');
+    resetPlantDetailsBtnHandler(plant, elements, sectionClass, sectionRender);
   }, 'PLANT_PAGE');
 
-
-  return deletePlant;
+  localEventManager.addEventListener(noBtn, 'click', () => {
+    removeModal(areYouSureModal, 'PLANT_PAGE');
+  }, 'PLANT_PAGE');
 }
 
 /**
@@ -79,11 +108,11 @@ export const resetPlantDetailsBtnHandler = async (plant, elements, sectionClass,
  */
 export const setUpDeleteResetBtns = (plant, elements, sectionClass, sectionRender, deletePlantBtn, resetPlantDetailsBtn) => {
   localEventManager.addEventListener(deletePlantBtn, 'click', () => {
-    deletePlantBtnHandler(plant);
+    areYouSureDelete(plant);
   }, 'PLANT_PAGE');
   localEventManager.addEventListener(resetPlantDetailsBtn, 'click', () => {
-    resetPlantDetailsBtnHandler(plant, elements, sectionClass, sectionRender);
-  });
+    areYouSureReset(plant, elements, sectionClass, sectionRender);
+  }, 'PLANT_PAGE');
 }
 
 /**

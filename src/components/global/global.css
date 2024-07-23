@@ -26,11 +26,12 @@ body::before {
 }
 
 header {
-  display: flex;
+  position: absolute;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  padding: 1.7rem;
   z-index: 2;
+  padding-top: 2rem;
 }
 
 h1, p {
@@ -266,6 +267,8 @@ button {
 
   header {
     position: absolute;
+    display: flex;
+    padding-left: 0;
   }
 
   input:hover {
@@ -310,6 +313,7 @@ button {
     display: block;
     width: 15%;
     cursor: pointer;
+    padding-left: 2rem;
   }
 
   .plantBud-desktop-logo img {

@@ -1,3 +1,8 @@
+#plant-quiz {
+  display: flex;
+  flex-direction: column;
+}
+
 .quiz-container h1 {
   padding-left: 1rem;
 }
@@ -9,6 +14,12 @@
   color: black;
   overflow: hidden;
   max-width: 100vw;
+}
+
+.quiz-container {
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .question-container {
@@ -158,11 +169,6 @@
 }
 
 @media screen and (min-width: 1024px) {
-  #plant-quiz {
-    display: flex;
-    flex-direction: column;
-  }
-
   .card-container {
     display: none;
   }
@@ -172,7 +178,8 @@
   }
 
   .quiz-container {
-    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 0;
   }
 
   .start-quiz-btn {

@@ -20,6 +20,8 @@ import { createPlantPageElements } from "./dom-utils";
  * @param {Function} sectionRender
  */
 export const renderPlantDetails = (plant, sectionContainer, backButtonText, sectionClass, sectionRender) => {
+  const footer = document.querySelector('footer');
+  footer.classList.add('hidden');
   createPlantPageElements(plant, sectionClass, sectionContainer, backButtonText, sectionRender);
   window.scrollTo(0, 0);
 }

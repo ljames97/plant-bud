@@ -76,10 +76,18 @@
   max-width: 40px;
   min-width: 30px;
   cursor: pointer;
+  position: relative;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  z-index: 100;
 }
 
 .profile-icon-container img {
   width: 100%;
+}
+
+.profile-icon-menu {
+ right: 0;
 }
 
 #weather-container {

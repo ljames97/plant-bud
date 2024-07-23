@@ -91,7 +91,7 @@ export const getFilteredPlantsArray = () => {
   for (let i = 0; i < skillButtons.length; i++) {
     const button = skillButtons[i];
     if (button.classList.contains('active')) {
-      if (button.textContent === 'All') {
+      if (button.id === 'all-tag') {
         return plantDirectory;
       } else {
         return plantDirectory.filter(plant => plant.skill[0] === button.textContent);

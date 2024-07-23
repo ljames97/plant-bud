@@ -59,7 +59,7 @@ const checkIfArchived = (plant, archivedText) => {
  */
 export const createMainSection = (plant, sectionClass) => {
   const plantPageModal = createElement({tagName: 'div', classEl: ['requirement-modal', 'hidden']});
-  const aboutSection = createElement({tagName: 'div', classEl: ['about-section']});
+  const aboutSection = createElement({tagName: 'div', classEl: ['about-section', 'flex']});
   const requirementsSection = createRequirements(plantPageModal, plant, sectionClass);
   const tasksSection = createUserTasks(plant, plantPageModal, sectionClass);
   const mainSection = createElement({tagName: 'div', classEl: ['main-plant-section']});

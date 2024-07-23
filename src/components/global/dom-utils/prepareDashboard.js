@@ -11,6 +11,7 @@ import { clearSection } from "./sectionManipulation";
  */
 export const prepareDashboard = (activeBtns, renderFunc, ...inactiveBtns) => {
   const { plantLogEl, plantQuiz, plantLibrary, homePage, header } = domElements;
+  const profileIcon = document.querySelector('.profile-icon-container');
   
   if (activeBtns.includes(domElements.addNewPlantBtn)) {
     // Handle the case where addNewPlantBtn is clicked
@@ -52,8 +53,10 @@ export const prepareDashboard = (activeBtns, renderFunc, ...inactiveBtns) => {
 
   if (activeSection !== homePage) {
     header.classList.add('hidden-nav');
+    profileIcon.classList.add('hidden-nav');
   } else {
     header.classList.remove('hidden-nav');
+    profileIcon.classList.remove('hidden-nav');
   }
 
   dashboardNavButtonHighlight();

@@ -31,8 +31,8 @@ export const editMode = (plant, editBtn, elements, sectionClass, sectionRender) 
   setUpImageInput(imageInput, elements, sectionClass, plant);
 
   const buttonContainer = createElement({tagName: 'div', classEl: ['edit-button-container']});
-  const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: ['delete-plant-btn']});
-  const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: ['reset-plant-btn']});
+  const deletePlantBtn = createElement({tagName: 'button', textContent: 'Delete Plant', classEl: ['delete-plant-btn', 'plant-page-nav-button']});
+  const resetPlantDetailsBtn = createElement({tagName: 'button', textContent: 'Reset plant details', classEl: ['reset-plant-btn', 'plant-page-nav-button']});
   const aboutSection = document.querySelector('.about-section')
   appendChildren(buttonContainer, resetPlantDetailsBtn, deletePlantBtn)
   appendChildren(aboutSection, buttonContainer);

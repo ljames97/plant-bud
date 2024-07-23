@@ -2,6 +2,8 @@
   font-size: 1.5rem;
   overflow: auto;
   margin-left: 0.5rem;
+  color: white;
+  font-weight: 100;
 }
 
 .plant-description {
@@ -27,9 +29,8 @@
 
 .plant-page-container {
   position: absolute;
-  display: flex;
   flex-direction: column;
-  background-color: #f2ece5;
+  background-color: rgb(28 35 27 / 60%);
   color: black;
   z-index: 2;
   padding: 1rem;
@@ -42,6 +43,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 1rem 1rem 1rem;
+  gap: 5px;
 }
 
 .plant-page-nav-button {
@@ -84,10 +86,11 @@
 }
 
 .plant-description-container {
-  background-color: #dcd5cd;
   padding: 1rem 0.3rem;
   border-radius: 10px;
   margin: 0 1rem;
+  background-color: transparent;
+  color: white;
 }
 
 .tag-container {
@@ -141,6 +144,7 @@
   height: 90vh;
   margin-top: 1rem;
   padding: 0 1rem;
+  color: white;
 }
 
 .requirement {
@@ -159,6 +163,11 @@
   bottom: 10rem;
 }
 
+.add-task-btn,
+.add-requirement-btn {
+  background-color: rgb(224, 153, 22);
+}
+
 .add-btn-image-container {
   width: 100%;
 }
@@ -168,7 +177,6 @@
 }
 
 .about-section {
-  display: flex;
   flex-direction: column;
 }
 
@@ -230,6 +238,7 @@
   min-height: 75vh;
   flex-direction: column;
   width: 100%;
+  color: white;
 }
 
 .new-task {
@@ -346,6 +355,14 @@ textarea {
   font-size: 0.7rem;
 }
 
+.delete-plant-btn {
+  background-color: rgba(206, 56, 56, 0.255);
+}
+
+.reset-plant-btn {
+  background-color: rgba(87, 186, 87, 0.198);
+}
+
 .plant-page-task-menu {
   margin-right: 2rem;
 }
@@ -376,6 +393,51 @@ textarea {
   font-weight: 600;
 }
 
+.are-you-sure-modal {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.are-you-sure-button-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#yes-btn {
+  background-color: rgb(145, 79, 79);
+  cursor: pointer;
+}
+
+#yes-btn:hover {
+  background-color: rgb(108, 60, 60);
+}
+
+#no-btn {
+  background-color: rgb(224, 153, 22);
+  cursor: pointer;
+}
+
+#no-btn:hover {
+  background-color: rgb(182, 127, 24);
+}
+
+.edit-btn {
+  background-color: transparent;
+  color: white;
+}
+
+.edit-plant-title::placeholder,
+.edit-plant-notes {
+  color: white;
+  font-weight: 100;
+}
+
+.edit-plant-title {
+  color: white;
+  font-weight: 100;
+}
+
 @media screen and (min-width: 1024px) {
   .plant-page-container{
     max-width: 25%;
@@ -383,6 +445,7 @@ textarea {
     border-radius: 20px;
     height: 80%;
     background-color: rgb(28 35 27 / 60%);
+    margin-top: 3rem;
   }
 
   .plant-title {
@@ -420,16 +483,6 @@ textarea {
     font-size: 0.7rem;
   }
 
-  .edit-btn {
-    /* background-color: rgba(255, 255, 255, 0.224); */
-    background-color: transparent;
-    color: white;
-  }
-
-  .requirements {
-    color: white;
-  }
-
   .plant-description-container {
     background-color: transparent;
     margin: 0;
@@ -437,17 +490,8 @@ textarea {
     color: white;
   }
 
-  .add-task-btn,
-  .add-requirement-btn {
-    background-color: rgb(224, 153, 22);
-  }
-
   .main-plant-section {
     padding-top: 0.5rem;
-  }
-
-  .plant-page-nav-container {
-    gap: 5px;
   }
 
   .tasks {
@@ -456,16 +500,6 @@ textarea {
   
   .select-btn {
     border-color: white;
-  }
-
-  .edit-plant-title {
-    color: white;
-    font-weight: 100;
-  }
-
-  .edit-plant-title::placeholder,
-  .edit-plant-notes {
-    color: white;
   }
 
   .plant-page-nav-button:hover {
@@ -487,16 +521,15 @@ textarea {
 
   .added-to-plants-icon:hover, 
   .edit-btn:hover {
-    background-color: transparent;
     cursor: default;
+    background-color: transparent;
   }
 
-  .reset-plant-btn,
   .reset-plant-btn:hover {
-    background-color: rgba(87, 186, 87, 0.198);
+    background-color: rgba(87, 186, 87, 0.198) !important;
   }
 
-  .delete-plant-btn {
-    background-color: rgba(206, 56, 56, 0.255);
+  .delete-plant-btn:hover {
+    background-color: rgba(206, 56, 56, 0.255) !important;
   }
 }

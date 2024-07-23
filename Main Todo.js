@@ -1,23 +1,10 @@
 /* 
-- firebase error notification (when not able to fetch plants etc. error message in top right hand corner)
-- optomistic loading to prevent UI delay with fetching data and/or loading page
-
-PLANT PAGE
-FRIDAY - MONDAY
-- delete/reset plant details - Are you sure? also prompt to save.
-
+- css for delete account modal/form
 - task tick icon
 - delete/edit requirement
-- better plant page aesthetics/design (copy from desktop, move media queries to main css)
-- sort out reset/delete button css for both desktop and mobile
-
-- sort out showElements so it changes classList and not inline styles
-- replace textContent === with ID indentifiers
-- util function for add and remove classes 
-- css for delete account modal/form
 
 - domain hosting, HTTPS, eslint, scss/sass
-- final review, anything missed/skipped, final production mode (firebase + vite), gitHub. check tests
+- final review, anything missed/skipped, final production mode (firebase + vite), gitHub, check tests
 
 NEXT
 - (react refactor), (node.js database/server)
@@ -26,8 +13,13 @@ NEXT
 ------------
 
 EXTRAS
+- sort out showElements so it changes classList and not inline styles
+- firebase error notification (when not able to fetch plants etc. error message in top right hand corner)
+- optomistic loading to prevent UI delay with fetching data and/or loading page
+
 - css variants
 - small arrow on desktop My Plants section to indicate scroll down
+
 - click on weather icon for more detials in a weather modal
 - option to add new tagButtons
 - option to delete/edit requirement/task in modal or swipe for mobile, show edit options on hover for desktop

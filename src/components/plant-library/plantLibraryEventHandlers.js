@@ -53,7 +53,7 @@ export const setUpTagButtonListeners = (tagButtons, plantLibrary, searchInput, s
   tagButtons.forEach(button => {
     localEventManager.addEventListener(button, 'click', () => {
       buttonHighlight(button, 'white', 'rgba(255, 255, 255, 0.224', 'black', 'white', ...button.inactiveBtns);
-      if (button.textContent === 'All') {
+      if (button.id === 'all-tag') {
         updateSearchResults(plantLibrary, searchInput.value, searchResultsContainer, null, '← back to search', '.plant-library', renderNewPlantSearch);
         return;
       }

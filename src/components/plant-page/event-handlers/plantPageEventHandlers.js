@@ -62,7 +62,7 @@ export const setUpModalEventListeners = (submitBtn, cancelBtn, modal, sectionEle
  */
 export const setUpPlantPageListeners = (sectionBtn, plant, plantTitle, plantDescription, plantImageContainer, plantImage, sectionContainer, sectionClass, sectionRender, subHeader, backToDashboard) => {
   const isEditBtn = sectionBtn.classList.contains('edit-btn');
-  const isAddBtn = sectionBtn.textContent === 'Add plant';
+  const isAddBtn = sectionBtn.classList.contains('add-to-plants-btn')
   const isAddedBtn = document.querySelector('.added-to-plants-icon');
 
   if (isEditBtn) {
