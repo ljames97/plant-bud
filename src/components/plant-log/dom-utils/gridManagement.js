@@ -77,6 +77,7 @@ export const addPlantToGrid = (newPlant) => {
 
   plantImage.src = newPlant.image;
   menuDots.classList.add('plant-menu');
+  pinIcon.classList.add('hidden');
   
   if (newPlant.tasks) {
     const unselectedTasksCount = newPlant.tasks ? newPlant.tasks.filter(task => !task.selected).length : 0;
@@ -91,7 +92,8 @@ export const addPlantToGrid = (newPlant) => {
   appendChildren(userPlantsContainer, userPlantContainer);
 
   if (newPlant.pinned === true) {
-    pinIconContainer.classList.add('show')
+    pinIcon.classList.remove('hidden');
+    pinIconContainer.classList.add('show');
     movePlantToTop(userPlantContainer);
   }
 

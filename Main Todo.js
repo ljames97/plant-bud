@@ -3,7 +3,7 @@
 - task tick icon
 - delete/edit requirement
 
-- domain hosting, HTTPS, eslint, scss/sass
+- domain hosting, eslint, scss/sass
 - final review, anything missed/skipped, final production mode (firebase + vite), gitHub, check tests
 
 NEXT
