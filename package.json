@@ -10,7 +10,6 @@
     "test": "jest --config jest.config.cjs",
     "watch": "jest --watch --onlyFailures",
     "deps": "npx madge --circular src/",
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
