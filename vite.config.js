@@ -10,8 +10,10 @@ export default defineConfig(({ command }) => {
     build: {
       outDir: 'dist',
       rollupOptions: {
-        input: './public/index.html',
-      },
+        input: {
+          main: './public/index.html',
+          login: './public/login.html'
+        },      },
     },
     server: {
       open: true,
