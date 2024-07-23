@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Plant Log | PlantBud</title>
+  </head>
+  <body class="dashboard-page">
+    <div class="modal-overlay"></div>
+    <div class="profile-icon-container">
+      <img src="/src/images/other-icons/profile-icon.png" alt="Profile icon">
+    </div>
+    <header>
+      <div class="plantBud-desktop-logo">
+        <img src="/src/images/main/home-page-logo.png" alt="PlantBud logo">
+      </div>
+      <nav class="desktop-nav">
+        <ul class="desktop-nav-items">
+          <li class="desktop-nav-item" id="desktop-home-btn">Home</li>
+          <li class="desktop-nav-item" id="desktop-my-plants-btn">My Plants</li>
+          <li class="desktop-nav-item" id="desktop-quiz-btn">Quiz</li>
+          <li class="desktop-nav-item" id="desktop-library-btn">Library</li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="dashboard">
+        <div id="home-page"></div>
+        <div id="plant-log"></div>
+        <div id="plant-quiz"></div>
+        <div id="plant-library"></div>
+    </div>
+    </main>
+    <footer>
+      <nav class="dashboard-nav">
+        <ul class="dashboard-nav-items">
+          <div class="dashboard-nav-item-container">
+            <button class="dashboard-nav-item" id="home-btn" aria-label="Home">
+              <div class="home-icon-container icon-container"></div>
+            </button>
+            <p>Home</p>
+          </div>
+          <div class="dashboard-nav-item-container">
+            <button class="dashboard-nav-item" id="my-plants-btn" aria-label="My Plants">
+              <div class="plant-icon-container icon-container"></div>
+            </button>
+            <p>My Plants</p>
+          </div>
+            <button class="dashboard-nav-item" id="add-new-plant-btn" aria-label="Add Plant">
+              <div class="add-icon-container icon-container"></div>
+            </button>
+            <div class="dashboard-nav-item-container">
+              <button class="dashboard-nav-item" id="quiz-btn" aria-label="Plant Quiz">
+                <div class="quiz-icon-container icon-container"></div>
+              </button>
+              <p>Quiz</p>
+            </div>
+            <div class="dashboard-nav-item-container">
+              <button class="dashboard-nav-item" id="library-btn" aria-label="Plant Library">
+                <div class="library-icon-container icon-container"></div>
+              </button>
+              <p>Library</p>
+            </div>
+        </ul>
+      </nav>
+    </footer>
+    <script type="module" src="/src/index.js" ></script>
+  </body>
