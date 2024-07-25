@@ -43,13 +43,20 @@
 }
 
 .task-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 1rem;
-  min-height: 1.5rem;
-  min-width: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
   border-radius: 100%;
   padding: 0;
   align-self: center;
-  background-color: rgba(255, 255, 255, 0.224);
+  background-color: #9fd653;
+}
+
+.select-icon-image {
+  width: 55%;
 }
 
 .task-line-seperator {
@@ -298,7 +305,7 @@
   }
 
   .task-selector:hover {
-    background-color: rgba(255, 255, 255, 0.416) !important;
+    background-color: #9fd653 !important;
   }
 
   .plant-task-text {

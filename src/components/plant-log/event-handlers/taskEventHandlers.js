@@ -14,6 +14,7 @@ import { renderTasksList, resetTaskSection, updateTaskBar, updateTaskIcon } from
 import { plantLog } from "../plantLogMain";
 import { updatePlantInFirebase } from "../../../config";
 import { selectButtonHandler } from "../../plant-page/event-handlers";
+import { setSelectButton } from "../../plant-page/dom-utils";
 
 /**
  * Sets up event listeners for selecting tasks and handles task completion state accordingly. 
@@ -56,7 +57,7 @@ export const taskSelectHandler = (activeBtn, inactiveBtn, completedTaskState, se
  */
 export const setUpTaskElementListeners = (taskSelector, task, menuDotContainer, taskElement, plant) => {
   localEventManager.addEventListener(taskSelector, 'click', () => {
-    selectButtonHandler(task, taskSelector, 'rgba(255, 255, 255, 0.95)', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
+    selectButtonHandler(task, taskSelector, '#9fd653', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
     updateTaskBar();
     updateTaskIcon();
   }, 'PLANT_LOG');
@@ -106,7 +107,7 @@ export const editTaskHandler = (task, plant) => {
 
   localEventManager.addEventListener(updateBtn, 'click', () => {
     updateTaskHandler(task, editTaskInput, editTaskModal, plant);
-  })
+  });
 }
 
 /**

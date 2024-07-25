@@ -135,8 +135,12 @@
 
 .requirement-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 0.5rem;
+}
+
+.requirements-menu-dots {
+  margin-left: auto;
 }
 
 .requirements-section {
@@ -160,7 +164,7 @@
   width: 5rem;
   height: 5rem;
   border-radius: 100%;
-  bottom: 10rem;
+  bottom: 2rem;
 }
 
 .add-task-btn,
@@ -194,7 +198,7 @@
   border-radius: 100%;
   width: 5rem;
   height: 5rem;
-  bottom: 10rem;
+  bottom: 2rem;
 }
 
 .new-task-image-container {
@@ -500,6 +504,7 @@ textarea {
   
   .select-btn {
     border-color: white;
+    cursor: pointer;
   }
 
   .plant-page-nav-button:hover {

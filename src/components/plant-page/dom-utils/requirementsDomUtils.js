@@ -42,7 +42,7 @@ export const createRequirements = (plantPageModal, plant, sectionClass) => {
   appendChildren(tempLightIconContainer, tempLightIcon);
   appendChildren(waterScheduleMain, waterScheduleIconContainer, waterSchedule);
   appendChildren(tempLightMain, tempLightIconContainer, tempLight);
-  appendChildren(requirements, waterScheduleMain, tempLightMain)
+  plant.tempLight && plant.waterSchedule ?   appendChildren(requirements, waterScheduleMain, tempLightMain) : '';
   appendChildren(requirementsSection, requirements, plantPageModal, addRequirementBtn);
 
   if (plant.requirements) {

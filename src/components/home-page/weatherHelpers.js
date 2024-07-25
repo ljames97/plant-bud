@@ -7,7 +7,8 @@ import { getUserLocation, roundToNearestWhole } from "../global/utils";
  * @returns {Object} weather data including description and temperature.
  */
 export const getWeatherData = async () => {
-  const apiKey = '7d937292bb8b1f3909c1d557d907ffbc';
+  const apiKey = `${import.meta.env.VITE_OPENWEATHERMAP_API_KEY}`;
+  console.log(apiKey);
   const { latitude, longitude } = await getUserLocation();
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 

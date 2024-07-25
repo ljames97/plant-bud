@@ -1,9 +1,10 @@
 /* 
-- css for delete account modal/form
-- task tick icon
-- delete/edit requirement
 
-- domain hosting, eslint, scss/sass
+- remove console.logs, change base to /plant-bud, 
+delete account/modal css
+
+eslint and then re-build and recommit to gh-pages (remember to update file paths)
+- domain hosting url plant-bud
 - final review, anything missed/skipped, final production mode (firebase + vite), gitHub, check tests
 
 NEXT
@@ -13,6 +14,8 @@ NEXT
 ------------
 
 EXTRAS
+- task tick icon
+- fix awkward css screen widths between mobile and desktop
 - sort out showElements so it changes classList and not inline styles
 - firebase error notification (when not able to fetch plants etc. error message in top right hand corner)
 - optomistic loading to prevent UI delay with fetching data and/or loading page
@@ -28,7 +31,6 @@ EXTRAS
 - tasks ideas: name, notes, date, alert, priority
 - tasks needs to be 1 tas(k) in plant log
 - task edit on plant page needs to update
-- edit/delete requirements
 - more text for the add new plant modal/slider progress
 - quiz css and extra features (sliders, progress bar etc...) also progress bar for when adding new plant
 

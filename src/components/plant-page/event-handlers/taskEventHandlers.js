@@ -8,6 +8,7 @@ import { updatePlantInFirebase } from "../../../config";
 import { deleteTaskHandler, editTaskHandler } from "../../plant-log/event-handlers";
 import { renderQuickMenu } from "../../plant-log/dom-utils";
 import { setUpModalEventListeners } from "./plantPageEventHandlers";
+import { tickIcon } from "../../../images";
 
 /**
  * Handles adding a new task to the plant's tasks list.
@@ -64,7 +65,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
   }
 
   const foundTask = plant.tasks.find(task => task.description === newTaskInput);
-  setSelectButton(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px white solid');
+  setSelectButton(foundTask, taskSelectBtn, 'rgb(159, 214, 83)', 'none', 'transparent', '0.5px white solid');
 
   setUpTaskListeners(taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant);
 }
@@ -78,7 +79,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
   */
 export const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant) => {
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
-    selectButtonHandler(foundTask, taskSelectBtn, 'green', 'none', 'transparent', '0.5px black solid');
+    selectButtonHandler(foundTask, taskSelectBtn, 'rgb(159, 214, 83)', 'none', 'transparent', '0.5px white solid');
   }, `PLANT_PAGE_${sectionClass}`);
 
   localEventManager.addEventListener(menuDots, 'click', (event) => {

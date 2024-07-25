@@ -4,7 +4,7 @@ import { createElement } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";
 import { appendChildren } from "../../global/utils";
 import { addNewTaskHandler, setUpTaskMenuListeners, submitTaskHandler } from "../event-handlers";
-import { addIcon } from "../../../images";
+import { addIcon, tickIcon } from "../../../images";
 
 /**
  * Creates and returns the user tasks section for a plant, allowing users to add and manage tasks.

@@ -4,6 +4,7 @@
  * For managing tasks within the Plant Log section
 */
 
+import { tickIcon } from "../../../images";
 import { clearSection, createElement, createMenuDots, domElements } from "../../global/dom-utils";
 import { appendChildren } from "../../global/utils";
 import { setSelectButton } from "../../plant-page/dom-utils";
@@ -79,11 +80,12 @@ export const createTaskElement = (plant, task) => {
   const menuDotContainer = createMenuDots();
   const searchDropMenu = createElement({tagName: 'div', classEl: ['search-drop-menu']});
   taskElement.plantObject = task;
-
-  setSelectButton(task, taskSelector, 'rgba(255, 255, 255, 0.95)', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
-
+  const selectIcon = createElement({tagName: 'img', classEl: ['select-icon-image']});
+  selectIcon.src = tickIcon;
+  selectIcon.classList.add('hidden');
   plantImage.src = plant.image;
 
+  appendChildren(taskSelector, selectIcon);
   appendChildren(plantImageContainer, plantImage);
   appendChildren(plantTaskTextContainer, plantTitle, taskDescription);
   appendChildren(searchDropMenu, menuDotContainer);
@@ -91,6 +93,7 @@ export const createTaskElement = (plant, task) => {
   appendChildren(taskElement, taskContainer, lineSeparator);
 
   setUpTaskElementListeners(taskSelector, task, menuDotContainer, taskElement, plant);
+  setSelectButton(task, taskSelector, '#9fd653', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
 
   return taskElement;
 }

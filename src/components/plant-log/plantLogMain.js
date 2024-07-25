@@ -146,6 +146,16 @@ export const plantLogManager = () => {
           }
         }
       });
+    },
+    deletePlantRequirement: (plantRequirement) => {
+      userPlantLog.forEach(plant => {
+        if (plant.requirements) {
+          const index = plant.requirements.findIndex(requirement => requirement === plantRequirement);
+          if (index !== -1) {
+            plant.requirements.splice(index, 1);
+          }
+        }
+      });
     }
   }
 }

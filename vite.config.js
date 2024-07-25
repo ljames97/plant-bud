@@ -6,7 +6,7 @@ export default defineConfig(({ command }) => {
   return {
     root: '.',
     publicDir: 'public',
-    base: '/Plant-Care-Assistant-App/',
+    base: '/', // change to 'plant-bud' for production build
     build: {
       outDir: 'dist',
       rollupOptions: {
