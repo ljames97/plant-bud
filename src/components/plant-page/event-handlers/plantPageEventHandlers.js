@@ -6,9 +6,6 @@
 
 import { removeModal } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";
-import { appendChildren, findItemInArray } from "../../global/utils";
-import { plantLog } from "../../plant-log";
-import { renderDeletedPlants } from "../../plant-log/dom-utils";
 import { hideSectionButtons } from "../dom-utils";
 import { toggleEditMode } from "../edit-mode";
 import { backToDashboardHandler } from "./backBtnEventHandlers";

@@ -34,6 +34,7 @@ Ensure you have Node.js installed. Then run:
   ```
 
 4. Start the Application in Development Mode:
+  Make sure base in vite.config.js is set to '/'
   ```bash
   npm run dev
   ```
@@ -44,6 +45,8 @@ This will run the app in development mode. Open http://localhost:3000 to view it
   npm run build
   npm run preview
   ```
+  Replace dist/index.html and dist/login.html with dist/public/index.html
+  and dist/public./login.html respectively.
 This will create a production build and serve it using Vite's preview server.
 
 ## Testing

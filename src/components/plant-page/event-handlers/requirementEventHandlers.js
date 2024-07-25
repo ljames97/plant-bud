@@ -84,7 +84,6 @@ const setUpRequirementMenuListeners = (requirement, deleteRequirement, requireme
 }
 
 const deleteRequirementHandler =  async (requirement, requirementElement, plant) => {
-  console.log(requirement);
   plantLog.deletePlantRequirement(requirement);
 
   if (requirementElement && requirementElement.parentNode) {

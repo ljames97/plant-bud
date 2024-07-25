@@ -1,9 +1,6 @@
 /* 
 
-- remove console.logs, change base to /plant-bud, 
-delete account/modal css
-
-eslint and then re-build and recommit to gh-pages (remember to update file paths)
+- re-build and recommit to gh-pages (remember to update file paths)
 - domain hosting url plant-bud
 - final review, anything missed/skipped, final production mode (firebase + vite), gitHub, check tests
 
@@ -13,7 +10,9 @@ NEXT
 
 ------------
 
-EXTRAS
+EXTRA TODO:
+- eslint clean up code
+- delete account/modal css
 - task tick icon
 - fix awkward css screen widths between mobile and desktop
 - sort out showElements so it changes classList and not inline styles
@@ -36,7 +35,7 @@ EXTRAS
 
 - less messy event listener clearing for each render section (eg renderMyPlants removes event listeners for all other sections)
 
-- extra feature ideas eg. schedueler, AI, chatbot, journal entries, async/await opportuinities (plant data API?)
+- extra feature ideas eg. schedueler, AI, chatbot, journal entries
 - home page ideas: daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
 
 */

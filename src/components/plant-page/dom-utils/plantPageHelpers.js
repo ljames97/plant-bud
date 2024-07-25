@@ -34,7 +34,6 @@ export const replaceButton = (button, plant) => {
  * Hides specific section buttons, eg. tasks and requirements buttons.
  */
 export const hideSectionButtons = () => {
-  console.log('HIDE')
   const tasksBtn = document.getElementById('task-nav');
   const requirementBtn = document.querySelector('.add-requirement-btn');
   tasksBtn.classList.add('hidden');

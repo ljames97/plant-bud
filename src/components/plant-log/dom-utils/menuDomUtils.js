@@ -19,7 +19,6 @@ import { createElement, domElements } from "../../global/dom-utils";
 export const createSelectMenu = (menuDots) => {
   const userPlants = plantLog.getUserPlantLog();
   const selectedPlants = userPlants.filter(plant => plant.selected === true);
-console.log(selectedPlants)
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'select-menu']});
   const deleteSelected = createElement({tagName: 'p', textContent: 'Delete selected', classEl: ['drop-menu-item']});
 

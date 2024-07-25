@@ -23,7 +23,6 @@ export const renderDeletedPlants = () => {
   renderPlantGrid(plantLog.getDeletedPlants(), renderMyPlants, '← back to Plant Archive');
   plantInfoBar.textContent = `${plantLog.getDeletedPlants().length} archived plants`;
   const plantTags = document.querySelectorAll('.plant-log-tag');
-  console.log(plantTags)
   plantTags.forEach(tag => {
     localEventManager.removeEventListener(tag, 'click', 'PLANT_LOG');
     tag.style.cursor = 'default';
@@ -37,7 +36,6 @@ export const renderDeletedPlants = () => {
  * @param {String} backButtonText - text for the back button eg. 'back to My Plants'.
  */
 export const renderPlantGrid = (plantLogType, sectionRender, backButtonText) => {
-  console.log(plantLogType);
   if (plantLogType.length < 0) {
     return;
   }

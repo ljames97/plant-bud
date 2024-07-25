@@ -2,7 +2,7 @@
 
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
 import { auth, db, storage } from "./firebaseConfig";
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { isFirebaseStorageUrl } from "./utils";
 
 /**
@@ -22,10 +22,8 @@ export const uploadImageToFirebase = async (imageFile, folder) => {
   
   try {
     const storageRef = ref(storage, storagePath);
-    console.log(`Uploading image: ${imageFile.name}`);
     await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(storageRef);
-    console.log(`Image uploaded successfully: ${downloadURL}`);
     return downloadURL;
   } catch (error) {
     console.error("Error uploading image:", error);
@@ -39,22 +37,16 @@ export const uploadImageToFirebase = async (imageFile, folder) => {
  */
 export const deleteImageFromFirebase = async (imageUrl, permanentDelete = false) => {
   if (!isFirebaseStorageUrl(imageUrl)) {
-    console.log('Image URL is not from Firebase Storage, skipping deletion.');
     return;
   }
-
-  console.log(imageUrl);
-
   // Check if it's permanent delete and skip if it's not supposed to be deleted
   if (!permanentDelete && imageUrl.includes('/original')) {
-    console.log('Skipping deletion of original image.');
     return;
   }
 
   try {
     const imageRef = ref(storage, imageUrl);
     await deleteObject(imageRef);
-    console.log('Image deleted successfully from Firebase Storage');
   } catch (error) {
     console.error("Error deleting image from Firebase Storage:", error);
     throw error;
@@ -70,9 +62,6 @@ export const deleteImageFromFirebase = async (imageUrl, permanentDelete = false)
  */
 export const addPlantToFirebase = async (userId, plant, dbName) => {
   try {
-    // Log the plant object to see its contents before adding to Firestore
-    console.log('Adding plant to Firestore:', { userId, ...plant });
-
     // Add the plant to Firestore with the image URL
     const docRef = await addDoc(collection(db, dbName), {
       userId,
@@ -105,7 +94,6 @@ export const getUserPlantsFromFirebase = async (userId, dbName) => {
     querySnapshot.forEach((doc) => {
       plants.push({ id: doc.id, ...doc.data() });
     });
-    console.log("Fetched plants:", plants);
     return plants;
   } catch (error) {
     console.error("Error getting user plants:", error);
@@ -142,7 +130,6 @@ export const deletePlantFromFirebase = async (plantId, dbName, plant) => {
     if (plant && dbName !== 'original') {
       await deleteImageFromFirebase(plant.image, true);
     }
-    console.log('deleted plant from firebase');
   } catch (error) {
     console.error("Error deleting plant:", error);
     throw error;

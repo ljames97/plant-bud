@@ -49,11 +49,6 @@ export const submitNewPlantHandler = async (event, plantName, dateAdded, descrip
   const { myPlantsBtn } = domElements;
   event.preventDefault();
 
-  console.log('Plant Name:', plantName);
-  console.log('Date Added:', dateAdded);
-  console.log('Description:', description);
-  console.log('Image File:', imageFile);
-
   let imageUrl = imageFile;
 
   if (isFile(imageFile)) {
@@ -75,8 +70,6 @@ export const submitNewPlantHandler = async (event, plantName, dateAdded, descrip
     tasks: [],
     tags: []
   };
-
-  console.log(newPlant);
 
   await plantLog.addToUserPlantLog(newPlant);
 
@@ -137,10 +130,8 @@ export const nextButtonHandler = (userInput, state, event, imageFile, modal) => 
   } else if (state.currentStep === 1) {
     newPlant.dateAdded = userInput;
   } else if (state.currentStep === 2) {
-    console.log('STEO 2');
     newPlant.description = userInput;
   } else if (state.currentStep === 3) {
-    console.log('FINISHED')
     submitNewPlantHandler(event, newPlant.name, newPlant.dateAdded, newPlant.description, imageFile);
     removeModal(modal, 'ADD_PLANT');
     return { currentStep: 0, newPlant: {} };

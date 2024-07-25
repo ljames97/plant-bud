@@ -60,9 +60,7 @@ describe('eventManager', () => {
   describe('removeEventListener', () => {
     test('should remove an event listener and update handlers', () => {
       localEventManager.addEventListener(element, eventType, handler, registryName);
-      console.log('Before removal:', localEventManager.getHandlers());
       localEventManager.removeEventListener(element, eventType, registryName);
-      console.log('After removal:', localEventManager.getHandlers());
 
       expect(removeEventListenerSpy).toHaveBeenCalledWith(eventType, handler);
 

@@ -36,7 +36,6 @@ const setUpLogoutMenuListeners = (logoutBtn, deleteUserAccount) => {
   }, 'HOME_PAGE');
 
   localEventManager.addEventListener(deleteUserAccount, 'click', async () => {
-    console.log('clicked');
     await deleteAccount();
   }, 'HOME_PAGE');
 }

@@ -57,17 +57,14 @@ describe('Add Plant Integration Tests', () => {
     // Step 1: Plant name
     document.querySelector('.new-input').value = 'My New Plant';
     document.querySelector('.next-button').click();
-    console.log('Step 1 completed');
 
     // Step 2: Date added
     document.querySelector('.new-input').value = '2023-06-24';
     document.querySelector('.next-button').click();
-    console.log('Step 2 completed');
 
     // Step 3: Description
     document.querySelector('.new-input').value = 'A beautiful plant';
     document.querySelector('.next-button').click();
-    console.log('Step 3 completed');
 
     const fileInput = document.querySelector('.new-modal input[type="file"]');
     const dataTransfer = {
@@ -81,7 +78,6 @@ describe('Add Plant Integration Tests', () => {
       writable: true
     });
     fileInput.dispatchEvent(new Event('change'));
-    console.log('Image upload step completed');
 
     // Mock file reader
     const reader = new FileReader();
@@ -90,13 +86,11 @@ describe('Add Plant Integration Tests', () => {
       imageInputImg.src = e.target.result;
       imageInputImg.classList.add('large-image');
       document.querySelector('.upload-image-heading').classList.add('hidden');
-      console.log('File read completed:', imageInputImg.src);
     };
     reader.readAsDataURL(mockImageFile);
 
     // Simulate form submission
     document.querySelector('.next-button').click();
-    console.log('Form submitted');
 
     expect(removeModal).toHaveBeenCalled();
 
@@ -107,10 +101,8 @@ describe('Add Plant Integration Tests', () => {
       description: 'A beautiful plant',
       image: 'https://example.com/example.png'
     }));
-    console.log('addToUserPlantLog was called');
 
     // Verify that the modal was closed
     expect(document.querySelector('.new-modal')).toBeNull();
-    console.log('Modal was closed');
   });
 });

@@ -36,7 +36,6 @@ const eventManager = () => {
     },
 
     getHandlers: () => {
-      // console.log(handlers);
       return handlers;
     },
 

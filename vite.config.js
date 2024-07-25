@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite';
 
 
-export default defineConfig(({ command }) => {
-  const isProduction = command === 'build';
+export default defineConfig(() => {
   return {
     root: '.',
     publicDir: 'public',
-    base: '/', // change to 'plant-bud' for production build
+    base: '/', // change to 'plant-bud' for gitHub production build
     build: {
       outDir: 'dist',
       rollupOptions: {

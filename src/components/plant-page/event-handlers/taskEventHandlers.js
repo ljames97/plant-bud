@@ -8,7 +8,6 @@ import { updatePlantInFirebase } from "../../../config";
 import { deleteTaskHandler, editTaskHandler } from "../../plant-log/event-handlers";
 import { renderQuickMenu } from "../../plant-log/dom-utils";
 import { setUpModalEventListeners } from "./plantPageEventHandlers";
-import { tickIcon } from "../../../images";
 
 /**
  * Handles adding a new task to the plant's tasks list.

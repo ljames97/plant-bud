@@ -205,8 +205,6 @@ describe('db', () => {
 
     test('should return array of plants', async () => {
       const plants = await getUserPlantsFromFirebase(userId, dbName);
-
-      console.log(plants);
       expect(plants.length).toBe(1);
     });
 

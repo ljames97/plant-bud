@@ -92,7 +92,6 @@ export const createDescriptionElement = (plant) => {
 export const createSectionBtn = (backButtonText, sectionBtn, plant) => {
   const isAdded = isPlantAdded(plant);
   const isArchived = findItemInArray(plantLog.getDeletedPlants(), plant.id);
-  console.log(plant)
   if (backButtonText === '← back to My Plants') {
     return sectionBtn = createElement({tagName: 'button', textContent: 'Edit', id: 'edit-btn', classEl: ['edit-btn']});
   } if (backButtonText === '← back to results' && !isAdded || backButtonText === '← back to search' && !isAdded) {

@@ -22,5 +22,3 @@ const generateIndexFile = (directory) => {
 
 const imagesDir = path.join(process.cwd(), 'src/images');
 generateIndexFile(imagesDir);
-
-console.log('Image index files generated successfully.');

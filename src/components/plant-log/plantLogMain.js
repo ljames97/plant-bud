@@ -63,7 +63,6 @@ export const plantLogManager = () => {
           deletedPlantLog.push(plant);
         }
       });
-      console.log(originalPlantLog);
     },
     addToUserPlantLog: async (plant) => {
       userPlantLog.push(plant);

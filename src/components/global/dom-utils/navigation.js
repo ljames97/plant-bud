@@ -6,9 +6,8 @@ import { domElements } from "./elementsManager";
  * Highlight the active dashboard button. Eg. My Plants, Plant Quiz or Discover.
  */
 export const dashboardNavButtonHighlight = () => {
-  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn, desktopMyPlantsBtn, desktopQuizBtn, desktopLibraryBtn, desktopHomeBtn } = domElements;
+  const { myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn} = domElements;
   const dashboardButtons = [myPlantsBtn, addNewPlantBtn, quizBtn, libraryBtn, homeBtn];
-  const desktopButtons = [desktopMyPlantsBtn, desktopQuizBtn, desktopLibraryBtn, desktopHomeBtn]
 
   dashboardButtons.forEach(button => {
     if (button.classList.contains('active')) {

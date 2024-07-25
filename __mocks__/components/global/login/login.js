@@ -1,5 +1,4 @@
 export const loginButtonHandler = jest.fn(() => {
-  console.log('CLICKED')
   // Simulate the behavior you expect in the handler
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');

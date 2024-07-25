@@ -58,7 +58,6 @@ export const deleteAccount = async () => {
       await reauthenticateWithCredential(user, credential);
 
       await deleteUser(user);
-      console.log('Account deleted successfully');
       window.location.href = '/login.html'; // Redirect to login page
     } catch (error) {
       console.error('Error deleting account:', error);
@@ -66,7 +65,5 @@ export const deleteAccount = async () => {
         alert('Please log in again to delete your account.');
       }
     }
-  } else {
-    console.log('No user is currently signed in.');
   }
 };
