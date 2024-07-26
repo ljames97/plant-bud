@@ -1,8 +1,10 @@
 /* 
 
-- re-build and recommit to gh-pages (remember to update file paths)
-- domain hosting url plant-bud
-- final review, anything missed/skipped, final production mode (firebase + vite), gitHub, check tests
+- Continuous Integration/Continuous Deployment testing
+- code splitting, lazy loading, minification
+- accessibility audit
+- browser compatability testing
+
 
 NEXT
 - (react refactor), (node.js database/server)
@@ -12,6 +14,7 @@ NEXT
 
 EXTRA TODO:
 - eslint clean up code
+- press enter to submit form, need event.preventDefault() for some form buttons
 - delete account/modal css
 - task tick icon
 - fix awkward css screen widths between mobile and desktop
