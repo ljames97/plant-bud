@@ -1,6 +1,6 @@
 /* 
 
-- Continuous Integration/Continuous Deployment testing
+- Continuous Integration/Continuous Deployment testing, fix failed tests
 - code splitting, lazy loading, minification
 - accessibility audit
 - browser compatability testing
