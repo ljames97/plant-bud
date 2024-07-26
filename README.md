@@ -13,7 +13,7 @@ To set up and run PlantBud on your local machine, follow these steps:
 
 1. Clone the repository:
   ```bash
-  git clone https://github.com/yourusername/plantbud.git
+  git clone https://github.com/ljames97/plant-bud.git
   cd plantbud
   ```
 
