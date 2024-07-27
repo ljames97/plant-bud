@@ -17,9 +17,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { setVh } from './components/global/utils/gobalUtility';
 
 onAuthStateChanged(auth, (user) => {
-  setVh();
-  window.addEventListener('resize', setVh);
-  
   const dashboard = document.querySelector('.dashboard-page')
   if (user) {
     if (document.readyState === 'loading') {
@@ -34,5 +31,8 @@ onAuthStateChanged(auth, (user) => {
   } else {
     dashboard.classList.toggle('hidden');
     window.location.href = '/login.html';
+
+    setVh();
+    window.addEventListener('resize', setVh);
   }
 });
