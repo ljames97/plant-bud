@@ -5,12 +5,14 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fire
 import { appendChildren } from '../global/utils';
 import { createElement } from '../global/dom-utils';
 import { localEventManager } from '../global/event-handlers';
+import { setUpViewHeightListeners } from '../global/utils/gobalUtility';
 
 /**
  * Initializes login.
  */
 export const initLogin = () => {
   setUpLoginEventListeners();
+  setUpViewHeightListeners();
 }
 
 /**

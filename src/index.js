@@ -14,7 +14,7 @@ import './components/global/global.css';
 import { initApp } from "./app.js";
 import { auth } from './config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { setVh } from './components/global/utils/gobalUtility';
+import { setUpViewHeightListeners } from './components/global/utils/gobalUtility';
 
 onAuthStateChanged(auth, (user) => {
   const dashboard = document.querySelector('.dashboard-page')
@@ -31,8 +31,7 @@ onAuthStateChanged(auth, (user) => {
   } else {
     dashboard.classList.toggle('hidden');
     window.location.href = '/login.html';
-
-    setVh();
-    window.addEventListener('resize', setVh);
   }
 });
+
+setUpViewHeightListeners();

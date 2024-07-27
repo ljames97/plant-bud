@@ -150,9 +150,17 @@ export const isFile = (image) => {
 };
 
 /**
- * Sets viewport height, considering toolbar on mobile (eg. safari)
+ * Sets viewport height, taking toolbar height into account on mobile (eg. safari).
  */
 export const setVh = () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+/**
+ * Sets up document listeners for viewport height.
+ */
+export const setUpViewHeightListeners = () => {
+  document.addEventListener('DOMContentLoaded', setVh);
+  window.addEventListener('resize', setVh);
 }

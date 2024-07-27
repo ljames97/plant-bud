@@ -1,21 +1,6 @@
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fcfaf7;
-  font-family: 'Montserrat';
-  letter-spacing: 0.8px;
-  font-size: 0.9rem;
-  background-image: url('../../images/main/background-image.png');
-}
-
-body, html {
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
 }
 
 h1, p {

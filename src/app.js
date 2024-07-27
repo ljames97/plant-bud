@@ -1,14 +1,11 @@
 // app.js
 
 import { dashboardInit } from "./components/global/event-handlers";
-import { setVh } from "./components/global/utils/gobalUtility";
+import { setUpViewHeightListeners } from "./components/global/utils/gobalUtility";
 import { plantLog } from "./components/plant-log";
 import { getUserPlantsFromFirebase } from "./config";
 
 export const initApp = async (userId) => {
-  setVh();
-  window.addEventListener('resize', setVh);
-
   dashboardInit();
   plantLog.setUserId(userId);
 
