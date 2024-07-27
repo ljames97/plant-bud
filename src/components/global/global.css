@@ -120,6 +120,7 @@ input::placeholder {
 .section-title {
   align-self: flex-start;
   color: white;
+  margin-top: 3rem;
 }
 
 button {

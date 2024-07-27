@@ -45,7 +45,7 @@ export const taskSelectHandler = (activeBtn, inactiveBtn, completedTaskState, se
   clearSection(searchTaskContainer, 'PLANT_LOG');
   renderTasksList(completedTaskState);
   activeBtn.style.fontWeight = 600;
-  inactiveBtn.style.fontWeight = 100;
+  inactiveBtn.style.fontWeight = 300;
 }
 
 /**
