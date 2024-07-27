@@ -377,6 +377,7 @@ textarea {
 
 .back-button {
   width: 8%;
+  margin-top: 15rem;
 }
 
 .back-button img {
@@ -471,6 +472,7 @@ textarea {
   
   .back-button {
     min-width: 8%;
+    margin-top: 0;
   }
 
   .plant-page-image-container {
