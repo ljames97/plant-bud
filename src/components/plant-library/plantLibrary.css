@@ -146,4 +146,8 @@
   .drop-menu-container {
     z-index: 3;
   }
+
+  .plant-result-description {
+    font-weight: 100;
+  }
 }
