@@ -4,15 +4,12 @@
 - code splitting, lazy loading, minification
 - accessibility audit
 - browser compatability testing
-
-
-NEXT
 - (react refactor), (node.js database/server)
-- new project ideas to demo (node.js), react.js (e-commerce site, workspace collab etc)
 
 ------------
 
 EXTRA TODO:
+- improve css design on mobile devices (eg. text too light)
 - eslint clean up code
 - press enter to submit form, need event.preventDefault() for some form buttons
 - delete account/modal css
