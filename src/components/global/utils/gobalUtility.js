@@ -148,3 +148,11 @@ export const roundToNearestWhole = (number) => {
 export const isFile = (image) => {
   return image instanceof File;
 };
+
+/**
+ * Sets viewport height, considering toolbar on mobile (eg. safari)
+ */
+export const setVh = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}

@@ -12,13 +12,3 @@ export const initApp = async (userId) => {
   const originalPlants = await getUserPlantsFromFirebase(userId, 'original');
   plantLog.initialisePlantLog(userPlants, originalPlants);
 }
-
-// trying to fix safari mobile issue
-const setVh = () => {
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-setVh();
-
-window.addEventListener('resize', setVh);

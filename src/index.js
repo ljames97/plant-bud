@@ -14,8 +14,12 @@ import './components/global/global.css';
 import { initApp } from "./app.js";
 import { auth } from './config';
 import { onAuthStateChanged } from 'firebase/auth';
+import { setVh } from './components/global/utils/gobalUtility';
 
 onAuthStateChanged(auth, (user) => {
+  setVh();
+  window.addEventListener('resize', setVh);
+  
   const dashboard = document.querySelector('.dashboard-page')
   if (user) {
     if (document.readyState === 'loading') {
