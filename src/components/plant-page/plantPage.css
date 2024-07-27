@@ -85,7 +85,7 @@
 }
 
 .plant-description-container {
-  padding-bottom: 0 1rem;
+  padding-bottom: 1rem;
   border-radius: 10px;
   margin: 0 1rem;
   background-color: transparent;
@@ -490,7 +490,7 @@ textarea {
     margin: 0;
     padding-top: 0.5rem;
     color: white;
-    padding: 1rem 1rem;
+    padding: 0 1rem;
   }
 
   .main-plant-section {
