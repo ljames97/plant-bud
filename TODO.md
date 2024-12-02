@@ -1,4 +1,8 @@
-/* 
+TODO
+
+- animations
+- favicon
+
 
 - Continuous Integration/Continuous Deployment testing, fix failed tests
 - code splitting, lazy loading, minification
@@ -9,15 +13,14 @@
 ------------
 
 EXTRA TODO:
-- improve css design on mobile devices (eg. text too light)
 - eslint clean up code
-- press enter to submit form, need event.preventDefault() for some form buttons
 - delete account/modal css
 - task tick icon
 - fix awkward css screen widths between mobile and desktop
 - sort out showElements so it changes classList and not inline styles
 - firebase error notification (when not able to fetch plants etc. error message in top right hand corner)
 - optomistic loading to prevent UI delay with fetching data and/or loading page
+- edit plant css improve
 
 - css variants
 - small arrow on desktop My Plants section to indicate scroll down
@@ -37,5 +40,3 @@ EXTRA TODO:
 
 - extra feature ideas eg. schedueler, AI, chatbot, journal entries
 - home page ideas: daily tasks list, blog/journal, gardening tips, suggested plants, weather/time/location
-
-*/

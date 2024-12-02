@@ -91,6 +91,7 @@ export const submitNewPlantHandler = async (event, plantName, dateAdded, descrip
  */
 export const setUpButtonEventListeners = (nextButton, input, errorMessage, isFileInput, state, getImageFile, backButton) => {
   localEventManager.addEventListener(nextButton, 'click', (event) => {
+    event.preventDefault();
     if (input.value === '') {
       errorMessage.classList.add('show');
       return;

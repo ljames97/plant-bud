@@ -155,8 +155,8 @@ export const addNewTaskHandler = (plant) => {
   const form = createElement({tagName: 'form', classEl: ['modal-form'], id: 'new-task-form'});
   const label = createElement({tagName: 'label', textContent: 'Task name:', fr: 'new-task-input', classEl: ['visually-hidden']});
   const newTaskInput = createElement({tagName: 'input', placeholder: 'New task', classEl: ['new-input'], id: 'new-task-input'});
-  const submitBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-btn']});
-  const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel task'});
+  const submitBtn = createElement({tagName: 'button', textContent: 'Add task', classEl: ['submit-btn'], type: 'submit'});
+  const cancelBtn = createElement({tagName: 'p', textContent: 'X', classEl: ['cancel-btn'], ariaLabel: 'Cancel task', type: 'button'});
   
   setUpModal(newTaskModal, menuContainer, 'PLANT_LOG');
 

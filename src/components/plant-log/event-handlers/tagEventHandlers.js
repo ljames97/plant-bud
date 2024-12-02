@@ -26,7 +26,8 @@ export const setUpTagButtonListeners = (deleteBtn, updateBtn, newTag, plant, edi
     deleteTagHandler(newTag, plant, editTagModal);
   });
 
-  localEventManager.addEventListener(updateBtn, 'click', () => {
+  localEventManager.addEventListener(updateBtn, 'click', (event) => {
+    event.preventDefault();
     updateTagHandler(newTag, plant, editTagModal, editTagInput, errorMessage);
   });
 }
@@ -59,8 +60,8 @@ export const editTagHandler = (newTag, plant) => {
   const errorMessage = createElement({tagName: 'p', textContent: 'Tag name needs to be max 10 letters', classEl: ['modal-error-message']});
   const editTagInput = createElement({tagName: 'input', placeholder: newTag.textContent, classEl: ['new-input'], id: 'edit=tag=input'});
   const editTagButtons = createElement({tagName: 'div', classEl: ['edit-tag-buttons'], ariaLabel: 'Edit tag'});
-  const deleteBtn = createElement({tagName: 'button', textContent: 'Delete', classEl: ['delete-tag-btn']});
-  const updateBtn = createElement({tagName: 'button', textContent: 'Update', classEl: ['update-tag-btn', 'submit-btn']});
+  const deleteBtn = createElement({tagName: 'button', textContent: 'Delete', classEl: ['delete-tag-btn'], type: 'button'});
+  const updateBtn = createElement({tagName: 'button', textContent: 'Update', classEl: ['update-tag-btn', 'submit-btn'], type: 'submit'});
 
   setUpModal(editTagModal, null, 'PLANT_LOG');
 
@@ -121,7 +122,7 @@ export const addNewTagHandler = (plant) => {
   appendChildren(modalOverlay, newTagModal);
 
   localEventManager.addEventListener(form, 'submit', (event) => {
-    event.preventDefault();  // Prevent form submission
+    event.preventDefault();
     submitTagHandler(plant, newTagInput.value, newTagModal, errorMessage);
   }, 'PLANT_LOG');
 }

@@ -71,7 +71,7 @@ export const createFileInputElements = (input) => {
  * @returns an object containing the buttons element, nextButton, and backButton.
  */
 export const createButtons = (state, input, errorMessage, buttonText, isFileInput, getImageFile) => {
-  const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'], ariaLabel: 'Next Button', type: 'button' });
+  const nextButton = createElement({ tagName: 'button', textContent: buttonText, classEl: ['next-button', 'submit-btn'], ariaLabel: 'Next Button', type: 'submit' });
   const backButton = createElement({ tagName: 'button', textContent: 'Back', classEl: ['submit-btn'], ariaLabel: 'Back Button', type: 'button' });
   const buttons = createElement({tagName: 'div', classEl: ['plant-form-buttons']});
 
