@@ -30,7 +30,7 @@ onAuthStateChanged(auth, (user) => {
     }
   } else {
     dashboard.classList.toggle('hidden');
-    window.location.href = 'plant-bud/login.html';
+    window.location.href = '/plant-bud/login.html';
   }
 });
 
