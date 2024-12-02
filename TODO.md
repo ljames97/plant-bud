@@ -1,9 +1,4 @@
 TODO
-
-- animations
-- favicon
-
-
 - Continuous Integration/Continuous Deployment testing, fix failed tests
 - code splitting, lazy loading, minification
 - accessibility audit
@@ -13,6 +8,7 @@ TODO
 ------------
 
 EXTRA TODO:
+- animations
 - eslint clean up code
 - delete account/modal css
 - task tick icon
