@@ -1,7 +1,6 @@
 // app.js
 
 import { dashboardInit } from "./components/global/event-handlers";
-import { setUpViewHeightListeners } from "./components/global/utils/gobalUtility";
 import { plantLog } from "./components/plant-log";
 import { getUserPlantsFromFirebase } from "./config";
 

@@ -21,12 +21,16 @@ export const initLogin = () => {
 const setUpLoginEventListeners = () => {
   const loginButton = document.getElementById('login-button');
   const signupButton = document.getElementById('signup-button');
+  const portfolioButton = document.getElementById('portfolio-button')
   localEventManager.addEventListener(loginButton, 'click', (event) => {
     loginButtonHandler(event);
   });
   localEventManager.addEventListener(signupButton, 'click', (event) => {
     signupButtonHandler(event);
   });
+  localEventManager.addEventListener(portfolioButton, 'click', () => {
+    portfolioButtonHandler();
+  })
 }
 
 /**
@@ -63,6 +67,13 @@ const signupButtonHandler = (event) => {
       console.error('Error signing up: ', error);
       renderErrorMessage(error);
     });
+}
+
+/**
+ * Opens link to portfolio.
+ */
+const portfolioButtonHandler = () => {
+  window.open('https://ljames97.github.io/portfolio', '_self', 'noopener,noreferrer');
 }
 
 /**

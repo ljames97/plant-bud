@@ -68,10 +68,19 @@ input::placeholder {
   color: white;
 }
 
+.copyright-text {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .copyright {
   margin-bottom: 1rem;
   font-size: 0.8rem;
   z-index: 2;
+}
+
+#portfolio-button {
+  cursor: pointer;
 }
 
 .login-error-message {

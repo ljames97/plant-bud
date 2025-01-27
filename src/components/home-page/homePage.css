@@ -77,9 +77,8 @@
   min-width: 30px;
   cursor: pointer;
   position: relative;
-  margin-top: 2rem;
-  margin-left: 2rem;
   z-index: 100;
+  margin-right: auto;
 }
 
 .profile-icon-container img {
@@ -92,7 +91,6 @@
 
 #weather-container {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   margin-top: auto;
   margin-bottom: 1rem;
@@ -152,8 +150,6 @@
   display: none;
 }
 
-
-
 @media screen and (min-width: 1024px) {
   #home-page {
     justify-content: flex-start;
@@ -188,7 +184,7 @@
     font-size: 3rem;
     font-weight: 300;
     text-align: center;
-    margin-top: 10rem;
+    margin-top: 12rem;
   }
 
   #home-page-action-button {

@@ -234,6 +234,7 @@
     flex-direction: column;
     align-self: center;
     overflow: hidden;
+    margin-top: 6rem;
   }
 
   .user-plants {
@@ -348,6 +349,7 @@
 
   .plant-image-container {
     position: relative;
+    width: 90%;
   }
 
   .plant-image-container::after {
