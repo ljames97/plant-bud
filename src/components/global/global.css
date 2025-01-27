@@ -215,7 +215,8 @@ button {
 }
 
 .hidden,
-.hidden-nav-mobile {
+.hidden-nav-mobile,
+.hidden-nav {
   display: none;
 }
 
