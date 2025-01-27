@@ -43,7 +43,7 @@ export const loginButtonHandler = (event) => {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      window.location.href = '/plant-bud/index.html'; // Redirect to main app
+      window.location.href = '/index.html'; // Redirect to main app
     })
     .catch((error) => {
       console.error('Error logging in: ', error);
@@ -61,7 +61,7 @@ const signupButtonHandler = (event) => {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      window.location.href = '/plant-bud/index.html'; // Redirect to main app
+      window.location.href = '/index.html'; // Redirect to main app
     })
     .catch((error) => {
       console.error('Error signing up: ', error);

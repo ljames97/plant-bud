@@ -9,7 +9,7 @@ export const loginButtonHandler = jest.fn(() => {
   if (email && password) {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        window.location.href = '/plant-bud/index.html'; // Simulate redirect
+        window.location.href = '/index.html'; // Simulate redirect
       })
       .catch(error => {
         console.error('Error logging in: ', error);
