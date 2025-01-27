@@ -145,7 +145,6 @@ button {
 
 .drop-menu-container {
   position: absolute;
-  right: 1rem;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   background-color: rgb(40 45 39 / 80%);
   border-radius: 10px;
@@ -217,7 +216,8 @@ button {
 .hidden,
 .hidden-nav-mobile,
 .hidden-nav {
-  display: none;
+  visibility: hidden;
+  position: absolute;
 }
 
 .flex {
@@ -274,7 +274,6 @@ button {
   }
 
   header {
-    position: absolute;
     display: flex;
     padding-left: 0;
   }
@@ -284,7 +283,8 @@ button {
   }
 
   .hidden-nav-mobile {
-    display: flex;
+    visibility: visible;
+    position: relative;
   }
 
   .desktop-nav {

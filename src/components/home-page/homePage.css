@@ -85,9 +85,7 @@
   width: 100%;
 }
 
-.profile-icon-menu {
- right: 0;
-}
+
 
 #weather-container {
   display: flex;
@@ -184,7 +182,6 @@
     font-size: 3rem;
     font-weight: 300;
     text-align: center;
-    margin-top: 12rem;
   }
 
   #home-page-action-button {

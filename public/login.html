@@ -6,16 +6,14 @@
   <title>PlantBud Login</title>
   <link rel="icon" href="src/images/other-icons/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/plant-bud/assets/login-CAZumPIk.js"></script>
-  <link rel="modulepreload" crossorigin href="/plant-bud/assets/globalEventHandlers-DGyG9hIP.js">
-  <link rel="stylesheet" crossorigin href="/plant-bud/assets/globalEventHandlers-BVsXZ-tF.css">
-  <link rel="stylesheet" crossorigin href="/plant-bud/assets/login-DcW8JIFS.css">
+  <link rel="stylesheet" href="/src/components/login/login.css">
+  <link rel="stylesheet" href="/src/components/global/global.css">
 </head>
 <body>
   <main>
     <div class="login-container">
       <div class="plantbud-logo">
-        <img src="/plant-bud/assets/home-page-logo-B0yGqkh6.png" alt="Profile Icon">
+        <img src="/src/images/main/home-page-logo.png" alt="Profile Icon">
       </div>
       <form id="login-form">
         <label for="email" class="visually-hidden">Email</label>
@@ -34,5 +32,9 @@
     <p id="portfolio-button">Luke James</p>
   </div>
 
+  <script type="module">
+    import { initLogin } from '/src/components/login/login.js';
+    initLogin();
+  </script>
 </body>
 </html>
