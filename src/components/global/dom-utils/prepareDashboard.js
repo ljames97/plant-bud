@@ -56,10 +56,10 @@ export const prepareDashboard = (activeBtns, renderFunc, ...inactiveBtns) => {
 
   if (activeSection !== homePage) {
     header.classList.add('hidden-nav-mobile');
-    profileIcon.classList.add('hidden-nav');
+    profileIcon.classList.add('hidden-nav-mobile');
   } else {
     header.classList.remove('hidden-nav-mobile');
-    profileIcon.classList.remove('hidden-nav');
+    profileIcon.classList.remove('hidden-nav-mobile');
   }
 
   dashboardNavButtonHighlight();
