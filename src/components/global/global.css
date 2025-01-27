@@ -213,11 +213,14 @@ button {
   margin-top: 0.7rem;
 }
 
-.hidden,
 .hidden-nav-mobile,
 .hidden-nav {
   visibility: hidden;
   position: absolute;
+}
+
+.hidden {
+  display: none;
 }
 
 .flex {
