@@ -58,7 +58,7 @@ export const deleteAccount = async () => {
       await reauthenticateWithCredential(user, credential);
 
       await deleteUser(user);
-      window.location.href = '/login.html'; // Redirect to login page
+      window.location.href = '/plant-bud/login.html'; // Redirect to login page
     } catch (error) {
       console.error('Error deleting account:', error);
       if (error.code === 'auth/requires-recent-login') {

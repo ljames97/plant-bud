@@ -38,7 +38,7 @@ describe('Login Flow Integration Tests', () => {
 
       if (email && password) {
         signInWithEmailAndPassword(auth, email, password);
-        window.location.href = '/index.html';
+        window.location.href = '/plant-bud/index.html';
       }
     });
 
@@ -50,7 +50,7 @@ describe('Login Flow Integration Tests', () => {
 
       if (email && password) {
         createUserWithEmailAndPassword(auth, email, password);
-        window.location.href = '/index.html';
+        window.location.href = '/plant-bud/index.html';
       }
     });
 
@@ -78,7 +78,7 @@ describe('Login Flow Integration Tests', () => {
     logo = document.querySelector('.plantbud-logo'); 
     dashboard = document.querySelector('.dashboard');
 
-    window.location.href = './login.html';
+    window.location.href = './plant-bud/login.html';
     initLogin();
   });
 
@@ -102,7 +102,7 @@ describe('Login Flow Integration Tests', () => {
 
     expect(mockLoginHandler).toHaveBeenCalled();
     expect(signInWithEmailAndPassword).toHaveBeenCalledWith(auth, 'test@email.com', '123456');
-    expect(window.location.href).toBe('/index.html');
+    expect(window.location.href).toBe('/plant-bud/index.html');
   });
 
   test('should create user and redirect to app homePage on signup', async () => {
@@ -113,6 +113,6 @@ describe('Login Flow Integration Tests', () => {
 
     expect(mockSignupHandler).toHaveBeenCalled();
     expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(auth, 'newuser@email.com', 'abcdef');
-    expect(window.location.href).toBe('/index.html');
+    expect(window.location.href).toBe('/plant-bud/index.html');
   });
 });

@@ -29,7 +29,7 @@ const setUpLogoutMenuListeners = (logoutBtn, deleteUserAccount) => {
   localEventManager.addEventListener(logoutBtn, 'click', async () => {
     try {
       await logout();
-      window.location.href = '/login.html'; // Redirect to login page after logout
+      window.location.href = '/plant-bud/login.html'; // Redirect to login page after logout
     } catch (error) {
       console.error('Error logging out:', error);
     }
