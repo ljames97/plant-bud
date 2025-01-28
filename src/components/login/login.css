@@ -70,11 +70,13 @@ input::placeholder {
 
 .copyright-text {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.copyright {
-  margin-bottom: 1rem;
+.copyright,
+#portfolio-button {
   font-size: 0.8rem;
   z-index: 2;
 }
