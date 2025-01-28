@@ -8,7 +8,6 @@ TODO
 MAIN
 - Guest login option
 - Dashboard ideas (weather, plant icons)
-- copyright on bottom of screen
 
 ------------
 
