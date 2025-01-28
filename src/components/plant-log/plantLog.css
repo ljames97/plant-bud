@@ -73,7 +73,7 @@
 }
 
 .plant-task-image {
-  width: 100%;
+  width: 5rem;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
@@ -190,6 +190,7 @@
 .select-menu {
   margin-top: 5rem;
   z-index: 1;
+  right: 1rem;
 }
 
 .task-select-container {
@@ -223,6 +224,12 @@
 
 #log-tasks {
   position: relative;
+}
+
+.plant-menu {
+  z-index: 10;
+  top: 1rem;
+  width: max-content;
 }
 
 @media screen and (min-width: 1024px) {

@@ -131,6 +131,7 @@
 }
 
 .choice-btn-container {
+  flex-wrap: wrap;
   margin-top: 1.5rem;
   display: flex;
   gap: 0.8rem;

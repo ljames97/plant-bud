@@ -88,6 +88,10 @@
   font-size: 0.8rem;
 }
 
+.add-plant {
+  right: 1rem;
+}
+
 @media screen and (min-width: 1024px) {
   #plant-library {
     align-self: center;
