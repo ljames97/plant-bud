@@ -6,6 +6,7 @@ import { appendChildren } from '../global/utils';
 import { createElement } from '../global/dom-utils';
 import { localEventManager } from '../global/event-handlers';
 import { setUpViewHeightListeners } from '../global/utils/gobalUtility';
+import { initApp } from '../../app';
 
 /**
  * Initializes login.
@@ -21,11 +22,19 @@ export const initLogin = () => {
 const setUpLoginEventListeners = () => {
   const loginButton = document.getElementById('login-button');
   const signupButton = document.getElementById('signup-button');
+  const portfolioButton = document.getElementById('portfolio-button');
+  const guestButton = document.getElementById('guest-button');
   localEventManager.addEventListener(loginButton, 'click', (event) => {
     loginButtonHandler(event);
   });
   localEventManager.addEventListener(signupButton, 'click', (event) => {
     signupButtonHandler(event);
+  });
+  localEventManager.addEventListener(portfolioButton, 'click', () => {
+    portfolioButtonHandler();
+  });
+  localEventManager.addEventListener(guestButton, 'click', () => {
+    guestButtonHandler(event);
   });
 }
 
@@ -63,6 +72,19 @@ const signupButtonHandler = (event) => {
       console.error('Error signing up: ', error);
       renderErrorMessage(error);
     });
+}
+
+/**
+ * Opens link to portfolio.
+ */
+const portfolioButtonHandler = () => {
+  window.open('https://lukejamesdev.com', '_self', 'noopener,noreferrer');
+}
+
+const guestButtonHandler = (event) => {
+  event.preventDefault();
+  sessionStorage.setItem("guestLogin", true);
+  window.location.href = "/index.html";
 }
 
 /**

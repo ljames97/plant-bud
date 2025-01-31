@@ -19,12 +19,15 @@ export const prepareDashboard = (activeBtns, renderFunc, ...inactiveBtns) => {
     return;
   }
 
+  activeBtns[1].classList.add('underline');
+
   activeBtns.forEach(btn => {
     btn.classList.add('active');
   });
 
   inactiveBtns.forEach(button => {
     button.classList.remove('active');
+    button.classList.remove('underline');
   });
 
    // Mapping from buttons to their corresponding sections
@@ -52,11 +55,11 @@ export const prepareDashboard = (activeBtns, renderFunc, ...inactiveBtns) => {
   }
 
   if (activeSection !== homePage) {
-    header.classList.add('hidden-nav');
-    profileIcon.classList.add('hidden-nav');
+    header.classList.add('hidden-nav-mobile');
+    profileIcon.classList.add('hidden-nav-mobile');
   } else {
-    header.classList.remove('hidden-nav');
-    profileIcon.classList.remove('hidden-nav');
+    header.classList.remove('hidden-nav-mobile');
+    profileIcon.classList.remove('hidden-nav-mobile');
   }
 
   dashboardNavButtonHighlight();

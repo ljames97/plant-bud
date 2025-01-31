@@ -14,7 +14,7 @@ import { renderTasksList, resetTaskSection, updateTaskBar, updateTaskIcon } from
 import { plantLog } from "../plantLogMain";
 import { updatePlantInFirebase } from "../../../config";
 import { selectButtonHandler } from "../../plant-page/event-handlers";
-import { setSelectButton } from "../../plant-page/dom-utils";
+import { updatePlant } from "../../global/utils/gobalUtility";
 
 /**
  * Sets up event listeners for selecting tasks and handles task completion state accordingly. 
@@ -123,9 +123,9 @@ export const updateTaskHandler = async (task, editTaskInput, editTaskModal, plan
 
   task.description = editTaskInput.value;
 
+  updatePlant(plant);
   removeModal(editTaskModal, 'PLANT_LOG');
   resetTaskSection();
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -176,10 +176,12 @@ export const addNewTaskHandler = (plant) => {
  * @param {HTMLElement} newTaskModal 
  */
 export const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
+  const isGuest = sessionStorage.getItem("guestLogin");
+
   if (newTaskInput === '') {
     return;
   }
-
+  
   removeModal(newTaskModal, 'PLANT_PAGE');
 
   if (!plant.tasks.some(task => task.description === newTaskInput)) {
@@ -190,9 +192,10 @@ export const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
     }
     plant.tasks.push(newTask);
   }
+  
+  updatePlant(plant, 'tasks');
 
   resetPlantGrid(plantLog.getUserPlantLog());
   updatePlantInfoBar();
   updateTaskIcon();
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }

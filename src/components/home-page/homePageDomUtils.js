@@ -20,7 +20,6 @@ export const createHomePageElements = async () => {
   const desktopLogo = document.querySelector('.plantBud-desktop-logo');
 
   logo.src = homePageLogo;
-  header.classList.add('hidden-nav');
 
   appendChildren(welcomeMessageContainer, welcomeMessage, actionButton);
   appendChildren(logoContainer, logo);

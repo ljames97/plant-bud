@@ -442,12 +442,13 @@ textarea {
 
 @media screen and (min-width: 1024px) {
   .plant-page-container{
-    max-width: 25%;
+    max-width: 30%;
     min-width: 22rem;
     border-radius: 20px;
-    height: 80%;
+    height: 70%;
     background-color: rgb(28 35 27 / 60%);
     margin-top: 3rem;
+    padding: 2rem 1rem;
   }
 
   .plant-title {
@@ -472,7 +473,7 @@ textarea {
   }
 
   .plant-page-image-container {
-    width: 60%;
+    width: 40%;
   }
 
   .plant-page-nav-button,

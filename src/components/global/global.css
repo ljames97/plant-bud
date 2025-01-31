@@ -30,12 +30,11 @@ body::before {
 }
 
 header {
-  position: absolute;
-  width: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
-  padding-top: 2rem;
+  z-index: 200;
+  padding: 2rem
 }
 
 h1, p {
@@ -146,7 +145,6 @@ button {
 
 .drop-menu-container {
   position: absolute;
-  right: 1rem;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   background-color: rgb(40 45 39 / 80%);
   border-radius: 10px;
@@ -215,8 +213,13 @@ button {
   margin-top: 0.7rem;
 }
 
-.hidden,
+.hidden-nav-mobile,
 .hidden-nav {
+  visibility: hidden;
+  position: absolute;
+}
+
+.hidden {
   display: none;
 }
 
@@ -274,7 +277,6 @@ button {
   }
 
   header {
-    position: absolute;
     display: flex;
     padding-left: 0;
   }
@@ -283,13 +285,14 @@ button {
     background-color: rgba(255, 255, 255, 0.293);
   }
 
-  .hidden-nav {
-    display: flex;
+  .hidden-nav-mobile {
+    visibility: visible;
+    position: relative;
   }
 
   .desktop-nav {
     display: flex;
-    align-self: flex-end;
+    margin-top: 1.5rem;
     width: 100%;
   }
 
@@ -309,7 +312,7 @@ button {
     list-style: none;
     cursor: pointer;
     border-bottom: 1px solid transparent;
-    padding-bottom: 5px;
+    padding-bottom: 0.5rem;
   }
 
   .desktop-nav-item:hover {
@@ -336,6 +339,10 @@ button {
   .section-header,
   .search-tags {
     padding: 0;
+  }
+
+  .section-header {
+    margin-top: 0;
   }
 
   .search-tag {
@@ -372,5 +379,13 @@ button {
 
   .hidden-desktop-button {
     display: block;
+  }
+
+  .dashboard-page {
+    padding-bottom: 5rem;
+  }
+
+  .underline {
+    border-bottom-color: white;
   }
 }

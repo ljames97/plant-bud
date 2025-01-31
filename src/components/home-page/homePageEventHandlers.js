@@ -15,11 +15,12 @@ export const logoutBtnHandler = () => {
 }
 
 const createProfileMenu = (profileIcon) => {
+  const isGuest = sessionStorage.getItem("guestLogin");
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'profile-icon-menu']});
-  const logout = createElement({tagName: 'p', textContent: 'Logout', classEl: ['drop-menu-item']});
+  const logout = createElement({tagName: 'p', textContent: `${isGuest ? 'Login page' : 'Logout'}`, classEl: ['drop-menu-item']});
   const deleteAccount = createElement({tagName: 'p', textContent: 'Delete account', classEl: ['drop-menu-item']});
 
-  appendChildren(dropMenuContainer, logout, deleteAccount);
+  appendChildren(dropMenuContainer, logout, !isGuest && deleteAccount);
   appendChildren(profileIcon, dropMenuContainer);
 
   setUpLogoutMenuListeners(logout, deleteAccount);
@@ -27,6 +28,11 @@ const createProfileMenu = (profileIcon) => {
 
 const setUpLogoutMenuListeners = (logoutBtn, deleteUserAccount) => {
   localEventManager.addEventListener(logoutBtn, 'click', async () => {
+    const isGuest = sessionStorage.getItem("guestLogin");
+    if (isGuest) {
+      sessionStorage.removeItem("guestLogin");
+    }
+
     try {
       await logout();
       window.location.href = '/login.html'; // Redirect to login page after logout

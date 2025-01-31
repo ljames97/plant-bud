@@ -4,10 +4,10 @@ import { createElement, createMenuDots, removeModal, setUpModal } from "../../gl
 import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
 import { appendChildren } from "../../global/utils";
 import { createTaskMenu, setSelectButton } from "../dom-utils";
-import { updatePlantInFirebase } from "../../../config";
 import { deleteTaskHandler, editTaskHandler } from "../../plant-log/event-handlers";
 import { renderQuickMenu } from "../../plant-log/dom-utils";
 import { setUpModalEventListeners } from "./plantPageEventHandlers";
+import { updatePlant } from "../../global/utils/gobalUtility";
 
 /**
  * Handles adding a new task to the plant's tasks list.
@@ -60,7 +60,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
       selected: false
     }
     plant.tasks.push(newTask);
-    updatePlantInFirebase(plant.firestoreId, plant, 'plants');
+    updatePlant(plant, 'tasks');
   }
 
   const foundTask = plant.tasks.find(task => task.description === newTaskInput);

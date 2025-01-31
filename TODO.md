@@ -5,14 +5,6 @@ TODO
 - browser compatability testing
 - (react refactor), (node.js database/server)
 
-MAIN
-- Guest login option
-- Dashboard ideas (weather, plant icons)
-
-- Account icon change to svg with hover effect
-- Desktop menu item underline
-- Copyright 2025 + link to portfolio
-
 ------------
 
 EXTRA TODO:

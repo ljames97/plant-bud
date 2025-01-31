@@ -8,6 +8,7 @@ import { updatePlantInFirebase } from "../../../config";
 import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
 import { renderQuickMenu } from "../../plant-log/dom-utils";
 import { plantLog } from "../../plant-log";
+import { updatePlant } from "../../global/utils/gobalUtility";
 
 /**
  * Handles adding a new requirement to the plant's requirements list.
@@ -57,7 +58,7 @@ export const submitRequirementHandler = (plant, requirements, addRequirementInpu
 
   if (!plant.requirements.includes(addRequirementInput)) {
     plant.requirements.push(addRequirementInput);
-    updatePlantInFirebase(plant.firestoreId, plant, 'plants');
+    updatePlant(plant, 'requirements');
   }
 
   localEventManager.addEventListener(menuDots, 'click', (event) => {
