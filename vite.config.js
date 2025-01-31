@@ -5,7 +5,7 @@ export default defineConfig(() => {
   return {
     root: '.',
     publicDir: 'public',
-    base: '/', // change to '/plant-bud' for gitHub production build. Also change any '/login.html' to '/plant-bud/login.html'. Similarly for index.html, change to '/plant-bud'.
+    base: '/plant-bud', // change to '/plant-bud' for gitHub production build. Also change any '/login.html' to '/plant-bud/login.html'. Similarly for index.html, change to '/plant-bud'.
     build: {
       outDir: 'docs',
       rollupOptions: {
