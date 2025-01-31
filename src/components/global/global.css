@@ -341,6 +341,10 @@ button {
     padding: 0;
   }
 
+  .section-header {
+    margin-top: 0;
+  }
+
   .search-tag {
     min-width: 8%;
     max-width: 15%;

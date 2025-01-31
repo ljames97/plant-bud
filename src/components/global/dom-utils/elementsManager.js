@@ -50,7 +50,8 @@ export const domElementsManager = () => {
       
       // plant button dark/light icons
       onAuthStateChanged(auth, (user) => {
-        if (user) {
+        const isGuest = sessionStorage.getItem("guestLogin");
+        if (user || isGuest) {
           myPlantsBtn.lightIcon = plantIconLight;
           addNewPlantBtn.lightIcon = addIconLight;
           quizBtn.lightIcon = quizIconLight;

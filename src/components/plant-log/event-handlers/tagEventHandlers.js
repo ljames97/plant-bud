@@ -4,10 +4,10 @@
  * Event handler logic for managing tags within the plant log section of the application.
 */
 
-import { updatePlantInFirebase } from "../../../config";
 import { createElement, removeModal, setUpModal } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";
 import { appendChildren, removeItemFromArray } from "../../global/utils";
+import { updatePlant } from "../../global/utils/gobalUtility";
 import { resetPlantGrid } from "../dom-utils";
 import { plantLog } from "../plantLogMain";
 
@@ -41,10 +41,10 @@ export const setUpTagButtonListeners = (deleteBtn, updateBtn, newTag, plant, edi
 export const deleteTagHandler = async (newTag, plant, editTaskModal) => {
   const foundTag = plant.tags.find(tag => tag.description === newTag.textContent);
   plant.tags = removeItemFromArray(plant.tags, foundTag.id);
+
+  updatePlant(plant);
   removeModal(editTaskModal, 'PLANT_LOG');
   resetPlantGrid(plantLog.getUserPlantLog());
-
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -94,10 +94,10 @@ export const updateTagHandler = async (newTag, plant, editTagModal, editTagInput
 
   const foundTag = plant.tags.find(tag => tag.description === newTag.textContent);
   foundTag.description = editTagInput.value;
+
+  updatePlant(plant);
   removeModal(editTagModal, 'PLANT_LOG');
   resetPlantGrid(plantLog.getUserPlantLog());
-
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 
 /**
@@ -134,7 +134,7 @@ export const addNewTagHandler = (plant) => {
  * @param {HTMLElement} newTagModal 
  * @param {HTMLElement} errorMessage 
  */
-export const submitTagHandler = async (plant, newTagInput, newTagModal, errorMessage) => {
+export const submitTagHandler = (plant, newTagInput, newTagModal, errorMessage) => {
   if (newTagInput === '') {
     return;
   }
@@ -154,7 +154,7 @@ export const submitTagHandler = async (plant, newTagInput, newTagModal, errorMes
     plant.tags.push(newTag);
   }
 
+  updatePlant(plant);
   resetPlantGrid(plantLog.getUserPlantLog());
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }
 

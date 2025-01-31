@@ -85,6 +85,10 @@
   width: 100%;
 }
 
+.profile-icon-menu {
+  width: max-content;
+}
+
 
 
 #weather-container {

@@ -17,21 +17,22 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { setUpViewHeightListeners } from './components/global/utils/gobalUtility';
 
 onAuthStateChanged(auth, (user) => {
-  const dashboard = document.querySelector('.dashboard-page')
-  if (user) {
+  const dashboard = document.querySelector('.dashboard-page');
+  const isGuest = sessionStorage.getItem("guestLogin");
+
+  if (user || isGuest) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        dashboard.classList.add('hidden');
-        initApp(user.uid);
+        dashboard.classList.remove('hidden');
+        initApp(isGuest ? "guest" : user.uid);
       });
     } else {
       dashboard.classList.remove('hidden');
-      initApp(user.uid);
+      initApp(isGuest ? "guest" : user.uid);
     }
   } else {
-    dashboard.classList.toggle('hidden');
+    dashboard.classList.add('hidden');
     window.location.href = '/login.html';
-    // window.location.href = '/plant-bud/login.html';
   }
 });
 

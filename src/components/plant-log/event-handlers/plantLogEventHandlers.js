@@ -4,11 +4,11 @@
  * Event handler logic for the plant log section.
  */
 
-import { updatePlantInFirebase } from "../../../config";
 import { renderAddPlantModal } from "../../add-plant";
 import { resetSection } from "../../global/dom-utils";
 import { handleDocumentClick, localEventManager } from "../../global/event-handlers";
 import { hideElements, showElements } from "../../global/utils";
+import { updatePlant } from "../../global/utils/gobalUtility";
 import { resetPlantGrid, toggleSelectButton } from "../dom-utils";
 import { createArchivePlantMenu, createPlantMenu, createSelectMenu, renderQuickMenu } from "../dom-utils";
 import { movePlantToTop, togglePlantSelect } from "../dom-utils";
@@ -146,6 +146,6 @@ export const pinPlantHandler = async (event, plant) => {
     plant.pinned = false;
   }
 
+  updatePlant(plant);
   resetPlantGrid(plantLog.getUserPlantLog());
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
 }

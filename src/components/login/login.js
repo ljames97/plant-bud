@@ -6,6 +6,7 @@ import { appendChildren } from '../global/utils';
 import { createElement } from '../global/dom-utils';
 import { localEventManager } from '../global/event-handlers';
 import { setUpViewHeightListeners } from '../global/utils/gobalUtility';
+import { initApp } from '../../app';
 
 /**
  * Initializes login.
@@ -21,7 +22,8 @@ export const initLogin = () => {
 const setUpLoginEventListeners = () => {
   const loginButton = document.getElementById('login-button');
   const signupButton = document.getElementById('signup-button');
-  const portfolioButton = document.getElementById('portfolio-button')
+  const portfolioButton = document.getElementById('portfolio-button');
+  const guestButton = document.getElementById('guest-button');
   localEventManager.addEventListener(loginButton, 'click', (event) => {
     loginButtonHandler(event);
   });
@@ -30,7 +32,10 @@ const setUpLoginEventListeners = () => {
   });
   localEventManager.addEventListener(portfolioButton, 'click', () => {
     portfolioButtonHandler();
-  })
+  });
+  localEventManager.addEventListener(guestButton, 'click', () => {
+    guestButtonHandler(event);
+  });
 }
 
 /**
@@ -74,6 +79,12 @@ const signupButtonHandler = (event) => {
  */
 const portfolioButtonHandler = () => {
   window.open('https://ljames97.github.io/portfolio', '_self', 'noopener,noreferrer');
+}
+
+const guestButtonHandler = (event) => {
+  event.preventDefault();
+  sessionStorage.setItem("guestLogin", true);
+  window.location.href = "/index.html";
 }
 
 /**

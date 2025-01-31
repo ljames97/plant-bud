@@ -6,7 +6,7 @@ TODO
 - (react refactor), (node.js database/server)
 
 MAIN
-- Guest login option
+
 - Dashboard ideas (weather, plant icons)
 
 ------------

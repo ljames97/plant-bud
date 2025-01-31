@@ -17,6 +17,7 @@ import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } fr
 export const renderMyPlants = () => {
   plantLogElements.createPlantLogElements();
   renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
+  console.log(plantLog.getUserPlantLog())
   updatePlantInfoBar();
 
   localEventManager.removeAllEventListeners('PLANT_SEARCH');
@@ -49,35 +50,59 @@ export const plantLogManager = () => {
   let originalPlantLog = [];
   let deletedPlantLog = [];
   let userId = null;
+  let isGuest = false;
 
   return {
     setUserId: (id) => {
       userId = id;
+      isGuest = id === "guest";
     },
     initialisePlantLog: (userPlants, originalPlants) => {
-      userPlantLog = userPlants;
-      originalPlantLog = originalPlants;
-      userPlantLog.forEach(plant => {
+      if (isGuest) {
+        const localUserPlants = JSON.parse(localStorage.getItem("userPlantLog")) || [];
+        const localOriginalPlants = JSON.parse(localStorage.getItem("originalPlantLog")) || [];
+        userPlantLog = localUserPlants;
+        originalPlantLog = localOriginalPlants;
+        deletedPlantLog = JSON.parse(localStorage.getItem("deletedPlantLog")) || [];
+      } else {
+        userPlantLog = userPlants;
+        originalPlantLog = originalPlants;
+      }
+    
+      userPlantLog.forEach((plant) => {
         if (plant.archived === true) {
           userPlantLog = removeItemFromArray(userPlantLog, plant.id);
           deletedPlantLog.push(plant);
         }
       });
     },
+    
     addToUserPlantLog: async (plant) => {
       userPlantLog.push(plant);
-      const foundPlant = findItemInArray(originalPlantLog, plant.id);
-      if (!foundPlant) {
-        const clonePlant = JSON.parse(JSON.stringify(plant));
-        originalPlantLog.push(clonePlant);
-        const originalDocId = await addPlantToFirebase(userId, clonePlant, 'original');
-        clonePlant.firestoreId = originalDocId;
-        await updatePlantInFirebase(originalDocId, clonePlant, 'original'); // put inside addplantfirebase fnc
-        plant.originalFirestoreId = originalDocId;
+    
+      if (isGuest) {
+        // Save to local storage for guests
+        localStorage.setItem("userPlantLog", JSON.stringify(userPlantLog));
+        const foundPlant = findItemInArray(originalPlantLog, plant.id);
+        if (!foundPlant) {
+          const clonePlant = JSON.parse(JSON.stringify(plant));
+          originalPlantLog.push(clonePlant);
+          localStorage.setItem("originalPlantLog", JSON.stringify(originalPlantLog));
+        }
+      } else {
+        const foundPlant = findItemInArray(originalPlantLog, plant.id);
+        if (!foundPlant) {
+          const clonePlant = JSON.parse(JSON.stringify(plant));
+          originalPlantLog.push(clonePlant);
+          const originalDocId = await addPlantToFirebase(userId, clonePlant, "original");
+          clonePlant.firestoreId = originalDocId;
+          await updatePlantInFirebase(originalDocId, clonePlant, "original");
+          plant.originalFirestoreId = originalDocId;
+        }
+        const docId = await addPlantToFirebase(userId, plant, "plants");
+        plant.firestoreId = docId;
+        await updatePlantInFirebase(plant.firestoreId, plant, "plants");
       }
-      const docId = await addPlantToFirebase(userId, plant, 'plants');
-      plant.firestoreId = docId;
-      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     deletePlantFromLog: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -85,8 +110,15 @@ export const plantLogManager = () => {
         userPlantLog = removeItemFromArray(userPlantLog, plant.id);
         deletedPlantLog.push(plant);
         plant.archived = true;
-      } 
-      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
+    
+        if (isGuest) {
+          // Update local storage
+          localStorage.setItem("userPlantLog", JSON.stringify(userPlantLog));
+          localStorage.setItem("deletedPlantLog", JSON.stringify(deletedPlantLog));
+        } else {
+          await updatePlantInFirebase(plant.firestoreId, plant, "plants");
+        }
+      }
     },
     updatePlantInfo: async (plant) => {
       const foundPlant = findItemInArray(userPlantLog, plant.id);
@@ -94,68 +126,146 @@ export const plantLogManager = () => {
         foundPlant.name = plant.name;
         foundPlant.dateAdded = plant.dateAdded;
         foundPlant.image = plant.image;
+    
+        if (isGuest) {
+          // Save to local storage
+          localStorage.setItem("userPlantLog", JSON.stringify(userPlantLog));
+        } else {
+          await updatePlantInFirebase(plant.firestoreId, plant, "plants");
+        }
       }
-      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     removeFromDeletedPlants: async (plant) => {
-      const foundPlant = findItemInArray(deletedPlantLog, plant.id);
-      if (foundPlant) {
-        deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
-        userPlantLog.push(plant);
-        plant.archived = false;
+      if (isGuest) {
+        let deletedPlants = JSON.parse(localStorage.getItem("deletedPlantLog")) || [];
+        let userPlants = JSON.parse(localStorage.getItem("userPlantLog")) || [];
+    
+        const foundPlant = deletedPlants.find((p) => p.id === plant.id);
+        if (foundPlant) {
+          deletedPlants = deletedPlants.filter((p) => p.id !== plant.id);
+          localStorage.setItem("deletedPlantLog", JSON.stringify(deletedPlants));
+    
+          foundPlant.archived = false;
+          userPlants.push(foundPlant);
+          localStorage.setItem("userPlantLog", JSON.stringify(userPlants));
+    
+          userPlantLog = userPlants;
+          deletedPlantLog = deletedPlants;
+        } else {
+          console.error("Plant not found in deletedPlants during unarchiving:", plant);
+        }
+      } else {
+        // Handle regular mode with Firebase
+        const foundPlant = findItemInArray(deletedPlantLog, plant.id);
+        if (foundPlant) {
+          deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
+          userPlantLog.push(plant);
+          plant.archived = false;
+        }
+        await updatePlantInFirebase(plant.firestoreId, plant, "plants");
       }
-      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     },
     permanentDelete: async (plant) => {
-      deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
-      originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
-      await deletePlantFromFirebase(plant.firestoreId, 'plants', plant);
-      await deletePlantFromFirebase(plant.originalFirestoreId, 'original', plant);
-    },
-    getPlant: (plant) => {
-      const foundPlant = findItemInArray(userPlantLog, plant.id);
-      if (foundPlant) {
-        return foundPlant;
+      if (isGuest) {
+        // Handle guest mode
+        const deletedPlants = JSON.parse(localStorage.getItem("deletedPlantLog")) || [];
+        const originalPlants = JSON.parse(localStorage.getItem("originalPlantLog")) || [];
+    
+        const updatedDeletedPlants = deletedPlants.filter(p => p.id !== plant.id);
+        const updatedOriginalPlants = originalPlants.filter(p => p.id !== plant.id);
+    
+        localStorage.setItem("deletedPlantLog", JSON.stringify(updatedDeletedPlants));
+        localStorage.setItem("originalPlantLog", JSON.stringify(updatedOriginalPlants));
       } else {
-        return false;
+        // Handle regular mode with Firebase
+        deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
+        originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
+        await deletePlantFromFirebase(plant.firestoreId, 'plants', plant);
+        await deletePlantFromFirebase(plant.originalFirestoreId, 'original', plant);
       }
     },
+    getPlant: (plant) => {
+      if (isGuest) {
+        const userPlants = JSON.parse(localStorage.getItem("userPlantLog")) || [];
+        return userPlants.find(p => p.id === plant.id) || false;
+      }
+      const foundPlant = findItemInArray(userPlantLog, plant.id);
+      return foundPlant || false;
+    },
     getOriginalPlant: (plant) => {
-      const foundPlant = findItemInArray(originalPlantLog, plant.id);
-      return foundPlant;
+      if (isGuest) {
+        const originalPlants = JSON.parse(localStorage.getItem("originalPlantLog")) || [];
+        return originalPlants.find(p => p.id === plant.id);
+      }
+      return findItemInArray(originalPlantLog, plant.id);
     },
     getPlantById: (plantId, plantLogType) => {
       return plantLogType.find(plant => plant.id.toString() === plantId);
     },
     getUserPlantLog: () => {
+      if (isGuest) {
+        return JSON.parse(localStorage.getItem("userPlantLog")) || [];
+      }
       return userPlantLog;
     },
     getOriginalPlantLog: () => {
+      if (isGuest) {
+        return JSON.parse(localStorage.getItem("originalPlantLog")) || [];
+      }
       return originalPlantLog;
     },
     getDeletedPlants: () => {
+      if (isGuest) {
+        return JSON.parse(localStorage.getItem("deletedPlantLog")) || [];
+      }
       return deletedPlantLog;
     },
     deletePlantTask: (plantTaskId) => {
-      userPlantLog.forEach(plant => {
-        if (plant.tasks) {
-          const index = plant.tasks.findIndex(task => task.id === plantTaskId);
-          if (index !== -1) {
-            plant.tasks.splice(index, 1);
+      if (isGuest) {
+        const userPlants = JSON.parse(localStorage.getItem("userPlantLog")) || [];
+        userPlants.forEach(plant => {
+          if (plant.tasks) {
+            const index = plant.tasks.findIndex(task => task.id === plantTaskId);
+            if (index !== -1) {
+              plant.tasks.splice(index, 1);
+            }
           }
-        }
-      });
+        });
+        localStorage.setItem("userPlantLog", JSON.stringify(userPlants));
+      } else {
+        userPlantLog.forEach(plant => {
+          if (plant.tasks) {
+            const index = plant.tasks.findIndex(task => task.id === plantTaskId);
+            if (index !== -1) {
+              plant.tasks.splice(index, 1);
+            }
+          }
+        });
+      }
     },
     deletePlantRequirement: (plantRequirement) => {
-      userPlantLog.forEach(plant => {
-        if (plant.requirements) {
-          const index = plant.requirements.findIndex(requirement => requirement === plantRequirement);
-          if (index !== -1) {
-            plant.requirements.splice(index, 1);
+      if (isGuest) {
+        const userPlants = JSON.parse(localStorage.getItem("userPlantLog")) || [];
+        userPlants.forEach(plant => {
+          if (plant.requirements) {
+            const index = plant.requirements.findIndex(req => req === plantRequirement);
+            if (index !== -1) {
+              plant.requirements.splice(index, 1);
+            }
           }
-        }
-      });
-    }
+        });
+        localStorage.setItem("userPlantLog", JSON.stringify(userPlants));
+      } else {
+        userPlantLog.forEach(plant => {
+          if (plant.requirements) {
+            const index = plant.requirements.findIndex(req => req === plantRequirement);
+            if (index !== -1) {
+              plant.requirements.splice(index, 1);
+            }
+          }
+        });
+      }
+    },
   }
 }
 

@@ -3,6 +3,7 @@
 import { addIconLight } from "../../../images";
 import { createElement } from "../../global/dom-utils";
 import { appendChildren, removeChildren } from "../../global/utils";
+import { updatePlant } from "../../global/utils/gobalUtility";
 import { plantLog } from "../../plant-log";
 import { removeImageInput } from "../dom-utils";
 import { setUpDeleteResetBtns, setUpImageInput } from "../event-handlers";
@@ -68,8 +69,7 @@ export const saveMode = async (plant, editBtn, elements) => {
  const aboutSection = document.querySelector('.about-section')
  removeChildren(aboutSection, buttonContainer);
 
- await plantLog.updatePlantInfo(plant);
-
+ updatePlant(plant);
  elements.plantTitle.textContent = updatedName;
  elements.plantDescription.textContent = updatedDescription;
 

@@ -4,8 +4,9 @@ import { plantLog, renderMyPlants } from "../../plant-log";
 import { clearSection, createElement, removeModal, resetSection, setUpModal } from "../../global/dom-utils";
 import { imageChangeHandler, localEventManager } from "../../global/event-handlers";
 import { renderPlantDetails } from "../plantPageMain";
-import { deleteImageFromFirebase, updatePlantInFirebase, uploadImageToFirebase } from "../../../config";
+import { deleteImageFromFirebase, uploadImageToFirebase } from "../../../config";
 import { appendChildren } from "../../global/utils";
+import { updatePlant } from "../../global/utils/gobalUtility";
 
 
 /**
@@ -91,7 +92,7 @@ export const resetPlantDetailsBtnHandler = async (plant, elements, sectionClass,
   plant.description = originalPlant.description;
   await deleteImageFromFirebase(plant.image, 'plants');
   plant.image = originalPlant.image;
-  await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
+  updatePlant(plant);
 
   clearSection(elements.sectionContainer, 'PLANT_PAGE');
   renderPlantDetails(plant, elements.sectionContainer, '← back to My Plants', sectionClass, sectionRender);
@@ -129,10 +130,16 @@ export const setUpImageInput = (imageInput, elements, sectionClass, plant) => {
   elements.plantImageContainer.insertBefore(imageInput, elements.plantImageContainer.firstChild);
 
   localEventManager.addEventListener(imageInput, 'change', async (event) => {
+    const isGuest = sessionStorage.getItem("guestLogin");
+
     imageChangeHandler(event, async (file) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         elements.plantImage.src = e.target.result;
+        if (isGuest) {
+          plant.image = e.target.result;
+          updatePlant(plant);
+        }
       }
       reader.readAsDataURL(file);
 
@@ -144,7 +151,6 @@ export const setUpImageInput = (imageInput, elements, sectionClass, plant) => {
         console.error("Error uploading image:", error);
       }
 
-      await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
     });
   }, `PLANT_PAGE_${sectionClass}`);
 }

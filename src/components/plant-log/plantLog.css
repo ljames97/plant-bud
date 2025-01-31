@@ -230,6 +230,7 @@
   z-index: 10;
   top: 1rem;
   width: max-content;
+  right: 0;
 }
 
 @media screen and (min-width: 1024px) {
@@ -355,7 +356,7 @@
 
   .plant-image-container {
     position: relative;
-    width: 90%;
+    width: 80%;
   }
 
   .plant-image-container::after {

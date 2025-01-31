@@ -97,6 +97,13 @@ input::placeholder {
   width: 100%;
 }
 
+#guest-button {
+  margin-top: 1rem;
+  background-color: transparent;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 1024px) {
   .plantbud-logo {
     margin-bottom: 2rem;

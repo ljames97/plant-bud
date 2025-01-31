@@ -47,11 +47,20 @@ export const setUpInputChangeListener = (input, imageInputImg, heading) => {
  */
 export const submitNewPlantHandler = async (event, plantName, dateAdded, description, imageFile) => {
   const { myPlantsBtn } = domElements;
+  const isGuest = sessionStorage.getItem("guestLogin");
   event.preventDefault();
 
   let imageUrl = imageFile;
 
-  if (isFile(imageFile)) {
+  if (isFile(imageFile) && isGuest) {
+    // Use a Promise to ensure FileReader completes before proceeding
+    imageUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result); // Resolve with base64 image data
+      reader.onerror = () => reject(new Error("Failed to read image file"));
+      reader.readAsDataURL(imageFile);
+    });
+  } else if (isFile(imageFile) && !isGuest) {
     try {
       imageUrl = await uploadImageToFirebase(imageFile, 'original');
     } catch (error) {

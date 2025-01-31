@@ -3,6 +3,8 @@
  * A module for utility functions.
  */
 
+import { updatePlantInFirebase } from "../../../config";
+
 /**
  * Utility function to remove item from array.
  * @param {any} array 
@@ -163,4 +165,20 @@ export const setVh = () => {
 export const setUpViewHeightListeners = () => {
   document.addEventListener('DOMContentLoaded', setVh);
   window.addEventListener('resize', setVh);
+}
+
+export const updatePlant = async (plant) => {
+  const isGuest = sessionStorage.getItem("guestLogin");
+
+  if (isGuest) {
+    const userPlants = JSON.parse(localStorage.getItem("userPlantLog")) || [];
+
+    const updatedPlants = userPlants.map(p => 
+      p.id === plant.id ? { ...plant } : p
+    );
+  
+    localStorage.setItem("userPlantLog", JSON.stringify(updatedPlants));
+  } else {
+    await updatePlantInFirebase(plant);
+  }
 }
