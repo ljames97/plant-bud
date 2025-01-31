@@ -17,7 +17,6 @@ import { addPlantToFirebase, deletePlantFromFirebase, updatePlantInFirebase } fr
 export const renderMyPlants = () => {
   plantLogElements.createPlantLogElements();
   renderPlantGrid(plantLog.getUserPlantLog(), renderMyPlants, '← back to My Plants');
-  console.log(plantLog.getUserPlantLog())
   updatePlantInfoBar();
 
   localEventManager.removeAllEventListeners('PLANT_SEARCH');
@@ -166,20 +165,14 @@ export const plantLogManager = () => {
       }
     },
     permanentDelete: async (plant) => {
+      deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
+      originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
       if (isGuest) {
         // Handle guest mode
-        const deletedPlants = JSON.parse(localStorage.getItem("deletedPlantLog")) || [];
-        const originalPlants = JSON.parse(localStorage.getItem("originalPlantLog")) || [];
-    
-        const updatedDeletedPlants = deletedPlants.filter(p => p.id !== plant.id);
-        const updatedOriginalPlants = originalPlants.filter(p => p.id !== plant.id);
-    
-        localStorage.setItem("deletedPlantLog", JSON.stringify(updatedDeletedPlants));
-        localStorage.setItem("originalPlantLog", JSON.stringify(updatedOriginalPlants));
+        localStorage.setItem("deletedPlantLog", JSON.stringify(deletedPlantLog));
+        localStorage.setItem("originalPlantLog", JSON.stringify(originalPlantLog));
       } else {
         // Handle regular mode with Firebase
-        deletedPlantLog = removeItemFromArray(deletedPlantLog, plant.id);
-        originalPlantLog = removeItemFromArray(originalPlantLog, plant.id);
         await deletePlantFromFirebase(plant.firestoreId, 'plants', plant);
         await deletePlantFromFirebase(plant.originalFirestoreId, 'original', plant);
       }

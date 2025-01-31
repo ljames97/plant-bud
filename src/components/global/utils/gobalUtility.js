@@ -179,6 +179,6 @@ export const updatePlant = async (plant) => {
   
     localStorage.setItem("userPlantLog", JSON.stringify(updatedPlants));
   } else {
-    await updatePlantInFirebase(plant);
+    await updatePlantInFirebase(plant.firestoreId, plant, 'plants');
   }
 }

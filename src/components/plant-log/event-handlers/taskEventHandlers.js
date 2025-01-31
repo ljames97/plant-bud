@@ -181,9 +181,7 @@ export const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
   if (newTaskInput === '') {
     return;
   }
-
-  console.log(plant)
-
+  
   removeModal(newTaskModal, 'PLANT_PAGE');
 
   if (!plant.tasks.some(task => task.description === newTaskInput)) {

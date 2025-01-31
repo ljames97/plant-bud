@@ -5,10 +5,6 @@ TODO
 - browser compatability testing
 - (react refactor), (node.js database/server)
 
-MAIN
-
-- Dashboard ideas (weather, plant icons)
-
 ------------
 
 EXTRA TODO:
