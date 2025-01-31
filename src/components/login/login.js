@@ -78,7 +78,7 @@ const signupButtonHandler = (event) => {
  * Opens link to portfolio.
  */
 const portfolioButtonHandler = () => {
-  window.open('https://ljames97.github.io/portfolio', '_self', 'noopener,noreferrer');
+  window.open('https://lukejamesdev.com', '_self', 'noopener,noreferrer');
 }
 
 const guestButtonHandler = (event) => {
