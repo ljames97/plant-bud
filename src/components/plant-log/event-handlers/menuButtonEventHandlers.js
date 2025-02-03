@@ -9,7 +9,7 @@ import { permanentDeletePlant } from "../../plant-page";
 import { buttonHighlight, clearSection } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";
 import { hideElements, showElements } from "../../global/utils";
-import { renderDeletedPlants, resetPlantGrid } from "../dom-utils";
+import { renderDeletedPlants, resetPlantGrid, updateTaskIcon } from "../dom-utils";
 import { plantLogElements, resetEditButton, updatePlantInfoBar } from "../dom-utils";
 import { renderMaximumTagsError } from "../dom-utils";
 import { renderTaskSelect, renderTasksList, updateTaskBar } from "../dom-utils";
@@ -76,6 +76,7 @@ export const taskBtnHandler = () => {
   renderTasksList(false);
   renderTaskSelect();
   updateTaskBar();
+  updateTaskIcon();
 }
 
 /**

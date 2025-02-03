@@ -79,6 +79,7 @@ export const submitTaskHandler = (plant, tasks, newTaskInput, sectionClass, moda
 export const setUpTaskListeners = (taskSelectBtn, foundTask, sectionClass, menuDots, newTaskElement, plant) => {
   localEventManager.addEventListener(taskSelectBtn, 'click', () => {
     selectButtonHandler(foundTask, taskSelectBtn, 'rgb(159, 214, 83)', 'none', 'transparent', '0.5px white solid');
+    updatePlant(plant);
   }, `PLANT_PAGE_${sectionClass}`);
 
   localEventManager.addEventListener(menuDots, 'click', (event) => {

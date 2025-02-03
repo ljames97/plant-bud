@@ -15,6 +15,7 @@ import { plantLog } from "../plantLogMain";
 import { updatePlantInFirebase } from "../../../config";
 import { selectButtonHandler } from "../../plant-page/event-handlers";
 import { updatePlant } from "../../global/utils/gobalUtility";
+import { taskBtnHandler } from "./menuButtonEventHandlers";
 
 /**
  * Sets up event listeners for selecting tasks and handles task completion state accordingly. 
@@ -201,4 +202,14 @@ export const submitTaskHandler = async (plant, newTaskInput, newTaskModal) => {
   resetPlantGrid(plantLog.getUserPlantLog());
   updatePlantInfoBar();
   updateTaskIcon();
+}
+
+export const setUpClearTasksBtn = (clearAllBtn, userPlants) => {
+  localEventManager.addEventListener(clearAllBtn, 'click', () => {
+    userPlants.forEach(plant => {
+      plant.tasks = [];
+      updatePlant(plant);
+      taskBtnHandler();
+    });
+  });
 }

@@ -227,6 +227,11 @@ button {
   display: flex;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .show {
   display: block;
 }
@@ -268,6 +273,18 @@ button {
 
 .hidden-desktop-button {
   display: none;
+}
+
+.clear-btn {
+  background-color: rgba(255, 255, 255, 0.224);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  width: max-content;
+}
+
+.clear-btn:hover {
+  background-color: rgba(255, 255, 255, 0.382);
 }
 
 @media screen and (min-width: 1024px) {
@@ -387,5 +404,9 @@ button {
 
   .underline {
     border-bottom-color: white;
+  }
+
+  .clear-btn {
+    margin-left: 0;
   }
 }
