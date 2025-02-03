@@ -34,8 +34,15 @@ onAuthStateChanged(auth, (user) => {
     dashboard.classList.add('hidden');
     // window.location.href = '/login.html';
     window.location.href = '/plant-bud/login.html';
-
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("img").forEach(img => {
+    if (!img.hasAttribute("loading")) {
+      img.setAttribute("loading", "lazy");
+    }
+  });
 });
 
 setUpViewHeightListeners();
