@@ -18,6 +18,7 @@ import { createElement, domElements } from "../../global/dom-utils";
  */
 export const createSelectMenu = (menuDots) => {
   const userPlants = plantLog.getUserPlantLog();
+  console.log('userplants:', userPlants)
   const selectedPlants = userPlants.filter(plant => plant.selected === true);
   const dropMenuContainer = createElement({tagName: 'div', classEl: ['drop-menu-container', 'select-menu']});
   const deleteSelected = createElement({tagName: 'p', textContent: 'Delete selected', classEl: ['drop-menu-item']});
@@ -40,7 +41,7 @@ export const createMenuButtons = () => {
   const tasks = createElement({tagName: 'button', classEl: ['search-tag', 'log-menu-btn'], id: 'log-tasks', textContent: 'Tasks'});
   const taskCountIcon = createElement({tagName: 'div', classEl: ['task-count-icon']});
   const archive = createElement({tagName: 'button', classEl: ['search-tag', 'log-menu-btn'], id: 'log-archive', textContent: 'Archive'});
-  const searchTaskContainer = createElement({tagName: 'div', classEl: ['task-results']});
+  const searchTaskContainer = createElement({tagName: 'div', classEl: ['task-results', 'hidden']});
   appendChildren(plantLogEl, searchTaskContainer);
   appendChildren(tasks, taskCountIcon);
 

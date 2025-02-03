@@ -58,8 +58,10 @@ export const taskSelectHandler = (activeBtn, inactiveBtn, completedTaskState, se
 export const setUpTaskElementListeners = (taskSelector, task, menuDotContainer, taskElement, plant) => {
   localEventManager.addEventListener(taskSelector, 'click', () => {
     selectButtonHandler(task, taskSelector, '#9fd653', 'none', 'rgba(255, 255, 255, 0.224)', 'none');
+    updatePlant(plant);
     updateTaskBar();
     updateTaskIcon();
+
   }, 'PLANT_LOG');
 
   localEventManager.addEventListener(menuDotContainer, 'click', (event) => {
@@ -105,7 +107,8 @@ export const editTaskHandler = (task, plant) => {
   appendChildren(editTaskModal, form);
   appendChildren(modalOverlay, editTaskModal);
 
-  localEventManager.addEventListener(updateBtn, 'click', () => {
+  localEventManager.addEventListener(updateBtn, 'click', (event) => {
+    event.preventDefault();
     updateTaskHandler(task, editTaskInput, editTaskModal, plant);
   });
 }

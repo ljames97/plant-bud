@@ -47,6 +47,7 @@ export const renderTasksList = (completedState) => {
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   appendChildren(plantLogEl, searchTaskContainer);
+  searchTaskContainer.classList.remove('hidden');
   clearSection(userPlantsContainer, 'PLANT_LOG');
 
   const userPlants = plantLog.getUserPlantLog();

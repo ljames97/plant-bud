@@ -150,6 +150,7 @@ export const plantLogManager = () => {
     
           userPlantLog = userPlants;
           deletedPlantLog = deletedPlants;
+          console.log(userPlantLog)
         } else {
           console.error("Plant not found in deletedPlants during unarchiving:", plant);
         }
