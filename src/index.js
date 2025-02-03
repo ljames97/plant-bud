@@ -32,8 +32,8 @@ onAuthStateChanged(auth, (user) => {
     }
   } else {
     dashboard.classList.add('hidden');
-    window.location.href = '/login.html';
-    // window.location.href = '/plant-bud/login.html';
+    // window.location.href = '/login.html';
+    window.location.href = '/plant-bud/login.html';
 
   }
 });
