@@ -9,6 +9,7 @@ import { clearSection, createElement, createMenuDots, domElements } from "../../
 import { appendChildren } from "../../global/utils";
 import { setSelectButton } from "../../plant-page/dom-utils";
 import { setUpTaskElementListeners, setUpTaskMenuListeners, setUpTaskSelectListeners, taskSelectHandler } from "../event-handlers";
+import { setUpClearTasksBtn } from "../event-handlers/taskEventHandlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 import { plantLogElements } from "./plantLogDomUtils";
 
@@ -46,7 +47,12 @@ export const renderTasksList = (completedState) => {
   const { plantLogEl } = domElements;
   const { userPlantsContainer } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
+  const clearAllBtn = createElement({tagName: 'button', classEl: ['clear-btn'], textContent: 'Clear all'});
+
   appendChildren(plantLogEl, searchTaskContainer);
+  appendChildren(searchTaskContainer, clearAllBtn);
+
+  searchTaskContainer.classList.remove('hidden');
   clearSection(userPlantsContainer, 'PLANT_LOG');
 
   const userPlants = plantLog.getUserPlantLog();
@@ -60,6 +66,8 @@ export const renderTasksList = (completedState) => {
       });
     }
   });
+
+  setUpClearTasksBtn(clearAllBtn, userPlants);
 }
 
 /**

@@ -9,7 +9,7 @@ import { permanentDeletePlant } from "../../plant-page";
 import { buttonHighlight, clearSection } from "../../global/dom-utils";
 import { localEventManager } from "../../global/event-handlers";
 import { hideElements, showElements } from "../../global/utils";
-import { renderDeletedPlants, resetPlantGrid } from "../dom-utils";
+import { renderDeletedPlants, resetPlantGrid, updateTaskIcon } from "../dom-utils";
 import { plantLogElements, resetEditButton, updatePlantInfoBar } from "../dom-utils";
 import { renderMaximumTagsError } from "../dom-utils";
 import { renderTaskSelect, renderTasksList, updateTaskBar } from "../dom-utils";
@@ -17,6 +17,7 @@ import { plantLog } from "../plantLogMain";
 import { pinPlantHandler } from "./plantLogEventHandlers";
 import { addNewTagHandler } from "./tagEventHandlers";
 import { addNewTaskHandler } from "./taskEventHandlers";
+import { updatePlant } from "../../global/utils/gobalUtility";
 
 /**
  * Sets up event listeners for menu buttons. 
@@ -50,7 +51,7 @@ export const allBtnClickHandler = () => {
   const searchTaskContainer = document.querySelector('.task-results');
   const taskSelectContainer = document.querySelector('.task-select-container');
   clearSection(searchTaskContainer, 'PLANT_LOG');
-  hideElements(taskSelectContainer);
+  hideElements(taskSelectContainer, searchTaskContainer);
   resetEditButton();
   editButtonContainer.classList.add('flex');
   editButtonContainer.classList.remove('hidden');
@@ -67,12 +68,15 @@ export const taskBtnHandler = () => {
   const { editButtonContainer, userPlantsContainer, addNewPlantDesktopButton } = plantLogElements.getPlantLogElements();
   const searchTaskContainer = document.querySelector('.task-results');
   clearSection(searchTaskContainer, 'PLANT_LOG');
+  searchTaskContainer.classList.add('flex');
+  searchTaskContainer.classList.remove('hidden');
   hideElements(editButtonContainer);
   userPlantsContainer.classList.add('zero-height');
   addNewPlantDesktopButton.classList.add('hide-desktop');
   renderTasksList(false);
   renderTaskSelect();
   updateTaskBar();
+  updateTaskIcon();
 }
 
 /**
@@ -84,7 +88,7 @@ export const archiveBtnClickHandler = () => {
   const taskSelectContainer = document.querySelector('.task-select-container');
   clearSection(searchTaskContainer, 'PLANT_LOG');
   resetEditButton();
-  hideElements(editButtonContainer, taskSelectContainer);
+  hideElements(editButtonContainer, searchTaskContainer, taskSelectContainer);
   userPlantsContainer.classList.remove('zero-height');
   addNewPlantDesktopButton.classList.add('hide-desktop');
   renderDeletedPlants();
@@ -125,6 +129,8 @@ export const setUpArchivePlantListeners = (unarchive, plant, permanentDelete) =>
     plantLog.removeFromDeletedPlants(plant);
     renderDeletedPlants();
     plant.selected = false;
+
+    console.log(plant)
   }, 'PLANT_LOG');
 
   localEventManager.addEventListener(permanentDelete, 'click', () => {

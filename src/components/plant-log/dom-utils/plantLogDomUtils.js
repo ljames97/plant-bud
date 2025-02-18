@@ -6,6 +6,7 @@
 
 import { createElement, createMenuDots, domElements } from "../../global/dom-utils";
 import { appendChildren, hideElements } from "../../global/utils";
+import { updatePlant } from "../../global/utils/gobalUtility";
 import { setUpPlantLogListeners } from "../event-handlers";
 import { plantLog, setPlantInfoBar } from "../plantLogMain";
 import { createMenuButtons } from "./menuDomUtils";
@@ -89,6 +90,8 @@ export const togglePlantSelect = (plant) => {
   } else {
     plant.selected = false;
   }
+
+  updatePlant(plant);
 }
 
 /**
