@@ -1,5 +1,5 @@
-export { default as addIconLight } from './add.png';
-export { default as homeIconLight } from './home.png';
-export { default as plantIconLight } from './plant.png';
-export { default as quizIconLight } from './quiz.png';
-export { default as searchIconLight } from './search.png';
+export { default as addIconLight } from './add.webp';
+export { default as homeIconLight } from './home.webp';
+export { default as plantIconLight } from './plant.webp';
+export { default as quizIconLight } from './quiz.webp';
+export { default as searchIconLight } from './search.webp';
